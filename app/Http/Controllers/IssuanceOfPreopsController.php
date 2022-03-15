@@ -467,10 +467,10 @@ class IssuanceOfPreopsController extends Controller
         $operation_type = DB::table('operation_type')->where('id', $preops_data[0]->operation_type_id)->get();
         $area = DB::table('preops_area as a')
             ->join('preops_header as b', 'a.preops_number', '=', 'b.preops_number')
-            ->join('region as c', 'a.region_c', '=', 'c.region_c')
-            ->join('province as d', 'a.province_c', '=', 'd.province_c')
-            ->join('city as e', 'a.city_c', '=', 'e.city_c')
-            ->join('barangay as f', 'a.barangay_c', '=', 'f.barangay_c')
+            ->leftjoin('region as c', 'a.region_c', '=', 'c.region_c')
+            ->leftjoin('province as d', 'a.province_c', '=', 'd.province_c')
+            ->leftjoin('city as e', 'a.city_c', '=', 'e.city_c')
+            ->leftjoin('barangay as f', 'a.barangay_c', '=', 'f.barangay_c')
             ->select('c.region_m', 'd.province_m', 'e.city_m', 'f.barangay_m', 'a.area')
             ->where('b.id', $id)->get();
 
