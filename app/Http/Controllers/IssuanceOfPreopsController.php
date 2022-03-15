@@ -100,7 +100,7 @@ class IssuanceOfPreopsController extends Controller
             'status' => true,
         );
 
-        DB::table('preops_header')->insert($form_data);
+        $preops_id = DB::table('preops_header')->insertGetId($form_data);
 
         if ($request->hasfile('fileattach')) {
             foreach ($request->file('fileattach') as $file) {
@@ -215,7 +215,7 @@ class IssuanceOfPreopsController extends Controller
 
         Audit::create($data_audit);
 
-        return back()->with('success', 'You have successfully added new suspect information!');
+        return back()->with('success', 'You have successfully added new suspect information!', compact('preops_id'));
     }
 
     public function edit($id)
@@ -487,16 +487,16 @@ class IssuanceOfPreopsController extends Controller
         $tbluserlevel = DB::table('tbluserlevel')->where('id', Auth::user()->user_level_id)->get();
 
         $output = '
-     <h3 align="center" style="color:blue">CONFIDENTIAL</h3>
+     <h3 align="center" style="color:red">Secret</h3>
      <br>
-                <img src="./dist/img/pdea_logo.svg" class="col-3" style="width:150px; height:100px; float:left">
+                <img src="./dist/img/pdea_logo.jpg" class="col-3" style="width:100px; height:100px; float:left">
                 <span style="padding-left:20px">Republic of the Philippines</span>
                 <br>
                 <span style="padding-left:20px">Office of the President</span>
-                <hr style="margin-left:170px; margin-top:0px;  margin-bottom:0px">
+                <hr style="margin-left:120px; margin-top:0px;  margin-bottom:0px">
                 <span style="padding-left:20px; font-weight: bold; font-size:20px; margin-bottom:0px">PHILIPPINE DRUG ENFORCEMENT AGENCY</span>
                 <br>
-                <p style="padding-left:40px; font-size:13px; margin-top:0px; margin-left:131px">' . $regional_office[0]->address . ' | www.pdea.gov.ph | ' . $regional_office[0]->contact_number . '</p>
+                <p style="padding-left:40px; font-size:13px; margin-top:0px; margin-left:80px">' . $regional_office[0]->address . ' | www.pdea.gov.ph | ' . $regional_office[0]->contact_number . '</p>
                 <br>
                 <h3 align="center">CERTIFICATE OF COORDINATION</h3>
                 <span style="margin-right:110px">Issuing Office:</span><span>' . $regional_office[0]->name . '</span>

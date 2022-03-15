@@ -926,7 +926,7 @@ class SpotReportController extends Controller
         $spot_report = $this->get_spot_report($id);
         $regional_office = DB::table('regional_office as a')
             ->join('preops_header as b', 'a.ro_code', '=', 'b.ro_code')
-            ->select('a.name')
+            ->select('a.name', 'a.address', 'a.contact_number')
             ->where('b.preops_number', $spot_report[0]->preops_number)->get();
         $region = DB::table('region')->where('region_c', $spot_report[0]->region_c)->get();
         $province = DB::table('province')->where('province_c', $spot_report[0]->province_c)->get();
@@ -953,10 +953,18 @@ class SpotReportController extends Controller
 
         // Header
         $output = '
-     <h3 align="center" style="color:red">Secret</h3>
-     <br>
-                <img src="./dist/img/pormis_logo.png" class="col-3" style="width:120px; height:60px; float:right">
-                <div style="padding-left:50px"><h1>' . $spot_report[0]->spot_report_number . '</h1></div>
+                <h3 align="center" style="color:blue">Confidential</h3>
+                <br>
+                <img src="./dist/img/pdea_logo.jpg" class="col-3" style="width:100px; height:100px; float:left">
+                <span style="padding-left:20px">Republic of the Philippines</span>
+                <br>
+                <span style="padding-left:20px">Office of the President</span>
+                <hr style="margin-left:120px; margin-top:0px;  margin-bottom:0px">
+                <span style="padding-left:20px; font-weight: bold; font-size:20px; margin-bottom:0px">PHILIPPINE DRUG ENFORCEMENT AGENCY</span>
+                <br>
+                <p style="padding-left:40px; font-size:13px; margin-top:0px; margin-left:80px">' . $regional_office[0]->address . ' | www.pdea.gov.ph | ' . $regional_office[0]->contact_number . '</p>
+                <br>
+                <div style="text-align:center;"><h1>' . $spot_report[0]->spot_report_number . '</h1></div>
                 <div style="border:solid;" align="center"><span style="font-size:20px">SPOT REPORT</span></div>
                 <br>
                 <span style="margin-right:39px; margin-left:33px">Date Reported:</span><span>' . Carbon::createFromFormat('Y-m-d', $spot_report[0]->reported_date)->format('F d,Y') . '</span>
@@ -972,8 +980,8 @@ class SpotReportController extends Controller
                 <span style="margin-right:14px; margin-left:33px">Type of Operation:</span><span style="font-weight:bold">' . $operation_type[0]->name . '</span>
                 <br>
                 <br>
-                <span style="margin-right:14px; margin-left:33px">Area of Operation:</span><span>' . $barangay[0]->barangay_m . ', ' . $city[0]->city_m . ', ' . $province[0]->province_m . ', ' . $region[0]->region_m . '</span>
-                <br>
+                <span style="margin-right:14px; margin-left:33px">Area of Operation:</span>
+                <p style="margin-right:14px; margin-left:33px; margin-top: 5px;"><u>' . $barangay[0]->barangay_m . ', ' . $city[0]->city_m . ', ' . $province[0]->province_m . ', ' . $region[0]->region_m . '</u></p>
                 <span style="margin-right:74px; margin-left:33px">Remarks:</span><span>' . $spot_report[0]->remarks . '</span>
                 <br>
                 <br>

@@ -71,7 +71,11 @@
                             <label for="">Date Reported<code> *</code></label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="reported_date" name="reported_date" type="date" class="form-control @error('reported date') is-invalid @enderror" value="{{ $spot_report_header[0]->reported_date }}" autocomplete="off" required>
+                            <input id="reported_date" name="reported_date" type="date" class="form-control @error('reported date') is-invalid @enderror" value="{{ $spot_report_header[0]->reported_date }}" autocomplete="off" required @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                            @else
+                            disabled
+                            @endif
+                            >
                         </div>
                     </div>
                 </div>
@@ -83,7 +87,15 @@
                             <label for="">Spot Report No.<code> *</code></label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="spot_report_number" name="spot_report_number" type="text" class="form-control @error('spot report number') is-invalid @enderror disabled_field" autocomplete="off" required value="{{ $spot_report_header[0]->spot_report_number }}" style="pointer-events: none; background-color : #e9ecef;">
+                            <input id="spot_report_number" name="spot_report_number" type="text" class="form-control @error('spot report number') is-invalid @enderror disabled_field" autocomplete="off" required value="{{ $spot_report_header[0]->spot_report_number }}" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                            @else
+                            hidden
+                            @endif
+                            >
+                            <input type="text" class="form-control" value="{{ $spot_report_header[0]->spot_report_number }}" disabled @if(Auth::user()->user_level_id == 3)
+                            @else
+                            hidden
+                            @endif>
                         </div>
                     </div>
                     <div class="form-group col-4" style="margin: 0px;">
@@ -91,7 +103,11 @@
                             <label for="">Type of Operation<code> *</code></label>
                         </div>
                         <div class="input-group mb-3">
-                            <select name="operation_type_id" class="form-control @error('operation type') is-invalid @enderror" required style="pointer-events: none; background-color : #e9ecef;">
+                            <select name="operation_type_id" class="form-control @error('operation type') is-invalid @enderror" required @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                @else
+                                disabled
+                                @endif
+                                >
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach ($operation_type as $ot)
                                 <option value="{{ $ot->id }}" {{ $ot->id == $spot_report_header[0]->operation_type_id ? 'selected' : '' }}>
@@ -103,7 +119,11 @@
                     </div>
                     <div class="form-group col-12" style="margin: 0px; padding:20px 10px">
                         <div class="custom-control custom-checkbox mb-2">
-                            <input name="operation_lvl" class="custom-control-input" type="checkbox" id="customCheckbox9" {{ $spot_report_header[0]->operation_lvl == true ? 'checked' : '' }}>
+                            <input name="operation_lvl" class="custom-control-input" type="checkbox" id="customCheckbox9" {{ $spot_report_header[0]->operation_lvl == true ? 'checked' : '' }} @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                            @else
+                            disabled
+                            @endif
+                            >
                             <label for="customCheckbox9" class="custom-control-label">High Impact Operation</label>
                         </div>
                     </div>
@@ -113,7 +133,11 @@
                             <label for="">Region<code> *</code></label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="region_c" name="region_c" class="form-control @error('region') is-invalid @enderror" style="pointer-events: none; background-color : #e9ecef;">
+                            <select id="region_c" name="region_c" class="form-control @error('region') is-invalid @enderror" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                @else
+                                disabled
+                                @endif
+                                >
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach ($region as $rg)
                                 <option value="{{ $rg->region_c }}" {{ $rg->region_c == $spot_report_header[0]->region_c ? 'selected' : '' }}>
@@ -128,7 +152,11 @@
                             <label for="">Province<code> *</code></label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="province_c" name="province_c" class="form-control @error('province') is-invalid @enderror" style="pointer-events: none; background-color : #e9ecef;">
+                            <select id="province_c" name="province_c" class="form-control @error('province') is-invalid @enderror" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                @else
+                                disabled
+                                @endif
+                                >
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach ($province as $pr)
                                 <option value="{{ $pr->province_c }}" {{ $pr->province_c == $spot_report_header[0]->province_c ? 'selected' : '' }}>
@@ -143,7 +171,11 @@
                             <label for="">City<code> *</code></label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="city_c" name="city_c" class="form-control @error('city') is-invalid @enderror">
+                            <select id="city_c" name="city_c" class="form-control @error('city') is-invalid @enderror" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                @else
+                                disabled
+                                @endif
+                                >
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach ($city as $pr)
                                 <option value="{{ $pr->city_c }}" {{ $pr->city_c == $spot_report_header[0]->city_c ? 'selected' : '' }}>
@@ -158,7 +190,11 @@
                             <label for="">Barangay<code> *</code></label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="barangay_c" name="barangay_c" class="form-control @error('barangay') is-invalid @enderror">
+                            <select id="barangay_c" name="barangay_c" class="form-control @error('barangay') is-invalid @enderror" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                @else
+                                disabled
+                                @endif
+                                >
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach ($barangay as $pr)
                                 <option value="{{ $pr->barangay_c }}" {{ $pr->barangay_c == $spot_report_header[0]->barangay_c ? 'selected' : '' }}>
@@ -173,7 +209,11 @@
                             <label for="">Street</label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="street" name="street" type="text" class="form-control" autocomplete="off" value="{{ $spot_report_header[0]->street }}">
+                            <input id="street" name="street" type="text" class="form-control" autocomplete="off" value="{{ $spot_report_header[0]->street }}" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                            @else
+                            disabled
+                            @endif
+                            >
                         </div>
                     </div>
                 </div>
@@ -184,7 +224,11 @@
                             <label for="">Date/Time of Operation<code> *</code></label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="operation_datetime" name="operation_datetime" type="datetime-local" class="form-control @error('operation date') is-invalid @enderror" value="{{ date('Y-m-d\TH:i:s', strtotime($spot_report_header[0]->operation_datetime)) }}" autocomplete="off" style="pointer-events: none; background-color : #e9ecef;">
+                            <input id="operation_datetime" name="operation_datetime" type="datetime-local" class="form-control @error('operation date') is-invalid @enderror" value="{{ date('Y-m-d\TH:i:s', strtotime($spot_report_header[0]->operation_datetime)) }}" autocomplete="off" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                            @else
+                            disabled
+                            @endif
+                            >
                         </div>
                     </div>
                     <div class="form-group col-4" style="margin: 0px;">
@@ -192,7 +236,11 @@
                             <label for="">Operating Unit<code> *</code></label>
                         </div>
                         <div class="input-group mb-3">
-                            <select name="operating_unit_id" class="form-control @error('region') is-invalid @enderror" style="pointer-events: none; background-color : #e9ecef;">
+                            <select name="operating_unit_id" class="form-control @error('region') is-invalid @enderror" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                @else
+                                disabled
+                                @endif
+                                >
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach ($operating_unit as $ou)
                                 <option value="{{ $ou->id }}" {{ $ou->id == $spot_report_header[0]->operating_unit_id ? 'selected' : '' }}>
@@ -208,7 +256,11 @@
                         </div>
                         @foreach ($preops_support_unit as $psu)
                         <div class="input-group mb-3">
-                            <select name="support_unit_id[]" class="form-control @error('region') is-invalid @enderror" style="pointer-events: none; background-color : #e9ecef;" required>
+                            <select name="support_unit_id[]" class="form-control @error('region') is-invalid @enderror" required @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                @else
+                                disabled
+                                @endif
+                                >
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach ($support_unit as $su)
                                 <option value="{{ $su->id }}" {{ $su->id == $psu->support_unit_id ? 'selected' : '' }}>
@@ -228,7 +280,11 @@
                             <label for="">Warrant No.</label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="warrant_number" name="warrant_number" type="text" class="form-control @error('warrant number') is-invalid @enderror" value="{{ $spot_report_header[0]->warrant_number }}" autocomplete="off">
+                            <input id="warrant_number" name="warrant_number" type="text" class="form-control @error('warrant number') is-invalid @enderror" value="{{ $spot_report_header[0]->warrant_number }}" autocomplete="off" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                            @else
+                            disabled
+                            @endif
+                            >
                         </div>
                     </div>
                     <div class="form-group col-4" style="margin: 0px;">
@@ -236,7 +292,11 @@
                             <label for="">Issuing Judge</label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="judge_name" name="judge_name" type="text" class="form-control @error('judge name') is-invalid @enderror" value="{{ $spot_report_header[0]->judge_name }}" autocomplete="off">
+                            <input id="judge_name" name="judge_name" type="text" class="form-control @error('judge name') is-invalid @enderror" value="{{ $spot_report_header[0]->judge_name }}" autocomplete="off" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                            @else
+                            disabled
+                            @endif
+                            >
                         </div>
                     </div>
                     <div class="form-group col-4" style="margin: 0px;">
@@ -244,7 +304,11 @@
                             <label for="">Branch</label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="branch" name="branch" type="text" class="form-control @error('branch') is-invalid @enderror" value="{{ $spot_report_header[0]->branch }}" autocomplete="off">
+                            <input id="branch" name="branch" type="text" class="form-control @error('branch') is-invalid @enderror" value="{{ $spot_report_header[0]->branch }}" autocomplete="off" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                            @else
+                            disabled
+                            @endif
+                            >
                         </div>
                     </div>
 
@@ -913,7 +977,7 @@
                                                         </tr>
                                                         @empty
                                                         <tr>
-                                                            <td hidden><input type="number" name="spot_case_id[]" class="form-control"></td>
+                                                            <td hidden><input type="number" name="spot_case_id[]" value="0" class="form-control"></td>
                                                             <td>
                                                                 <select name="suspect_number_case[]" style="width: 400px;" class="form-control @error('region') is-invalid @enderror suspect_number_case">
                                                                     @foreach ($suspect_information as $si)
@@ -1673,7 +1737,6 @@
             var birthdate = $tds.eq(6).val();
 
             if (suspect_number == 1) {
-
                 $(".suspect_number_case").append("<option value=" +
                     lastname + "," + firstname + "," + middlename + "," + alias + "," + birthdate + ">" +
                     lastname + ", " + firstname + " " +
