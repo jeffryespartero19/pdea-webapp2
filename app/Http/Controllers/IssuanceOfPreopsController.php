@@ -496,10 +496,7 @@ class IssuanceOfPreopsController extends Controller
                 <hr style="margin-left:170px; margin-top:0px;  margin-bottom:0px">
                 <span style="padding-left:20px; font-weight: bold; font-size:20px; margin-bottom:0px">PHILIPPINE DRUG ENFORCEMENT AGENCY</span>
                 <br>
-                <span style="padding-left:20px; font-size:13px; margin-top:0px">PDEA Bldg. NIA Northside Road, National Government Center, Barangay Pinyahan,</span>
-                <br>
-                <span style="padding-left:20px; font-size:13px; margin-top:0px">Quezon City 1100 | www.pdea.gov.ph | (02) 927-9702</span>
-                <br>
+                <p style="padding-left:40px; font-size:13px; margin-top:0px; margin-left:131px">' . $regional_office[0]->address . ' | www.pdea.gov.ph | ' . $regional_office[0]->contact_number . '</p>
                 <br>
                 <h3 align="center">CERTIFICATE OF COORDINATION</h3>
                 <span style="margin-right:110px">Issuing Office:</span><span>' . $regional_office[0]->name . '</span>

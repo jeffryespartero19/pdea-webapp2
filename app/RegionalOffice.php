@@ -11,6 +11,6 @@ class RegionalOffice extends Model
     protected $table = 'regional_office';
 
     protected $fillable = [
-        'name', 'ro_code', 'description', 'report_output', 'print_order', 'status'
+        'name', 'ro_code', 'description', 'report_output', 'print_order', 'status', 'address', 'contact_number'
     ];
 }

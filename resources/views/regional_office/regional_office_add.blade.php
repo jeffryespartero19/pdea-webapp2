@@ -97,6 +97,22 @@
                 </div>
                 <div class="form-group">
                     <div>
+                        <label for="">Address</label>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input id="address" name="address" type="text" class="form-control @error('report output') is-invalid @enderror" value="{{ old('address') }}" placeholder="Address" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <label for="">Contact Number</label>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input id="contact_number" name="contact_number" type="text" class="form-control @error('report output') is-invalid @enderror" value="{{ old('contact_number') }}" placeholder="Contact Number" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div>
                         <label for="">Print Order</label>
                     </div>
                     <div class="input-group mb-3">

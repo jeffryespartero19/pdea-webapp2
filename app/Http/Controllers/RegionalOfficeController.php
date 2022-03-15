@@ -47,6 +47,8 @@ class RegionalOfficeController extends Controller
             'description' => $request->description,
             'report_output' => $request->description,
             'print_order' => $request->print_order,
+            'address' => $request->address,
+            'contact_number' => $request->contact_number,
             'status' => $request->has('status') ? true : false,
         );
 
@@ -88,6 +90,8 @@ class RegionalOfficeController extends Controller
             'description' => $request->description,
             'report_output' => $request->description,
             'print_order' => $request->print_order,
+            'address' => $request->address,
+            'contact_number' => $request->contact_number,
             'status' => $request->has('status') ? true : false,
         );
 
