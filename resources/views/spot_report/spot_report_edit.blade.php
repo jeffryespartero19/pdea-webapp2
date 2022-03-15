@@ -713,7 +713,7 @@
                                                             <th style="color: gray;">Type of Evidence</th>
                                                             <th style="color: gray;">Quantity/ Weight</th>
                                                             <th style="color: gray;">Unit of Measure</th>
-                                                            <th style="color: gray;">Particulars</th>
+                                                            <th style="color: gray;">Packaging</th>
                                                             <th style="color: gray;">Markings</th>
                                                             <th style="color: gray;">Action</th>
                                                         </tr>
@@ -768,7 +768,17 @@
                                                                     @endforeach
                                                                 </select>
                                                             </td>
-                                                            <td><input style="width: 200px;" type="text" name="evidence[]" class="form-control" value="{{ $ev->evidence }}"></td>
+                                                            <td>
+                                                                <select style="width: 200px;" name="packaging_id[]" class="form-control">
+                                                                    <option value='' selected>Select Option
+                                                                    </option>
+                                                                    @foreach ($packaging as $pk)
+                                                                    <option value="{{ $pk->id }}" {{ $pk->id == $ev->packaging_id ? 'selected' : '' }}>
+                                                                        {{ $pk->name }}
+                                                                    </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
                                                             <td><input style="width: 200px;" type="text" name="markings[]" class="form-control" value="{{ $ev->markings }}"></td>
                                                             <td class="mt-10"><button type="button" class="badge badge-danger" onclick="SomeDeleteRowFunction(this)"><i class="fa fa-trash"></i> Delete</button>
                                                             </td>
@@ -817,7 +827,17 @@
                                                                     @endforeach
                                                                 </select>
                                                             </td>
-                                                            <td><input style="width: 200px;" type="text" name="evidence[]" class="form-control"></td>
+                                                            <td>
+                                                                <select style="width: 200px;" name="packaging_id[]" class="form-control">
+                                                                    <option value='' selected>Select Option
+                                                                    </option>
+                                                                    @foreach ($packaging as $pk)
+                                                                    <option value="{{ $pk->id }}">
+                                                                        {{ $pk->name }}
+                                                                    </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
                                                             <td><input style="width: 200px;" type="text" name="markings[]" class="form-control"></td>
                                                             <td class="mt-10"><button type="button" class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button>
                                                             </td>
@@ -1240,16 +1260,16 @@
                 '<td><select name="suspect_status_id[]" class="form-control" style="width: 200px;"><option value="" selected>None</option>@foreach ($suspect_status as $sstat)<option value="{{ $sstat->id }}">{{ $sstat->name }}</option>@endforeach</select></td>';
             html +=
                 '<td><input type="text" name="remarks[]" style="width: 200px;" class="form-control"></td>';
-                html +=
+            html +=
                 '<td style="text-align: center; padding: 10px"><input name="active" type="checkbox" style="pointer-events: none;"></td>';
-                html +=
+            html +=
                 '<td><input type="text" style="width: 200px;" class="form-control" value="" disabled></td>';
             html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#suspect_row' +
                 suspect_row + '\').remove();"><i class="fa fa-trash"></i> Delete</button></td>';
             html += '</tr>';
 
-            
-                                                            
+
+
 
             $('#suspect tbody').append(html);
 
@@ -1270,7 +1290,7 @@
         html += '<td><input style="width: 200px;" type="text" name="quantity[]" class="form-control" ></td>';
         html +=
             '<td><select style="width: 200px;" name="unit_measurement_id[]" class="form-control disabled_field"><option value="" selected>Select Option</option>@foreach ($unit_measurement as $um)<option value="{{ $um->id }}">{{ $um->name }}</option>@endforeach</select></td>';
-        html += '<td><input style="width: 200px;" type="text" name="evidence[]" class="form-control"></td>';
+        html += '<td><select style="width: 200px;" name="packaging_id[]" class="form-control"><option value="" selected>Select Option</option>@foreach ($packaging as $pk)<option value="{{ $pk->id }}">{{ $pk->name }}</option>@endforeach</select></td>';
         html += '<td><input style="width: 200px;" type="text" name="markings[]" class="form-control"></td>';
         html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#items-row' + items_row +
             '\').remove();"><i class="fa fa-trash"></i> Delete</button></td>';

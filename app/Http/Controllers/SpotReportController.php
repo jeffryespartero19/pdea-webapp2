@@ -70,6 +70,7 @@ class SpotReportController extends Controller
         $regional_user = DB::table('users')->where('user_level_id', 3)->get();
         $evidence_type = DB::table('evidence_type')->where('status', true)->orderby('name', 'asc')->get();
         $unit_measurement = DB::table('unit_measurement')->where('status', true)->orderby('name', 'asc')->get();
+        $packaging = DB::table('packaging')->where('status', true)->orderby('name', 'asc')->get();
         $roc_regional_office = DB::table('regional_office')->where('id', Auth::user()->regional_office_id)->get();
         $region = DB::table('region')->where('status', true)->orderby('region_sort', 'asc')->get();
         $province = DB::table('province')->orderby('province_m', 'asc')->get();
@@ -93,7 +94,7 @@ class SpotReportController extends Controller
         $suspect_number += 1;
         $suspect_number = sprintf("%04s", $suspect_number);
 
-        return view('spot_report.spot_report_add', compact('sregion', 'suspect_category', 'suspect_number', 'roc_regional_office', 'date', 'spot_report_number', 'unit_measurement', 'evidence_type', 'suspect_classification', 'province', 'city', 'barangay', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'case', 'operation_type', 'operating_unit', 'region', 'preops_header', 'suspect_information', 'suspect_status', 'support_unit', 'regional_user'));
+        return view('spot_report.spot_report_add', compact('packaging', 'sregion', 'suspect_category', 'suspect_number', 'roc_regional_office', 'date', 'spot_report_number', 'unit_measurement', 'evidence_type', 'suspect_classification', 'province', 'city', 'barangay', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'case', 'operation_type', 'operating_unit', 'region', 'preops_header', 'suspect_information', 'suspect_status', 'support_unit', 'regional_user'));
     }
 
     public function store(Request $request)
@@ -281,7 +282,7 @@ class SpotReportController extends Controller
                         'evidence_id' => $data['evidence_id'][$i],
                         'quantity' => $data['quantity'][$i],
                         'unit' => $data['unit_measurement_id'][$i],
-                        'evidence' => $data['evidence'][$i],
+                        'packaging_id' => $data['packaging_id'][$i],
                         'spot_report_number' => $request->spot_report_number,
                         'drug' => $data['drug'][$i],
                         'markings' => $data['markings'][$i],
@@ -437,7 +438,7 @@ class SpotReportController extends Controller
             ->where('b.id', $id)->get();
         $spot_report_evidence = DB::table('spot_report_evidence as a')
             ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
-            ->select('a.id', 'a.suspect_number', 'a.spot_report_number', 'a.evidence_id', 'a.quantity', 'a.unit', 'a.evidence', 'a.drug', 'a.markings')
+            ->select('a.id', 'a.suspect_number', 'a.spot_report_number', 'a.evidence_id', 'a.quantity', 'a.unit', 'a.packaging_id', 'a.drug', 'a.markings')
             ->where('b.id', $id)->get();
         $spot_report_case = DB::table('spot_report_case as a')
             ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
@@ -482,12 +483,13 @@ class SpotReportController extends Controller
         $spot_report_files = DB::table('spot_report_files')->where('spot_report_number', $spot_report_header[0]->spot_report_number)->get();
         $regional_user = DB::table('users')->where('user_level_id', 3)->get();
         $evidence = DB::table('evidence')->where('status', true)->orderby('name', 'asc')->get();
+        $packaging = DB::table('packaging')->where('status', true)->orderby('name', 'asc')->get();
         $unit_measurement = DB::table('unit_measurement')->where('status', true)->orderby('name', 'asc')->get();
         $is_warrant = DB::table('operation_type')
             ->where('id', $spot_report_header[0]->operation_type_id)
             ->get();
 
-        return view('spot_report.spot_report_edit', compact('suspect_category', 'is_warrant', 'unit_measurement', 'evidence', 'suspect_classification', 'preops_support_unit', 'support_unit', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'spot_report_suspect', 'spot_report_evidence', 'spot_report_case', 'spot_report_team', 'spot_report_summary', 'spot_report_header', 'region', 'province', 'city', 'barangay', 'operating_unit', 'operation_type', 'preops_header', 'suspect_information', 'case', 'suspect_status', 'spot_report_files', 'regional_user'));
+        return view('spot_report.spot_report_edit', compact('packaging', 'suspect_category', 'is_warrant', 'unit_measurement', 'evidence', 'suspect_classification', 'preops_support_unit', 'support_unit', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'spot_report_suspect', 'spot_report_evidence', 'spot_report_case', 'spot_report_team', 'spot_report_summary', 'spot_report_header', 'region', 'province', 'city', 'barangay', 'operating_unit', 'operation_type', 'preops_header', 'suspect_information', 'case', 'suspect_status', 'spot_report_files', 'regional_user'));
     }
 
     public function update(Request $request, $id)
@@ -762,7 +764,7 @@ class SpotReportController extends Controller
                         'evidence_id' => $data['evidence_id'][$i],
                         'quantity' => $data['quantity'][$i],
                         'unit' => $data['unit_measurement_id'][$i],
-                        'evidence' => $data['evidence'][$i],
+                        'packaging_id' => $data['packaging_id'][$i],
                         'spot_report_number' => $request->spot_report_number,
                         'drug' => $data['drug'][$i],
                         'markings' => $data['markings'][$i],
@@ -787,7 +789,7 @@ class SpotReportController extends Controller
                 if ($data['case_id'][$i] != NULL && $data['suspect_number_case'][$i] != NULL) {
 
                    
-                    if ($data['spot_case_id'][$i] == 0) {
+                    if ($data['spot_case_id'][$i] == 0 || $data['spot_case_id'][$i] == '') {
                         $sdata = explode(",", $data['suspect_number_case'][$i]);
                         $lastname = $sdata[0];
                         $firstname = $sdata[1];

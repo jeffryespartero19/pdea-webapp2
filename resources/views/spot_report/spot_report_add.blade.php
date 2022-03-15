@@ -80,7 +80,7 @@
                             <span id="spot_report_error" hidden style="float: right; color:red" for="">Spot Report Number Exist</span>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="spot_report_number" name="spot_report_number" type="text" class="form-control @error('spot report number') is-invalid @enderror disabled_field" value="RO{{$roc_regional_office[0]->ro_code}}-{{$date}}-{{$spot_report_number}}" autocomplete="off" required>
+                            <input id="spot_report_number" name="spot_report_number" type="text" class="form-control @error('spot report number') is-invalid @enderror disabled_field" value="RO{{$roc_regional_office[0]->region_c}}-{{$date}}-{{$spot_report_number}}" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="form-group col-4" style="margin: 0px;">
@@ -492,7 +492,7 @@
                                                             <th style="color: gray;">Type of Evidence</th>
                                                             <th style="color: gray;">Quantity/ Weight</th>
                                                             <th style="color: gray;">Unit of Measure</th>
-                                                            <th style="color: gray;">Particulars</th>
+                                                            <th style="color: gray;">Packaging</th>
                                                             <th style="color: gray;">Markings</th>
                                                             <th style="color: gray;">Action</th>
 
@@ -537,7 +537,17 @@
                                                                     @endforeach
                                                                 </select>
                                                             </td>
-                                                            <td><input style="width: 200px;" type="text" name="evidence[]" class="form-control"></td>
+                                                            <td>
+                                                                <select style="width: 200px;" name="packaging_id[]" class="form-control">
+                                                                    <option value='' selected>Select Option
+                                                                    </option>
+                                                                    @foreach ($packaging as $pk)
+                                                                    <option value="{{ $pk->id }}">
+                                                                        {{ $pk->name }}
+                                                                    </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
                                                             <td><input style="width: 200px;" type="text" name="markings[]" class="form-control"></td>
                                                             <td class="mt-10"><button type="button" class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button>
                                                             </td>
@@ -1072,10 +1082,43 @@
                         data.forEach(element => {
                             $('#operation_type_id option[value=' + element['operation_type_id'] + ']').attr('selected', 'selected');
                             $('#region_c option[value=' + element['region_c'] + ']').attr('selected', 'selected');
-                            $('#province_c option[value=' + element['province_c'] + ']').attr('selected', 'selected');
                             $('#operating_unit_id option[value=' + element['operating_unit_id'] + ']').attr('selected', 'selected');
                             $('#support_unit_id option[value=' + element['support_unit_id'] + ']').attr('selected', 'selected');
                             $('#operation_datetime').val(element['operation_datetime']);
+
+                            var region_c = element['region_c'];
+                            $.ajax({
+                                type: "GET",
+                                url: "/get_province/" + region_c,
+                                fail: function() {
+                                    alert("request failed");
+                                },
+                                success: function(data) {
+                                    var data = JSON.parse(data);
+
+                                    $('#province_c').empty();
+                                    $('#city_c').empty();
+                                    $('#barangay_c').empty();
+                                    var option1 = " <option value='' selected>Select Option</option>";
+                                    $("#province_c").append(option1);
+
+                                    data.forEach(element => {
+                                        var option = " <option value='" +
+                                            element["province_c"] +
+                                            "'>" +
+                                            element["province_m"] +
+                                            "</option>";
+                                        $("#province_c").append(option);
+                                    });
+
+                                    if (element['province_c'] != '0000') {
+                                        $('#province_c option[value=' + element['province_c'] + ']').attr('selected', 'selected');
+                                    } else {
+                                        $("#province_c").removeClass("disabled_field");
+                                    }
+                                }
+                            });
+
 
                             var province_c = element['province_c'];
 
