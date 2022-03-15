@@ -521,7 +521,7 @@ class IssuanceOfPreopsController extends Controller
 
         foreach ($area as $ar) {
             $output .= '
-            <div  style="margin-left:40px"><span>' . $ar->area . ', ' . $ar->barangay_m . ', ' . $ar->city_m . ', ' . $ar->province_m . ', ' . $ar->region_m . '</span></div>';
+            <div  style="margin-left:40px"><span>' . $ar->area . ', ' . $ar->barangay_m . ', ' . $ar->city_m . ', ' . $ar->province_m . ', ' . $ar->region_m . '</span></div><hr>';
         }
         $output .= '
         <br>
