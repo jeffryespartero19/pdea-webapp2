@@ -1,0 +1,382 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class GlobalController extends Controller
+{
+    public function getProvince($region_c)
+    {
+        $data = DB::table('province')
+            ->where(['region_c' => $region_c])
+            ->get();
+
+        return json_encode($data);
+    }
+
+    public function getCity($province_c)
+    {
+        $data = DB::table('city')
+            ->where(['province_c' => $province_c])
+            ->get();
+
+        return json_encode($data);
+    }
+
+    public function getBarangay($city_c)
+    {
+        $data = DB::table('barangay')
+            ->where(['city_c' => $city_c])
+            ->get();
+
+        return json_encode($data);
+    }
+
+    public function getUsers(Request $request)
+    {
+        $data = $request->all();
+        $userX = DB::table('users')->where('id', $data['idx'])->get();
+
+        return ($userX);
+    }
+
+    public function getUser($user_id)
+    {
+        $data = DB::table('users')->where('id', $user_id)->get();
+
+        return json_encode($data);
+    }
+
+    public function getPreopsNumber($region_c)
+    {
+        $data = DB::table('preops_header')
+            ->where(['region_c' => $region_c])
+            ->get();
+
+        return json_encode($data);
+    }
+
+    public function getPreopsHeader($preops_number)
+    {
+        $data = DB::table('preops_header as a')
+            ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+            ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+            ->join('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
+            ->select('a.id', 'd.ro_code', 'a.preops_number', 'a.operating_unit_id', 'a.operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'validity', 'd.region_c', 'a.province_c', 'a.support_unit_id', DB::raw('DATE_FORMAT(a.operation_datetime, "%Y-%m-%dT%H:%m") as operation_datetime'))
+            ->where(['preops_number' => $preops_number])
+            ->get();
+
+        return json_encode($data);
+    }
+
+    public function getPreopsTeam($preops_number)
+    {
+        $data = DB::table('preops_team')
+            ->where(['preops_number' => $preops_number])
+            ->get();
+
+        return json_encode($data);
+    }
+
+    public function getPreopsArea($preops_number)
+    {
+        $data = DB::table('preops_area as a')
+            ->join('region as b', 'a.region_c', '=', 'b.region_c')
+            ->join('province as c', 'a.province_c', '=', 'c.province_c')
+            ->join('city as d', 'a.city_c', '=', 'd.city_c')
+            ->join('barangay as e', 'a.barangay_c', '=', 'e.barangay_c')
+            ->select('a.preops_number', 'b.region_m', 'c.province_m', 'd.city_m', 'e.barangay_m', 'a.area')
+            ->where(['preops_number' => $preops_number])
+            ->get();
+
+        return json_encode($data);
+    }
+
+    public function get_preops_list($ro_code, $operating_unit_id, $operation_type_id, $operation_date)
+    {
+        $data = DB::table('preops_header as a')
+            ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+            ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+            ->select('a.id', 'a.preops_number', 'a.operating_unit_id', 'operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.ro_code', 'a.status');
+
+        if ($ro_code != 0) {
+            $data->where(['a.ro_code' => $ro_code]);
+        }
+        if ($operating_unit_id != 0) {
+            $data->where(['a.operating_unit_id' => $operating_unit_id]);
+        }
+        if ($operation_type_id != 0) {
+            $data->where(['a.operation_type_id' => $operation_type_id]);
+        }
+        if ($operation_date != 0) {
+            $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), $operation_date);
+        }
+
+        $data = $data->get();
+
+        return json_encode($data);
+    }
+
+    public function get_after_operation_list($ro_code, $operating_unit_id, $operation_type_id, $operation_date)
+    {
+        $data = DB::table('preops_header as a')
+            ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+            ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+            ->select('a.id', 'a.preops_number', 'a.operating_unit_id', 'operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.ro_code', 'a.status')
+            ->whereNotNull('date_reported');
+        if ($ro_code != 0) {
+            $data->where(['a.ro_code' => $ro_code]);
+        }
+        if ($operating_unit_id != 0) {
+            $data->where(['a.operating_unit_id' => $operating_unit_id]);
+        }
+        if ($operation_type_id != 0) {
+            $data->where(['a.operation_type_id' => $operation_type_id]);
+        }
+        if ($operation_date != 0) {
+            $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), $operation_date);
+        }
+
+        $data = $data->get();
+
+        return json_encode($data);
+    }
+
+    public function get_spot_report_header($spot_report_number)
+    {
+        $data = DB::table('spot_report_header as a')
+            ->join('region as b', 'a.region_c', '=', 'b.region_c')
+            ->join('operating_unit as c', 'a.operating_unit_id', '=', 'c.id')
+            ->join('operation_type as d', 'a.operation_type_id', '=', 'd.id')
+            ->join('province as e', 'a.province_c', '=', 'e.province_c')
+            ->join('city as f', 'a.city_c', '=', 'f.city_c')
+            ->join('barangay as g', 'a.barangay_c', '=', 'g.barangay_c')
+            ->select('a.id', 'a.spot_report_number', 'd.name as operation_type_name', 'a.operation_type_id', 'a.operating_unit_id', 'c.name as operating_unit_name', 'a.region_c', 'b.region_m', 'a.operation_datetime', 'a.province_c', 'e.province_m','a.city_c', 'f.city_m','a.barangay_c', 'g.barangay_m',)
+            ->where(['spot_report_number' => $spot_report_number])
+            ->get();
+
+        return json_encode($data);
+    }
+
+    public function get_spot_report_list($region_c, $operating_unit_id, $operation_type_id, $operation_date)
+    {
+        $data = DB::table('spot_report_header as a')
+            ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+            ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+            ->select('a.id', 'a.spot_report_number', 'a.operating_unit_id', 'operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.region_c', 'a.status')
+            ->where('a.report_status', 0);
+        if ($region_c != 0) {
+            $data->where(['a.region_c' => $region_c]);
+        }
+        if ($operating_unit_id != 0) {
+            $data->where(['a.operating_unit_id' => $operating_unit_id]);
+        }
+        if ($operation_type_id != 0) {
+            $data->where(['a.operation_type_id' => $operation_type_id]);
+        }
+        if ($operation_date != 0) {
+            $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), $operation_date);
+        }
+
+        $data = $data->get();
+
+        return json_encode($data);
+    }
+
+    public function get_spot_report_suspect($spot_report_number)
+    {
+        $data = DB::table('spot_report_suspect as a')
+            ->leftjoin('region as b', 'a.region_c', '=', 'b.region_c')
+            ->leftjoin('region as c', 'a.permanent_region_c', '=', 'c.region_c')
+            ->leftjoin('province as d', 'a.province_c', '=', 'd.province_c')
+            ->leftjoin('province as e', 'a.permanent_province_c', '=', 'e.province_c')
+            ->leftjoin('city as f', 'a.city_c', '=', 'f.city_c')
+            ->leftjoin('city as g', 'a.permanent_city_c', '=', 'g.city_c')
+            ->leftjoin('barangay as h', 'a.barangay_c', '=', 'h.barangay_c')
+            ->leftjoin('barangay as i', 'a.permanent_barangay_c', '=', 'i.barangay_c')
+            ->leftjoin('civil_status as j', 'a.civil_status_id', '=', 'j.id')
+            ->leftjoin('nationality as k', 'a.nationality_id', '=', 'k.id')
+            ->leftjoin('ethnic_group as l', 'a.ethnic_group_id', '=', 'l.id')
+            ->leftjoin('religions as m', 'a.religion_id', '=', 'm.id')
+            ->leftjoin('educational_attainment as n', 'a.educational_attainment_id', '=', 'n.id')
+            ->leftjoin('occupation as o', 'a.occupation_id', '=', 'o.id')
+            ->leftjoin('suspect_status as p', 'a.suspect_status_id', '=', 'p.id')
+            ->leftjoin('suspect_classification as q', 'a.suspect_classification_id', '=', 'q.id')
+            ->leftjoin('drug_management as r', 'a.id', '=', 'r.suspect_id')
+            ->leftjoin('users as s', 's.id', '=', 'r.user_id')
+            ->leftjoin('tbluserlevel as t', 's.user_level_id', '=', 't.id')
+
+            ->select(
+                'a.suspect_number',
+                'a.lastname',
+                'a.firstname',
+                'a.middlename',
+                'a.alias',
+                'a.birthdate',
+                'a.birthplace',
+                'b.region_m',
+                'c.region_m as permanent_region_m',
+                'd.province_m',
+                'e.province_m as permanent_province_m',
+                'f.city_m',
+                'g.city_m as permanent_city_m',
+                'h.barangay_m',
+                'i.barangay_m as permanent_barangay_m',
+                'a.street',
+                'a.street as permanent_street',
+                'a.gender',
+                'j.name as civil_status',
+                'k.name as nationality',
+                'l.name as ethnic_group',
+                'm.name as religion',
+                'n.name as educational_attainment',
+                'o.name as occupation',
+                'p.name as suspect_status',
+                'q.name as suspect_classification',
+                'a.remarks',
+                't.name as ulvl',
+                's.name as uname',
+                'r.listed',
+
+            )
+            ->where(['a.spot_report_number' => $spot_report_number])
+            ->where(['a.suspect_status_id' => 1])
+            ->get();
+
+        return json_encode($data);
+    }
+
+    public function get_spot_report_evidence_drug($spot_report_number)
+    {
+        $data = DB::table('spot_report_evidence as a')
+            ->join('spot_report_suspect as b', 'a.suspect_number', '=', 'b.suspect_number')
+            ->join('evidence as c', 'a.evidence_id', '=', 'c.id')
+            ->join('unit_measurement as d', 'c.unit_measurement_id', '=', 'd.id')
+            ->select(
+                'a.id as spot_report_evidence_id',
+                'b.suspect_number',
+                'b.lastname',
+                'b.firstname',
+                'b.middlename',
+                'b.alias',
+                'c.name as evidence',
+                'd.name as unit_measurement',
+            )
+            ->where(['a.spot_report_number' => $spot_report_number])
+            ->where(['a.drug' => 'drug'])
+            ->where(['b.suspect_status_id' => 1])
+            ->get();
+
+        return json_encode($data);
+    }
+
+    public function get_spot_report_case($spot_report_number)
+    {
+        $data = DB::table('spot_report_case as a')
+            ->join('spot_report_suspect as b', 'a.suspect_number', '=', 'b.suspect_number')
+            ->join('case_list as c', 'a.case_id', '=', 'c.id')
+            ->select(
+                'a.id as spot_report_case_id',
+                'b.suspect_number',
+                'b.lastname',
+                'b.firstname',
+                'b.middlename',
+                'b.alias',
+                'c.description',
+            )
+            ->where(['a.spot_report_number' => $spot_report_number])
+            ->where(['b.suspect_status_id' => 1])
+            ->get();
+
+        return json_encode($data);
+    }
+
+    public function get_progress_report_list($region_c, $operating_unit_id, $operation_type_id, $operation_date)
+    {
+        $data = DB::table('spot_report_header as a')
+            ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+            ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+            ->select('a.id', 'a.spot_report_number', 'a.operating_unit_id', 'operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.region_c', 'a.status')
+            ->where('a.report_status', 1);
+        if ($region_c != 0) {
+            $data->where(['a.region_c' => $region_c]);
+        }
+        if ($operating_unit_id != 0) {
+            $data->where(['a.operating_unit_id' => $operating_unit_id]);
+        }
+        if ($operation_type_id != 0) {
+            $data->where(['a.operation_type_id' => $operation_type_id]);
+        }
+        if ($operation_date != 0) {
+            $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), $operation_date);
+        }
+
+        $data = $data->get();
+
+        return json_encode($data);
+    }
+
+    public function getDrugManagement($suspect_id)
+    {
+        $data = DB::table('drug_management as a')
+            ->join('spot_report_suspect as b', 'a.suspect_id', '=', 'b.id')
+            ->select('a.id', 'a.suspect_id', 'b.lastname', 'b.firstname', 'b.middlename', 'a.listed', 'a.ndis_id', 'a.remarks')
+            ->where('a.suspect_id', $suspect_id)
+            ->get();
+
+        return json_encode($data);
+    }
+
+    public function getPreopsSupportUnit($preops_number)
+    {
+        $data = DB::table('preops_support_unit as a')
+            ->join('support_unit as b', 'a.support_unit_id', '=', 'b.id')
+            ->select('b.id', 'b.name')
+            ->where(['preops_number' => $preops_number])
+            ->get();
+
+        return json_encode($data);
+    }
+
+    public function getUnitMeasure($evidence_id)
+    {
+        $data = DB::table('evidence as a')
+            ->join('unit_measurement as b', 'a.unit_measurement_id', '=', 'b.id')
+            ->select('b.name as unit_measurement', 'b.id')
+            ->where(['a.id' => $evidence_id])
+            ->get();
+
+        return json_encode($data);
+    }
+
+    public function getEvidenceType($category)
+    {
+        $data = DB::table('evidence as a')
+            ->join('evidence_type as b', 'a.evidence_type_id', '=', 'b.id')
+            ->select('a.name as evidence', 'a.id')
+            ->where(['b.category' => $category])
+            ->get();
+
+        return json_encode($data);
+    }
+
+    public function get_operation_type($operation_type_id)
+    {
+        $data = DB::table('operation_type')
+            ->where(['id' => $operation_type_id])
+            ->get();
+
+        return json_encode($data);
+    }
+
+    public function get_province_details($province_c)
+    {
+        $data = DB::table('province')
+            ->where(['province_c' => $province_c])
+            ->get();
+
+        return json_encode($data);
+    }
+}
