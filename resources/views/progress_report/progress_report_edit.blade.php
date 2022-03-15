@@ -179,6 +179,8 @@
                                                             <th style="color: gray;">Suspect Classification</th>
                                                             <th style="color: gray;">Suspect Status</th>
                                                             <th style="color: gray;">Remarks</th>
+                                                            <th style="color: gray;">Listed</th>
+                                                            <th style="color: gray;">Listed By</th>
                                                             <!-- <th style="color: gray;">Action</th> -->
                                                         </tr>
                                                     </thead>
@@ -330,6 +332,8 @@
                                                                 </select>
                                                             </td>
                                                             <td><input type="text" name="remarks[]" style="width: 200px; pointer-events:none; background-color : #e9ecef; " class="form-control" value="{{ $srs->remarks }}"></td>
+                                                            <td style="text-align: center; padding: 10px"><input name="active" type="checkbox" style="pointer-events: none;" {{ $srs->listed == 1 ? 'checked' : ''}}></td>
+                                                            <td><input type="text" style="width: 200px;" class="form-control" value="{{ $srs->uname }} - {{ $srs->ulvl }}" disabled></td>
                                                             <!-- <td class="mt-10"><button class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button></td> -->
                                                         </tr>
                                                         @endforeach

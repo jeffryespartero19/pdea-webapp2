@@ -942,7 +942,7 @@ class SpotReportController extends Controller
 
         // Header
         $output = '
-     <h3 align="center" style="color:blue">CONFIDENTIAL</h3>
+     <h3 align="center" style="color:red">Secret</h3>
      <br>
                 <img src="./dist/img/pormis_logo.png" class="col-3" style="width:120px; height:60px; float:right">
                 <div style="padding-left:50px"><h1>' . $spot_report[0]->spot_report_number . '</h1></div>
