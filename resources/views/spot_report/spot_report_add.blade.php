@@ -268,6 +268,7 @@
                                                             <th style="color: gray;">Middle Name</th>
                                                             <th style="color: gray;">Alias</th>
                                                             <th style="color: gray;">Birthdate</th>
+                                                            <th style="color: gray;">Estimated Birthdate</th>
                                                             <th style="color: gray;">Birth Place</th>
                                                             <th style="color: gray;">Region</th>
                                                             <th style="color: gray;">Province</th>
@@ -301,6 +302,14 @@
                                                             <td><input type="text" name="middlename[]" style="width: 200px;" class="form-control change_control cc4"></td>
                                                             <td><input type="text" name="alias[]" style="width: 200px;" class="form-control change_control cc5"></td>
                                                             <td><input type="date" name="birthdate[]" style="width: 200px;" class="form-control change_control"></td>
+                                                            <td>
+                                                                <select name="est_birthdate[]" class="form-control" style="width: 200px;">
+                                                                    <option value="0">No
+                                                                    </option>
+                                                                    <option value="1">Yes
+                                                                    </option>
+                                                                </select>
+                                                            </td>
                                                             <td><input type="text" name="birthplace[]" style="width: 200px;" class="form-control"></td>
                                                             <td>
                                                                 <select name="present_region_c[]" class="form-control present_region_c" style="width: 200px;">
@@ -868,6 +877,8 @@
                 '<td><input type="text" required name="alias[]" style="width: 200px;" class="form-control"></td>';
             html +=
                 '<td><input type="date" required name="birthdate[]" style="width: 200px;" class="form-control"></td>';
+            html +=
+                '<td><select name="est_birthdate[]" class="form-control" style="width: 200px;"><option value="0">No</option><option value="1">Yes</option></select></td>';
             html +=
                 '<td><input type="text" name="birthplace[]" style="width: 200px;" class="form-control"></td>';
             html +=

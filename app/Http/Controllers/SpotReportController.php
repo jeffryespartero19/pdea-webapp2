@@ -42,7 +42,7 @@ class SpotReportController extends Controller
     public function add()
     {
         $spot_report_header = DB::table('spot_report_header')->get();
-        
+
         $city = DB::table('city')->orderby('city_m', 'asc')->get();
         $barangay = DB::table('barangay')->orderby('barangay_m', 'asc')->get();
         $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
@@ -204,6 +204,7 @@ class SpotReportController extends Controller
                         'remarks' => $data['remarks'][$i],
                         'status' => true,
                         'created_at' => Carbon::now()->format('Y-m-d'),
+                        'est_birthdate' => $data['est_birthdate'][$i],
                     ];
 
                     $suspect_information = [
@@ -235,6 +236,7 @@ class SpotReportController extends Controller
                         'status' => true,
                         'operating_unit_id' => $request->operating_unit_id,
                         'created_at' => Carbon::now()->format('Y-m-d'),
+                        'est_birthdate' => $data['est_birthdate'][$i],
                     ];
 
                     DB::table('spot_report_suspect')->updateOrInsert(['id' => $id], $spot_suspect);
@@ -342,7 +344,7 @@ class SpotReportController extends Controller
                         $suspect_number = 0;
                     }
 
-                    
+
                     $id = 0 + DB::table('spot_report_case')->max('id');
                     $id += 1;
 
@@ -434,6 +436,7 @@ class SpotReportController extends Controller
                 'c.user_id',
                 'e.name as ulvl',
                 'd.name as uname',
+                'a.est_birthdate',
             )
             ->where('b.id', $id)->get();
         $spot_report_evidence = DB::table('spot_report_evidence as a')
@@ -547,7 +550,9 @@ class SpotReportController extends Controller
             $spot_suspect = [];
 
             for ($i = 0; $i < count($data['spot_suspect_id']); $i++) {
+
                 if ($data['spot_suspect_id'][$i] == 0) {
+
                     // Auto SUspect Number
                     $suspect_number = 0 + DB::table('suspect_information')
                         ->whereDate('created_at', Carbon::now()->format('Y-m-d'))
@@ -593,6 +598,7 @@ class SpotReportController extends Controller
                         'remarks' => $data['remarks'][$i],
                         'status' => true,
                         'created_at' => Carbon::now()->format('Y-m-d'),
+                        'est_birthdate' => $data['est_birthdate'][$i],
                     ];
 
                     $suspect_information = [
@@ -624,6 +630,7 @@ class SpotReportController extends Controller
                         'status' => true,
                         'operating_unit_id' => $request->operating_unit_id,
                         'created_at' => Carbon::now()->format('Y-m-d'),
+                        'est_birthdate' => $data['est_birthdate'][$i],
                     ];
 
                     DB::table('spot_report_suspect')->updateOrInsert(['id' => $id], $spot_suspect);
@@ -663,6 +670,7 @@ class SpotReportController extends Controller
                         'remarks' => $data['remarks'][$i],
                         'status' => true,
                         'updated_at' => Carbon::now()->format('Y-m-d'),
+                        'est_birthdate' => $data['est_birthdate'][$i],
 
                     ];
 
@@ -695,6 +703,7 @@ class SpotReportController extends Controller
                         'status' => true,
                         'operating_unit_id' => $request->operating_unit_id,
                         'updated_at' => Carbon::now()->format('Y-m-d'),
+                        'est_birthdate' => $data['est_birthdate'][$i],
                     ];
 
                     DB::table('spot_report_suspect')->updateOrInsert(['id' => $id], $spot_suspect);
@@ -788,7 +797,7 @@ class SpotReportController extends Controller
             for ($i = 0; $i < count($data['case_id']); $i++) {
                 if ($data['case_id'][$i] != NULL && $data['suspect_number_case'][$i] != NULL) {
 
-                   
+
                     if ($data['spot_case_id'][$i] == 0 || $data['spot_case_id'][$i] == '') {
                         $sdata = explode(",", $data['suspect_number_case'][$i]);
                         $lastname = $sdata[0];

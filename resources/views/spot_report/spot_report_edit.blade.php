@@ -289,6 +289,7 @@
                                                             <th style="color: gray;">Middle Name</th>
                                                             <th style="color: gray;">Alias</th>
                                                             <th style="color: gray;">Birthdate</th>
+                                                            <th style="color: gray;">Estimated Birthdate</th>
                                                             <th style="color: gray;">Birth Place</th>
                                                             <th style="color: gray;">Region</th>
                                                             <th style="color: gray;">Province</th>
@@ -326,6 +327,14 @@
                                                             <td><input required type="text" name="middlename[]" style="width: 200px;" class="form-control" value="{{ $srs->middlename }}"></td>
                                                             <td><input required type="text" name="alias[]" style="width: 200px;" class="form-control" value="{{ $srs->alias }}"></td>
                                                             <td><input required type="date" name="birthdate[]" style="width: 200px;" class="form-control" value="{{ $srs->birthdate }}"></td>
+                                                            <td>
+                                                                <select name="est_birthdate[]" class="form-control" style="width: 200px;">
+                                                                    <option value="0" {{ $srs->est_birthdate == false ? 'selected' : '' }}>No
+                                                                    </option>
+                                                                    <option value="1" {{ $srs->est_birthdate == true ? 'selected' : '' }}>Yes
+                                                                    </option>
+                                                                </select>
+                                                            </td>
                                                             <td><input type="text" name="birthplace[]" style="width: 200px;" class="form-control" value="{{ $srs->birthplace }}"></td>
                                                             <td>
                                                                 <select name="present_region_c[]" class="form-control present_region_c" style="width: 200px;">
@@ -530,6 +539,14 @@
                                                             <td><input type="text" name="alias[]" style="width: 200px;" class="form-control change_control cc4">
                                                             </td>
                                                             <td><input type="date" name="birthdate[]" style="width: 200px;" class="form-control change_control cc5">
+                                                            </td>
+                                                            <td>
+                                                                <select name="est_birthdate[]" class="form-control" style="width: 200px;">
+                                                                    <option value="0">No
+                                                                    </option>
+                                                                    <option value="1">Yes
+                                                                    </option>
+                                                                </select>
                                                             </td>
                                                             <td><input type="text" name="birthplace[]" style="width: 200px;" class="form-control">
                                                             </td>
@@ -1200,6 +1217,13 @@
     var suspect_row = 0;
 
     $(document).ready(function() {
+        if ($('.est_birthdate').hasAttr('checked')) {
+            $(this).next().find('ebday').attr('disabled', true);
+
+        } else {
+            $(this).next().find('ebday').removeAttr('disabled');
+        }
+
         $(document).on("click", ".addSuspect", function() {
             html = '<tr class="suspect_details" id="suspect_row' + suspect_row + '">';
             html +=
@@ -1216,6 +1240,8 @@
                 '<td><input required type="text" name="alias[]" style="width: 200px;" class="form-control"></td>';
             html +=
                 '<td><input type="date" name="birthdate[]" style="width: 200px;" class="form-control"></td>';
+            html +=
+                '<td><select name="est_birthdate[]" class="form-control" style="width: 200px;"><option value="0">No</option><option value="1">Yes</option></select></td>';
             html +=
                 '<td><input type="text" name="birthplace[]" style="width: 200px;" class="form-control"></td>';
             html +=
