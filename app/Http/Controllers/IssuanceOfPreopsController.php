@@ -521,9 +521,54 @@ class IssuanceOfPreopsController extends Controller
         $duration = $operation_datetime->diffInHours($validity);
 
         $tbluserlevel = DB::table('tbluserlevel')->where('id', Auth::user()->user_level_id)->get();
+        
+        date_default_timezone_set('Asia/Manila');
+        $date = Carbon::now();
 
-        $output = '
-     <h3 align="center" style="color:red">Secret</h3>
+        $output = '<html>
+        <head>
+            <style>
+                /** Define the margins of your page **/
+                @page {
+                    margin: 100px 25px;
+                }
+    
+                header {
+                    position: fixed;
+                    top: -60px;
+                    left: 0px;
+                    right: 0px;
+                    height: 50px;
+    
+                    /** Extra personal styles **/
+                    color: red;
+                    text-align: center;
+                    line-height: 35px;
+                    font-size: 20px;
+                }
+    
+                footer {
+                    position: fixed; 
+                    bottom: -60px; 
+                    left: 0px; 
+                    right: 0px;
+                    height: 50px; 
+    
+                    /** Extra personal styles **/
+                    color: black;
+                    text-align: center;
+                    line-height: 35px;
+                }
+            </style>
+        </head>
+        <body>
+            <!-- Define header and footer blocks before your content -->
+            <header>
+            SECRET
+            </header>';
+
+        $output .= '
+
      <br>
                 <img src="./dist/img/pdea_logo.jpg" class="col-3" style="width:100px; height:100px; float:left">
                 <span style="padding-left:20px">Republic of the Philippines</span>
@@ -575,6 +620,13 @@ class IssuanceOfPreopsController extends Controller
         <div style="padding-left:300px; font-weight: bold;">' . $preops_data[0]->approved_by . '</div>
         <div style="padding-left:300px;">REGIONAL DIRECTOR</div>
         ';
+
+        $output .= '
+                <footer>
+                    ' . $date . ' | ' . Auth::user()->name . '
+                </footer>
+            </body>
+            </html>';
 
         return $output;
     }

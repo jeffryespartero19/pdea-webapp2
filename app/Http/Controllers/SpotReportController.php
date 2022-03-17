@@ -1006,9 +1006,54 @@ class SpotReportController extends Controller
             ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
             ->where('b.id', $id)->get();
 
+        date_default_timezone_set('Asia/Manila');
+        $date = Carbon::now();
+
         // Header
-        $output = '
-                <h3 align="center" style="color:blue">Confidential</h3>
+        $output = '<html>
+        <head>
+            <style>
+                /** Define the margins of your page **/
+                @page {
+                    margin: 100px 25px;
+                }
+    
+                header {
+                    position: fixed;
+                    top: -60px;
+                    left: 0px;
+                    right: 0px;
+                    height: 50px;
+    
+                    /** Extra personal styles **/
+                    color: blue;
+                    text-align: center;
+                    line-height: 35px;
+                    font-size: 20px;
+                }
+    
+                footer {
+                    position: fixed; 
+                    bottom: -60px; 
+                    left: 0px; 
+                    right: 0px;
+                    height: 50px; 
+    
+                    /** Extra personal styles **/
+                    color: black;
+                    text-align: center;
+                    line-height: 35px;
+                }
+            </style>
+        </head>
+        <body>
+            <!-- Define header and footer blocks before your content -->
+            <header>
+            CONFIDENTIAL
+            </header>';
+
+
+        $output .= '
                 <br>
                 <img src="./dist/img/pdea_logo.jpg" class="col-3" style="width:100px; height:100px; float:left">
                 <span style="padding-left:20px">Republic of the Philippines</span>
@@ -1101,6 +1146,15 @@ class SpotReportController extends Controller
                 </table>
                 <span style="margin-right:23px; margin-left:13px;">' . $spot_report[0]->summary . '</span>
                 <h4 align="center">*** end of report ***</h4>';
+
+        $output .= '
+                <footer>
+                    ' . $date . ' | ' . Auth::user()->name . '
+                </footer>
+            </body>
+            </html>';
+
+
 
 
 
