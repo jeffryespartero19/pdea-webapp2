@@ -8,6 +8,7 @@ use App\ProgressReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Carbon;
 
 class ProgressReportController extends Controller
 {
@@ -102,7 +103,19 @@ class ProgressReportController extends Controller
                     'filenames' => $filename,
                 );
 
-                DB::table('progress_report_files')->insert($file_data);
+                $file_id = DB::table('progress_report_files')->insertGetId($file_data);
+
+                date_default_timezone_set('Asia/Manila');
+                $date = Carbon::now();
+
+                $file_upload = array(
+                    'after_operation_file_id' => $file_id,
+                    'filename' => $filename,
+                    'transaction_type' => 4,
+                    'created_at' => $date,
+                );
+
+                DB::table('file_upload_list')->insert($file_upload);
             }
         }
 
@@ -264,57 +277,82 @@ class ProgressReportController extends Controller
     public function update(Request $request, $id)
     {
 
-        $pos_data = array(
-            'reference_number' => $request->reference_number,
-            'approved_by' => $request->approved_by,
-            'prepared_by' => $request->prepared_by,
-            'progress_reported_date' => date('Y-m-d'),
-            'case_status_date' => $request->case_status_date,
-            'case_status' => $request->case_status,
-            'procecutor_name' => $request->procecutor_name,
-            'procecutor_office' => $request->procecutor_office,
-            'modified_by' => $request->modified_by,
-            'prelim_case_date' => $request->prelim_case_date,
-            'prelim_prosecutor' => $request->prelim_prosecutor,
-            'prelim_prosecutor_office' => $request->prelim_prosecutor_office,
-            'prelim_case_status' => $request->prelim_case_status,
-            'is_number' => $request->is_number,
-            'report_header' => $request->report_header,
-            'summary' => $request->summary,
-            'report_status' => 1,
-            'prelim_is_number' => $request->prelim_is_number,
-        );
+        if (Auth::user()->user_level_id == 2) {
+            $pos_data = array(
+                'reference_number' => $request->reference_number,
+                'approved_by' => $request->approved_by,
+                'prepared_by' => $request->prepared_by,
+                'progress_reported_date' => date('Y-m-d'),
+                'case_status_date' => $request->case_status_date,
+                'case_status' => $request->case_status,
+                'procecutor_name' => $request->procecutor_name,
+                'procecutor_office' => $request->procecutor_office,
+                'modified_by' => $request->modified_by,
+                'prelim_case_date' => $request->prelim_case_date,
+                'prelim_prosecutor' => $request->prelim_prosecutor,
+                'prelim_prosecutor_office' => $request->prelim_prosecutor_office,
+                'prelim_case_status' => $request->prelim_case_status,
+                'is_number' => $request->is_number,
+                'report_header' => $request->report_header,
+                'summary' => $request->summary,
+                'report_status' => 1,
+                'prelim_is_number' => $request->prelim_is_number,
+            );
 
-        DB::table('spot_report_header')->where('spot_report_number', $request->spot_report_number)->update($pos_data);
+            DB::table('spot_report_header')->where('spot_report_number', $request->spot_report_number)->update($pos_data);
 
+            if ($request->hasfile('fileattach')) {
+                foreach ($request->file('fileattach') as $file) {
+                    $filename = $file->getClientOriginalName();
+                    // $filename = pathinfo($fileinfo, PATHINFO_FILENAME);
+                    $filePath = public_path() . '/files/uploads/progress_reports/';
+                    $file->move($filePath, $filename);
 
+                    $file_data = array(
+                        'spot_report_number' => $request->spot_report_number,
+                        'filenames' => $filename,
+                    );
+                    $file_id = DB::table('progress_report_files')->insertGetId($file_data);
 
-        // foreach ($request->file('fileattach') as $file) {
-        //     $filename = $file->getClientOriginalName() . '.' . $request->file('fileattach')->extension();
-        //     $filePath = public_path() . '/files/uploads/progress_reports/';
-        //     $file->move($filePath, $filename);
+                    date_default_timezone_set('Asia/Manila');
+                    $date = Carbon::now();
 
-        //     $file_data = array(
-        //         'spot_report_number' => $request->spot_report_number,
-        //         'filenames' => $filename,
-        //     );
-        //     // DB::table('progress_report_files')->delete();
-        //     DB::table('progress_report_files')->updateOrInsert($file_data);
-        // }
+                    $file_upload = array(
+                        'after_operation_file_id' => $file_id,
+                        'filename' => $filename,
+                        'transaction_type' => 4,
+                        'created_at' => $date,
+                    );
 
+                    DB::table('file_upload_list')->insert($file_upload);
+                }
+            }
+        } elseif (Auth::user()->user_level_id == 3) {
+            if ($request->hasfile('fileattach')) {
+                foreach ($request->file('fileattach') as $file) {
+                    $filename = $file->getClientOriginalName();
+                    // $filename = pathinfo($fileinfo, PATHINFO_FILENAME);
+                    $filePath = public_path() . '/files/uploads/progress_reports/';
+                    $file->move($filePath, $filename);
 
-        if ($request->hasfile('fileattach')) {
-            foreach ($request->file('fileattach') as $file) {
-                $filename = $file->getClientOriginalName();
-                // $filename = pathinfo($fileinfo, PATHINFO_FILENAME);
-                $filePath = public_path() . '/files/uploads/progress_reports/';
-                $file->move($filePath, $filename);
+                    $file_data = array(
+                        'spot_report_number' => $request->spot_report_number,
+                        'filenames' => $filename,
+                    );
+                    $file_id = DB::table('progress_report_files')->insertGetId($file_data);
 
-                $file_data = array(
-                    'spot_report_number' => $request->spot_report_number,
-                    'filenames' => $filename,
-                );
-                DB::table('progress_report_files')->updateOrInsert($file_data);
+                    date_default_timezone_set('Asia/Manila');
+                    $date = Carbon::now();
+
+                    $file_upload = array(
+                        'after_operation_file_id' => $file_id,
+                        'filename' => $filename,
+                        'transaction_type' => 4,
+                        'created_at' => $date,
+                    );
+
+                    DB::table('file_upload_list')->insert($file_upload);
+                }
             }
         }
 

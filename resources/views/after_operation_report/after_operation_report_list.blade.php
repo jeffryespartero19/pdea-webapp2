@@ -92,6 +92,7 @@
                         <th>Operating Unit</th>
                         <th>Operation Type</th>
                         <th>Operation Date</th>
+                        <th>Date Encoded</th>
                         <th>Active</th>
                         <th>Edit</th>
                     </tr>
@@ -103,6 +104,7 @@
                         <td>{{ $preops_header->operating_unit }}</td>
                         <td>{{ $preops_header->operation_type }}</td>
                         <td>{{ $preops_header->operation_datetime }}</td>
+                        <td>{{ $preops_header->aor_date }}</td>
                         <td>{{ $preops_header->status == 1 ? 'Yes' : 'No' }}</td>
                         <td>
                             <center>

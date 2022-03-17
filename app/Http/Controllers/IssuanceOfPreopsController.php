@@ -113,7 +113,19 @@ class IssuanceOfPreopsController extends Controller
                     'preops_number' => $request->preops_number,
                     'filenames' => $filename,
                 );
-                DB::table('issuance_of_preops_files')->updateOrInsert($file_data);
+                $file_id = DB::table('issuance_of_preops_files')->insertGetId($file_data);
+
+                date_default_timezone_set('Asia/Manila');
+                $date = Carbon::now();
+
+                $file_upload = array(
+                    'preops_file_id' => $file_id,
+                    'filename' => $filename,
+                    'transaction_type' => 1,
+                    'created_at' => $date,
+                );
+
+                DB::table('file_upload_list')->insert($file_upload);
             }
         }
 
@@ -223,7 +235,7 @@ class IssuanceOfPreopsController extends Controller
         $issuance_of_preops = DB::table('preops_header')->where('id', $id)->get();
         $region = DB::table('region')->orderby('region_sort', 'asc')->get();
         $province = DB::table('province as a')
-            ->join('regional_office as b', 'a.region_c', '=', 'b.region_c') 
+            ->join('regional_office as b', 'a.region_c', '=', 'b.region_c')
             ->where('b.ro_code', $issuance_of_preops[0]->ro_code)
             ->orderby('province_m', 'asc')
             ->get();
@@ -302,7 +314,19 @@ class IssuanceOfPreopsController extends Controller
                         'preops_number' => $request->preops_number,
                         'filenames' => $filename,
                     );
-                    DB::table('issuance_of_preops_files')->updateOrInsert($file_data);
+                    $file_id = DB::table('issuance_of_preops_files')->insertGetId($file_data);
+
+                    date_default_timezone_set('Asia/Manila');
+                    $date = Carbon::now();
+
+                    $file_upload = array(
+                        'preops_file_id' => $file_id,
+                        'filename' => $filename,
+                        'transaction_type' => 1,
+                        'created_at' => $date,
+                    );
+
+                    DB::table('file_upload_list')->insert($file_upload);
                 }
             }
 
@@ -422,7 +446,19 @@ class IssuanceOfPreopsController extends Controller
                         'preops_number' => $request->preops_number,
                         'filenames' => $filename,
                     );
-                    DB::table('issuance_of_preops_files')->updateOrInsert($file_data);
+                    $file_id = DB::table('issuance_of_preops_files')->insertGetId($file_data);
+
+                    date_default_timezone_set('Asia/Manila');
+                    $date = Carbon::now();
+
+                    $file_upload = array(
+                        'preops_file_id' => $file_id,
+                        'filename' => $filename,
+                        'transaction_type' => 1,
+                        'created_at' => $date,
+                    );
+
+                    DB::table('file_upload_list')->insert($file_upload);
                 }
             }
         }

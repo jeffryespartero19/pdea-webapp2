@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Carbon;
 
 class AfterOperationReportController extends Controller
 {
@@ -27,7 +28,7 @@ class AfterOperationReportController extends Controller
         $data = DB::table('preops_header as a')
             ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
             ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-            ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status')
+            ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.aor_date')
             ->where('a.with_aor', 1)
             ->orderby('preops_number', 'asc')
             ->get();
@@ -67,6 +68,8 @@ class AfterOperationReportController extends Controller
     {
 
         $data = $request->all();
+        date_default_timezone_set('Asia/Manila');
+        $aor_date = Carbon::now();
 
         $form_data = array(
             'received_date' => $request->received_date,
@@ -74,6 +77,7 @@ class AfterOperationReportController extends Controller
             'negative_reason_id' => $request->negative_reason_id,
             'date_reported' => $request->date_reported,
             'with_aor' => 1,
+            'aor_date' => $aor_date,
         );
 
         DB::table('preops_header')->where('preops_number', $request->preops_number)->update($form_data);
@@ -89,7 +93,20 @@ class AfterOperationReportController extends Controller
                     'preops_number' => $request->preops_number,
                     'filenames' => $filename,
                 );
-                DB::table('after_operation_files')->updateOrInsert($file_data);
+
+                $file_id = DB::table('after_operation_files')->insertGetId($file_data);
+
+                date_default_timezone_set('Asia/Manila');
+                $date = Carbon::now();
+
+                $file_upload = array(
+                    'after_operation_file_id' => $file_id,
+                    'filename' => $filename,
+                    'transaction_type' => 2,
+                    'created_at' => $date,
+                );
+
+                DB::table('file_upload_list')->insert($file_upload);
             }
         }
 
@@ -161,57 +178,98 @@ class AfterOperationReportController extends Controller
     {
         $data = $request->all();
 
-        $pos_data = array(
-            'received_date' => $request->received_date,
-            'result' => $request->result,
-            'negative_reason_id' => $request->negative_reason_id,
-            'date_reported' => $request->date_reported,
-            'with_aor' => 1,
-        );
+        if (Auth::user()->user_level_id == 2) {
+            $pos_data = array(
+                'received_date' => $request->received_date,
+                'result' => $request->result,
+                'negative_reason_id' => $request->negative_reason_id,
+                'date_reported' => $request->date_reported,
+                'with_aor' => 1,
+            );
 
-        DB::table('preops_header')->where('preops_number', $request->preops_number)->update($pos_data);
+            DB::table('preops_header')->where('preops_number', $request->preops_number)->update($pos_data);
 
-        if ($request->hasfile('fileattach')) {
-            foreach ($request->file('fileattach') as $file) {
-                $filename = $file->getClientOriginalName();
-                // $filename = pathinfo($fileinfo, PATHINFO_FILENAME);
-                $filePath = public_path() . '/files/uploads/after_operations/';
-                $file->move($filePath, $filename);
+            if ($request->hasfile('fileattach')) {
+                foreach ($request->file('fileattach') as $file) {
+                    $filename = $file->getClientOriginalName();
+                    // $filename = pathinfo($fileinfo, PATHINFO_FILENAME);
+                    $filePath = public_path() . '/files/uploads/after_operations/';
+                    $file->move($filePath, $filename);
 
-                $file_data = array(
-                    'preops_number' => $request->preops_number,
-                    'filenames' => $filename,
-                );
-                DB::table('after_operation_files')->updateOrInsert($file_data);
-            }
-        }
-
-        //Save Item Seized
-        if (isset($data['evidence_id'])) {
-            // dd('test1');
-            DB::table('after_operation_evidence')->whereNotIn('id', array_filter($data['aoe_id']))->delete();
-
-            $aoe_item = [];
-
-            for ($i = 0; $i < count($data['evidence_id']); $i++) {
-                if ($data['evidence_id'][$i] != NULL) {
-
-                    if ($data['aoe_id'][$i] == null || $data['aoe_id'][$i] == 0) {
-                        $id = 0 + DB::table('after_operation_evidence')->max('id');
-                        $id += 1;
-                    } else {
-                        $id = $data['aoe_id'][$i];
-                    }
-
-                    $aoe_item = [
+                    $file_data = array(
                         'preops_number' => $request->preops_number,
-                        'evidence_id' => $data['evidence_id'][$i],
-                        'quantity' => $data['quantity'][$i],
-                        'unit_measurement_id' => $data['unit_measurement_id'][$i],
-                        'chemist_report_number' => $data['chemist_report_number'][$i],
-                    ];
+                        'filenames' => $filename,
+                    );
+                    $file_id = DB::table('after_operation_files')->insertGetId($file_data);
 
-                    DB::table('after_operation_evidence')->updateOrInsert(['id' => $id], $aoe_item);
+                    date_default_timezone_set('Asia/Manila');
+                    $date = Carbon::now();
+
+                    $file_upload = array(
+                        'after_operation_file_id' => $file_id,
+                        'filename' => $filename,
+                        'transaction_type' => 2,
+                        'created_at' => $date,
+                    );
+
+                    DB::table('file_upload_list')->insert($file_upload);
+                }
+            }
+
+            //Save Item Seized
+            if (isset($data['evidence_id'])) {
+                // dd('test1');
+                DB::table('after_operation_evidence')->whereNotIn('id', array_filter($data['aoe_id']))->delete();
+
+                $aoe_item = [];
+
+                for ($i = 0; $i < count($data['evidence_id']); $i++) {
+                    if ($data['evidence_id'][$i] != NULL) {
+
+                        if ($data['aoe_id'][$i] == null || $data['aoe_id'][$i] == 0) {
+                            $id = 0 + DB::table('after_operation_evidence')->max('id');
+                            $id += 1;
+                        } else {
+                            $id = $data['aoe_id'][$i];
+                        }
+
+                        $aoe_item = [
+                            'preops_number' => $request->preops_number,
+                            'evidence_id' => $data['evidence_id'][$i],
+                            'quantity' => $data['quantity'][$i],
+                            'unit_measurement_id' => $data['unit_measurement_id'][$i],
+                            'chemist_report_number' => $data['chemist_report_number'][$i],
+                        ];
+
+                        DB::table('after_operation_evidence')->updateOrInsert(['id' => $id], $aoe_item);
+                    }
+                }
+            }
+        } elseif (Auth::user()->user_level_id == 3) {
+            if ($request->hasfile('fileattach')) {
+                foreach ($request->file('fileattach') as $file) {
+                    $filename = $file->getClientOriginalName();
+                    // $filename = pathinfo($fileinfo, PATHINFO_FILENAME);
+                    $filePath = public_path() . '/files/uploads/after_operations/';
+                    $file->move($filePath, $filename);
+
+                    $file_data = array(
+                        'preops_number' => $request->preops_number,
+                        'filenames' => $filename,
+                    );
+                    $file_id = DB::table('after_operation_files')->insertGetId($file_data);
+
+                    date_default_timezone_set('Asia/Manila');
+                    $date = Carbon::now();
+
+                    $file_upload = array(
+                        'after_operation_file_id' => $file_id,
+                        'filename' => $filename,
+                        'transaction_type' => 2,
+                        'created_at' => $date,
+                    );
+
+                    DB::table('file_upload_list')->insert($file_upload);
                 }
             }
         }

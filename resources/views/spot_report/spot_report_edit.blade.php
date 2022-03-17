@@ -348,6 +348,7 @@
                                                         <tr>
                                                             <th hidden>ID</th>
                                                             <th style="color: gray;">Suspect Number</th>
+                                                            <th style="color: gray;">Suspect Status</th>
                                                             <th style="color: gray;">Last Name</th>
                                                             <th style="color: gray;">First Name</th>
                                                             <th style="color: gray;">Middle Name</th>
@@ -374,7 +375,7 @@
                                                             <th style="color: gray;">Occupation</th>
                                                             <th style="color: gray;">Suspect Classification</th>
                                                             <th style="color: gray;">Suspect Category</th>
-                                                            <th style="color: gray;">Suspect Status</th>
+
                                                             <th style="color: gray;">Remarks</th>
                                                             <th style="color: gray;">Listed</th>
                                                             <th style="color: gray;">Listed By</th>
@@ -386,6 +387,16 @@
                                                         <tr class="suspect_details">
                                                             <td hidden><input type="number" name="spot_suspect_id[]" class="form-control" value="{{ $srs->id }}"></td>
                                                             <td><input required type="text" name="suspect_number[]" style="width: 200px; pointer-events:none; background-color : #e9ecef;" class="form-control" value="{{ $srs->suspect_number }}"></td>
+                                                            <td>
+                                                                <select name="suspect_status_id[]" class="form-control" style="width: 200px;" required>
+                                                                    <option value='' selected>None</option>
+                                                                    @foreach ($suspect_status as $sstat)
+                                                                    <option value="{{ $sstat->id }}" {{ $sstat->id == $srs->suspect_status_id ? 'selected' : '' }}>
+                                                                        {{ $sstat->name }}
+                                                                    </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
                                                             <td><input required type="text" name="lastname[]" style="width: 200px;" class="form-control" value="{{ $srs->lastname }}"></td>
                                                             <td><input required type="text" name="firstname[]" style="width: 200px;" class="form-control" value="{{ $srs->firstname }}"></td>
                                                             <td><input required type="text" name="middlename[]" style="width: 200px;" class="form-control" value="{{ $srs->middlename }}"></td>
@@ -572,16 +583,7 @@
                                                                     @endforeach
                                                                 </select>
                                                             </td>
-                                                            <td>
-                                                                <select name="suspect_status_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
-                                                                    @foreach ($suspect_status as $sstat)
-                                                                    <option value="{{ $sstat->id }}" {{ $sstat->id == $srs->suspect_status_id ? 'selected' : '' }}>
-                                                                        {{ $sstat->name }}
-                                                                    </option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </td>
+
                                                             <td><input type="text" name="remarks[]" style="width: 200px;" class="form-control" value="{{ $srs->remarks }}"></td>
                                                             <td style="text-align: center; padding: 10px"><input name="active" type="checkbox" style="pointer-events: none;" {{ $srs->listed == 1 ? 'checked' : ''}}></td>
                                                             <td><input type="text" style="width: 200px;" class="form-control" value="{{ $srs->uname }} - {{ $srs->ulvl }}" disabled></td>
@@ -593,6 +595,16 @@
                                                             <td hidden><input type="number" name="spot_suspect_id[]" class="form-control"></td>
                                                             <td><input type="text" name="suspect_number[]" style="width: 200px;" class="form-control" value="1" hidden>
                                                                 <div type="text" style="width: 200px;" class="form-control disabled_field">Auto Generated</div>
+                                                            </td>
+                                                            <td>
+                                                                <select name="suspect_status_id[]" class="form-control" style="width: 200px;">
+                                                                    <option value='' selected>None</option>
+                                                                    @foreach ($suspect_status as $sstat)
+                                                                    <option value="{{ $sstat->id }}">
+                                                                        {{ $sstat->name }}
+                                                                    </option>
+                                                                    @endforeach
+                                                                </select>
                                                             </td>
                                                             <td><input type="text" name="lastname[]" style="width: 200px;" class="form-control change_control cc1">
                                                             </td>
@@ -756,16 +768,7 @@
                                                                     @endforeach
                                                                 </select>
                                                             </td>
-                                                            <td>
-                                                                <select name="suspect_status_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
-                                                                    @foreach ($suspect_status as $sstat)
-                                                                    <option value="{{ $sstat->id }}">
-                                                                        {{ $sstat->name }}
-                                                                    </option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </td>
+
                                                             <td><input type="text" name="remarks[]" style="width: 200px;" class="form-control"></td>
                                                             <td style="text-align: center; padding: 10px"><input name="active" type="checkbox" style="pointer-events: none;"></td>
                                                             <td><input type="text" style="width: 200px;" class="form-control" value="" disabled></td>
@@ -1063,7 +1066,12 @@
                                                 <label for="">Report Header</label>
                                             </div>
                                             <div class="input-group mb-3">
-                                                <input id="report_header" name="report_header" type="text" class="form-control @error('report header') is-invalid @enderror" value="{{ $spot_report_header[0]->report_header }}" autocomplete="off">
+                                                <input id="report_header" name="report_header" type="text" class="form-control" value="{{ $spot_report_header[0]->report_header }}" list="suggestions">
+                                                <datalist id="suggestions">
+                                                    @foreach ($report_header as $rh)
+                                                    <option value="{{ $rh->report_header }}"></option>
+                                                    @endforeach
+                                                </datalist>
                                             </div>
                                         </div>
                                         <div class="form-group col-12" style="margin: 0px;">
@@ -1281,19 +1289,14 @@
     var suspect_row = 0;
 
     $(document).ready(function() {
-        if ($('.est_birthdate').hasAttr('checked')) {
-            $(this).next().find('ebday').attr('disabled', true);
-
-        } else {
-            $(this).next().find('ebday').removeAttr('disabled');
-        }
-
         $(document).on("click", ".addSuspect", function() {
             html = '<tr class="suspect_details" id="suspect_row' + suspect_row + '">';
             html +=
                 '<td hidden><input type="number" name="spot_suspect_id[]" class="form-control" value="0"></td>';
             html +=
                 '<td><input required type="text" name="suspect_number[]" style="width: 200px;" class="form-control disabled_field" value="1" hidden><div type="text" style="width: 200px;" class="form-control disabled_field">Auto Generated</div></td>';
+            html +=
+                '<td><select name="suspect_status_id[]" class="form-control" style="width: 200px;"><option value="" selected>None</option>@foreach ($suspect_status as $sstat)<option value="{{ $sstat->id }}">{{ $sstat->name }}</option>@endforeach</select></td>';
             html +=
                 '<td><input required type="text" name="lastname[]" style="width: 200px;" class="form-control"></td>';
             html +=
@@ -1345,9 +1348,7 @@
             html +=
                 '<td><select name="suspect_classification_id[]" class="form-control" style="width: 200px;"><option value="" selected>None</option>@foreach ($suspect_classification as $sclass)<option value="{{ $sclass->id }}">{{ $sclass->name }}</option>@endforeach</select></td>';
             html +=
-                '<td><select name="suspect_category[]" class="form-control" style="width: 200px;"><option value="" selected>None</option>@foreach ($suspect_category as $scat)<option value="{{ $scat->id }}">{{ $scat->name }}</option>@endforeach</select></td>';
-            html +=
-                '<td><select name="suspect_status_id[]" class="form-control" style="width: 200px;"><option value="" selected>None</option>@foreach ($suspect_status as $sstat)<option value="{{ $sstat->id }}">{{ $sstat->name }}</option>@endforeach</select></td>';
+                '<td><select name="suspect_category_id[]" class="form-control" style="width: 200px;"><option value="" selected>None</option>@foreach ($suspect_category as $scat)<option value="{{ $scat->id }}">{{ $scat->name }}</option>@endforeach</select></td>';
             html +=
                 '<td><input type="text" name="remarks[]" style="width: 200px;" class="form-control"></td>';
             html +=
@@ -1404,6 +1405,8 @@
             var middlename = $tds.eq(4).val();
             var alias = $tds.eq(5).val();
             var birthdate = $tds.eq(6).val();
+
+            alert(lastname);
 
             if (lastname == null || lastname == '' && firstname == null || firstname == '' && middlename == null || middlename == '' && alias == null || alias == '' && birthdate == null || birthdate == '') {
 
@@ -1497,16 +1500,16 @@
             success: function(data) {
                 var data = JSON.parse(data);
 
-                $($row.find("td:eq(9) select")).empty();
-                $($row.find("td:eq(10) select")).empty();
                 $($row.find("td:eq(11) select")).empty();
+                $($row.find("td:eq(12) select")).empty();
+                $($row.find("td:eq(13) select")).empty();
                 var option1 = " <option value='' selected>None</option>";
-                $($row.find("td:eq(9) select")).append(option1);
+                $($row.find("td:eq(11) select")).append(option1);
                 var option2 = " <option value='' selected>None</option>";
-                $($row.find("td:eq(10) select")).append(option2);
+                $($row.find("td:eq(12) select")).append(option2);
 
                 var option3 = " <option value='' selected>None</option>";
-                $($row.find("td:eq(11) select")).append(option3);
+                $($row.find("td:eq(13) select")).append(option3);
 
 
                 data.forEach(element => {
@@ -1515,7 +1518,7 @@
                         "'>" +
                         element["province_m"] +
                         "</option>";
-                    $($row.find("td:eq(9) select")).append(option);
+                    $($row.find("td:eq(11) select")).append(option);
                 });
             }
         });
@@ -1535,12 +1538,12 @@
             success: function(data) {
                 var data = JSON.parse(data);
 
-                $($row.find("td:eq(10) select")).empty();
-                $($row.find("td:eq(11) select")).empty();
+                $($row.find("td:eq(12) select")).empty();
+                $($row.find("td:eq(13) select")).empty();
                 var option1 = " <option value='' selected>None</option>";
-                $($row.find("td:eq(10) select")).append(option1);
+                $($row.find("td:eq(12) select")).append(option1);
                 var option3 = " <option value='' selected>None</option>";
-                $($row.find("td:eq(11) select")).append(option3);
+                $($row.find("td:eq(13) select")).append(option3);
 
                 data.forEach(element => {
                     var option = " <option value='" +
@@ -1548,7 +1551,7 @@
                         "'>" +
                         element["city_m"] +
                         "</option>";
-                    $($row.find("td:eq(10) select")).append(option);
+                    $($row.find("td:eq(12) select")).append(option);
                 });
             }
         });
@@ -1568,9 +1571,9 @@
             success: function(data) {
                 var data = JSON.parse(data);
 
-                $($row.find("td:eq(11) select")).empty();
+                $($row.find("td:eq(13) select")).empty();
                 var option1 = " <option value='' selected>None</option>";
-                $($row.find("td:eq(11) select")).append(option1);
+                $($row.find("td:eq(13) select")).append(option1);
 
                 data.forEach(element => {
                     var option = " <option value='" +
@@ -1578,7 +1581,7 @@
                         "'>" +
                         element["barangay_m"] +
                         "</option>";
-                    $($row.find("td:eq(11) select")).append(option);
+                    $($row.find("td:eq(13) select")).append(option);
                 });
             }
         });
@@ -1598,15 +1601,15 @@
             success: function(data) {
                 var data = JSON.parse(data);
 
-                $($row.find("td:eq(14) select")).empty();
-                $($row.find("td:eq(15) select")).empty();
                 $($row.find("td:eq(16) select")).empty();
+                $($row.find("td:eq(17) select")).empty();
+                $($row.find("td:eq(18) select")).empty();
                 var option1 = " <option value='' selected>None</option>";
-                $($row.find("td:eq(14) select")).append(option1);
+                $($row.find("td:eq(16) select")).append(option1);
                 var option2 = " <option value='' selected>None</option>";
-                $($row.find("td:eq(15) select")).append(option2);
+                $($row.find("td:eq(17) select")).append(option2);
                 var option3 = " <option value='' selected>None</option>";
-                $($row.find("td:eq(16) select")).append(option3);
+                $($row.find("td:eq(18) select")).append(option3);
 
                 data.forEach(element => {
                     var option = " <option value='" +
@@ -1614,7 +1617,7 @@
                         "'>" +
                         element["province_m"] +
                         "</option>";
-                    $($row.find("td:eq(14) select")).append(option);
+                    $($row.find("td:eq(16) select")).append(option);
                 });
             }
         });
@@ -1634,12 +1637,12 @@
             success: function(data) {
                 var data = JSON.parse(data);
 
-                $($row.find("td:eq(15) select")).empty();
-                $($row.find("td:eq(16) select")).empty();
+                $($row.find("td:eq(17) select")).empty();
+                $($row.find("td:eq(18) select")).empty();
                 var option1 = " <option value='' selected>None</option>";
-                $($row.find("td:eq(15) select")).append(option1);
+                $($row.find("td:eq(17) select")).append(option1);
                 var option3 = " <option value='' selected>None</option>";
-                $($row.find("td:eq(16) select")).append(option3);
+                $($row.find("td:eq(18) select")).append(option3);
 
                 data.forEach(element => {
                     var option = " <option value='" +
@@ -1647,7 +1650,7 @@
                         "'>" +
                         element["city_m"] +
                         "</option>";
-                    $($row.find("td:eq(15) select")).append(option);
+                    $($row.find("td:eq(17) select")).append(option);
                 });
             }
         });
@@ -1667,9 +1670,9 @@
             success: function(data) {
                 var data = JSON.parse(data);
 
-                $($row.find("td:eq(16) select")).empty();
+                $($row.find("td:eq(18) select")).empty();
                 var option1 = " <option value='' selected>None</option>";
-                $($row.find("td:eq(16) select")).append(option1);
+                $($row.find("td:eq(18) select")).append(option1);
 
                 data.forEach(element => {
                     var option = " <option value='" +
@@ -1677,7 +1680,7 @@
                         "'>" +
                         element["barangay_m"] +
                         "</option>";
-                    $($row.find("td:eq(16) select")).append(option);
+                    $($row.find("td:eq(18) select")).append(option);
                 });
             }
         });

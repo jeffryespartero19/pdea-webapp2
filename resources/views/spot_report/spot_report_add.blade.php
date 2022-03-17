@@ -263,6 +263,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th style="color: gray;">Suspect Number</th>
+                                                            <th style="color: gray;">Suspect Status</th>
                                                             <th style="color: gray;">Last Name</th>
                                                             <th style="color: gray;">First Name</th>
                                                             <th style="color: gray;">Middle Name</th>
@@ -289,7 +290,6 @@
                                                             <th style="color: gray;">Occupation</th>
                                                             <th style="color: gray;">Suspect Classification</th>
                                                             <th style="color: gray;">Suspect Category</th>
-                                                            <th style="color: gray;">Suspect Status</th>
                                                             <th style="color: gray;">Remarks</th>
                                                             <th style="color: gray;">Action</th>
                                                         </tr>
@@ -297,6 +297,17 @@
                                                     <tbody id="suspect_informations">
                                                         <tr class="suspect_details">
                                                             <td><input type="text" name="suspect_number[]" style="width: 200px;" class="form-control cc1 disabled_field" value="Auto Generated"></td>
+                                                            <td>
+                                                                <select name="suspect_status_id[]" class="form-control" style="width: 200px;" required>
+                                                                    <option value='' selected>None
+                                                                    </option>
+                                                                    @foreach ($suspect_status as $sstat)
+                                                                    <option value="{{ $sstat->id }}">
+                                                                        {{ $sstat->name }}
+                                                                    </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
                                                             <td><input type="text" name="lastname[]" style="width: 200px;" class="form-control change_control cc2"></td>
                                                             <td><input type="text" name="firstname[]" style="width: 200px;" class="form-control change_control cc3"></td>
                                                             <td><input type="text" name="middlename[]" style="width: 200px;" class="form-control change_control cc4"></td>
@@ -463,17 +474,6 @@
                                                                     @foreach ($suspect_category as $scat)
                                                                     <option value="{{ $scat->id }}">
                                                                         {{ $scat->name }}
-                                                                    </option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </td>
-                                                            <td>
-                                                                <select name="suspect_status_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None
-                                                                    </option>
-                                                                    @foreach ($suspect_status as $sstat)
-                                                                    <option value="{{ $sstat->id }}">
-                                                                        {{ $sstat->name }}
                                                                     </option>
                                                                     @endforeach
                                                                 </select>
@@ -645,7 +645,12 @@
                                                 <label for="">Report Header</label>
                                             </div>
                                             <div class="input-group mb-3">
-                                                <input id="report_header" name="report_header" type="text" class="form-control @error('report header') is-invalid @enderror" value="{{ old('report_header') }}" autocomplete="off">
+                                                <input id="report_header" name="report_header" type="text" class="form-control @error('report header') is-invalid @enderror" list="suggestions">
+                                                <datalist id="suggestions">
+                                                    @foreach ($report_header as $rh)
+                                                    <option value="{{ $rh->report_header }}"></option>
+                                                    @endforeach
+                                                </datalist>
                                             </div>
                                         </div>
                                         <div class="form-group col-12" style="margin: 0px;">
@@ -868,6 +873,8 @@
             html +=
                 '<td><input type="text" required name="suspect_number[]" style="width: 200px;" class="form-control disabled_field" value="Auto Generated"></td>';
             html +=
+                '<td><select required name="suspect_status_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($suspect_status as $sstat)<option value="{{ $sstat->id }}">{{ $sstat->name }}</option>@endforeach</select></td>';
+            html +=
                 '<td><input type="text" required name="lastname[]" style="width: 200px;" class="form-control"></td>';
             html +=
                 '<td><input type="text" required name="firstname[]" style="width: 200px;" class="form-control"></td>';
@@ -919,9 +926,6 @@
                 '<td><select name="suspect_classification_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($suspect_classification as $sclass)<option value="{{ $sclass->id }}">{{ $sclass->name }}</option>@endforeach</select></td>';
             html +=
                 '<td><select name="suspect_category_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($suspect_category as $scat)<option value="{{ $scat->id }}">{{ $scat->name }}</option>@endforeach</select></td>';
-
-            html +=
-                '<td><select name="suspect_status_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($suspect_status as $sstat)<option value="{{ $sstat->id }}">{{ $sstat->name }}</option>@endforeach</select></td>';
             html +=
                 '<td><input type="text" name="remarks[]" style="width: 200px;" class="form-control"></td>';
             html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#suspect_row' +
@@ -948,7 +952,7 @@
         html += '<td><input style="width: 200px;" type="text" name="quantity[]" class="form-control" ></td>';
         html +=
             '<td><select style="width: 200px;" name="unit_measurement_id[]" class="form-control disabled_field"><option value="" disabled selected>Select Option</option>@foreach ($unit_measurement as $um)<option value="{{ $um->id }}">{{ $um->name }}</option>@endforeach</select></td>';
-        html += '<td><input style="width: 200px;" type="text" name="evidence[]" class="form-control"></td>';
+        html += '<td><select style="width: 200px;" name="packaging_id[]" class="form-control"><option value="" selected>Select Option</option>@foreach ($packaging as $pk)<option value="{{ $pk->id }}"> {{ $pk->name }}</option>@endforeach</td>';
         html += '<td><input style="width: 200px;" type="text" name="markings[]" class="form-control"></td>';
         html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#items-row' + items_row +
             '\').remove();"><i class="fa fa-trash"></i> Delete</button></td>';
