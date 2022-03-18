@@ -165,7 +165,7 @@
                         <div class="input-group mb-3">
                             <?php date_default_timezone_set('Asia/Manila'); ?>
                             @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
-                            <input id="coordinated_datetime" name="coordinated_datetime" type="datetime-local" class="form-control @error('coordinated date and time') is-invalid @enderror" value="" autocomplete="off" required>
+                            <input id="coordinated_datetime" name="coordinated_datetime" type="datetime-local" class="form-control coordinated_datetime" min="{{date("Y-m-d")}}" autocomplete="off" required>
                             @else
                             <input id="coordinated_datetime" name="coordinated_datetime" type="datetime-local" class="form-control CurrDate" value="<?php echo date('Y-m-d\TH:i:s'); ?>" style="pointer-events: none; background-color : #e9ecef;" autocomplete="off" required>
                             @endif
@@ -1022,6 +1022,10 @@
     $(function() {
         $('#issuance_of_preops').addClass('active');
     });
+
+    var today = new Date().toISOString().slice(0, 16);
+
+    $('.coordinated_datetime')[0].min = today;
 </script>
 
 @endsection
