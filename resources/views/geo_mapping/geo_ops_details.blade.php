@@ -101,9 +101,9 @@
                                 @foreach ($ops_details_area as $opd_a)
                                     @if ($opd->preops_number == $opd_a->preops_number)
                                         @if($brgy2!='')
-                                            {{$brgy2}}
+                                            @isset($brgy2){{$brgy2}}@endisset
                                         @else
-                                            {{$city2}}
+                                            @isset($city2){{$city2}}@endisset
                                         @endif
                                     @endif
                                 @endforeach 
