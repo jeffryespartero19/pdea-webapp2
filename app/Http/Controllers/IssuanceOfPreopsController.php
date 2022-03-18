@@ -165,7 +165,7 @@ class IssuanceOfPreopsController extends Controller
                     'province_c' => $data['province_c'][$i],
                     'city_c' => $data['city_c'][$i],
                     'barangay_c' => $data['barangay_c'][$i],
-                    'ops_status' => true,
+                    'ops_status' => false,
                 ];
 
                 DB::table('preops_area')->updateOrInsert(['id' => $id], $ops_area_data);
@@ -373,7 +373,7 @@ class IssuanceOfPreopsController extends Controller
                         'province_c' => $data['province_c'][$i],
                         'city_c' => $data['city_c'][$i],
                         'barangay_c' => $data['barangay_c'][$i],
-                        'ops_status' => true,
+                        'ops_status' => false,
                     ];
 
                     DB::table('preops_area')->updateOrInsert(['id' => $id], $ops_area_data);

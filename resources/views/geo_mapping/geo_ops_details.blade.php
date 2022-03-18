@@ -1,6 +1,11 @@
 @extends('layouts.template')
 
 @section('content')
+<style>
+    .table_body tr td{
+        text-align: center;
+    }
+</style>
 
 <section class="content-header">
     <div class="container-fluid">
@@ -37,20 +42,21 @@
             <table class="table table-dark table-striped">
                 <thead>
                     <tr>
-                        <th>Operation #</th>
-                        <th>Date Launched</th>
-                        <th>Operating Unit</th>
-                        <th>Contact</th>
-                        <th>Region</th>
-                        <th>Province</th>
-                        <th>City-Municipality</th>
-                        <th>Barangay</th>
-                        <th>Status</th>
+                        <th style="text-align: center">Operation #</th>
+                        <th style="text-align: center">Date Launched</th>
+                        <th style="text-align: center">Operating Unit</th>
+                        <th style="text-align: center">Contact</th>
+                        <th style="text-align: center">Region</th>
+                        <th style="text-align: center">Province</th>
+                        <th style="text-align: center">City-Municipality</th>
+                        <th style="text-align: center">Barangay</th>
+                        <th style="text-align: center">UACS Code</th>
+                        <th style="text-align: center">Status</th>
                         <th style="text-align: center">Warning Issuance</th>
                         <th style="text-align: center">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="table_body">
                     @foreach($ops_details as $opd)
                         <tr>
                             <td>{{$opd->preops_number}}</td>
@@ -90,6 +96,17 @@
                                         @isset($brgy[0]){{$brgy[0]}}@endisset
                                     @endif
                                 @endforeach    
+                            </td>
+                            <td>
+                                @foreach ($ops_details_area as $opd_a)
+                                    @if ($opd->preops_number == $opd_a->preops_number)
+                                        @if($brgy2!='')
+                                            {{$brgy2}}
+                                        @else
+                                            {{$city2}}
+                                        @endif
+                                    @endif
+                                @endforeach 
                             </td>
                             <td>{{$opd->status}}</td>
                             <td style="text-align: center">
