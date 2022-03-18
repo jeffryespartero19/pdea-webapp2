@@ -110,7 +110,7 @@
                         <div class="form-group">
                             <label>User Level</label>
                             <select id="user_level_id" name="user_level_id" class="form-control" required autocomplete="none">
-                                <option value='' disabled selected>Select Option</option >
+                                <option value='' disabled selected>Select Option</option>
                                 @foreach($user_level as $ul)
                                 <option value="{{ $ul->id }}">{{ $ul->name }}</option>
                                 @endforeach
@@ -211,10 +211,8 @@
         });
     });
 
-
     $('#modal-lg').on('hidden.bs.modal', function() {
-        $(this).find("input,textarea,select").val('').end();
-
+        $(this).find('form').trigger('reset');
     });
 </script>
 
