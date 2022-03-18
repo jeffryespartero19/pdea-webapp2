@@ -77,6 +77,8 @@ class IssuanceOfPreopsController extends Controller
 
         // dd($request->all());
         $data = $request->all();
+        date_default_timezone_set('Asia/Manila');
+        $date = Carbon::now();
 
         $request->validate([
             'preops_number' => 'required|unique:preops_header',
@@ -98,6 +100,7 @@ class IssuanceOfPreopsController extends Controller
             'prepared_by' => $request->prepared_by,
             'approved_by' => $request->approved_by,
             'status' => true,
+            'created_at' => $date,
         );
 
         $preops_id = DB::table('preops_header')->insertGetId($form_data);
@@ -114,9 +117,6 @@ class IssuanceOfPreopsController extends Controller
                     'filenames' => $filename,
                 );
                 $file_id = DB::table('issuance_of_preops_files')->insertGetId($file_data);
-
-                date_default_timezone_set('Asia/Manila');
-                $date = Carbon::now();
 
                 $file_upload = array(
                     'preops_file_id' => $file_id,
@@ -196,12 +196,6 @@ class IssuanceOfPreopsController extends Controller
         for ($i = 0; $i < count($data['team_name']); $i++) {
             if ($data['team_name'][$i] != NULL) {
 
-                // if ($data['id'][$i] == null || $data['id'][$i] == 0) {
-                //     $id = 0 + DB::table('incomes')->max('id');
-                //     $id += 1;
-                // } else {
-                //     $id = $data['id'][$i];
-                // }
                 $id = 0 + DB::table('preops_team')->max('id');
                 $id += 1;
 
@@ -272,6 +266,9 @@ class IssuanceOfPreopsController extends Controller
         // dd($request->all());
         $data = $request->all();
 
+        date_default_timezone_set('Asia/Manila');
+        $date = Carbon::now();
+
         // $request->validate([
         //     'preops_number' => 'required',
         //     'ro_code' => 'required',
@@ -298,6 +295,7 @@ class IssuanceOfPreopsController extends Controller
                 'approved_by' => $request->approved_by,
                 'status' => true,
                 // 'support_unit_id' => $request->support_unit_id,
+                'updated_at' => $date,
 
             );
 
@@ -316,8 +314,7 @@ class IssuanceOfPreopsController extends Controller
                     );
                     $file_id = DB::table('issuance_of_preops_files')->insertGetId($file_data);
 
-                    date_default_timezone_set('Asia/Manila');
-                    $date = Carbon::now();
+
 
                     $file_upload = array(
                         'preops_file_id' => $file_id,
@@ -448,9 +445,6 @@ class IssuanceOfPreopsController extends Controller
                     );
                     $file_id = DB::table('issuance_of_preops_files')->insertGetId($file_data);
 
-                    date_default_timezone_set('Asia/Manila');
-                    $date = Carbon::now();
-
                     $file_upload = array(
                         'preops_file_id' => $file_id,
                         'filename' => $filename,
@@ -462,8 +456,6 @@ class IssuanceOfPreopsController extends Controller
                 }
             }
         }
-
-
 
         //Save audit trail
         $data_audit = array(
@@ -521,7 +513,7 @@ class IssuanceOfPreopsController extends Controller
         $duration = $operation_datetime->diffInHours($validity);
 
         $tbluserlevel = DB::table('tbluserlevel')->where('id', Auth::user()->user_level_id)->get();
-        
+
         date_default_timezone_set('Asia/Manila');
         $date = Carbon::now();
 

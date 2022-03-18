@@ -290,6 +290,7 @@
                                                             <th style="color: gray;">Occupation</th>
                                                             <th style="color: gray;">Suspect Classification</th>
                                                             <th style="color: gray;">Suspect Category</th>
+                                                            <th style="color: gray;">Whereabouts</th>
                                                             <th style="color: gray;">Remarks</th>
                                                             <th style="color: gray;">Action</th>
                                                         </tr>
@@ -457,7 +458,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="suspect_classification_id[]" class="form-control" style="width: 200px;">
+                                                                <select name="suspect_classification_id[]" class="form-control suspect_classification_id" style="width: 200px;">
                                                                     <option value='' selected>None
                                                                     </option>
                                                                     @foreach ($suspect_classification as $sclass)
@@ -471,13 +472,9 @@
                                                                 <select name="suspect_category_id[]" class="form-control" style="width: 200px;">
                                                                     <option value='' selected>None
                                                                     </option>
-                                                                    @foreach ($suspect_category as $scat)
-                                                                    <option value="{{ $scat->id }}">
-                                                                        {{ $scat->name }}
-                                                                    </option>
-                                                                    @endforeach
                                                                 </select>
                                                             </td>
+                                                            <td><input type="text" name="whereabouts[]" style="width: 200px;" class="form-control"></td>
                                                             <td><input type="text" name="remarks[]" style="width: 200px;" class="form-control"></td>
                                                             <td class="mt-10"><button class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button>
                                                             </td>
@@ -923,9 +920,11 @@
             html +=
                 '<td><select name="occupation_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($occupation as $occ)<option value="{{ $occ->id }}">{{ $occ->name }}</option>@endforeach</select></td>';
             html +=
-                '<td><select name="suspect_classification_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($suspect_classification as $sclass)<option value="{{ $sclass->id }}">{{ $sclass->name }}</option>@endforeach</select></td>';
+                '<td><select name="suspect_classification_id[]" class="form-control suspect_classification_id" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($suspect_classification as $sclass)<option value="{{ $sclass->id }}">{{ $sclass->name }}</option>@endforeach</select></td>';
             html +=
-                '<td><select name="suspect_category_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($suspect_category as $scat)<option value="{{ $scat->id }}">{{ $scat->name }}</option>@endforeach</select></td>';
+                '<td><select name="suspect_category_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
+            html +=
+                '<td><input type="text" name="whereabouts[]" style="width: 200px;" class="form-control"></td>';
             html +=
                 '<td><input type="text" name="remarks[]" style="width: 200px;" class="form-control"></td>';
             html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#suspect_row' +
@@ -1612,6 +1611,37 @@
 
                     data.forEach(element => {
                         $($row.find('td:eq(4) option[value=' + element["id"] + ']')).attr('selected', 'selected');
+                    });
+                }
+            });
+        });
+
+        //Populate Suspect Category
+        $(document).on("change", ".suspect_classification_id", function() {
+            var suspect_classification_id = $(this).val();
+            var $row = $(this).closest(".suspect_details");
+
+            $.ajax({
+                type: "GET",
+                url: "/get_suspect_category/" + suspect_classification_id,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    $($row.find("td:eq(27) select")).empty();
+                    var option1 =
+                        " <option value='' selected>None</option>";
+                    $($row.find("td:eq(27) select")).append(option1);
+
+                    data.forEach(element => {
+                        var option = " <option value='" +
+                            element["id"] +
+                            "'>" +
+                            element["name"] +
+                            "</option>";
+                        $($row.find("td:eq(27) select")).append(option);
                     });
                 }
             });

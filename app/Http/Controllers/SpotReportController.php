@@ -218,6 +218,7 @@ class SpotReportController extends Controller
                         'status' => true,
                         'created_at' => Carbon::now()->format('Y-m-d'),
                         'est_birthdate' => $data['est_birthdate'][$i],
+                        'whereabouts' => $data['whereabouts'][$i],
                     ];
 
                     $suspect_information = [
@@ -250,6 +251,7 @@ class SpotReportController extends Controller
                         'operating_unit_id' => $request->operating_unit_id,
                         'created_at' => Carbon::now()->format('Y-m-d'),
                         'est_birthdate' => $data['est_birthdate'][$i],
+                        'whereabouts' => $data['whereabouts'][$i],
                     ];
 
                     DB::table('spot_report_suspect')->updateOrInsert(['id' => $id], $spot_suspect);
@@ -450,6 +452,7 @@ class SpotReportController extends Controller
                 'e.name as ulvl',
                 'd.name as uname',
                 'a.est_birthdate',
+                'a.whereabouts',
             )
             ->where('b.id', $id)->get();
         $spot_report_evidence = DB::table('spot_report_evidence as a')
@@ -626,6 +629,7 @@ class SpotReportController extends Controller
                             'status' => true,
                             'created_at' => Carbon::now()->format('Y-m-d'),
                             'est_birthdate' => $data['est_birthdate'][$i],
+                            'whereabouts' => $data['whereabouts'][$i],
                         ];
 
                         $suspect_information = [
@@ -658,6 +662,7 @@ class SpotReportController extends Controller
                             'operating_unit_id' => $request->operating_unit_id,
                             'created_at' => Carbon::now()->format('Y-m-d'),
                             'est_birthdate' => $data['est_birthdate'][$i],
+                            'whereabouts' => $data['whereabouts'][$i],
                         ];
 
                         DB::table('spot_report_suspect')->updateOrInsert(['id' => $id], $spot_suspect);
@@ -698,6 +703,7 @@ class SpotReportController extends Controller
                             'status' => true,
                             'updated_at' => Carbon::now()->format('Y-m-d'),
                             'est_birthdate' => $data['est_birthdate'][$i],
+                            'whereabouts' => $data['whereabouts'][$i],
 
                         ];
 
@@ -731,6 +737,7 @@ class SpotReportController extends Controller
                             'operating_unit_id' => $request->operating_unit_id,
                             'updated_at' => Carbon::now()->format('Y-m-d'),
                             'est_birthdate' => $data['est_birthdate'][$i],
+                            'whereabouts' => $data['whereabouts'][$i],
                         ];
 
                         DB::table('spot_report_suspect')->updateOrInsert(['id' => $id], $spot_suspect);

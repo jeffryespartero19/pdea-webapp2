@@ -59,6 +59,7 @@ Route::get('progress_report_edit/{id}', 'ProgressReportController@edit')->name('
 Route::post('progress_report_add', 'ProgressReportController@store');
 Route::post('progress_report_edit/{id}', 'ProgressReportController@update');
 Route::get('progress_report_file_delete/{id}', 'ProgressReportController@fileDelete');
+Route::get('/progress_report/pdf/{id}', 'ProgressReportController@pdf');
 
 
 
@@ -300,6 +301,7 @@ Route::get('/get_evidence_type/{category}', 'GlobalController@getEvidenceType');
 Route::get('/get_unit_measure/{evidence_id}', 'GlobalController@getUnitMeasure');
 Route::get('/get_operation_type/{operation_type_id}', 'GlobalController@get_operation_type');
 Route::get('/get_province_details/{province_c}', 'GlobalController@get_province_details');
+Route::get('/get_suspect_category/{suspect_classification_id}', 'GlobalController@get_suspect_category');
 
 // Suspect Category Setup
 Route::get('suspect_category_list', 'SuspectCategoryController@index')->name('suspect_category_list');

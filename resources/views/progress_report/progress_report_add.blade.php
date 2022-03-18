@@ -186,6 +186,8 @@
                                                             <th style="color: gray;">Remarks</th>
                                                             <th style="color: gray;">Listed</th>
                                                             <th style="color: gray;">Listed By</th>
+                                                            <th style="color: gray;">Drug Test Result</th>
+                                                            <th style="color: gray;">Drug Type</th>
                                                             <!-- <th style="color: gray;">Action</th> -->
                                                         </tr>
                                                     </thead>
@@ -317,9 +319,24 @@
                                                                     @endforeach
                                                                 </select>
                                                             </td>
+                                                            <td>
+                                                                <select name="drug_test_result[]" class="form-control" style="width: 200px;">
+                                                                    <option value='positive' selected>Positive</option>
+                                                                    <option value='negative' selected>Negative</option>
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <select name="drug_type_id[]" class="form-control" style="width: 200px;">
+                                                                    <option value='' selected>Select Option</option>
+                                                                    @foreach($drug_type as $dt)
+                                                                    <option value="{{ $dt->id }}">{{ $dt->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
                                                             <td><input type="text" name="remarks[]" style="width: 300px;" class="form-control"></td>
                                                             <td style="text-align: center; padding: 10px"><input type="checkbox" style="width: 200px;"></td>
                                                             <td><input type="text" style="width: 200px;" class="form-control"></td>
+
                                                             <!-- <td class="mt-10"><button class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button></td> -->
                                                         </tr>
                                                     </tbody>
@@ -817,13 +834,15 @@
                             '<td><input type="text" name="occupation[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["occupation"] + '"></td>' +
                             '<td><input type="text" name="suspect_classification[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["suspect_classification"] + '"></td>' +
                             '<td><input type="text" name="suspect_status[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["suspect_status"] + '"></td>' +
+                            '<td><input type="text" name="drug_test_result[]" style="width: 200px;" class="form-control"></td>' +
+                            '<td><select name="drug_type_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach($drug_type as $dt)<option value="{{ $dt->id }}">{{ $dt->name }}</option>@endforeach</select></td>' +
                             '<td><input type="text" name="remarks[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["remarks"] + '"></td>' +
                             '<td style="text-align: center; padding: 10px"><input class="listed' + element["suspect_number"] + '" type="checkbox" style="pointer-events:none;" {{ 1 == ' + element["listed"] + ' ? "checked" : "" }}></td>' +
                             '<td><input type="text" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["uname"] + ' - ' + element["ulvl"] + '"></td>' +
                             '</tr>';
                         $("#suspect_details").append(details);
 
-                        if(element["listed"] == 1) {
+                        if (element["listed"] == 1) {
                             $(".listed" + element["suspect_number"]).attr('checked', true);
                         }
                     });
@@ -856,7 +875,11 @@
                         '<td><input type="text" name="occupation[]" style="width: 200px;" class="form-control"></td>' +
                         '<td><input type="text" name="suspect_classification[]" style="width: 200px;" class="form-control"></td>' +
                         '<td><input type="text" name="suspect_status[]" style="width: 200px;" class="form-control"></td>' +
+                        '<td><input type="text" name="drug_test_result[]" style="width: 200px;" class="form-control"></td>' +
+                        '<td><input type="text" name="drug_type_id[]" style="width: 200px;" class="form-control"></td>' +
                         '<td><input type="text" name="remarks[]" style="width: 200px;" class="form-control"></td>' +
+                        '<td><input type="text" name="listed[]" style="width: 200px;" class="form-control"></td>' +
+                        '<td><input type="text" name="listed_by[]" style="width: 200px;" class="form-control"></td>' +
                         '</tr>';
                     $("#suspect_details").append(details);
                 }

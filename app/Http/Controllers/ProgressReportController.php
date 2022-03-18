@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Carbon;
+use PDF;
 
 class ProgressReportController extends Controller
 {
@@ -55,9 +56,10 @@ class ProgressReportController extends Controller
         $suspect_status = DB::table('suspect_status')->where('status', true)->orderby('id', 'asc')->get();
         $regional_user = DB::table('users')->where('user_level_id', 3)->get();
         $suspect_classification = DB::table('suspect_classification')->where('status', true)->orderby('id', 'asc')->get();
+        $drug_type = DB::table('drug_type')->where('status', true)->orderby('id', 'asc')->get();
 
 
-        return view('progress_report.progress_report_add', compact('suspect_classification', 'region', 'operating_unit', 'spot_report_header', 'operation_type', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'suspect_status', 'regional_user'));
+        return view('progress_report.progress_report_add', compact('drug_type', 'suspect_classification', 'region', 'operating_unit', 'spot_report_header', 'operation_type', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'suspect_status', 'regional_user'));
     }
 
     public function store(Request $request)
@@ -119,6 +121,25 @@ class ProgressReportController extends Controller
             }
         }
 
+        //Save Suspect Info
+        if (isset($data['suspect_number'])) {
+            // dd('test1');
+            $spot_item = [];
+
+            for ($i = 0; $i < count($data['suspect_number']); $i++) {
+                if ($data['suspect_number'][$i] != NULL && $data['suspect_number'][$i] != 0) {
+
+                    $suspect_number = $data['suspect_number'][$i];
+
+                    $spot_item = [
+                        'drug_test_result' => $data['drug_test_result'][$i],
+                        'drug_type_id' => $data['drug_type_id'][$i],
+                    ];
+
+                    DB::table('spot_report_suspect')->updateOrInsert(['suspect_number' => $suspect_number], $spot_item);
+                }
+            }
+        }
 
         //Save Item Seized
         if (isset($data['spot_report_evidence_id'])) {
@@ -192,6 +213,7 @@ class ProgressReportController extends Controller
         $occupation = DB::table('occupation')->where('status', true)->orderby('name', 'asc')->get();
         $suspect_status = DB::table('suspect_status')->where('status', true)->orderby('id', 'asc')->get();
         $suspect_classification = DB::table('suspect_classification')->where('status', true)->orderby('id', 'asc')->get();
+        $drug_type = DB::table('drug_type')->where('status', true)->orderby('id', 'asc')->get();
         $spot_report_suspect = DB::table('spot_report_suspect as a')
             ->leftjoin('drug_management as r', 'a.id', '=', 'r.suspect_id')
             ->leftjoin('users as s', 's.id', '=', 'r.user_id')
@@ -228,6 +250,8 @@ class ProgressReportController extends Controller
                 't.name as ulvl',
                 's.name as uname',
                 'r.listed',
+                'a.drug_test_result',
+                'a.drug_type_id',
 
             )
             ->get();
@@ -271,11 +295,12 @@ class ProgressReportController extends Controller
         $regional_user = DB::table('users')->where('user_level_id', 3)->get();
 
 
-        return view('progress_report.progress_report_edit', compact('suspect_classification', 'spot_report_suspect', 'spot_report_evidence', 'spot_report_case', 'region', 'province', 'city', 'barangay', 'operating_unit', 'spot_report_header', 'operation_type', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'suspect_status', 'progress_report_files', 'regional_user'));
+        return view('progress_report.progress_report_edit', compact('drug_type', 'suspect_classification', 'spot_report_suspect', 'spot_report_evidence', 'spot_report_case', 'region', 'province', 'city', 'barangay', 'operating_unit', 'spot_report_header', 'operation_type', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'suspect_status', 'progress_report_files', 'regional_user'));
     }
 
     public function update(Request $request, $id)
     {
+        $data = $request->all();
 
         if (Auth::user()->user_level_id == 2) {
             $pos_data = array(
@@ -300,6 +325,67 @@ class ProgressReportController extends Controller
             );
 
             DB::table('spot_report_header')->where('spot_report_number', $request->spot_report_number)->update($pos_data);
+
+            //Save Suspect Info
+            if (isset($data['suspect_number'])) {
+                // dd('test1');
+                $spot_suspect = [];
+
+                for ($i = 0; $i < count($data['suspect_number']); $i++) {
+                    if ($data['suspect_number'][$i] != NULL && $data['suspect_number'][$i] != 0) {
+
+                        $suspect_number = $data['suspect_number'][$i];
+
+                        $spot_suspect = [
+                            'drug_test_result' => $data['drug_test_result'][$i],
+                            'drug_type_id' => $data['drug_type_id'][$i],
+                        ];
+
+                        DB::table('spot_report_suspect')->updateOrInsert(['suspect_number' => $suspect_number], $spot_suspect);
+                    }
+                }
+            }
+
+
+            //Save Item Seized
+            if (isset($data['spot_report_evidence_id'])) {
+                // dd('test1');
+                $spot_item = [];
+
+                for ($i = 0; $i < count($data['spot_report_evidence_id']); $i++) {
+                    if ($data['spot_report_evidence_id'][$i] != NULL) {
+
+                        $id = $data['spot_report_evidence_id'][$i];
+
+                        $spot_item = [
+                            'qty_onsite' => $data['qty_onsite'][$i],
+                            'actual_qty' => $data['actual_qty'][$i],
+                        ];
+
+                        DB::table('spot_report_evidence')->updateOrInsert(['id' => $id], $spot_item);
+                    }
+                }
+            }
+
+
+            //Save Suspect Case
+            if (isset($data['suspect_number_case'])) {
+                $spot_case = [];
+
+                for ($i = 0; $i < count($data['spot_report_case_id']); $i++) {
+                    if ($data['spot_report_case_id'][$i] != NULL && $data['suspect_number_case'][$i] != NULL) {
+
+                        $id = $data['spot_report_case_id'][$i];
+
+                        $spot_case = [
+                            'docket_number' => $data['docket_number'][$i],
+                            'case_status' => $data['c_case_status'][$i],
+                        ];
+
+                        DB::table('spot_report_case')->updateOrInsert(['id' => $id], $spot_case);
+                    }
+                }
+            }
 
             if ($request->hasfile('fileattach')) {
                 foreach ($request->file('fileattach') as $file) {
@@ -356,46 +442,7 @@ class ProgressReportController extends Controller
             }
         }
 
-        $data = $request->all();
-        //Save Item Seized
-        if (isset($data['spot_report_evidence_id'])) {
-            // dd('test1');
-            $spot_item = [];
 
-            for ($i = 0; $i < count($data['spot_report_evidence_id']); $i++) {
-                if ($data['spot_report_evidence_id'][$i] != NULL) {
-
-                    $id = $data['spot_report_evidence_id'][$i];
-
-                    $spot_item = [
-                        'qty_onsite' => $data['qty_onsite'][$i],
-                        'actual_qty' => $data['actual_qty'][$i],
-                    ];
-
-                    DB::table('spot_report_evidence')->updateOrInsert(['id' => $id], $spot_item);
-                }
-            }
-        }
-
-
-        //Save Suspect Case
-        if (isset($data['suspect_number_case'])) {
-            $spot_case = [];
-
-            for ($i = 0; $i < count($data['spot_report_case_id']); $i++) {
-                if ($data['spot_report_case_id'][$i] != NULL && $data['suspect_number_case'][$i] != NULL) {
-
-                    $id = $data['spot_report_case_id'][$i];
-
-                    $spot_case = [
-                        'docket_number' => $data['docket_number'][$i],
-                        'case_status' => $data['c_case_status'][$i],
-                    ];
-
-                    DB::table('spot_report_case')->updateOrInsert(['id' => $id], $spot_case);
-                }
-            }
-        }
 
         //Save audit trail
         $data_audit = array(
@@ -431,5 +478,242 @@ class ProgressReportController extends Controller
         Audit::create($data_audit);
 
         return response()->json(array('success' => true));
+    }
+
+    function get_spot_report($id)
+    {
+        $spot_report = DB::table('spot_report_header')
+            ->where('id', $id)
+            ->get();
+        return $spot_report;
+    }
+
+    function pdf($id)
+    {
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($this->convert_spot_report_to_html($id));
+        return $pdf->stream();
+    }
+
+    // Print PDF Format
+    function convert_spot_report_to_html($id)
+    {
+        $spot_report = $this->get_spot_report($id);
+        $regional_office = DB::table('regional_office as a')
+            ->join('preops_header as b', 'a.ro_code', '=', 'b.ro_code')
+            ->select('a.name', 'a.address', 'a.contact_number')
+            ->where('b.preops_number', $spot_report[0]->preops_number)->get();
+        $region = DB::table('region')->where('region_c', $spot_report[0]->region_c)->get();
+        $province = DB::table('province')->where('province_c', $spot_report[0]->province_c)->get();
+        $city = DB::table('city')->where('city_c', $spot_report[0]->city_c)->get();
+        $barangay = DB::table('barangay')->where('barangay_c', $spot_report[0]->barangay_c)->get();
+        $operating_unit = DB::table('operating_unit')->where('id', $spot_report[0]->operating_unit_id)->get();
+        $operation_type = DB::table('operation_type')->where('id', $spot_report[0]->operation_type_id)->get();
+
+        $suspect = DB::table('spot_report_suspect as a')
+            ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
+            ->select(
+                'a.lastname',
+                'a.firstname',
+                'a.middlename',
+                'a.alias',
+                'a.drug_test_result',
+                'a.whereabouts',
+            )
+            ->where('b.id', $id)->get();
+        $evidence = DB::table('spot_report_evidence as a')
+            ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
+            ->join('evidence as c', 'a.evidence_id', '=', 'c.id')
+            ->join('unit_measurement as d', 'a.unit', '=', 'd.id')
+            ->select('c.name as evidence_type', 'd.name as unit_measurement', 'a.evidence', 'a.quantity')
+            ->where('b.id', $id)->get();
+        $case = DB::table('spot_report_case as a')
+            ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
+            ->join('case_list as c', 'a.case_id', '=', 'c.id')
+            ->join('spot_report_suspect as d', 'a.suspect_number', '=', 'd.suspect_number')
+            ->select('c.description as case', 'd.lastname', 'd.firstname', 'd.middlename')
+            ->where('b.id', $id)->get();
+        $team = DB::table('spot_report_team as a')
+            ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
+            ->where('b.id', $id)->get();
+
+        date_default_timezone_set('Asia/Manila');
+        $date = Carbon::now();
+
+        // Header
+        $output = '<html>
+        <head>
+            <style>
+                /** Define the margins of your page **/
+                @page {
+                    margin: 100px 25px;
+                }
+    
+                header {
+                    position: fixed;
+                    top: -60px;
+                    left: 0px;
+                    right: 0px;
+                    height: 50px;
+    
+                    /** Extra personal styles **/
+                    color: blue;
+                    text-align: center;
+                    line-height: 35px;
+                    font-size: 20px;
+                }
+    
+                footer {
+                    position: fixed; 
+                    bottom: -60px; 
+                    left: 0px; 
+                    right: 0px;
+                    height: 50px; 
+    
+                    /** Extra personal styles **/
+                    color: black;
+                    text-align: center;
+                    line-height: 35px;
+                }
+            </style>
+        </head>
+        <body>
+            <!-- Define header and footer blocks before your content -->
+            <header>
+            CONFIDENTIAL
+            </header>';
+
+
+        $output .= '
+                <br>
+                <img src="./dist/img/pdea_logo.jpg" class="col-3" style="width:100px; height:100px; float:left">
+                <span style="padding-left:20px">Republic of the Philippines</span>
+                <br>
+                <span style="padding-left:20px">Office of the President</span>
+                <hr style="margin-left:120px; margin-top:0px;  margin-bottom:0px">
+                <span style="padding-left:20px; font-weight: bold; font-size:20px; margin-bottom:0px">PHILIPPINE DRUG ENFORCEMENT AGENCY</span>
+                <p style="padding-left:40px; font-size:13px; margin-top:0px; margin-left:80px">' . $regional_office[0]->address . ' | www.pdea.gov.ph | ' . $regional_office[0]->contact_number . '</p>
+                <div style="text-align:center;"><h2>' . $spot_report[0]->spot_report_number . '</h2></div>
+                <div style="border:solid;" align="center"><span style="font-size:20px">PROGRESS REPORT</span></div>
+                <br>
+                <span style="margin-right:39px; margin-left:33px">Date Reported:</span><span>' . Carbon::createFromFormat('Y-m-d', $spot_report[0]->reported_date)->format('F d,Y') . '</span>
+                <br>
+                <span style="margin-right:23px; margin-left:33px;">Reporting Office:</span><span style="font-weight:bold">' . $regional_office[0]->name . '</span>
+                <br>
+                <br>
+                <span style="margin-right:23px; margin-left:33px">Pre-Ops Number:</span><span style="font-weight:bold">' . $spot_report[0]->preops_number . '</span>
+                <span style="margin-right:8px; margin-left:33px">Date/Time of OPN:</span><span style="font-weight:bold">' . Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->operation_datetime)->format('d F Y H:i:s') . '</span>
+                <br>
+                <span style="margin-right:35px; margin-left:33px">Operating Unit:</span><span style="font-weight:bold">' . $operating_unit[0]->name . '</span>
+                <br>
+                <span style="margin-right:14px; margin-left:33px">Type of Operation:</span><span style="font-weight:bold">' . $operation_type[0]->name . '</span>
+                <br>
+                <br>
+                <span style="margin-right:14px; margin-left:33px">Area of Operation:</span>
+                <p style="margin-right:14px; margin-left:33px; margin-top: 5px;"><u>' . $barangay[0]->barangay_m . ', ' . $city[0]->city_m . ', ' . $province[0]->province_m . ', ' . $region[0]->region_m . '</u></p>
+                <span style="margin-right:74px; margin-left:33px">Remarks:</span><span>' . $spot_report[0]->remarks . '</span>
+                <br>';
+
+        $output .= '
+                <br>
+                <table width="100%" style="border-collapse: collapse; border: 0px;">
+                <tr style="border: 1px solid;">
+                    <th style="border: none; padding:0 12px;" align="left">Suspect(s) Arrested</th>
+                    <th style="border: none; padding:0 12px;" align="left"></th>
+                </tr>';
+
+        // Evidence
+        foreach ($suspect as $sp) {
+            $output .= '
+                <tr>
+                    <td colspan="2" style="border: none; padding:0 12px;" align="left"><b>' . $sp->lastname . ',' . $sp->firstname . ' ' . $sp->middlename . ' @' . $sp->alias . '</b></td>
+                </tr>
+                <tr>
+                    <td style="border: none; padding-left:22px;" align="left">Drug Test Result: <b>' . $sp->drug_test_result . '</b></td>
+                </tr>
+                <tr>
+                    <td style="border: none; padding-left:22px;" align="left">Whereabouts: <b>' . $sp->whereabouts . '</b></td>
+                </tr>';
+        }
+        $output .= '</table>';
+
+        $output .= '
+                <br>
+                <table width="100%" style="border-collapse: collapse; border: 0px;">
+                <tr style="border: 1px solid;">
+                    <th style="border: none; padding:0 12px;" width="25%" align="left">Qty</th>
+                    <th style="border: none; padding:0 12px;" width="25%" align="left">Evidence</th>
+                    <th style="border: none; padding:0 12px;" width="50%" align="left">Packaging</th>
+                </tr>';
+
+        // Evidence
+        foreach ($evidence as $ar) {
+            $output .= '
+                <tr>
+                    <td style="border: none; padding:0 12px;" width="25%" align="right">' . $ar->quantity . ' ' . $ar->unit_measurement . '</td>
+                    <td style="border: none; padding:0 12px;" width="25%">' . $ar->evidence_type . ' - ' . $ar->evidence . '</td>
+                    <td style="border: none; padding:0 12px;" width="50%">Sample</td>
+                </tr>';
+        }
+        $output .= '</table>';
+
+        $output .= '
+                <br>
+                <table width="100%" style="border-collapse: collapse; border: 0px;">
+                    <tr style="border: 1px solid;">
+                        <th style="border: none; padding:0 12px;" width="50%" align="left">Case(s) Filed</th>
+                        <th style="border: none; padding:0 12px;" width="50%" align="left">Name of Suspect</th>
+                    </tr>';
+
+        // Case
+        foreach ($case as $cs) {
+            $output .= '
+                    <tr>
+                        <td style="border: none; padding:0 12px;" width="50%">' . $cs->case . '</td>
+                        <td style="border: none; padding:0 12px;" width="50%">' . $cs->lastname . ', ' . $cs->firstname . ' ' . $cs->middlename . '</td>
+                    </tr>';
+        }
+        $output .= '</table>';
+
+        $output .= '
+                <br>
+                <table width="100%" style="border-collapse: collapse; border: 0px;">
+                    <tr style="border: 1px solid;">
+                        <th style="border: none; padding:0 12px;" width="50%" align="left">Operating Team</th>
+                    </tr>';
+
+        // Team
+        foreach ($team as $tm) {
+            $output .= '
+                    <tr>
+                        <td style="border: none; padding:0 12px;" width="50%">' . $tm->officer_name . '<span style="margin-left:50px">-' . $tm->officer_position . '</span></td>
+                    </tr>';
+        }
+        $output .= '</table>';
+
+        $output .= '
+                <br>
+                <table width="100%" style="border-collapse: collapse; border: 0px;">
+                    <tr style="border: 1px solid;">
+                        <th style="border: none; padding:0 12px;" width="50%" align="left">Summary</th>
+                    </tr>
+                </table>
+                <span style="margin-right:23px; margin-left:13px;">' . $spot_report[0]->summary . '</span>
+                <h4 align="center">*** end of report ***</h4>';
+
+        $output .= '
+                <footer>
+                    ' . $date . ' | ' . Auth::user()->name . '
+                </footer>
+            </body>
+            </html>';
+
+
+
+
+
+
+
+        return $output;
     }
 }

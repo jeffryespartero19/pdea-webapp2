@@ -54,6 +54,20 @@
                         <input id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Suspect Category Name" autocomplete="off">
                     </div>
                 </div>
+                <div class="form-group">
+                    <div>
+                        <label for="">Suspect Classification</label>
+                    </div>
+                    <div class="input-group mb-3">
+                        <select name="suspect_classification_id" class="form-control" style="width: 200px;">
+                            @foreach ($suspect_classification as $sclass)
+                            <option value="{{ $sclass->id }}">
+                                {{ $sclass->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
                 <div class="custom-control custom-checkbox mb-2">
                     <input name="status" class="custom-control-input" type="checkbox" id="customCheckbox9">
                     <label for="customCheckbox9" class="custom-control-label">Set as Active</label>

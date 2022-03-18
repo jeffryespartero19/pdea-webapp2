@@ -11,6 +11,6 @@ class SuspectCategory extends Model
     protected $table = 'suspect_category';
 
     protected $fillable = [
-        'name', 'status'
+        'name', 'status', 'suspect_classification_id'
     ];
 }

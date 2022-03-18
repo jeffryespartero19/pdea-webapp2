@@ -375,7 +375,7 @@
                                                             <th style="color: gray;">Occupation</th>
                                                             <th style="color: gray;">Suspect Classification</th>
                                                             <th style="color: gray;">Suspect Category</th>
-
+                                                            <th style="color: gray;">Whereabouts</th>
                                                             <th style="color: gray;">Remarks</th>
                                                             <th style="color: gray;">Listed</th>
                                                             <th style="color: gray;">Listed By</th>
@@ -564,7 +564,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="suspect_classification_id[]" class="form-control" style="width: 200px;">
+                                                                <select name="suspect_classification_id[]" class="form-control suspect_classification_id" style="width: 200px;">
                                                                     <option value='' selected>None</option>
                                                                     @foreach ($suspect_classification as $sclass)
                                                                     <option value="{{ $sclass->id }}" {{ $sclass->id == $srs->suspect_classification_id ? 'selected' : '' }}>
@@ -583,7 +583,7 @@
                                                                     @endforeach
                                                                 </select>
                                                             </td>
-
+                                                            <td><input type="text" name="whereabouts[]" style="width: 200px;" class="form-control" value="{{ $srs->whereabouts }}"></td>
                                                             <td><input type="text" name="remarks[]" style="width: 200px;" class="form-control" value="{{ $srs->remarks }}"></td>
                                                             <td style="text-align: center; padding: 10px"><input name="active" type="checkbox" style="pointer-events: none;" {{ $srs->listed == 1 ? 'checked' : ''}}></td>
                                                             <td><input type="text" style="width: 200px;" class="form-control" value="{{ $srs->uname }} - {{ $srs->ulvl }}" disabled></td>
@@ -749,7 +749,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="suspect_classification_id[]" class="form-control" style="width: 200px;">
+                                                                <select name="suspect_classification_id[]" class="form-control suspect_classification_id" style="width: 200px;">
                                                                     <option value='' selected>None</option>
                                                                     @foreach ($suspect_classification as $sclass)
                                                                     <option value="{{ $sclass->id }}">
@@ -761,14 +761,9 @@
                                                             <td>
                                                                 <select name="suspect_category_id[]" class="form-control" style="width: 200px;">
                                                                     <option value='' selected>None</option>
-                                                                    @foreach ($suspect_category as $scat)
-                                                                    <option value="{{ $scat->id }}">
-                                                                        {{ $scat->name }}
-                                                                    </option>
-                                                                    @endforeach
                                                                 </select>
                                                             </td>
-
+                                                            <td><input type="text" name="whereabouts[]" style="width: 200px;" class="form-control"></td>
                                                             <td><input type="text" name="remarks[]" style="width: 200px;" class="form-control"></td>
                                                             <td style="text-align: center; padding: 10px"><input name="active" type="checkbox" style="pointer-events: none;"></td>
                                                             <td><input type="text" style="width: 200px;" class="form-control" value="" disabled></td>
@@ -1346,9 +1341,11 @@
             html +=
                 '<td><select name="occupation_id[]" class="form-control" style="width: 200px;"><option value="" selected>None</option>@foreach ($occupation as $occ)<option value="{{ $occ->id }}">{{ $occ->name }}</option>@endforeach</select></td>';
             html +=
-                '<td><select name="suspect_classification_id[]" class="form-control" style="width: 200px;"><option value="" selected>None</option>@foreach ($suspect_classification as $sclass)<option value="{{ $sclass->id }}">{{ $sclass->name }}</option>@endforeach</select></td>';
+                '<td><select name="suspect_classification_id[]" class="form-control suspect_classification_id" style="width: 200px;"><option value="" selected>None</option>@foreach ($suspect_classification as $sclass)<option value="{{ $sclass->id }}">{{ $sclass->name }}</option>@endforeach</select></td>';
             html +=
-                '<td><select name="suspect_category_id[]" class="form-control" style="width: 200px;"><option value="" selected>None</option>@foreach ($suspect_category as $scat)<option value="{{ $scat->id }}">{{ $scat->name }}</option>@endforeach</select></td>';
+                '<td><select name="suspect_category_id[]" class="form-control" style="width: 200px;"><option value="" selected>None</option></select></td>';
+            html +=
+                '<td><input type="text" name="whereabouts[]" style="width: 200px;" class="form-control"></td>';
             html +=
                 '<td><input type="text" name="remarks[]" style="width: 200px;" class="form-control"></td>';
             html +=
@@ -1877,6 +1874,37 @@
 
                 data.forEach(element => {
                     $($row.find('td:eq(5) option[value=' + element["id"] + ']')).attr('selected', 'selected');
+                });
+            }
+        });
+    });
+
+    //Populate Suspect Category
+    $(document).on("change", ".suspect_classification_id", function() {
+        var suspect_classification_id = $(this).val();
+        var $row = $(this).closest(".suspect_details");
+
+        $.ajax({
+            type: "GET",
+            url: "/get_suspect_category/" + suspect_classification_id,
+            fail: function() {
+                alert("request failed");
+            },
+            success: function(data) {
+                var data = JSON.parse(data);
+
+                $($row.find("td:eq(28) select")).empty();
+                var option1 =
+                    " <option value='' selected>None</option>";
+                $($row.find("td:eq(28) select")).append(option1);
+
+                data.forEach(element => {
+                    var option = " <option value='" +
+                        element["id"] +
+                        "'>" +
+                        element["name"] +
+                        "</option>";
+                    $($row.find("td:eq(28) select")).append(option);
                 });
             }
         });

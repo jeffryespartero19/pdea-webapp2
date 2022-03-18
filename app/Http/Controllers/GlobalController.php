@@ -379,4 +379,13 @@ class GlobalController extends Controller
 
         return json_encode($data);
     }
+
+    public function get_suspect_category($suspect_classification_id)
+    {
+        $data = DB::table('suspect_category')
+            ->where(['suspect_classification_id' => $suspect_classification_id])
+            ->get();
+
+        return json_encode($data);
+    }
 }

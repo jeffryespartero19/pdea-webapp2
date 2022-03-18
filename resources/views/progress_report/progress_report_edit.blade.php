@@ -47,6 +47,9 @@
             <form action="/progress_report_edit/{{ $spot_report_header[0]->id }}" role="form" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
+                    <div class="col-12">
+                        <a href="{{ url('progress_report/pdf/'.$spot_report_header[0]->id) }}" class="btn btn-warning" style="float: right;">Print Report</a>
+                    </div>
                     <div class="form-group col-4" style="margin: 0px;">
                         <div>
                             <label for="">Spot Report No.</label>
@@ -178,9 +181,12 @@
                                                             <th style="color: gray;">Occupation</th>
                                                             <th style="color: gray;">Suspect Classification</th>
                                                             <th style="color: gray;">Suspect Status</th>
+                                                            <th style="color: gray;">Drug Test Result</th>
+                                                            <th style="color: gray;">Drug Type</th>
                                                             <th style="color: gray;">Remarks</th>
                                                             <th style="color: gray;">Listed</th>
                                                             <th style="color: gray;">Listed By</th>
+
                                                             <!-- <th style="color: gray;">Action</th> -->
                                                         </tr>
                                                     </thead>
@@ -331,9 +337,24 @@
                                                                     @endforeach
                                                                 </select>
                                                             </td>
+                                                            <td>
+                                                                <select name="drug_test_result[]" class="form-control" style="width: 200px;">
+                                                                    <option value='positive' {{ 'positive' == $srs->drug_test_result ? 'selected' : '' }}>Positive</option>
+                                                                    <option value='negative' {{ 'negative' == $srs->drug_test_result ? 'selected' : '' }}>Negative</option>
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <select name="drug_type_id[]" class="form-control" style="width: 200px;">
+                                                                    <option value='' selected>Select Option</option>
+                                                                    @foreach($drug_type as $dt)
+                                                                    <option value="{{ $dt->id }}" {{ $dt->id == $srs->drug_type_id ? 'selected' : '' }}>{{ $dt->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
                                                             <td><input type="text" name="remarks[]" style="width: 200px; pointer-events:none; background-color : #e9ecef; " class="form-control" value="{{ $srs->remarks }}"></td>
                                                             <td style="text-align: center; padding: 10px"><input name="active" type="checkbox" style="pointer-events: none;" {{ $srs->listed == 1 ? 'checked' : ''}}></td>
                                                             <td><input type="text" style="width: 200px;" class="form-control" value="{{ $srs->uname }} - {{ $srs->ulvl }}" disabled></td>
+
                                                             <!-- <td class="mt-10"><button class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button></td> -->
                                                         </tr>
                                                         @endforeach
@@ -583,7 +604,7 @@
                             <select name="prepared_by" class="form-control" required>
                                 <option value='' selected>Select Option</option>
                                 @foreach($regional_user as $reg_u)
-                                <option value="{{ $reg_u->name }}">{{ $reg_u->name }}</option>
+                                <option value="{{ $reg_u->name }}"  {{ $reg_u->name == $spot_report_header[0]->prepared_by ? 'selected' : '' }}>{{ $reg_u->name }}</option>
                                 @endforeach
                             </select>
                             @else
