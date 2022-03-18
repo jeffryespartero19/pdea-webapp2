@@ -390,6 +390,8 @@ class GeoMappingController extends Controller
         $data = $request->all();
         $user_area=Auth::user()->region_c;
         $datetime_now=Carbon::now();
+        $city2='';
+        $brgy2='';
 
         if($data['area_ID']>137400){
             $the_province=DB::table('city')->where('city_c',$data['area_ID'])->pluck('province_c');
