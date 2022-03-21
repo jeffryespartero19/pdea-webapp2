@@ -36,7 +36,7 @@
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <h5><i class="icon fas fa-check"></i> Success!</h5>
         {{ session()->get('success') }}
-        <input id="print_id" type="number" hidden value="{{$preops_id}}">
+        <input hidden id="print_id" type="text"  value="{{session('preops_id_c')}}">
     </div>
     @endif
     <!-- Default box -->
@@ -987,10 +987,6 @@
 
             }
         });
-
-
-
-
     });
 
 

@@ -103,7 +103,9 @@ class IssuanceOfPreopsController extends Controller
             'created_at' => $date,
         );
 
-        $preops_id = DB::table('preops_header')->insertGetId($form_data);
+        DB::table('preops_header')->insert($form_data);
+
+        $preops_id_c =  DB::table('preops_header')->where('preops_number', $request->preops_number)->select('id')->get();
 
         if ($request->hasfile('fileattach')) {
             foreach ($request->file('fileattach') as $file) {
@@ -221,7 +223,10 @@ class IssuanceOfPreopsController extends Controller
 
         Audit::create($data_audit);
 
-        return back()->with('success', 'You have successfully added new suspect information!', compact('preops_id'));
+        $preops_id_c = $preops_id_c[0]->id;
+
+
+        return back()->with('success', 'You have successfully added new suspect information!')->with('preops_id_c', $preops_id_c);
     }
 
     public function edit($id)
@@ -471,13 +476,13 @@ class IssuanceOfPreopsController extends Controller
         return back()->with('success', 'You have successfully updated issuance of preops!');
     }
 
-    function get_preops_data($id)
-    {
-        $preops_data = DB::table('preops_header')
-            ->where('id', $id)
-            ->get();
-        return $preops_data;
-    }
+    // function get_preops_data($id)
+    // {
+    //     $preops_data = DB::table('preops_header')
+    //         ->where('id', $id)
+    //         ->get();
+    //     return $preops_data;
+    // }
 
     function pdf($id)
     {
@@ -488,7 +493,10 @@ class IssuanceOfPreopsController extends Controller
 
     function convert_preops_data_to_html($id)
     {
-        $preops_data = $this->get_preops_data($id);
+        $preops_data = DB::table('preops_header')
+            ->where('id', $id)
+            ->get();
+            
         $regional_office = DB::table('regional_office')->where('ro_code', $preops_data[0]->ro_code)->get();
         $operating_unit = DB::table('operating_unit')->where('id', $preops_data[0]->operating_unit_id)->get();
         $support_unit = DB::table('support_unit')->where('status', true)->get();
@@ -625,6 +633,8 @@ class IssuanceOfPreopsController extends Controller
 
     public function get_preops_header_count($ro_code, $province_c)
     {
+        date_default_timezone_set('Asia/Manila');
+
         $preops_id = 0 + DB::table('preops_header')
             ->where('ro_code', $ro_code)
             ->where('province_c', $province_c)
