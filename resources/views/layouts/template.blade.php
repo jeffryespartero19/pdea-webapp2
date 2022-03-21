@@ -232,6 +232,7 @@
                                 </p>
                             </a>
                         </li>
+                   
                         <li id="cpm" class="nav-item" {{ Auth::user()->with_settings_access ? '' : 'hidden' }}>
                             <a href="#" class="nav-link" id="cpm_link">
                                 <i class="nav-icon fas fa-tools"></i>

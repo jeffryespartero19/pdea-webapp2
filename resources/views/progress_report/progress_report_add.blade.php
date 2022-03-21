@@ -35,6 +35,7 @@
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <h5><i class="icon fas fa-check"></i> Success!</h5>
+        <input hidden id="print_id" type="number" value="{{session('pr_id')}}">
         {{ session()->get('success') }}
     </div>
     @endif
@@ -183,11 +184,11 @@
                                                             <th style="color: gray;">Occupation</th>
                                                             <th style="color: gray;">Suspect Classification</th>
                                                             <th style="color: gray;">Suspect Status</th>
+                                                            <th style="color: gray;">Drug Test Result</th>
+                                                            <th style="color: gray;">Drug Type</th>
                                                             <th style="color: gray;">Remarks</th>
                                                             <th style="color: gray;">Listed</th>
                                                             <th style="color: gray;">Listed By</th>
-                                                            <th style="color: gray;">Drug Test Result</th>
-                                                            <th style="color: gray;">Drug Type</th>
                                                             <!-- <th style="color: gray;">Action</th> -->
                                                         </tr>
                                                     </thead>
@@ -333,6 +334,7 @@
                                                                     @endforeach
                                                                 </select>
                                                             </td>
+
                                                             <td><input type="text" name="remarks[]" style="width: 300px;" class="form-control"></td>
                                                             <td style="text-align: center; padding: 10px"><input type="checkbox" style="width: 200px;"></td>
                                                             <td><input type="text" style="width: 200px;" class="form-control"></td>
@@ -358,11 +360,17 @@
                                                             <th style="color: gray;">Qty. Onsite</th>
                                                             <th style="color: gray;">Actual Qty.</th>
                                                             <th style="color: gray;">Unit Measurement</th>
+                                                            <th style="color: gray;">Drug Test Result</th>
+                                                            <th style="color: gray;">Chemistry Report Number</th>
+                                                            <th style="color: gray;">Laboratory Facility</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody id="evidence_details">
                                                         <tr>
                                                             <td hidden><input type="text" class="form-control"></td>
+                                                            <td><input type="text" class="form-control"></td>
+                                                            <td><input type="text" class="form-control"></td>
+                                                            <td><input type="text" class="form-control"></td>
                                                             <td><input type="text" class="form-control"></td>
                                                             <td><input type="text" class="form-control"></td>
                                                             <td><input type="text" class="form-control"></td>
@@ -601,49 +609,21 @@
 @section('scripts')
 
 <script>
+    $(document).ready(function() {
+        //Print Report on Load
+        var print_id = $('#print_id').val();
+        if (print_id > 0) {
+
+            var url = "progress_report/pdf/" + print_id;
+            window.open(url, "_blank");
+        }
+    });
+</script>
+
+<script>
     $(".present_region_c").on("change", function() {
 
         var region_c = $(this).val();
-
-        alert(region_c);
-
-        // var $row = $(this).closest(".deptDetails");
-        // var did = parseInt($row.find("td:eq(0)").text());
-        // var dname = $.trim($row.find("td:eq(1)").text());
-        // var ddesc = $.trim($row.find("td:eq(2)").text());
-        // var dactive = $row.find("td:eq(3) input").val();
-
-        // $("#dept_id").val(did);
-        // $("#department_name").val(dname);
-        // $("#dept_desc").val(ddesc);
-        // if (dactive == 1) {
-        //     $("#dept_active").prop("checked", true);
-        // } else {
-        //     $("#dept_active").prop("checked", false);
-        // }
-
-        // $.ajax({
-        //     type: "GET",
-        //     url: "/get_province/" + region_c,
-        //     fail: function() {
-        //         alert("request failed");
-        //     },
-        //     success: function(data) {
-        //         var data = JSON.parse(data);
-
-        //         $("#province_c").empty();
-        //         $("#city_c").empty();
-
-        //         data.forEach(element => {
-        //             var option = " <option value='" +
-        //                 element["province_c"] +
-        //                 "'>" +
-        //                 element["province_m"] +
-        //                 "</option>";
-        //             $("#province_c").append(option);
-        //         });
-        //     }
-        // });
     });
 
     $("#province_c").on("change", function() {
@@ -834,8 +814,8 @@
                             '<td><input type="text" name="occupation[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["occupation"] + '"></td>' +
                             '<td><input type="text" name="suspect_classification[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["suspect_classification"] + '"></td>' +
                             '<td><input type="text" name="suspect_status[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["suspect_status"] + '"></td>' +
-                            '<td><input type="text" name="drug_test_result[]" style="width: 200px;" class="form-control"></td>' +
-                            '<td><select name="drug_type_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach($drug_type as $dt)<option value="{{ $dt->id }}">{{ $dt->name }}</option>@endforeach</select></td>' +
+                            '<td><select name="drug_test_result[]" class="form-control" style="width: 200px;"><option value="negative">Negative</option><option value="positive">Positive</option></select></td></td>' +
+                            '<td><select name="drug_type_id[]" class="form-control" style="width: 200px;"><option value="0" selected>None</option>@foreach($drug_type as $dt)<option value="{{ $dt->id }}">{{ $dt->name }}</option>@endforeach</select></td>' +
                             '<td><input type="text" name="remarks[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["remarks"] + '"></td>' +
                             '<td style="text-align: center; padding: 10px"><input class="listed' + element["suspect_number"] + '" type="checkbox" style="pointer-events:none;" {{ 1 == ' + element["listed"] + ' ? "checked" : "" }}></td>' +
                             '<td><input type="text" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["uname"] + ' - ' + element["ulvl"] + '"></td>' +
@@ -902,25 +882,31 @@
                 if (data.length > 0) {
                     data.forEach(element => {
                         var details =
-                            '<tr>' +
+                            '<tr class="dtd">' +
                             '<td hidden><input type="text" name="spot_report_evidence_id[]" style="pointer-events: none; background-color : #e9ecef; width: 00px;" class="form-control" value="' + element["spot_report_evidence_id"] + '"></td>' +
                             '<td><input type="text" style="pointer-events: none; background-color : #e9ecef; width: 300px;" class="form-control" value="' + element["lastname"] + ', ' + element["firstname"] + ' ' + element["middlename"] + '-- Alias: ' + element["alias"] + '"></td>' +
                             '<td><input type="text" name="evidence" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["evidence"] + '"></td>' +
                             '<td><input type="number" name="qty_onsite[]" style="width: 200px;" class="form-control" step="0.0001" value="0.0000" placeholder="0.0000"></td>' +
                             '<td><input type="number" name="actual_qty[]" style="width: 200px;" class="form-control" step="0.0001" value="0.0000" placeholder="0.0000"></td>' +
                             '<td><input type="text" name="unit_measurement[]" style="width: 200px;" class="form-control disabled_field" value="' + element["unit_measurement"] + '"></td>' +
+                            '<td><select name="e_drug_test_result[]" class="form-control e_drug_test_result" style="width: 200px;"><option value="positive">Positive</option><option value="negative">Negative</option></select></td>' +
+                            '<td><input type="text" name="chemist_report_number[]" style="width: 200px;" class="form-control"></td>' +
+                            '<td><select name="laboratory_facility_id[]" class="form-control" style="width: 200px;"><option value="0" selected>None</option>@foreach($laboratory_facility as $lb)<option value="{{ $lb->id }}">{{ $lb->name }}</option>@endforeach</select></td>' +
                             '</tr>';
                         $("#evidence_details").append(details);
                     });
                 } else {
                     var details =
-                        '<tr>' +
+                        '<tr class="dtd">' +
                         '<td hidden><input type="text" name="spot_report_evidence_id[]" style="pointer-events: none; background-color : #e9ecef; width: 00px;" class="form-control" value=""></td>' +
                         '<td><input type="text" style="pointer-events: none; background-color : #e9ecef; width: 300px;" class="form-control" value=""></td>' +
                         '<td><input type="text" name="evidence" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"></td>' +
                         '<td><input type="number" name="qty_onsite[]" style="pointer-events: none; background-color : #e9ecef;width: 200px;" class="form-control" step="0.01" value="0.0000" placeholder="0.0000"></td>' +
                         '<td><input type="number" name="actual_qty[]" style="pointer-events: none; background-color : #e9ecef;width: 200px;" class="form-control" step="0.01" value="0.0000" placeholder="0.0000"></td>' +
                         '<td><input type="text" name="unit_measurement[]" style="pointer-events: none; background-color : #e9ecef;width: 200px;" class="form-control" value=""></td>' +
+                        '<td><select name="e_drug_test_result[]" class="form-control e_drug_test_result" style="width: 200px;"><option value="positive">Positive</option><option value="negative">Negative</option></select></td>' +
+                        '<td><input type="text" name="chemist_report_number[]" style="width: 200px;" class="form-control"></td>' +
+                        '<td><select name="laboratory_facility_id[]" class="form-control" style="width: 200px;"><option value="0" selected>None</option>@foreach($laboratory_facility as $lb)<option value="{{ $lb->id }}">{{ $lb->name }}</option>@endforeach</select></td>' +
                         '</tr>';
                     $("#evidence_details").append(details);
                 }
@@ -990,7 +976,24 @@
         }
 
     });
+
+    //Disable-Enable Chemistry Report Number
+    $(document).on("change", ".e_drug_test_result", function() {
+        var e_drug_test_result = $(this).val();
+        var $row = $(this).closest(".dtd");
+
+        if (e_drug_test_result == 'negative') {
+            $($row.find("td:eq(7) input")).val('');
+            $($row.find("td:eq(7) input")).addClass('disabled_field');
+        } else {
+            $($row.find("td:eq(7) input")).removeClass('disabled_field');
+        }
+
+
+    });
 </script>
+
+
 
 <script>
     $(function() {

@@ -130,7 +130,7 @@ class SpotReportController extends Controller
             'reference_number' => $request->reference_number,
         );
 
-        DB::table('spot_report_header')->insert($form_data);
+        $sr_id = DB::table('spot_report_header')->insertGetId($form_data);
 
         $data2 = array(
             'with_sr' => 1,
@@ -405,7 +405,7 @@ class SpotReportController extends Controller
 
         Audit::create($data_audit);
 
-        return back()->with('success', 'You have successfully added new spot report!');
+        return back()->with('success', 'You have successfully added new spot report!')->with('sr_id', $sr_id);
     }
 
     public function edit($id)
@@ -928,12 +928,12 @@ class SpotReportController extends Controller
             'module'  => 'Control Panel',
             'menu'    => 'Sudpect Classification Setup',
             'activity' => 'Update',
-            'description' => 'Updated ' . $request->name . ' on issuance of preops setup.',
+            'description' => 'Updated ' . $request->name . ' on spot report setup.',
         );
 
         Audit::create($data_audit);
 
-        return back()->with('success', 'You have successfully updated issuance of preops!');
+        return back()->with('success', 'You have successfully updated spot report!');
     }
 
     public function get_spot_report_item_seized($spot_report_number)

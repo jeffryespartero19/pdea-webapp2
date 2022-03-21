@@ -36,6 +36,7 @@
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <h5><i class="icon fas fa-check"></i> Success!</h5>
         {{ session()->get('success') }}
+        <input hidden id="print_id" type="text"  value="{{session('preops_id_c')}}">
     </div>
     @endif
     <!-- Default box -->
@@ -543,6 +544,15 @@
         // Remove Not Selected Fields upon Load
         $('.region_c').find('option').not(':selected').remove();
 
+
+        //Print Report on Load
+        var print_id = $('#print_id').val();
+        if (print_id > 0) {
+
+            var url = "issuance_report/pdf/" + print_id;
+            window.open(url, "_blank");
+        }
+
     });
 
 
@@ -977,10 +987,6 @@
 
             }
         });
-
-
-
-
     });
 
 

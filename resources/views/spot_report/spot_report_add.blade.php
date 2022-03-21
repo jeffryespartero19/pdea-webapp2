@@ -31,11 +31,13 @@
     @endforeach
     @endif
 
-    @if (session()->has('success'))
+    @if(session()->has('success'))
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <h5><i class="icon fas fa-check"></i> Success!</h5>
+        <input hidden id="print_id" type="number" value="{{session('sr_id')}}">
         {{ session()->get('success') }}
+
     </div>
     @endif
     <!-- Default box -->
@@ -299,7 +301,7 @@
                                                         <tr class="suspect_details">
                                                             <td><input type="text" name="suspect_number[]" style="width: 200px;" class="form-control cc1 disabled_field" value="Auto Generated"></td>
                                                             <td>
-                                                                <select name="suspect_status_id[]" class="form-control" style="width: 200px;" required>
+                                                                <select name="suspect_status_id[]" class="form-control" style="width: 200px;">
                                                                     <option value='' selected>None
                                                                     </option>
                                                                     @foreach ($suspect_status as $sstat)
@@ -1646,6 +1648,14 @@
                 }
             });
         });
+
+        //Print Report on Load
+        var print_id = $('#print_id').val();
+        if (print_id > 0) {
+
+            var url = "spot_report/pdf/" + print_id;
+            window.open(url, "_blank");
+        }
     });
 
     // Add Support Unit

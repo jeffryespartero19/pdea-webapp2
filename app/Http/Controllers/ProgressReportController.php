@@ -56,10 +56,11 @@ class ProgressReportController extends Controller
         $suspect_status = DB::table('suspect_status')->where('status', true)->orderby('id', 'asc')->get();
         $regional_user = DB::table('users')->where('user_level_id', 3)->get();
         $suspect_classification = DB::table('suspect_classification')->where('status', true)->orderby('id', 'asc')->get();
+        $laboratory_facility = DB::table('laboratory_facility')->where('status', true)->orderby('id', 'asc')->get();
         $drug_type = DB::table('drug_type')->where('status', true)->orderby('id', 'asc')->get();
 
 
-        return view('progress_report.progress_report_add', compact('drug_type', 'suspect_classification', 'region', 'operating_unit', 'spot_report_header', 'operation_type', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'suspect_status', 'regional_user'));
+        return view('progress_report.progress_report_add', compact('laboratory_facility', 'drug_type', 'suspect_classification', 'region', 'operating_unit', 'spot_report_header', 'operation_type', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'suspect_status', 'regional_user'));
     }
 
     public function store(Request $request)
@@ -91,6 +92,8 @@ class ProgressReportController extends Controller
         );
 
         DB::table('spot_report_header')->where('spot_report_number', $request->spot_report_number)->update($pos_data);
+
+        $pr_id =  DB::table('spot_report_header')->where('spot_report_number', $request->spot_report_number)->select('id')->get();
 
         if ($request->file('fileattach')) {
 
@@ -154,6 +157,9 @@ class ProgressReportController extends Controller
                     $spot_item = [
                         'qty_onsite' => $data['qty_onsite'][$i],
                         'actual_qty' => $data['actual_qty'][$i],
+                        'drug_test_result' => $data['e_drug_test_result'][$i],
+                        'chemist_report_number' => $data['chemist_report_number'][$i],
+                        'laboratory_facility_id' => $data['laboratory_facility_id'][$i],
                     ];
 
                     DB::table('spot_report_evidence')->updateOrInsert(['id' => $id], $spot_item);
@@ -192,7 +198,9 @@ class ProgressReportController extends Controller
 
         Audit::create($data_audit);
 
-        return back()->with('success', 'You have successfully updated issuance of preops!');
+        $pr_id = $pr_id[0]->id;
+
+        return back()->with('success', 'You have successfully updated progress report!')->with('pr_id', $pr_id);
     }
 
     public function edit($id)
@@ -214,6 +222,7 @@ class ProgressReportController extends Controller
         $suspect_status = DB::table('suspect_status')->where('status', true)->orderby('id', 'asc')->get();
         $suspect_classification = DB::table('suspect_classification')->where('status', true)->orderby('id', 'asc')->get();
         $drug_type = DB::table('drug_type')->where('status', true)->orderby('id', 'asc')->get();
+        $laboratory_facility = DB::table('laboratory_facility')->where('status', true)->orderby('id', 'asc')->get();
         $spot_report_suspect = DB::table('spot_report_suspect as a')
             ->leftjoin('drug_management as r', 'a.id', '=', 'r.suspect_id')
             ->leftjoin('users as s', 's.id', '=', 'r.user_id')
@@ -253,6 +262,7 @@ class ProgressReportController extends Controller
                 'a.drug_test_result',
                 'a.drug_type_id',
 
+
             )
             ->get();
         $spot_report_evidence = DB::table('spot_report_evidence as a')
@@ -270,6 +280,9 @@ class ProgressReportController extends Controller
                 'a.actual_qty',
                 'c.name as evidence',
                 'd.name as unit_measurement',
+                'a.chemist_report_number',
+                'a.drug_test_result',
+                'a.laboratory_facility_id',
             )
             ->where('a.spot_report_number', $spot_report_header[0]->spot_report_number)
             ->where('a.drug', 'drug')
@@ -295,7 +308,7 @@ class ProgressReportController extends Controller
         $regional_user = DB::table('users')->where('user_level_id', 3)->get();
 
 
-        return view('progress_report.progress_report_edit', compact('drug_type', 'suspect_classification', 'spot_report_suspect', 'spot_report_evidence', 'spot_report_case', 'region', 'province', 'city', 'barangay', 'operating_unit', 'spot_report_header', 'operation_type', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'suspect_status', 'progress_report_files', 'regional_user'));
+        return view('progress_report.progress_report_edit', compact('laboratory_facility', 'drug_type', 'suspect_classification', 'spot_report_suspect', 'spot_report_evidence', 'spot_report_case', 'region', 'province', 'city', 'barangay', 'operating_unit', 'spot_report_header', 'operation_type', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'suspect_status', 'progress_report_files', 'regional_user'));
     }
 
     public function update(Request $request, $id)
@@ -360,6 +373,9 @@ class ProgressReportController extends Controller
                         $spot_item = [
                             'qty_onsite' => $data['qty_onsite'][$i],
                             'actual_qty' => $data['actual_qty'][$i],
+                            'drug_test_result' => $data['e_drug_test_result'][$i],
+                            'chemist_report_number' => $data['chemist_report_number'][$i],
+                            'laboratory_facility_id' => $data['laboratory_facility_id'][$i],
                         ];
 
                         DB::table('spot_report_evidence')->updateOrInsert(['id' => $id], $spot_item);
@@ -455,7 +471,7 @@ class ProgressReportController extends Controller
 
         Audit::create($data_audit);
 
-        return back()->with('success', 'You have successfully updated issuance of preops!');
+        return back()->with('success', 'You have successfully updated progress report!');
     }
 
     public function fileDelete($id)
@@ -679,7 +695,7 @@ class ProgressReportController extends Controller
                 <br>
                 <table width="100%" style="border-collapse: collapse; border: 0px;">
                     <tr style="border: 1px solid;">
-                        <th style="border: none; padding:0 12px;" width="50%" align="left">Operating Team</th>
+                        <th style="border: none; padding:0 12px;" width="50%" align="left">Case Status</th>
                     </tr>';
 
         // Team
@@ -698,7 +714,8 @@ class ProgressReportController extends Controller
                         <th style="border: none; padding:0 12px;" width="50%" align="left">Summary</th>
                     </tr>
                 </table>
-                <span style="margin-right:23px; margin-left:13px;">' . $spot_report[0]->summary . '</span>
+                <p style="margin-right:23px; margin-left:40px;"><b>' . $spot_report[0]->report_header . '</b></p>
+                <p style="margin-right:23px; margin-left:60px;">' . $spot_report[0]->summary . '</p>
                 <h4 align="center">*** end of report ***</h4>';
 
         $output .= '
