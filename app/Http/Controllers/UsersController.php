@@ -36,10 +36,7 @@ class UsersController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
-            'name' => 'required|string|min:3|unique:users',
-            'email' => 'required|string|min:3|unique:users'
-        ]);
+        
 
         $regional_office = DB::table('regional_office')->where('id', $request->regional_office_id)->get();
 
@@ -72,6 +69,11 @@ class UsersController extends Controller
             }
             DB::table('users')->where('id', $request->user_id)->update($form_data);
         } else {
+            $request->validate([
+                'name' => 'required|string|min:3|unique:users',
+                'email' => 'required|string|min:3|unique:users'
+            ]);
+            
             $form_data = array(
                 'name' => $request->name,
                 'email' => $request->email,

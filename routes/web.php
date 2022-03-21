@@ -61,6 +61,9 @@ Route::post('progress_report_edit/{id}', 'ProgressReportController@update');
 Route::get('progress_report_file_delete/{id}', 'ProgressReportController@fileDelete');
 Route::get('/progress_report/pdf/{id}', 'ProgressReportController@pdf');
 
+//File Uploads
+// Route::get('issuance_of_preops_list', 'IssuanceOfPreopsController@index')->name('issuance_of_preops_list');
+
 
 
 // Control Pannel Routes
