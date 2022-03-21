@@ -378,17 +378,38 @@
                                                             <th style="color: gray;">Qty. Onsite</th>
                                                             <th style="color: gray;">Actual Qty.</th>
                                                             <th style="color: gray;">Unit Measurement</th>
+                                                            <th style="color: gray;">Drug Test Result</th>
+                                                            <th style="color: gray;">Chemistry Report Number</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody id="evidence_details">
                                                         @foreach($spot_report_evidence as $srv)
-                                                        <tr>
+                                                        <tr class="dtd">
                                                             <td hidden><input type="text" name="spot_report_evidence_id[]" class="form-control" value="{{$srv->id}}"></td>
-                                                            <td><input type="text" name="" style="width: 300px; pointer-events:none; background-color : #e9ecef; ; background-color : #e9ecef; " class="form-control" value="{{$srv->lastname}}, {{$srv->firstname}} {{$srv->middlename}} -- Alias: {{$srv->alias}}"></td>
-                                                            <td><input type="text" name="" style="width: 200px; pointer-events:none; background-color : #e9ecef; ; background-color : #e9ecef; " class="form-control" value="{{$srv->evidence}}"></td>
+                                                            <td><input type="text" name="" style="width: 300px; pointer-events:none; background-color : #e9ecef; " class="form-control" value="{{$srv->lastname}}, {{$srv->firstname}} {{$srv->middlename}} -- Alias: {{$srv->alias}}"></td>
+                                                            <td><input type="text" name="" style="width: 200px; pointer-events:none; background-color : #e9ecef; " class="form-control" value="{{$srv->evidence}}"></td>
                                                             <td><input type="text" name="qty_onsite[]" style="width: 200px;" class="form-control" value="{{$srv->qty_onsite}}"></td>
                                                             <td><input type="text" name="actual_qty[]" style="width: 200px;" class="form-control" value="{{$srv->actual_qty}}"></td>
                                                             <td><input type="text" name="unit_measurement[]" style="width: 200px;" class="form-control disabled_field" value="{{$srv->unit_measurement}}"></td>
+                                                            <td><select name="drug_test_result[]" class="form-control e_drug_test_result" style="width: 200px;">
+                                                                    <option value="positive" {{'positive' == $srv->drug_test_result ? 'selected' : ''}}>Positive</option>
+                                                                    <option value="negative" {{'negative' == $srv->drug_test_result ? 'selected' : ''}}>Negative</option>
+                                                                </select>
+                                                            </td>
+                                                            <td><input type="text" name="chemist_report_number[]" @if ($srv->drug_test_result == 'negative')
+                                                                style="width: 200px; pointer-events:none; background-color : #e9ecef; "
+                                                                @else
+                                                                style="width: 200px;"
+                                                                @endif class="form-control" value="{{$srv->chemist_report_number}}">
+                                                            </td>
+                                                            <td>
+                                                                <select name="laboratory_facility_id[]" class="form-control" style="width: 200px;">
+                                                                    <option value='' selected>Select Option</option>
+                                                                    @foreach($laboratory_facility as $lf)
+                                                                    <option value="{{ $lf->id }}" {{ $lf->id == $srv->laboratory_facility_id ? 'selected' : '' }}>{{ $lf->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
                                                         </tr>
                                                         @endforeach
                                                     </tbody>
@@ -417,8 +438,8 @@
                                                         <tr>
                                                             <td hidden><input type="text" name="spot_report_case_id[]" class="form-control" value="{{$src->spot_report_case_id}}"></td>
                                                             <td hidden><input type="text" name="suspect_number_case[]" class="form-control" value="{{$src->suspect_number}}"></td>
-                                                            <td><input type="text" name="" style="pointer-events:none; background-color : #e9ecef; ; background-color : #e9ecef; " class="form-control" value="{{$src->lastname}}, {{$src->firstname}} {{$src->middlename}} -- Alias: {{$src->alias}}"></td>
-                                                            <td><input type="text" name="" style="pointer-events:none; background-color : #e9ecef; ; background-color : #e9ecef; " class="form-control" value="{{$src->description}}"></td>
+                                                            <td><input type="text" name="" style="pointer-events:none; background-color : #e9ecef; " class="form-control" value="{{$src->lastname}}, {{$src->firstname}} {{$src->middlename}} -- Alias: {{$src->alias}}"></td>
+                                                            <td><input type="text" name="" style="pointer-events:none; background-color : #e9ecef; " class="form-control" value="{{$src->description}}"></td>
                                                             <td><input name="docket_number[]" type="text" class="form-control" value="{{$src->docket_number}}"></td>
                                                             <td><input name="c_case_status[]" type="text" class="form-control" value="{{$src->case_status}}"></td>
                                                         </tr>
@@ -604,7 +625,7 @@
                             <select name="prepared_by" class="form-control" required>
                                 <option value='' selected>Select Option</option>
                                 @foreach($regional_user as $reg_u)
-                                <option value="{{ $reg_u->name }}"  {{ $reg_u->name == $spot_report_header[0]->prepared_by ? 'selected' : '' }}>{{ $reg_u->name }}</option>
+                                <option value="{{ $reg_u->name }}" {{ $reg_u->name == $spot_report_header[0]->prepared_by ? 'selected' : '' }}>{{ $reg_u->name }}</option>
                                 @endforeach
                             </select>
                             @else
@@ -1063,6 +1084,21 @@
                 }
             }
         );
+    });
+
+    //Disable-Enable Chemistry Report Number
+    $(document).on("change", ".e_drug_test_result", function() {
+        var e_drug_test_result = $(this).val();
+        var $row = $(this).closest(".dtd");
+
+        if (e_drug_test_result == 'negative') {
+            $($row.find("td:eq(7) input")).val('');
+            $($row.find("td:eq(7) input")).addClass('disabled_field');
+        } else {
+            $($row.find("td:eq(7) input")).removeClass('disabled_field');
+        }
+
+
     });
 </script>
 
