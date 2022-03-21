@@ -31,12 +31,19 @@ class GeoMappingController extends Controller
     public function index()
     {
      //ops_status_updater
-        $datetime_now=Carbon::now();
-        $on_going_ops=DB::table('preops_header')->where('status',1)->whereDate('operation_datetime','<=',$datetime_now)->whereDate('validity','>=',$datetime_now)->pluck('preops_number');
+        $datetime_now=Carbon::now()->format('Y-m-d H:i:s');
+
+        $on_going_ops=DB::table('preops_header')->whereDate('operation_datetime','<=',$datetime_now)->whereDate('validity','>=',$datetime_now)->pluck('preops_number');
+        $finished_ops=DB::table('preops_header')->whereDate('validity','<=',$datetime_now)->pluck('preops_number');
 
         DB::table('preops_area')->whereIn('preops_number',$on_going_ops)->update(
             array(
                 'ops_status'  =>  1,
+            )
+        );
+        DB::table('preops_area')->whereIn('preops_number',$finished_ops)->update(
+            array(
+                'ops_status'  =>  0,
             )
         );
      //Provinces
