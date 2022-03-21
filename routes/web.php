@@ -62,7 +62,7 @@ Route::get('progress_report_file_delete/{id}', 'ProgressReportController@fileDel
 Route::get('/progress_report/pdf/{id}', 'ProgressReportController@pdf');
 
 //File Uploads
-// Route::get('issuance_of_preops_list', 'IssuanceOfPreopsController@index')->name('issuance_of_preops_list');
+Route::get('file_uploads', 'FileUploadsController@index')->name('file_uploads');
 
 
 

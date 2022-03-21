@@ -1031,9 +1031,9 @@
         $('#issuance_of_preops').addClass('active');
     });
 
-    var today = new Date().toISOString().slice(0, 16);
+    // var today = new Date().toISOString().slice(0, 16);
 
-    $('.coordinated_datetime')[0].min = today;
+    // $('.coordinated_datetime')[0].min = today;
 </script>
 
 

@@ -232,7 +232,18 @@
                                 </p>
                             </a>
                         </li>
-                   
+                        <li id="file_uploads" class="nav-item" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                            @else
+                            hidden
+                            @endif
+                            >
+                            <a href="{{ route('file_uploads') }}" class="nav-link" id="fu_link">
+                                <i class="nav-icon fas fa-check"></i>
+                                <p>
+                                    File Uploads
+                                </p>
+                            </a>
+                        </li>
                         <li id="cpm" class="nav-item" {{ Auth::user()->with_settings_access ? '' : 'hidden' }}>
                             <a href="#" class="nav-link" id="cpm_link">
                                 <i class="nav-icon fas fa-tools"></i>
