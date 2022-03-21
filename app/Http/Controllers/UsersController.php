@@ -36,12 +36,15 @@ class UsersController extends Controller
     public function store(Request $request)
     {
 
+        $request->validate([
+            'name' => 'required|string|min:3|unique:users',
+            'email' => 'required|string|min:3|unique:users'
+        ]);
+
         $regional_office = DB::table('regional_office')->where('id', $request->regional_office_id)->get();
 
         if ($request->user_id > 0) {
             if ($request->password == '' || $request->password == null) {
-
-                
 
                 $form_data = array(
                     'name' => $request->name,
