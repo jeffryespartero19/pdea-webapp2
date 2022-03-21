@@ -35,6 +35,7 @@
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <h5><i class="icon fas fa-check"></i> Success!</h5>
+        <input hidden id="print_id" type="number" value="{{session('pr_id')}}">
         {{ session()->get('success') }}
     </div>
     @endif
@@ -608,49 +609,21 @@
 @section('scripts')
 
 <script>
+    $(document).ready(function() {
+        //Print Report on Load
+        var print_id = $('#print_id').val();
+        if (print_id > 0) {
+
+            var url = "progress_report/pdf/" + print_id;
+            window.open(url, "_blank");
+        }
+    });
+</script>
+
+<script>
     $(".present_region_c").on("change", function() {
 
         var region_c = $(this).val();
-
-        alert(region_c);
-
-        // var $row = $(this).closest(".deptDetails");
-        // var did = parseInt($row.find("td:eq(0)").text());
-        // var dname = $.trim($row.find("td:eq(1)").text());
-        // var ddesc = $.trim($row.find("td:eq(2)").text());
-        // var dactive = $row.find("td:eq(3) input").val();
-
-        // $("#dept_id").val(did);
-        // $("#department_name").val(dname);
-        // $("#dept_desc").val(ddesc);
-        // if (dactive == 1) {
-        //     $("#dept_active").prop("checked", true);
-        // } else {
-        //     $("#dept_active").prop("checked", false);
-        // }
-
-        // $.ajax({
-        //     type: "GET",
-        //     url: "/get_province/" + region_c,
-        //     fail: function() {
-        //         alert("request failed");
-        //     },
-        //     success: function(data) {
-        //         var data = JSON.parse(data);
-
-        //         $("#province_c").empty();
-        //         $("#city_c").empty();
-
-        //         data.forEach(element => {
-        //             var option = " <option value='" +
-        //                 element["province_c"] +
-        //                 "'>" +
-        //                 element["province_m"] +
-        //                 "</option>";
-        //             $("#province_c").append(option);
-        //         });
-        //     }
-        // });
     });
 
     $("#province_c").on("change", function() {
@@ -1019,6 +992,8 @@
 
     });
 </script>
+
+
 
 <script>
     $(function() {

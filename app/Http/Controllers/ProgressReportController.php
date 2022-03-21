@@ -93,6 +93,8 @@ class ProgressReportController extends Controller
 
         DB::table('spot_report_header')->where('spot_report_number', $request->spot_report_number)->update($pos_data);
 
+        $pr_id =  DB::table('spot_report_header')->where('spot_report_number', $request->spot_report_number)->select('id')->get();
+
         if ($request->file('fileattach')) {
 
             foreach ($request->file('fileattach') as $file) {
@@ -196,7 +198,9 @@ class ProgressReportController extends Controller
 
         Audit::create($data_audit);
 
-        return back()->with('success', 'You have successfully updated issuance of preops!');
+        $pr_id = $pr_id[0]->id;
+
+        return back()->with('success', 'You have successfully updated progress report!')->with('pr_id', $pr_id);
     }
 
     public function edit($id)
@@ -467,7 +471,7 @@ class ProgressReportController extends Controller
 
         Audit::create($data_audit);
 
-        return back()->with('success', 'You have successfully updated issuance of preops!');
+        return back()->with('success', 'You have successfully updated progress report!');
     }
 
     public function fileDelete($id)
