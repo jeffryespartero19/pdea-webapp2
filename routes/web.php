@@ -64,6 +64,12 @@ Route::get('/progress_report/pdf/{id}', 'ProgressReportController@pdf');
 //File Uploads
 Route::get('file_uploads', 'FileUploadsController@index')->name('file_uploads');
 
+//Memo
+Route::get('memo_list', 'MemoController@index')->name('memo_list');
+Route::get('memo_add', 'MemoController@add')->name('memo_add');
+Route::get('memo_edit/{id}', 'MemoController@edit')->name('memo_edit');
+Route::post('memo_add', 'MemoController@store');
+Route::patch('memo_edit/{id}', 'MemoController@update');
 
 
 // Control Pannel Routes

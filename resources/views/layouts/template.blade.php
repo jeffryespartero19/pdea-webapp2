@@ -238,9 +238,17 @@
                             @endif
                             >
                             <a href="{{ route('file_uploads') }}" class="nav-link" id="fu_link">
-                                <i class="nav-icon fas fa-check"></i>
+                                <i class="nav-icon fas fa-file"></i>
                                 <p>
                                     File Uploads
+                                </p>
+                            </a>
+                        </li>
+                        <li id="memo" class="nav-item">
+                            <a href="{{ route('memo_list') }}" class="nav-link" id="memo_link">
+                                <i class="nav-icon fas fa-list"></i>
+                                <p>
+                                    Memo
                                 </p>
                             </a>
                         </li>
@@ -991,9 +999,9 @@
     </script>
 
     <style>
-        .disabled_field{
+        .disabled_field {
             pointer-events: none;
-            background-color : #e9ecef;
+            background-color: #e9ecef;
         }
     </style>
 </body>
