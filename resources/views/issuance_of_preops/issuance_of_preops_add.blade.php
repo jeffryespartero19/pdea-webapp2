@@ -36,7 +36,7 @@
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <h5><i class="icon fas fa-check"></i> Success!</h5>
         {{ session()->get('success') }}
-        <input hidden id="print_id" type="text"  value="{{session('preops_id_c')}}">
+        <input hidden id="print_id" type="text" value="{{session('preops_id_c')}}">
     </div>
     @endif
     <!-- Default box -->
@@ -61,7 +61,7 @@
                                 @endforeach
                             </select>
                             @else
-                            <select name="ro_code" class="form-control ro_code" required style="pointer-events: none; background-color : #e9ecef;">
+                            <select name="ro_code" class="form-control ro_code" required style="pointer-events: none; background-color : #e9ecef;" readonly>
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach($regional_office as $rg)
                                 <option value="{{ $rg->ro_code }}" {{ $rg->ro_code == $roc_regional_office[0]->ro_code ? 'selected' : '' }}>{{ $rg->name }}</option>
@@ -166,9 +166,9 @@
                         <div class="input-group mb-3">
                             <?php date_default_timezone_set('Asia/Manila'); ?>
                             @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
-                            <input id="coordinated_datetime" name="coordinated_datetime" type="datetime-local" class="form-control coordinated_datetime" min="{{date("Y-m-d")}}" autocomplete="off" required>
+                            <input id="coordinated_datetime" name="coordinated_datetime" type="datetime-local" class="form-control coordinated_datetime" autocomplete="off" required>
                             @else
-                            <input id="coordinated_datetime" name="coordinated_datetime" type="datetime-local" class="form-control CurrDate" value="<?php echo date('Y-m-d\TH:i:s'); ?>" style="pointer-events: none; background-color : #e9ecef;" autocomplete="off" required>
+                            <input id="coordinated_datetime" name="coordinated_datetime" type="datetime-local" class="form-control CurrDate" value="<?php echo date('Y-m-d\TH:i:s'); ?>" style="pointer-events: none; background-color : #e9ecef;" autocomplete="off" required readonly>
                             @endif
                         </div>
                     </div>
@@ -185,7 +185,12 @@
                             <label for="">Date/Time Operation<code> *</code></label>
                         </div>
                         <div class="input-group mb-3">
+                            @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                             <input id="operation_datetime" name="operation_datetime" type="datetime-local" class="form-control @error('operation date and time') is-invalid @enderror" value="{{ old('operation_datetime') }}" required>
+                            @else
+                            <input id="operation_datetime" name="operation_datetime" type="datetime-local" class="form-control operation_datetime" value="{{ old('operation_datetime') }}" required>
+                            @endif
+                            
                         </div>
                     </div>
                     <div class="form-group col-6" style="margin: 0px;">
@@ -193,7 +198,7 @@
                             <label for="">Valid Until (Expiration)</label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="validity" name="validity" type="datetime-local" class="form-control" autocomplete="off" value="{{ old('validity') }}" style="pointer-events: none; background-color : #e9ecef;">
+                            <input id="validity" name="validity" type="datetime-local" class="form-control" autocomplete="off" value="{{ old('validity') }}" style="pointer-events: none; background-color : #e9ecef;" readonly>
                         </div>
                     </div>
                     <div class="form-group col-12" style="margin: 0px;">
@@ -1028,10 +1033,20 @@
     $(function() {
         $('#issuance_of_preops').addClass('active');
     });
+</script>
 
+<!-- Set Date Operation -->
+<script>
+    $(document).on('change', '#coordinated_datetime', function() {
+        var date = $("#coordinated_datetime").val();
+
+        $('#operation_datetime')[0].min = date;
+        $('#operation_datetime').val('');
+        $('#validity').val('');
+    });
     var today = new Date().toISOString().slice(0, 16);
 
-    $('.coordinated_datetime')[0].min = today;
+    $('.operation_datetime')[0].min = today;
 </script>
 
 @endsection

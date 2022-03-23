@@ -1403,7 +1403,6 @@
             var alias = $tds.eq(5).val();
             var birthdate = $tds.eq(6).val();
 
-            alert(lastname);
 
             if (lastname == null || lastname == '' && firstname == null || firstname == '' && middlename == null || middlename == '' && alias == null || alias == '' && birthdate == null || birthdate == '') {
 

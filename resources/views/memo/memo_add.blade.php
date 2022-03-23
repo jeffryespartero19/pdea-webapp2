@@ -47,25 +47,25 @@
             <form action="/memo_add" role="form" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
-                <div class="form-group col-7">
-                    <div>
-                        <label for="">Name</label>
+                    <div class="form-group col-7">
+                        <div>
+                            <label for="">Name</label>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Memo Name" autocomplete="off">
+                        </div>
                     </div>
-                    <div class="input-group mb-3">
-                        <input id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Memo Name" autocomplete="off">
+                    <div class="form-group col-7" style="margin: 0px;">
+                        <div>
+                            <label for="">File</label>
+                        </div>
+                        <div class="custom-file mb-3">
+                            <input type="file" name="fileattach[]" class="custom-file-input" id="fileattach" multiple />
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group col-7" style="margin: 0px;">
-                    <div>
-                        <label for="">File</label>
-                    </div>
-                    <div class="custom-file mb-3">
-                        <input type="file" name="fileattach[]" class="custom-file-input" id="fileattach" multiple />
-                        <label class="custom-file-label" for="customFile">Choose file</label>
-                    </div>
-                </div>
-                </div>
-                
+
                 <div class="custom-control custom-checkbox mb-2">
                     <input name="status" class="custom-control-input" type="checkbox" id="customCheckbox9">
                     <label for="customCheckbox9" class="custom-control-label">Set as Active</label>

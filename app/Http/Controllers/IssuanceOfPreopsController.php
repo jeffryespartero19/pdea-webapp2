@@ -28,12 +28,24 @@ class IssuanceOfPreopsController extends Controller
 
     public function index()
     {
-        $data = DB::table('preops_header as a')
-            ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
-            ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-            ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status')
-            ->orderby('preops_number', 'asc')
-            ->get();
+        if (Auth::user()->user_level_id == 2) {
+            $data = DB::table('preops_header as a')
+                ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+                ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status')
+                ->orderby('preops_number', 'asc')
+                ->get();
+        } else {
+            $data = DB::table('preops_header as a')
+                ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+                ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+                ->join('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
+                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status')
+                ->where('d.id', Auth::user()->regional_office_id)
+                ->orderby('preops_number', 'asc')
+                ->get();
+        }
+
         $region = DB::table('region')->orderby('region_sort', 'asc')->get();
         $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
         $operation_type = DB::table('operation_type')->where('status', true)->where('operation_classification_id', 2)->orderby('name', 'asc')->get();
@@ -496,7 +508,7 @@ class IssuanceOfPreopsController extends Controller
         $preops_data = DB::table('preops_header')
             ->where('id', $id)
             ->get();
-            
+
         $regional_office = DB::table('regional_office')->where('ro_code', $preops_data[0]->ro_code)->get();
         $operating_unit = DB::table('operating_unit')->where('id', $preops_data[0]->operating_unit_id)->get();
         $support_unit = DB::table('support_unit')->where('status', true)->get();
@@ -597,10 +609,30 @@ class IssuanceOfPreopsController extends Controller
                 <br>
                 <div style="background-color:green; color:white; padding-left:5px">Area(s) of Operation</div>';
 
+        $output .= '
+                <br>
+                <table width="100%" style="border-collapse: collapse; border: 0px;">
+                    <tr style="border: 1px solid;">
+                        <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Region</th>
+                        <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Province</th>
+                        <th style="border:solid; border-width: thin; padding:0 12px;" align="left">City</th>
+                        <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Barangay</th>
+                        <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Area</th>
+                    </tr>';
+
+        // Area
         foreach ($area as $ar) {
             $output .= '
-            <div  style="margin-left:40px"><span>' . $ar->area . ', ' . $ar->barangay_m . ', ' . $ar->city_m . ', ' . $ar->province_m . ', ' . $ar->region_m . '</span></div><hr>';
+                    <tr>
+                        <td style="border:solid; border-width: thin; padding:0 12px;">' . $ar->region_m . '</td>
+                        <td style="border:solid; border-width: thin; padding:0 12px;">' . $ar->province_m . '</td>
+                        <td style="border:solid; border-width: thin; padding:0 12px;">' . $ar->city_m . '</td>
+                        <td style="border:solid; border-width: thin; padding:0 12px;">' . $ar->barangay_m . '</td>
+                        <td style="border:solid; border-width: thin; padding:0 12px;">' . $ar->area . '</td>
+                    </tr>';
         }
+        $output .= '</table>';
+
         $output .= '
         <br>
         <div style="background-color:green; color:white; padding-left:5px">Target(s)</div>';

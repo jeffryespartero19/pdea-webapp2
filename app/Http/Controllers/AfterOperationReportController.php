@@ -25,13 +25,26 @@ class AfterOperationReportController extends Controller
 
     public function index()
     {
-        $data = DB::table('preops_header as a')
-            ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
-            ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-            ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.aor_date')
-            ->where('a.with_aor', 1)
-            ->orderby('preops_number', 'asc')
-            ->get();
+        if (Auth::user()->user_level_id == 2) {
+            $data = DB::table('preops_header as a')
+                ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+                ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.aor_date')
+                ->where('a.with_aor', 1)
+                ->orderby('preops_number', 'asc')
+                ->get();
+        } else {
+            $data = DB::table('preops_header as a')
+                ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+                ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+                ->join('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
+                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.aor_date')
+                ->where('a.with_aor', 1)
+                ->where('d.id', Auth::user()->regional_office_id)
+                ->orderby('preops_number', 'asc')
+                ->get();
+        }
+
         $region = DB::table('region')->orderby('region_sort', 'asc')->get();
         $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
         $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
