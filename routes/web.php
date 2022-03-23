@@ -11,6 +11,222 @@
 |
 */
 
+
+Route::group(['middleware' => ['auth', 'cp_acess']], function() {
+    // Control Pannel Routes
+
+    // User List
+    Route::get('/list', 'UsersController@index')->name('list');
+    Route::post('/list_add', 'UsersController@store')->name('list_add');
+    // User List Access Rights
+    Route::get('/access_rights/{id}', 'AccessRightsController@index')->name('access_rigths');
+    Route::post('/access_rights/{id}', 'AccessRightsController@update_access')->name('access_rigths');
+    // User Activiti List
+    Route::get('/audits', 'AuditController@index')->name('audits');
+    // Civil Status
+    Route::get('/civil_status_list', 'CivilStatusController@index')->name('civil_status');
+    Route::get('/civil_status_add', 'CivilStatusController@add')->name('civil_status_add');
+    Route::get('/civil_status_edit/{id}', 'CivilStatusController@edit')->name('civil_status_edit');
+    Route::post('/civil_status_add', 'CivilStatusController@store');
+    Route::patch('/civil_status_edit/{id}', 'CivilStatusController@update');
+    // Religion Setup
+    Route::get('/religion_list', 'ReligionsController@index')->name('religions');
+    Route::get('/religion_add', 'ReligionsController@add')->name('religion_add');
+    Route::get('/religion_edit/{id}', 'ReligionsController@edit')->name('religion_edit');
+    Route::post('/religion_add', 'ReligionsController@store');
+    Route::patch('/religion_edit/{id}', 'ReligionsController@update');
+    // User Level Setup
+    Route::get('user_level_list', 'UserLevelController@index')->name('user_level_list');
+    Route::get('user_level_add', 'UserLevelController@add')->name('user_level_add');
+    Route::get('user_level_edit/{id}', 'UserLevelController@edit')->name('user_level_edit');
+    Route::post('user_level_add', 'UserLevelController@store');
+    Route::patch('user_level_edit/{id}', 'UserLevelController@update');
+    // Case List Setup
+    Route::get('case_list', 'CaseListController@index')->name('case_list');
+    Route::get('case_list_add', 'CaseListController@add')->name('case_list_add');
+    Route::get('case_list_edit/{id}', 'CaseListController@edit')->name('case_list_edit');
+    Route::post('case_list_add', 'CaseListController@store');
+    Route::patch('case_list_edit/{id}', 'CaseListController@update');
+    // Suspect Classsification Setup
+    Route::get('suspect_classification_list', 'SuspectClassificationController@index')->name('suspect_classification_list');
+    Route::get('suspect_classification_add', 'SuspectClassificationController@add')->name('suspect_classification_add');
+    Route::get('suspect_classification_edit/{id}', 'SuspectClassificationController@edit')->name('suspect_classification_edit');
+    Route::post('suspect_classification_add', 'SuspectClassificationController@store');
+    Route::patch('suspect_classification_edit/{id}', 'SuspectClassificationController@update');
+    // Drug Type Setup
+    Route::get('drug_type_list', 'DrugTypeController@index')->name('drug_type_list');
+    Route::get('drug_type_add', 'DrugTypeController@add')->name('drug_type_add');
+    Route::get('drug_type_edit/{id}', 'DrugTypeController@edit')->name('drug_type_edit');
+    Route::post('drug_type_add', 'DrugTypeController@store');
+    Route::patch('drug_type_edit/{id}', 'DrugTypeController@update');
+    // Negative Reason Setup
+    Route::get('negative_reason_list', 'NegativeReasonController@index')->name('negative_reason_list');
+    Route::get('negative_reason_add', 'NegativeReasonController@add')->name('negative_reason_add');
+    Route::get('negative_reason_edit/{id}', 'NegativeReasonController@edit')->name('negative_reason_edit');
+    Route::post('negative_reason_add', 'NegativeReasonController@store');
+    Route::patch('negative_reason_edit/{id}', 'NegativeReasonController@update');
+    // Province Setup
+    Route::get('province_list', 'ProvinceController@index')->name('province_list');
+    Route::get('province_add', 'ProvinceController@add')->name('province_add');
+    Route::get('province_edit/{id}', 'ProvinceController@edit')->name('province_edit');
+    Route::post('province_add', 'ProvinceController@store');
+    Route::patch('province_edit/{id}', 'ProvinceController@update');
+    // Region Setup
+    Route::get('region_list', 'RegionController@index')->name('region_list');
+    Route::get('region_add', 'RegionController@add')->name('region_add');
+    Route::get('region_edit/{id}', 'RegionController@edit')->name('region_edit');
+    Route::post('region_add', 'RegionController@store');
+    Route::patch('region_edit/{id}', 'RegionController@update');
+    // City Setup
+    Route::get('city_list', 'CityController@index')->name('city_list');
+    Route::get('city_add', 'CityController@add')->name('city_add');
+    Route::get('city_edit/{id}', 'CityController@edit')->name('city_edit');
+    Route::post('city_add', 'CityController@store');
+    Route::patch('city_edit/{id}', 'CityController@update');
+    // Barangay Setup
+    Route::get('barangay_list', 'BarangayController@index')->name('barangay_list');
+    Route::get('barangay_add', 'BarangayController@add')->name('barangay_add');
+    Route::get('barangay_edit/{id}', 'BarangayController@edit')->name('barangay_edit');
+    Route::post('barangay_add', 'BarangayController@store');
+    Route::patch('barangay_edit/{id}', 'BarangayController@update');
+    // Operating Unit Setup
+    Route::get('operating_unit_list', 'OperatingUnitController@index')->name('operating_unit_list');
+    Route::get('operating_unit_add', 'OperatingUnitController@add')->name('operating_unit_add');
+    Route::get('operating_unit_edit/{id}', 'OperatingUnitController@edit')->name('operating_unit_edit');
+    Route::post('operating_unit_add', 'OperatingUnitController@store');
+    Route::patch('operating_unit_edit/{id}', 'OperatingUnitController@update');
+    // Operation Type Setup
+    Route::get('operation_type_list', 'OperationTypeController@index')->name('operation_type_list');
+    Route::get('operation_type_add', 'OperationTypeController@add')->name('operation_type_add');
+    Route::get('operation_type_edit/{id}', 'OperationTypeController@edit')->name('operation_type_edit');
+    Route::post('operation_type_add', 'OperationTypeController@store');
+    Route::patch('operation_type_edit/{id}', 'OperationTypeController@update');
+    // Operation Classification Setup
+    Route::get('operation_classification_list', 'OperationClassificationController@index')->name('operation_classification_list');
+    Route::get('operation_classification_add', 'OperationClassificationController@add')->name('operation_classification_add');
+    Route::get('operation_classification_edit/{id}', 'OperationClassificationController@edit')->name('operation_classification_edit');
+    Route::post('operation_classification_add', 'OperationClassificationController@store');
+    Route::patch('operation_classification_edit/{id}', 'OperationClassificationController@update');
+    // Local Operating Unit Setup
+    // Route::get('local_operating_unit_list', 'LocalOperatingUnitController@index')->name('local_operating_unit_list');
+    // Route::get('local_operating_unit_add', 'LocalOperatingUnitController@add')->name('local_operating_unit_add');
+    // Route::get('local_operating_unit_edit/{id}', 'LocalOperatingUnitController@edit')->name('local_operating_unit_edit');
+    // Route::post('local_operating_unit_add', 'LocalOperatingUnitController@store');
+    // Route::patch('local_operating_unit_edit/{id}', 'LocalOperatingUnitController@update');
+    // Educational Attainment Setup
+    Route::get('educational_attainment_list', 'EducationalAttainmentController@index')->name('educational_attainment_list');
+    Route::get('educational_attainment_add', 'EducationalAttainmentController@add')->name('educational_attainment_add');
+    Route::get('educational_attainment_edit/{id}', 'EducationalAttainmentController@edit')->name('educational_attainment_edit');
+    Route::post('educational_attainment_add', 'EducationalAttainmentController@store');
+    Route::patch('educational_attainment_edit/{id}', 'EducationalAttainmentController@update');
+    // Ethnic Group Setup
+    Route::get('ethnic_group_list', 'EthnicGroupController@index')->name('ethnic_group_list');
+    Route::get('ethnic_group_add', 'EthnicGroupController@add')->name('ethnic_group_add');
+    Route::get('ethnic_group_edit/{id}', 'EthnicGroupController@edit')->name('ethnic_group_edit');
+    Route::post('ethnic_group_add', 'EthnicGroupController@store');
+    Route::patch('ethnic_group_edit/{id}', 'EthnicGroupController@update');
+    // Jail Facility Setup
+    Route::get('jail_facility_list', 'JailFacilityController@index')->name('jail_facility_list');
+    Route::get('jail_facility_add', 'JailFacilityController@add')->name('jail_facility_add');
+    Route::get('jail_facility_edit/{id}', 'JailFacilityController@edit')->name('jail_facility_edit');
+    Route::post('jail_facility_add', 'JailFacilityController@store');
+    Route::patch('jail_facility_edit/{id}', 'JailFacilityController@update');
+    // Laboratory Facility Setup
+    Route::get('laboratory_facility_list', 'LaboratoryFacilityController@index')->name('laboratory_facility_list');
+    Route::get('laboratory_facility_add', 'LaboratoryFacilityController@add')->name('laboratory_facility_add');
+    Route::get('laboratory_facility_edit/{id}', 'LaboratoryFacilityController@edit')->name('laboratory_facility_edit');
+    Route::post('laboratory_facility_add', 'LaboratoryFacilityController@store');
+    Route::patch('laboratory_facility_edit/{id}', 'LaboratoryFacilityController@update');
+    // Evidence Type Setup
+    Route::get('evidence_type_list', 'EvidenceTypeController@index')->name('evidence_type_list');
+    Route::get('evidence_type_add', 'EvidenceTypeController@add')->name('evidence_type_add');
+    Route::get('evidence_type_edit/{id}', 'EvidenceTypeController@edit')->name('evidence_type_edit');
+    Route::post('evidence_type_add', 'EvidenceTypeController@store');
+    Route::patch('evidence_type_edit/{id}', 'EvidenceTypeController@update');
+    // Evidence Setup
+    Route::get('evidence_list', 'EvidenceController@index')->name('evidence_list');
+    Route::get('evidence_add', 'EvidenceController@add')->name('evidence_add');
+    Route::get('evidence_edit/{id}', 'EvidenceController@edit')->name('evidence_edit');
+    Route::post('evidence_add', 'EvidenceController@store');
+    Route::patch('evidence_edit/{id}', 'EvidenceController@update');
+    // Packaging Setup
+    Route::get('packaging_list', 'PackagingController@index')->name('packaging_list');
+    Route::get('packaging_add', 'PackagingController@add')->name('packaging_add');
+    Route::get('packaging_edit/{id}', 'PackagingController@edit')->name('packaging_edit');
+    Route::post('packaging_add', 'PackagingController@store');
+    Route::patch('packaging_edit/{id}', 'PackagingController@update');
+    // Regional Office Setup
+    Route::get('regional_office_list', 'RegionalOfficeController@index')->name('regional_office_list');
+    Route::get('regional_office_add', 'RegionalOfficeController@add')->name('regional_office_add');
+    Route::get('regional_office_edit/{id}', 'RegionalOfficeController@edit')->name('regional_office_edit');
+    Route::post('regional_office_add', 'RegionalOfficeController@store');
+    Route::patch('regional_office_edit/{id}', 'RegionalOfficeController@update');
+    Route::get('/get_ro_region/{ro_code}', 'RegionalOfficeController@getRORegion');
+    Route::get('/get_ro_province/{ro_code}', 'RegionalOfficeController@getROProvince');
+    Route::get('/get_ro_details/{ro_code}', 'RegionalOfficeController@getRODetails');
+    // Nationality Setup
+    Route::get('nationality_list', 'NationalityController@index')->name('nationality_list');
+    Route::get('nationality_add', 'NationalityController@add')->name('nationality_add');
+    Route::get('nationality_edit/{id}', 'NationalityController@edit')->name('nationality_edit');
+    Route::post('nationality_add', 'NationalityController@store');
+    Route::patch('nationality_edit/{id}', 'NationalityController@update');
+    // Identifier Setup
+    Route::get('identifier_list', 'IdentifierController@index')->name('identifier_list');
+    Route::get('identifier_add', 'IdentifierController@add')->name('identifier_add');
+    Route::get('identifier_edit/{id}', 'IdentifierController@edit')->name('identifier_edit');
+    Route::post('identifier_add', 'IdentifierController@store');
+    Route::patch('identifier_edit/{id}', 'IdentifierController@update');
+    // Group Affiliation Setup
+    Route::get('group_affiliation_list', 'GroupAffiliationController@index')->name('group_affiliation_list');
+    Route::get('group_affiliation_add', 'GroupAffiliationController@add')->name('group_affiliation_add');
+    Route::get('group_affiliation_edit/{id}', 'GroupAffiliationController@edit')->name('group_affiliation_edit');
+    Route::post('group_affiliation_add', 'GroupAffiliationController@store');
+    Route::patch('group_affiliation_edit/{id}', 'GroupAffiliationController@update');
+    // Occupation Setup
+    Route::get('occupation_list', 'OccupationController@index')->name('occupation_list');
+    Route::get('occupation_add', 'OccupationController@add')->name('occupation_add');
+    Route::get('occupation_edit/{id}', 'OccupationController@edit')->name('occupation_edit');
+    Route::post('occupation_add', 'OccupationController@store');
+    Route::patch('occupation_edit/{id}', 'OccupationController@update');
+    // Suspect Information Setup
+    Route::get('suspect_information_list', 'SuspectInformationController@index')->name('suspect_information_list');
+    Route::get('suspect_information_add', 'SuspectInformationController@add')->name('suspect_information_add');
+    Route::get('suspect_information_edit/{id}', 'SuspectInformationController@edit')->name('suspect_information_edit');
+    Route::post('suspect_information_add', 'SuspectInformationController@store');
+    Route::post('suspect_information_edit/{id}', 'SuspectInformationController@update');
+    // Suspect Status Setup
+    Route::get('suspect_status_list', 'SuspectStatusController@index')->name('suspect_status_list');
+    Route::get('suspect_status_add', 'SuspectStatusController@add')->name('suspect_status_add');
+    Route::get('suspect_status_edit/{id}', 'SuspectStatusController@edit')->name('suspect_status_edit');
+    Route::post('suspect_status_add', 'SuspectStatusController@store');
+    Route::patch('suspect_status_edit/{id}', 'SuspectStatusController@update');
+    // Support Unit Setup
+    Route::get('support_unit_list', 'SupportUnitController@index')->name('support_unit_list');
+    Route::get('support_unit_add', 'SupportUnitController@add')->name('support_unit_add');
+    Route::get('support_unit_edit/{id}', 'SupportUnitController@edit')->name('support_unit_edit');
+    Route::post('support_unit_add', 'SupportUnitController@store');
+    Route::patch('support_unit_edit/{id}', 'SupportUnitController@update');
+    // Position Setup
+    Route::get('position_list', 'PositionController@index')->name('position_list');
+    Route::get('position_add', 'PositionController@add')->name('position_add');
+    Route::get('position_edit/{id}', 'PositionController@edit')->name('position_edit');
+    Route::post('position_add', 'PositionController@store');
+    Route::patch('position_edit/{id}', 'PositionController@update');
+    // Unit of Measurement Setup
+    Route::get('unit_measurement_list', 'UnitMeasurementController@index')->name('unit_measurement_list');
+    Route::get('unit_measurement_add', 'UnitMeasurementController@add')->name('unit_measurement_add');
+    Route::get('unit_measurement_edit/{id}', 'UnitMeasurementController@edit')->name('unit_measurement_edit');
+    Route::post('unit_measurement_add', 'UnitMeasurementController@store');
+    Route::patch('unit_measurement_edit/{id}', 'UnitMeasurementController@update');
+    // Suspect Category Setup
+    Route::get('suspect_category_list', 'SuspectCategoryController@index')->name('suspect_category_list');
+    Route::get('suspect_category_add', 'SuspectCategoryController@add')->name('suspect_category_add');
+    Route::get('suspect_category_edit/{id}', 'SuspectCategoryController@edit')->name('suspect_category_edit');
+    Route::post('suspect_category_add', 'SuspectCategoryController@store');
+    Route::patch('suspect_category_edit/{id}', 'SuspectCategoryController@update');
+});
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -65,212 +281,6 @@ Route::get('/progress_report/pdf/{id}', 'ProgressReportController@pdf');
 // Route::get('issuance_of_preops_list', 'IssuanceOfPreopsController@index')->name('issuance_of_preops_list');
 
 
-
-// Control Pannel Routes
-
-// User List
-Route::get('/list', 'UsersController@index')->name('list');
-Route::post('/list_add', 'UsersController@store')->name('list_add');
-// User List Access Rights
-Route::get('/access_rights/{id}', 'AccessRightsController@index')->name('access_rigths');
-Route::post('/access_rights/{id}', 'AccessRightsController@update_access')->name('access_rigths');
-// User Activiti List
-Route::get('/audits', 'AuditController@index')->name('audits');
-// Civil Status
-Route::get('/civil_status_list', 'CivilStatusController@index')->name('civil_status');
-Route::get('/civil_status_add', 'CivilStatusController@add')->name('civil_status_add');
-Route::get('/civil_status_edit/{id}', 'CivilStatusController@edit')->name('civil_status_edit');
-Route::post('/civil_status_add', 'CivilStatusController@store');
-Route::patch('/civil_status_edit/{id}', 'CivilStatusController@update');
-// Religion Setup
-Route::get('/religion_list', 'ReligionsController@index')->name('religions');
-Route::get('/religion_add', 'ReligionsController@add')->name('religion_add');
-Route::get('/religion_edit/{id}', 'ReligionsController@edit')->name('religion_edit');
-Route::post('/religion_add', 'ReligionsController@store');
-Route::patch('/religion_edit/{id}', 'ReligionsController@update');
-// User Level Setup
-Route::get('user_level_list', 'UserLevelController@index')->name('user_level_list');
-Route::get('user_level_add', 'UserLevelController@add')->name('user_level_add');
-Route::get('user_level_edit/{id}', 'UserLevelController@edit')->name('user_level_edit');
-Route::post('user_level_add', 'UserLevelController@store');
-Route::patch('user_level_edit/{id}', 'UserLevelController@update');
-// Case List Setup
-Route::get('case_list', 'CaseListController@index')->name('case_list');
-Route::get('case_list_add', 'CaseListController@add')->name('case_list_add');
-Route::get('case_list_edit/{id}', 'CaseListController@edit')->name('case_list_edit');
-Route::post('case_list_add', 'CaseListController@store');
-Route::patch('case_list_edit/{id}', 'CaseListController@update');
-// Suspect Classsification Setup
-Route::get('suspect_classification_list', 'SuspectClassificationController@index')->name('suspect_classification_list');
-Route::get('suspect_classification_add', 'SuspectClassificationController@add')->name('suspect_classification_add');
-Route::get('suspect_classification_edit/{id}', 'SuspectClassificationController@edit')->name('suspect_classification_edit');
-Route::post('suspect_classification_add', 'SuspectClassificationController@store');
-Route::patch('suspect_classification_edit/{id}', 'SuspectClassificationController@update');
-// Drug Type Setup
-Route::get('drug_type_list', 'DrugTypeController@index')->name('drug_type_list');
-Route::get('drug_type_add', 'DrugTypeController@add')->name('drug_type_add');
-Route::get('drug_type_edit/{id}', 'DrugTypeController@edit')->name('drug_type_edit');
-Route::post('drug_type_add', 'DrugTypeController@store');
-Route::patch('drug_type_edit/{id}', 'DrugTypeController@update');
-// Negative Reason Setup
-Route::get('negative_reason_list', 'NegativeReasonController@index')->name('negative_reason_list');
-Route::get('negative_reason_add', 'NegativeReasonController@add')->name('negative_reason_add');
-Route::get('negative_reason_edit/{id}', 'NegativeReasonController@edit')->name('negative_reason_edit');
-Route::post('negative_reason_add', 'NegativeReasonController@store');
-Route::patch('negative_reason_edit/{id}', 'NegativeReasonController@update');
-// Province Setup
-Route::get('province_list', 'ProvinceController@index')->name('province_list');
-Route::get('province_add', 'ProvinceController@add')->name('province_add');
-Route::get('province_edit/{id}', 'ProvinceController@edit')->name('province_edit');
-Route::post('province_add', 'ProvinceController@store');
-Route::patch('province_edit/{id}', 'ProvinceController@update');
-// Region Setup
-Route::get('region_list', 'RegionController@index')->name('region_list');
-Route::get('region_add', 'RegionController@add')->name('region_add');
-Route::get('region_edit/{id}', 'RegionController@edit')->name('region_edit');
-Route::post('region_add', 'RegionController@store');
-Route::patch('region_edit/{id}', 'RegionController@update');
-// City Setup
-Route::get('city_list', 'CityController@index')->name('city_list');
-Route::get('city_add', 'CityController@add')->name('city_add');
-Route::get('city_edit/{id}', 'CityController@edit')->name('city_edit');
-Route::post('city_add', 'CityController@store');
-Route::patch('city_edit/{id}', 'CityController@update');
-// Barangay Setup
-Route::get('barangay_list', 'BarangayController@index')->name('barangay_list');
-Route::get('barangay_add', 'BarangayController@add')->name('barangay_add');
-Route::get('barangay_edit/{id}', 'BarangayController@edit')->name('barangay_edit');
-Route::post('barangay_add', 'BarangayController@store');
-Route::patch('barangay_edit/{id}', 'BarangayController@update');
-// Operating Unit Setup
-Route::get('operating_unit_list', 'OperatingUnitController@index')->name('operating_unit_list');
-Route::get('operating_unit_add', 'OperatingUnitController@add')->name('operating_unit_add');
-Route::get('operating_unit_edit/{id}', 'OperatingUnitController@edit')->name('operating_unit_edit');
-Route::post('operating_unit_add', 'OperatingUnitController@store');
-Route::patch('operating_unit_edit/{id}', 'OperatingUnitController@update');
-// Operation Type Setup
-Route::get('operation_type_list', 'OperationTypeController@index')->name('operation_type_list');
-Route::get('operation_type_add', 'OperationTypeController@add')->name('operation_type_add');
-Route::get('operation_type_edit/{id}', 'OperationTypeController@edit')->name('operation_type_edit');
-Route::post('operation_type_add', 'OperationTypeController@store');
-Route::patch('operation_type_edit/{id}', 'OperationTypeController@update');
-// Operation Classification Setup
-Route::get('operation_classification_list', 'OperationClassificationController@index')->name('operation_classification_list');
-Route::get('operation_classification_add', 'OperationClassificationController@add')->name('operation_classification_add');
-Route::get('operation_classification_edit/{id}', 'OperationClassificationController@edit')->name('operation_classification_edit');
-Route::post('operation_classification_add', 'OperationClassificationController@store');
-Route::patch('operation_classification_edit/{id}', 'OperationClassificationController@update');
-// Local Operating Unit Setup
-// Route::get('local_operating_unit_list', 'LocalOperatingUnitController@index')->name('local_operating_unit_list');
-// Route::get('local_operating_unit_add', 'LocalOperatingUnitController@add')->name('local_operating_unit_add');
-// Route::get('local_operating_unit_edit/{id}', 'LocalOperatingUnitController@edit')->name('local_operating_unit_edit');
-// Route::post('local_operating_unit_add', 'LocalOperatingUnitController@store');
-// Route::patch('local_operating_unit_edit/{id}', 'LocalOperatingUnitController@update');
-// Educational Attainment Setup
-Route::get('educational_attainment_list', 'EducationalAttainmentController@index')->name('educational_attainment_list');
-Route::get('educational_attainment_add', 'EducationalAttainmentController@add')->name('educational_attainment_add');
-Route::get('educational_attainment_edit/{id}', 'EducationalAttainmentController@edit')->name('educational_attainment_edit');
-Route::post('educational_attainment_add', 'EducationalAttainmentController@store');
-Route::patch('educational_attainment_edit/{id}', 'EducationalAttainmentController@update');
-// Ethnic Group Setup
-Route::get('ethnic_group_list', 'EthnicGroupController@index')->name('ethnic_group_list');
-Route::get('ethnic_group_add', 'EthnicGroupController@add')->name('ethnic_group_add');
-Route::get('ethnic_group_edit/{id}', 'EthnicGroupController@edit')->name('ethnic_group_edit');
-Route::post('ethnic_group_add', 'EthnicGroupController@store');
-Route::patch('ethnic_group_edit/{id}', 'EthnicGroupController@update');
-// Jail Facility Setup
-Route::get('jail_facility_list', 'JailFacilityController@index')->name('jail_facility_list');
-Route::get('jail_facility_add', 'JailFacilityController@add')->name('jail_facility_add');
-Route::get('jail_facility_edit/{id}', 'JailFacilityController@edit')->name('jail_facility_edit');
-Route::post('jail_facility_add', 'JailFacilityController@store');
-Route::patch('jail_facility_edit/{id}', 'JailFacilityController@update');
-// Laboratory Facility Setup
-Route::get('laboratory_facility_list', 'LaboratoryFacilityController@index')->name('laboratory_facility_list');
-Route::get('laboratory_facility_add', 'LaboratoryFacilityController@add')->name('laboratory_facility_add');
-Route::get('laboratory_facility_edit/{id}', 'LaboratoryFacilityController@edit')->name('laboratory_facility_edit');
-Route::post('laboratory_facility_add', 'LaboratoryFacilityController@store');
-Route::patch('laboratory_facility_edit/{id}', 'LaboratoryFacilityController@update');
-// Evidence Type Setup
-Route::get('evidence_type_list', 'EvidenceTypeController@index')->name('evidence_type_list');
-Route::get('evidence_type_add', 'EvidenceTypeController@add')->name('evidence_type_add');
-Route::get('evidence_type_edit/{id}', 'EvidenceTypeController@edit')->name('evidence_type_edit');
-Route::post('evidence_type_add', 'EvidenceTypeController@store');
-Route::patch('evidence_type_edit/{id}', 'EvidenceTypeController@update');
-// Evidence Setup
-Route::get('evidence_list', 'EvidenceController@index')->name('evidence_list');
-Route::get('evidence_add', 'EvidenceController@add')->name('evidence_add');
-Route::get('evidence_edit/{id}', 'EvidenceController@edit')->name('evidence_edit');
-Route::post('evidence_add', 'EvidenceController@store');
-Route::patch('evidence_edit/{id}', 'EvidenceController@update');
-// Packaging Setup
-Route::get('packaging_list', 'PackagingController@index')->name('packaging_list');
-Route::get('packaging_add', 'PackagingController@add')->name('packaging_add');
-Route::get('packaging_edit/{id}', 'PackagingController@edit')->name('packaging_edit');
-Route::post('packaging_add', 'PackagingController@store');
-Route::patch('packaging_edit/{id}', 'PackagingController@update');
-// Regional Office Setup
-Route::get('regional_office_list', 'RegionalOfficeController@index')->name('regional_office_list');
-Route::get('regional_office_add', 'RegionalOfficeController@add')->name('regional_office_add');
-Route::get('regional_office_edit/{id}', 'RegionalOfficeController@edit')->name('regional_office_edit');
-Route::post('regional_office_add', 'RegionalOfficeController@store');
-Route::patch('regional_office_edit/{id}', 'RegionalOfficeController@update');
-Route::get('/get_ro_region/{ro_code}', 'RegionalOfficeController@getRORegion');
-Route::get('/get_ro_province/{ro_code}', 'RegionalOfficeController@getROProvince');
-Route::get('/get_ro_details/{ro_code}', 'RegionalOfficeController@getRODetails');
-// Nationality Setup
-Route::get('nationality_list', 'NationalityController@index')->name('nationality_list');
-Route::get('nationality_add', 'NationalityController@add')->name('nationality_add');
-Route::get('nationality_edit/{id}', 'NationalityController@edit')->name('nationality_edit');
-Route::post('nationality_add', 'NationalityController@store');
-Route::patch('nationality_edit/{id}', 'NationalityController@update');
-// Identifier Setup
-Route::get('identifier_list', 'IdentifierController@index')->name('identifier_list');
-Route::get('identifier_add', 'IdentifierController@add')->name('identifier_add');
-Route::get('identifier_edit/{id}', 'IdentifierController@edit')->name('identifier_edit');
-Route::post('identifier_add', 'IdentifierController@store');
-Route::patch('identifier_edit/{id}', 'IdentifierController@update');
-// Group Affiliation Setup
-Route::get('group_affiliation_list', 'GroupAffiliationController@index')->name('group_affiliation_list');
-Route::get('group_affiliation_add', 'GroupAffiliationController@add')->name('group_affiliation_add');
-Route::get('group_affiliation_edit/{id}', 'GroupAffiliationController@edit')->name('group_affiliation_edit');
-Route::post('group_affiliation_add', 'GroupAffiliationController@store');
-Route::patch('group_affiliation_edit/{id}', 'GroupAffiliationController@update');
-// Occupation Setup
-Route::get('occupation_list', 'OccupationController@index')->name('occupation_list');
-Route::get('occupation_add', 'OccupationController@add')->name('occupation_add');
-Route::get('occupation_edit/{id}', 'OccupationController@edit')->name('occupation_edit');
-Route::post('occupation_add', 'OccupationController@store');
-Route::patch('occupation_edit/{id}', 'OccupationController@update');
-// Suspect Information Setup
-Route::get('suspect_information_list', 'SuspectInformationController@index')->name('suspect_information_list');
-Route::get('suspect_information_add', 'SuspectInformationController@add')->name('suspect_information_add');
-Route::get('suspect_information_edit/{id}', 'SuspectInformationController@edit')->name('suspect_information_edit');
-Route::post('suspect_information_add', 'SuspectInformationController@store');
-Route::post('suspect_information_edit/{id}', 'SuspectInformationController@update');
-// Suspect Status Setup
-Route::get('suspect_status_list', 'SuspectStatusController@index')->name('suspect_status_list');
-Route::get('suspect_status_add', 'SuspectStatusController@add')->name('suspect_status_add');
-Route::get('suspect_status_edit/{id}', 'SuspectStatusController@edit')->name('suspect_status_edit');
-Route::post('suspect_status_add', 'SuspectStatusController@store');
-Route::patch('suspect_status_edit/{id}', 'SuspectStatusController@update');
-// Support Unit Setup
-Route::get('support_unit_list', 'SupportUnitController@index')->name('support_unit_list');
-Route::get('support_unit_add', 'SupportUnitController@add')->name('support_unit_add');
-Route::get('support_unit_edit/{id}', 'SupportUnitController@edit')->name('support_unit_edit');
-Route::post('support_unit_add', 'SupportUnitController@store');
-Route::patch('support_unit_edit/{id}', 'SupportUnitController@update');
-// Position Setup
-Route::get('position_list', 'PositionController@index')->name('position_list');
-Route::get('position_add', 'PositionController@add')->name('position_add');
-Route::get('position_edit/{id}', 'PositionController@edit')->name('position_edit');
-Route::post('position_add', 'PositionController@store');
-Route::patch('position_edit/{id}', 'PositionController@update');
-// Unit of Measurement Setup
-Route::get('unit_measurement_list', 'UnitMeasurementController@index')->name('unit_measurement_list');
-Route::get('unit_measurement_add', 'UnitMeasurementController@add')->name('unit_measurement_add');
-Route::get('unit_measurement_edit/{id}', 'UnitMeasurementController@edit')->name('unit_measurement_edit');
-Route::post('unit_measurement_add', 'UnitMeasurementController@store');
-Route::patch('unit_measurement_edit/{id}', 'UnitMeasurementController@update');
 // Drug Verification
 Route::get('drug_verification_list', 'DrugVerificationController@index')->name('drug_verification_list');
 Route::post('drug_verification_add', 'DrugVerificationController@store');
@@ -305,13 +315,6 @@ Route::get('/get_unit_measure/{evidence_id}', 'GlobalController@getUnitMeasure')
 Route::get('/get_operation_type/{operation_type_id}', 'GlobalController@get_operation_type');
 Route::get('/get_province_details/{province_c}', 'GlobalController@get_province_details');
 Route::get('/get_suspect_category/{suspect_classification_id}', 'GlobalController@get_suspect_category');
-
-// Suspect Category Setup
-Route::get('suspect_category_list', 'SuspectCategoryController@index')->name('suspect_category_list');
-Route::get('suspect_category_add', 'SuspectCategoryController@add')->name('suspect_category_add');
-Route::get('suspect_category_edit/{id}', 'SuspectCategoryController@edit')->name('suspect_category_edit');
-Route::post('suspect_category_add', 'SuspectCategoryController@store');
-Route::patch('suspect_category_edit/{id}', 'SuspectCategoryController@update');
 
 
 //Chat Controller

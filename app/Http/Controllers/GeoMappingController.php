@@ -33,9 +33,9 @@ class GeoMappingController extends Controller
      //ops_status_updater
         $datetime_now=Carbon::now()->format('Y-m-d H:i:s');
 
-        $on_going_ops=DB::table('preops_header')->whereDate('operation_datetime','<=',$datetime_now)->whereDate('validity','>=',$datetime_now)->pluck('preops_number');
-        $finished_ops=DB::table('preops_header')->whereDate('validity','<=',$datetime_now)->pluck('preops_number');
-
+        $on_going_ops=DB::table('preops_header')->where('operation_datetime','<=',$datetime_now)->where('validity','>=',$datetime_now)->pluck('preops_number');
+        $finished_ops=DB::table('preops_header')->where('validity','<=',$datetime_now)->pluck('preops_number');
+//dd($on_going_ops);
         DB::table('preops_area')->whereIn('preops_number',$on_going_ops)->update(
             array(
                 'ops_status'  =>  1,
@@ -413,7 +413,7 @@ class GeoMappingController extends Controller
             $ops_details_area=DB::table('preops_area')->where('city_c',$data['area_ID'])->orderBy('created_at','DESC')->get();
             $ops_numbers=DB::table('preops_area')->where('city_c',$data['area_ID'])->pluck('preops_number');
 
-            $ops_details=DB::table('preops_header')->where('status',1)->whereDate('operation_datetime','<=',$datetime_now)->whereDate('validity','>=',$datetime_now)->whereIn('preops_number',$ops_numbers)->get();
+            $ops_details=DB::table('preops_header')->where('status',1)->where('operation_datetime','<=',$datetime_now)->where('validity','>=',$datetime_now)->whereIn('preops_number',$ops_numbers)->get();
             $ops_count=count($ops_details);
 
             $the_teams=DB::table('preops_header')->where('status',1)->whereIn('preops_number',$ops_numbers)->pluck('preops_number');
@@ -448,7 +448,7 @@ class GeoMappingController extends Controller
             $ops_details_area=DB::table('preops_area')->whereBetween('city_c',[133901,133914])->orderBy('created_at','DESC')->get();
             $ops_numbers=DB::table('preops_area')->whereBetween('city_c',[133901,133914])->pluck('preops_number');
 
-            $ops_details=DB::table('preops_header')->where('status',1)->whereDate('operation_datetime','<=',$datetime_now)->whereDate('validity','>=',$datetime_now)->whereIn('preops_number',$ops_numbers)->get();
+            $ops_details=DB::table('preops_header')->where('status',1)->where('operation_datetime','<=',$datetime_now)->where('validity','>=',$datetime_now)->whereIn('preops_number',$ops_numbers)->get();
             $ops_count=count($ops_details);
 
             $the_teams=DB::table('preops_header')->where('status',1)->whereIn('preops_number',$ops_numbers)->pluck('preops_number');
@@ -482,7 +482,7 @@ class GeoMappingController extends Controller
             $ops_details_area=DB::table('preops_area')->where('province_c',$data['area_ID'])->orderBy('created_at','DESC')->get();
             $ops_numbers=DB::table('preops_area')->where('province_c',$data['area_ID'])->pluck('preops_number');
 
-            $ops_details=DB::table('preops_header')->where('status',1)->whereDate('operation_datetime','<=',$datetime_now)->whereDate('validity','>=',$datetime_now)->whereIn('preops_number',$ops_numbers)->get();
+            $ops_details=DB::table('preops_header')->where('status',1)->where('operation_datetime','<=',$datetime_now)->where('validity','>=',$datetime_now)->whereIn('preops_number',$ops_numbers)->get();
             $ops_count=count($ops_details);
 
             $the_teams=DB::table('preops_header')->where('status',1)->whereIn('preops_number',$ops_numbers)->pluck('preops_number');
