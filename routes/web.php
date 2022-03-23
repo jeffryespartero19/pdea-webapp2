@@ -278,8 +278,14 @@ Route::get('progress_report_file_delete/{id}', 'ProgressReportController@fileDel
 Route::get('/progress_report/pdf/{id}', 'ProgressReportController@pdf');
 
 //File Uploads
-// Route::get('issuance_of_preops_list', 'IssuanceOfPreopsController@index')->name('issuance_of_preops_list');
+Route::get('file_uploads', 'FileUploadsController@index')->name('file_uploads');
 
+//Memo
+Route::get('memo_list', 'MemoController@index')->name('memo_list');
+Route::get('memo_add', 'MemoController@add')->name('memo_add');
+Route::get('memo_edit/{id}', 'MemoController@edit')->name('memo_edit');
+Route::post('memo_add', 'MemoController@store');
+Route::patch('memo_edit/{id}', 'MemoController@update');
 
 // Drug Verification
 Route::get('drug_verification_list', 'DrugVerificationController@index')->name('drug_verification_list');
