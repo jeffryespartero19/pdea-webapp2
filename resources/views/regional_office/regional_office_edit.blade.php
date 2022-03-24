@@ -96,15 +96,19 @@
                         <input id="report_output" name="report_output" type="text" class="form-control @error('report output') is-invalid @enderror" value="{{ old('report_output') ?? $regional_office[0]->report_output }}" placeholder="Report Output" autocomplete="off">
                     </div>
                 </div>
-                <div class="form-group col-7" style="margin: 0px;">
+                <div class="form-group">
                     <div>
                         <label for="">Report Header</label>
                     </div>
-                    <div class="custom-file mb-3">
+                    <div class="input-group mb-3">
+                        <span style="margin-right: 20px;">{{$regional_office[0]->report_header}}</span><a href="{{ asset('/files/uploads/report_header/' . $regional_office[0]->report_header) }}">View </a>
+                    </div>
+                    <div class="custom-file mb-3" style="width: 400px;">
                         <input type="file" name="fileattach[]" class="custom-file-input" id="fileattach"/>
-                        <label class="custom-file-label" for="customFile">Choose file</label>
+                        <label class="custom-file-label" for="customFile">Edit Report Header</label>
                     </div>
                 </div>
+                
                 <div class="form-group">
                     <div>
                         <label for="">Address</label>

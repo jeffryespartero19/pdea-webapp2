@@ -95,7 +95,7 @@
                         <input id="report_output" name="report_output" type="text" class="form-control @error('report output') is-invalid @enderror" value="{{ old('report_output') }}" placeholder="Report Output" autocomplete="off">
                     </div>
                 </div>
-                <div class="form-group col-7" style="margin: 0px;">
+                <div class="form-group">
                     <div>
                         <label for="">Report Header</label>
                     </div>
