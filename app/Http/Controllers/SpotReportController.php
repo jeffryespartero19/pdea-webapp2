@@ -351,7 +351,7 @@ class SpotReportController extends Controller
 
                     // dd($data['suspect_number_case'][$i]);
 
-                    if ($data['suspect_number_case'][$i] != null && $data['suspect_number_case'][$i] != 0) {
+                    if ($data['suspect_number_case'][$i] != null && $data['suspect_number_case'][$i] != null) {
                         $sdata = explode(",", $data['suspect_number_case'][$i]);
                         $lastname = $sdata[0];
                         $firstname = $sdata[1];
@@ -792,7 +792,7 @@ class SpotReportController extends Controller
                 for ($i = 0; $i < count($data['suspect_number_item']); $i++) {
                     if ($data['suspect_number_item'][$i] != NULL && $data['evidence_id'][$i] != NULL) {
 
-                        if ($data['spot_evidence_id'][$i] == 0) {
+                        if ($data['spot_evidence_id'][$i] == null) {
                             $sdata = explode(",", $data['suspect_number_item'][$i]);
                             $lastname = $sdata[0];
                             $firstname = $sdata[1];
@@ -800,7 +800,7 @@ class SpotReportController extends Controller
                             $alias = $sdata[3];
                             $birthdate = $sdata[4];
 
-                            $suspect_data = DB::table('suspect_information')
+                            $suspect_data = DB::table('spot_report_suspect')
                                 ->where('lastname', $lastname)
                                 ->where('firstname', $firstname)
                                 ->where('middlename', $middlename)
@@ -811,6 +811,25 @@ class SpotReportController extends Controller
                             $suspect_number = $suspect_data[0]->suspect_number;
                         } else if ($data['spot_evidence_id'] > 0) {
                             $suspect_number = $data['suspect_number_item'][$i];
+                            $sdata = explode(",", $data['suspect_number_item'][$i]);
+                            $lastname = $sdata[0];
+                           
+                            if (isset($sdata[1])) {
+                                $firstname = $sdata[1];
+                                $middlename = $sdata[2];
+                                $alias = $sdata[3];
+                                $birthdate = $sdata[4];
+
+                                $suspect_data = DB::table('suspect_information')
+                                    ->where('lastname', $lastname)
+                                    ->where('firstname', $firstname)
+                                    ->where('middlename', $middlename)
+                                    ->where('alias', $alias)
+                                    ->where('birthdate', $birthdate)
+                                    ->select('suspect_number')
+                                    ->get();
+                                $suspect_number = $suspect_data[0]->suspect_number;
+                            }
                         }
 
                         $id = 0 + DB::table('spot_report_evidence')->max('id');
@@ -845,8 +864,7 @@ class SpotReportController extends Controller
                 for ($i = 0; $i < count($data['case_id']); $i++) {
                     if ($data['case_id'][$i] != NULL && $data['suspect_number_case'][$i] != NULL) {
 
-
-                        if ($data['spot_case_id'][$i] == 0 || $data['spot_case_id'][$i] == '') {
+                        if ($data['spot_case_id'][$i] == null) {
                             $sdata = explode(",", $data['suspect_number_case'][$i]);
                             $lastname = $sdata[0];
                             $firstname = $sdata[1];
@@ -854,7 +872,7 @@ class SpotReportController extends Controller
                             $alias = $sdata[3];
                             $birthdate = $sdata[4];
 
-                            $suspect_data = DB::table('suspect_information')
+                            $suspect_data = DB::table('spot_report_suspect')
                                 ->where('lastname', $lastname)
                                 ->where('firstname', $firstname)
                                 ->where('middlename', $middlename)

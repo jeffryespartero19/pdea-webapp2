@@ -583,7 +583,7 @@
                                                         <tr>
                                                             <td>
                                                                 <select name="suspect_number_case[]" style="width: 400px;" class="form-control @error('region') is-invalid @enderror suspect_number_case">
-                                                                    <option value='0' selected>None
+                                                                    <option value='' selected>None
                                                                     </option>
                                                                 </select>
                                                             </td>
@@ -995,7 +995,7 @@
     function addCase() {
         html = '<tr id="case-row' + case_row + '">';
         html +=
-            '<td><select style="width:400px" name="suspect_number_case[]" class="form-control @error("suspect name") is-invalid @enderror suspect_number_case"><option value="0" selected>None</option></select></td>';
+            '<td><select style="width:400px" name="suspect_number_case[]" class="form-control @error("suspect name") is-invalid @enderror suspect_number_case"><option value="" selected>None</option></select></td>';
         html +=
             '<td><select style="width:400px" name="case_id[]" class="form-control"><option value="0" selected>None</option>@foreach ($case as $c)<option value="{{ $c->id }}">{{ $c->description }}</option>@endforeach </select></td>';
         html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#case-row' + case_row +

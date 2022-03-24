@@ -975,7 +975,7 @@
                                                         </tr>
                                                         @empty
                                                         <tr>
-                                                            <td hidden><input type="number" name="spot_case_id[]" value="0" class="form-control"></td>
+                                                            <td hidden><input type="number" name="spot_case_id[]" value="" class="form-control"></td>
                                                             <td>
                                                                 <select name="suspect_number_case[]" style="width: 400px;" class="form-control @error('region') is-invalid @enderror suspect_number_case">
                                                                     @foreach ($suspect_information as $si)
@@ -1369,7 +1369,7 @@
 
     function addItems() {
         html = '<tr class="suspect_item_details" id="items-row' + items_row + '">';
-        html += '<td hidden><input type="number" name="spot_evidence_id[]" class="form-control" value="0"></td>';
+        html += '<td hidden><input type="number" name="spot_evidence_id[]" class="form-control" value=""></td>';
         html +=
             '<td><select style="width: 300px;" name="suspect_number_item[]" class="form-control @error("suspect name") is-invalid @enderror suspect_number_item"><option value="0" selected>None</option></select></td>';
         html +=
@@ -1420,10 +1420,10 @@
 
     function addCase() {
         html = '<tr id="case-row' + case_row + '">';
-        html += '<td hidden><input type="number" name="spot_case_id[]" class="form-control" value="0"></td>';
-        html += '<td><select style="width: 400px;" name="suspect_number_case[]" class="form-control @error("suspect name") is-invalid @enderror suspect_number_case"><option value="0" selected>None</option>@foreach ($suspect_information as $si)<option value="{{ $si->suspect_number }}">{{ $si->lastname }}, {{ $si->firstname }} {{ $si->middlename }} -- Alias: "{{ $si->alias }}"</option>@endforeach </select></td>';
+        html += '<td hidden><input type="number" name="spot_case_id[]" class="form-control" value=""></td>';
+        html += '<td><select style="width: 400px;" name="suspect_number_case[]" class="form-control @error("suspect name") is-invalid @enderror suspect_number_case"><option value="" selected>None</option>@foreach ($suspect_information as $si)<option value="{{ $si->suspect_number }}">{{ $si->lastname }}, {{ $si->firstname }} {{ $si->middlename }} -- Alias: "{{ $si->alias }}"</option>@endforeach </select></td>';
         html +=
-            '<td><select style="width: 400px;" name="case_id[]" class="form-control"><option value="0" selected>None</option>@foreach ($case as $c)<option value="{{ $c->id }}">{{ $c->description }}</option>@endforeach </select></td>';
+            '<td><select style="width: 400px;" name="case_id[]" class="form-control"><option value="" selected>None</option>@foreach ($case as $c)<option value="{{ $c->id }}">{{ $c->description }}</option>@endforeach </select></td>';
         html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#case-row' + case_row +
             '\').remove();"><i class="fa fa-trash"></i> Delete</button></td>';
 
