@@ -342,7 +342,7 @@
                                                     <tbody>
                                                         <tr>
                                                             <td><input type="text" name="team_name[]" class="form-control tchange_control tcc1" placeholder="Name"></td>
-                                                            <td><input type="text" name="team_position[]" class="form-control tchange_control tcc2l" placeholder="Position" value="Team Leader" style="pointer-events:none; background-color : #e9ecef;"></td>
+                                                            <td><input type="text" name="team_position[]" class="form-control tchange_control tcc2l" placeholder="Position" value="Team Leader" style="pointer-events:none; background-color : #e9ecef;" readonly></td>
                                                             <td><input type="text" name="team_contact[]" class="form-control tchange_control tcc3" placeholder="Contact No."></td>
                                                             <td class="mt-10"><button type="button" class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button></td>
                                                         </tr>
@@ -566,7 +566,7 @@
     function addopt() {
         html = '<tr id="faqs-row' + opt_row + '">';
         html += '<td><input required type="text" name="team_name[]" class="form-control" placeholder="Name"></td>';
-        html += '<td><input required type="text" name="team_position[]" class="form-control" placeholder="Position" value="Team Leader" style="pointer-events:none; background-color : #e9ecef;"></td>';
+        html += '<td><input required type="text" name="team_position[]" class="form-control" placeholder="Position" value="Team Leader" style="pointer-events:none; background-color : #e9ecef;" readonly></td>';
         html += '<td><input required type="text" name="team_contact[]" class="form-control" placeholder="Contact No."></td>';
         html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#faqs-row' + opt_row + '\').remove();"><i class="fa fa-trash"></i> Delete</button></td>';
 
