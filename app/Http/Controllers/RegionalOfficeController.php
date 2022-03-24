@@ -40,6 +40,17 @@ class RegionalOfficeController extends Controller
             'name' => 'required|string|min:3|unique:regional_office'
         ]);
 
+        if ($request->hasfile('fileattach')) {
+            foreach ($request->file('fileattach') as $file) {
+                $filename = $file->getClientOriginalName();
+                // $filename = pathinfo($fileinfo, PATHINFO_FILENAME);
+                $filePath = public_path() . '/files/uploads/report_header/';
+                $file->move($filePath, $filename);
+            }
+        } else {
+            $filename = '';
+        }
+
         $form_data = array(
             'region_c' => $request->region_c,
             'name' => $request->name,
@@ -50,9 +61,12 @@ class RegionalOfficeController extends Controller
             'address' => $request->address,
             'contact_number' => $request->contact_number,
             'status' => $request->has('status') ? true : false,
+            'report_header' => $filename,
         );
 
         DB::table('regional_office')->insert($form_data);
+
+
 
         //Save audit trail
         $data_audit = array(
@@ -83,6 +97,17 @@ class RegionalOfficeController extends Controller
             'name' => 'required|string|min:3'
         ]);
 
+        if ($request->hasfile('fileattach')) {
+            foreach ($request->file('fileattach') as $file) {
+                $filename = $file->getClientOriginalName();
+                // $filename = pathinfo($fileinfo, PATHINFO_FILENAME);
+                $filePath = public_path() . '/files/uploads/report_header/';
+                $file->move($filePath, $filename);
+            }
+        } else {
+            $filename = '';
+        }
+
         $pos_data = array(
             'region_c' => $request->region_c,
             'name' => $request->name,
@@ -93,6 +118,7 @@ class RegionalOfficeController extends Controller
             'address' => $request->address,
             'contact_number' => $request->contact_number,
             'status' => $request->has('status') ? true : false,
+            'report_header' => $filename,
         );
 
         DB::table('regional_office')->where('id', $id)->update($pos_data);

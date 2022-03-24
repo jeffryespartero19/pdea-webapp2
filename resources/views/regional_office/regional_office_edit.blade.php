@@ -44,7 +44,7 @@
             <h3 class="card-title">Edit Regional Office Information</h3>
         </div>
         <div class="card-body">
-            <form action="/regional_office_edit/{{ $regional_office[0]->id }}" role="form" method="post">
+            <form action="/regional_office_edit/{{ $regional_office[0]->id }}" role="form" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 <div class="form-group">
@@ -94,6 +94,15 @@
                     </div>
                     <div class="input-group mb-3">
                         <input id="report_output" name="report_output" type="text" class="form-control @error('report output') is-invalid @enderror" value="{{ old('report_output') ?? $regional_office[0]->report_output }}" placeholder="Report Output" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group col-7" style="margin: 0px;">
+                    <div>
+                        <label for="">Report Header</label>
+                    </div>
+                    <div class="custom-file mb-3">
+                        <input type="file" name="fileattach[]" class="custom-file-input" id="fileattach"/>
+                        <label class="custom-file-label" for="customFile">Choose file</label>
                     </div>
                 </div>
                 <div class="form-group">

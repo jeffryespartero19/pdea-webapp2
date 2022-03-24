@@ -580,16 +580,8 @@ class IssuanceOfPreopsController extends Controller
             </header>';
 
         $output .= '
-
-     <br>
-                <img src="./dist/img/pdea_logo.jpg" class="col-3" style="width:100px; height:100px; float:left">
-                <span style="padding-left:20px">Republic of the Philippines</span>
+                <img src="./files/uploads/report_header/' . $regional_office[0]->report_header . '" class="col-3" style="width:100%;">
                 <br>
-                <span style="padding-left:20px">Office of the President</span>
-                <hr style="margin-left:120px; margin-top:0px;  margin-bottom:0px">
-                <span style="padding-left:20px; font-weight: bold; font-size:20px; margin-bottom:0px">PHILIPPINE DRUG ENFORCEMENT AGENCY</span>
-                <br>
-                <p style="padding-left:40px; font-size:13px; margin-top:0px; margin-left:80px">' . $regional_office[0]->address . ' | www.pdea.gov.ph | ' . $regional_office[0]->contact_number . '</p>
                 <br>
                 <h3 align="center">CERTIFICATE OF COORDINATION</h3>
                 <span style="margin-right:110px">Issuing Office:</span><span>' . $regional_office[0]->name . '</span>
