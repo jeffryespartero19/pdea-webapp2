@@ -117,9 +117,20 @@ class SpotReportController extends Controller
         // dd($data = $request->all());
         $data = $request->all();
 
+        // Auto Spot Number
+        date_default_timezone_set('Asia/Manila');
+        $date = Carbon::now()->format('mdY');
+        $spot_report_number = DB::table('spot_report_header')
+            ->where('region_c', $request->region_c)
+            ->whereDate('reported_date', Carbon::now()->format('Y-m-d'))
+            ->count();
+        $spot_report_number += 1;
+        $spot_report_number = sprintf("%04s", $spot_report_number);
+        $spot_report_number = 'RO' . $request->region_c . '-' . $date . '-' . $spot_report_number;
+
 
         $form_data = array(
-            'spot_report_number' => $request->spot_report_number,
+            'spot_report_number' => $spot_report_number,
             'operation_type_id' => $request->operation_type_id,
             'reported_date' => $request->reported_date,
             'region_c' => $request->region_c,
@@ -158,7 +169,7 @@ class SpotReportController extends Controller
                 $file->move($filePath, $filename);
 
                 $file_data = array(
-                    'spot_report_number' => $request->spot_report_number,
+                    'spot_report_number' => $spot_report_number,
                     'filenames' => $filename,
                 );
                 $file_id = DB::table('spot_report_files')->insertGetId($file_data);
@@ -200,7 +211,7 @@ class SpotReportController extends Controller
 
                     $spot_suspect = [
                         'suspect_number' => $suspect_number,
-                        'spot_report_number' => $request->spot_report_number,
+                        'spot_report_number' => $spot_report_number,
                         'lastname' => $data['lastname'][$i],
                         'firstname' => $data['firstname'][$i],
                         'middlename' => $data['middlename'][$i],
@@ -313,7 +324,7 @@ class SpotReportController extends Controller
                         'quantity' => $data['quantity'][$i],
                         'unit' => $data['unit_measurement_id'][$i],
                         'packaging_id' => $data['packaging_id'][$i],
-                        'spot_report_number' => $request->spot_report_number,
+                        'spot_report_number' => $spot_report_number,
                         'drug' => $data['drug'][$i],
                         'markings' => $data['markings'][$i],
 
@@ -334,7 +345,7 @@ class SpotReportController extends Controller
                     $id += 1;
 
                     $spot_su = [
-                        'spot_report_number' => $request->spot_report_number,
+                        'spot_report_number' => $spot_report_number,
                         'support_unit_id' => $data['support_unit_id'][$i],
                     ];
 
@@ -379,7 +390,7 @@ class SpotReportController extends Controller
                     $spot_case = [
                         'suspect_number' => $suspect_number,
                         'case_id' => $data['case_id'][$i],
-                        'spot_report_number' => $request->spot_report_number,
+                        'spot_report_number' => $spot_report_number,
                     ];
 
                     DB::table('spot_report_case')->updateOrInsert(['id' => $id], $spot_case);
@@ -399,7 +410,7 @@ class SpotReportController extends Controller
                 $spot_team = [
                     'officer_name' => $data['officer_name'][$i],
                     'officer_position' => $data['officer_position'][$i],
-                    'spot_report_number' => $request->spot_report_number,
+                    'spot_report_number' => $spot_report_number,
                 ];
 
                 DB::table('spot_report_team')->updateOrInsert(['id' => $id], $spot_team);
@@ -813,7 +824,7 @@ class SpotReportController extends Controller
                             $suspect_number = $data['suspect_number_item'][$i];
                             $sdata = explode(",", $data['suspect_number_item'][$i]);
                             $lastname = $sdata[0];
-                           
+
                             if (isset($sdata[1])) {
                                 $firstname = $sdata[1];
                                 $middlename = $sdata[2];

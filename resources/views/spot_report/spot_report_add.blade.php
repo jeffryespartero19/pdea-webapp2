@@ -70,7 +70,7 @@
                         </div>
                         <div class="input-group mb-3">
                             <?php date_default_timezone_set('Asia/Manila'); ?>
-                            <input id="reported_date" name="reported_date" type="date" class="form-control @error('reported date') is-invalid @enderror disabled_field" value="<?php echo date('Y-m-d'); ?>" autocomplete="off" required>
+                            <input id="reported_date" name="reported_date" type="date" class="form-control @error('reported date') is-invalid @enderror disabled_field" value="<?php echo date('Y-m-d'); ?>" autocomplete="off" required readonly>
                         </div>
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                             <span id="spot_report_error" hidden style="float: right; color:red" for="">Spot Report Number Exist</span>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="spot_report_number" name="spot_report_number" type="text" class="form-control @error('spot report number') is-invalid @enderror disabled_field" value="RO{{$roc_regional_office[0]->region_c}}-{{$date}}-{{$spot_report_number}}" autocomplete="off" required>
+                            <input id="spot_report_number" name="spot_report_number" type="text" class="form-control @error('spot report number') is-invalid @enderror disabled_field" value="Auto Generate" autocomplete="off" required readonly>
                         </div>
                     </div>
                     <div class="form-group col-4" style="margin: 0px;">
