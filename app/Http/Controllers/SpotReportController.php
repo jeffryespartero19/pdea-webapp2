@@ -1031,7 +1031,7 @@ class SpotReportController extends Controller
         $spot_report = $this->get_spot_report($id);
         $regional_office = DB::table('regional_office as a')
             ->join('preops_header as b', 'a.ro_code', '=', 'b.ro_code')
-            ->select('a.name', 'a.address', 'a.contact_number')
+            ->select('a.name', 'a.address', 'a.contact_number', 'report_header')
             ->where('b.preops_number', $spot_report[0]->preops_number)->get();
         $region = DB::table('region')->where('region_c', $spot_report[0]->region_c)->get();
         $province = DB::table('province')->where('province_c', $spot_report[0]->province_c)->get();
@@ -1104,17 +1104,10 @@ class SpotReportController extends Controller
 
 
         $output .= '
+                <img src="./files/uploads/report_header/' . $regional_office[0]->report_header . '" class="col-3" style="width:100%;">
                 <br>
-                <img src="./dist/img/pdea_logo.jpg" class="col-3" style="width:100px; height:100px; float:left">
-                <span style="padding-left:20px">Republic of the Philippines</span>
                 <br>
-                <span style="padding-left:20px">Office of the President</span>
-                <hr style="margin-left:120px; margin-top:0px;  margin-bottom:0px">
-                <span style="padding-left:20px; font-weight: bold; font-size:20px; margin-bottom:0px">PHILIPPINE DRUG ENFORCEMENT AGENCY</span>
-                <br>
-                <p style="padding-left:40px; font-size:13px; margin-top:0px; margin-left:80px">' . $regional_office[0]->address . ' | www.pdea.gov.ph | ' . $regional_office[0]->contact_number . '</p>
-                <br>
-                <div style="text-align:center;"><h1>' . $spot_report[0]->spot_report_number . '</h1></div>
+                <div style="text-align:center;"><h2>' . $spot_report[0]->spot_report_number . '</h2></div>
                 <div style="border:solid;" align="center"><span style="font-size:20px">SPOT REPORT</span></div>
                 <br>
                 <span style="margin-right:39px; margin-left:33px">Date Reported:</span><span>' . Carbon::createFromFormat('Y-m-d', $spot_report[0]->reported_date)->format('F d,Y') . '</span>

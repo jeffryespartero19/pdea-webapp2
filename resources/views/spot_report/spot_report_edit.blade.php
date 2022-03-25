@@ -389,7 +389,7 @@
                                                             <td><input required type="text" name="suspect_number[]" style="width: 200px; pointer-events:none; background-color : #e9ecef;" class="form-control" value="{{ $srs->suspect_number }}"></td>
                                                             <td>
                                                                 <select name="suspect_status_id[]" class="form-control" style="width: 200px;" required>
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($suspect_status as $sstat)
                                                                     <option value="{{ $sstat->id }}" {{ $sstat->id == $srs->suspect_status_id ? 'selected' : '' }}>
                                                                         {{ $sstat->name }}
@@ -413,7 +413,7 @@
                                                             <td><input type="text" name="birthplace[]" style="width: 200px;" class="form-control" value="{{ $srs->birthplace }}"></td>
                                                             <td>
                                                                 <select name="present_region_c[]" class="form-control present_region_c" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($region as $rg)
                                                                     <option value="{{ $rg->region_c }}" {{ $rg->region_c == $srs->region_c ? 'selected' : '' }}>
                                                                         {{ $rg->abbreviation }} -
@@ -424,7 +424,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="present_province_c[]" class="form-control present_province_c" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($province as $pr)
                                                                     <option value="{{ $pr->province_c }}" {{ $pr->province_c == $srs->province_c ? 'selected' : '' }}>
                                                                         {{ $pr->province_m }}
@@ -434,7 +434,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="present_city_c[]" class="form-control present_city_c" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($city as $ct)
                                                                     <option value="{{ $ct->city_c }}" {{ $ct->city_c == $srs->city_c ? 'selected' : '' }}>
                                                                         {{ $ct->city_m }}
@@ -444,7 +444,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="present_barangay_c[]" class="form-control present_barangay_c" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($barangay as $br)
                                                                     <option value="{{ $br->barangay_c }}" {{ $br->barangay_c == $srs->barangay_c ? 'selected' : '' }}>
                                                                         {{ $br->barangay_m }}
@@ -455,7 +455,7 @@
                                                             <td><input type="text" name="present_street[]" style="width: 200px;" class="form-control" value="{{ $srs->street }}"></td>
                                                             <td>
                                                                 <select name="permanent_region_c[]" class="form-control permanent_region_c" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($region as $rg)
                                                                     <option value="{{ $rg->region_c }}" {{ $rg->region_c == $srs->permanent_region_c ? 'selected' : '' }}>
                                                                         {{ $rg->abbreviation }} -
@@ -466,7 +466,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="permanent_province_c[]" class="form-control permanent_province_c" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($province as $pr)
                                                                     <option value="{{ $pr->province_c }}" {{ $pr->province_c == $srs->permanent_province_c ? 'selected' : '' }}>
                                                                         {{ $pr->province_m }}
@@ -476,7 +476,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="permanent_city_c[]" class="form-control permanent_city_c" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($city as $ct)
                                                                     <option value="{{ $ct->city_c }}" {{ $ct->city_c == $srs->permanent_city_c ? 'selected' : '' }}>
                                                                         {{ $ct->city_m }}
@@ -486,7 +486,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="permanent_barangay_c[]" class="form-control permanent_barangay_c" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($barangay as $br)
                                                                     <option value="{{ $br->barangay_c }}" {{ $br->barangay_c == $srs->permanent_barangay_c ? 'selected' : '' }}>
                                                                         {{ $br->barangay_m }}
@@ -505,7 +505,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="civil_status_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($civil_status as $cs)
                                                                     <option value="{{ $cs->id }}" {{ $cs->id == $srs->civil_status_id ? 'selected' : '' }}>
                                                                         {{ $cs->name }}
@@ -515,7 +515,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="nationality_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($nationality as $na)
                                                                     <option value="{{ $na->id }}" {{ $na->id == $srs->nationality_id ? 'selected' : '' }}>
                                                                         {{ $na->name }}
@@ -525,7 +525,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="ethnic_group_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($ethnic_group as $eg)
                                                                     <option value="{{ $eg->id }}" {{ $eg->id == $srs->ethnic_group_id ? 'selected' : '' }}>
                                                                         {{ $eg->name }}
@@ -535,7 +535,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="religion_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($religion as $rl)
                                                                     <option value="{{ $rl->id }}" {{ $rl->id == $srs->religion_id ? 'selected' : '' }}>
                                                                         {{ $rl->name }}
@@ -545,7 +545,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="educational_attainment_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($education as $ed)
                                                                     <option value="{{ $ed->id }}" {{ $ed->id == $srs->educational_attainment_id ? 'selected' : '' }}>
                                                                         {{ $ed->name }}
@@ -555,7 +555,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="occupation_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($occupation as $occ)
                                                                     <option value="{{ $occ->id }}" {{ $occ->id == $srs->occupation_id ? 'selected' : '' }}>
                                                                         {{ $occ->name }}
@@ -565,7 +565,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="suspect_classification_id[]" class="form-control suspect_classification_id" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($suspect_classification as $sclass)
                                                                     <option value="{{ $sclass->id }}" {{ $sclass->id == $srs->suspect_classification_id ? 'selected' : '' }}>
                                                                         {{ $sclass->name }}
@@ -575,7 +575,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="suspect_category_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($suspect_category as $scat)
                                                                     <option value="{{ $scat->id }}" {{ $scat->id == $srs->suspect_category_id ? 'selected' : '' }}>
                                                                         {{ $scat->name }}
@@ -598,7 +598,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="suspect_status_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($suspect_status as $sstat)
                                                                     <option value="{{ $sstat->id }}">
                                                                         {{ $sstat->name }}
@@ -628,7 +628,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="present_region_c[]" class="form-control present_region_c" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($region as $rg)
                                                                     <option value="{{ $rg->region_c }}">
                                                                         {{ $rg->abbreviation }} -
@@ -639,24 +639,24 @@
                                                             </td>
                                                             <td>
                                                                 <select name="present_province_c[]" class="form-control present_province_c" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                 </select>
                                                             </td>
                                                             <td>
                                                                 <select name="present_city_c[]" class="form-control present_city_c" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                 </select>
                                                             </td>
                                                             <td>
                                                                 <select name="present_barangay_c[]" class="form-control present_barangay_c" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                 </select>
                                                             </td>
                                                             <td><input type="text" name="present_street[]" style="width: 200px;" class="form-control">
                                                             </td>
                                                             <td>
                                                                 <select name="permanent_region_c[]" class="form-control permanent_region_c" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($region as $rg)
                                                                     <option value="{{ $rg->region_c }}">
                                                                         {{ $rg->abbreviation }} -
@@ -667,17 +667,17 @@
                                                             </td>
                                                             <td>
                                                                 <select name="permanent_province_c[]" class="form-control permanent_province_c" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                 </select>
                                                             </td>
                                                             <td>
                                                                 <select name="permanent_city_c[]" class="form-control permanent_city_c" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                 </select>
                                                             </td>
                                                             <td>
                                                                 <select name="permanent_barangay_c[]" class="form-control permanent_barangay_c" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                 </select>
                                                             </td>
                                                             <td><input type="text" name="permanent_street[]" style="width: 200px;" class="form-control">
@@ -690,7 +690,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="civil_status_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($civil_status as $cs)
                                                                     <option value="{{ $cs->id }}">
                                                                         {{ $cs->name }}
@@ -700,7 +700,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="nationality_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($nationality as $na)
                                                                     <option value="{{ $na->id }}">
                                                                         {{ $na->name }}
@@ -710,7 +710,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="ethnic_group_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($ethnic_group as $eg)
                                                                     <option value="{{ $eg->id }}">
                                                                         {{ $eg->name }}
@@ -720,7 +720,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="religion_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($religion as $rl)
                                                                     <option value="{{ $rl->id }}">
                                                                         {{ $rl->name }}
@@ -730,7 +730,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="educational_attainment_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($education as $ed)
                                                                     <option value="{{ $ed->id }}">
                                                                         {{ $ed->name }}
@@ -740,7 +740,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="occupation_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($occupation as $occ)
                                                                     <option value="{{ $occ->id }}">
                                                                         {{ $occ->name }}
@@ -750,7 +750,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="suspect_classification_id[]" class="form-control suspect_classification_id" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($suspect_classification as $sclass)
                                                                     <option value="{{ $sclass->id }}">
                                                                         {{ $sclass->name }}
@@ -760,7 +760,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="suspect_category_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                 </select>
                                                             </td>
                                                             <td><input type="text" name="whereabouts[]" style="width: 200px;" class="form-control"></td>
@@ -803,7 +803,7 @@
                                                             <td hidden><input type="number" name="spot_evidence_id[]" class="form-control" value="{{ $ev->id }}"></td>
                                                             <td>
                                                                 <select style="width: 300px;" name="suspect_number_item[]" class="form-control @error('region') is-invalid @enderror suspect_number_item">
-                                                                    <option value='0' {{ 0 == $ev->suspect_number ? 'selected' : '' }}>None</option>
+                                                                    <option value='0' {{ 0 == $ev->suspect_number ? 'selected' : '' }}>Select Option</option>
                                                                     @foreach ($suspect_information as $si)
                                                                     <option value="{{ $si->suspect_number }}" {{ $si->suspect_number == $ev->suspect_number ? 'selected' : '' }}>
                                                                         {{ $si->lastname }},
@@ -816,7 +816,7 @@
                                                             </td>
                                                             <td>
                                                                 <select style="width: 200px;" name="drug[]" class="form-control drugSLCT">
-                                                                    <option value='' selected>None
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                     <option value="drug" {{ 'drug' == $ev->drug ? 'selected' : '' }}>
                                                                         Drug</option>
@@ -867,7 +867,7 @@
                                                             <td hidden><input type="number" name="spot_evidence_id[]" class="form-control"></td>
                                                             <td>
                                                                 <select style="width: 300px;" name="suspect_number_item[]" class="form-control @error('region') is-invalid @enderror suspect_number_item">
-                                                                    <option value='0'>None</option>
+                                                                    <option value='0'>Select Option</option>
                                                                     @foreach ($suspect_information as $si)
                                                                     <option value="{{ $si->suspect_number }}">
                                                                         {{ $si->lastname }},
@@ -880,7 +880,7 @@
                                                             </td>
                                                             <td>
                                                                 <select style="width: 200px;" name="drug[]" class="form-control drugSLCT">
-                                                                    <option value='' selected>None
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                     <option value="drug">Drug</option>
                                                                     <option value="non-drug">Non-Drug</option>
@@ -949,7 +949,7 @@
                                                             <td hidden><input type="number" name="spot_case_id[]" class="form-control" value="{{ $cs->id }}"></td>
                                                             <td>
                                                                 <select name="suspect_number_case[]" style="width: 400px;" class="form-control @error('region') is-invalid @enderror suspect_number_case">
-                                                                    <option value=''>None</option>
+                                                                    <option value=''>Select Option</option>
                                                                     @foreach ($suspect_information as $si)
                                                                     <option value="{{ $si->suspect_number }}" {{ $si->suspect_number == $cs->suspect_number ? 'selected' : '' }}>
                                                                         {{ $si->lastname }},
@@ -962,7 +962,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="case_id[]" style="width: 400px;" class="form-control @error('region') is-invalid @enderror">
-                                                                    <option value="0" selected>None</option>
+                                                                    <option value="0" selected>Select Option</option>
                                                                     @foreach ($case as $c)
                                                                     <option value="{{ $c->id }}" {{ $c->id == $cs->case_id ? 'selected' : '' }}>
                                                                         {{ $c->description }}
@@ -990,7 +990,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="case_id[]" style="width: 400px;" class="form-control @error('region') is-invalid @enderror">
-                                                                    <option value='' selected>None</option>
+                                                                    <option value='' selected>Select Option</option>
                                                                     @foreach ($case as $c)
                                                                     <option value="{{ $c->id }}">
                                                                         {{ $c->description }}
@@ -1198,11 +1198,11 @@
                 $("#city_c").empty();
                 $("#barangay_c").empty();
 
-                var option1 = " <option value='' selected>None</option>";
+                var option1 = " <option value='' selected>Select Option</option>";
                 $("#province_c").append(option1);
-                var option2 = " <option value='' selected>None</option>";
+                var option2 = " <option value='' selected>Select Option</option>";
                 $("#city_c").append(option2);
-                var option3 = " <option value='' selected>None</option>";
+                var option3 = " <option value='' selected>Select Option</option>";
                 $("#barangay_c").append(option3);
 
                 data.forEach(element => {
@@ -1233,9 +1233,9 @@
                 $("#city_c").empty();
                 $("#barangay_c").empty();
 
-                var option2 = " <option value='' selected>None</option>";
+                var option2 = " <option value='' selected>Select Option</option>";
                 $("#city_c").append(option2);
-                var option3 = " <option value='' selected>None</option>";
+                var option3 = " <option value='' selected>Select Option</option>";
                 $("#barangay_c").append(option3);
 
 
@@ -1266,7 +1266,7 @@
 
                 $("#barangay_c").empty();
 
-                var option1 = " <option value='' selected>None</option>";
+                var option1 = " <option value='' selected>Select Option</option>";
                 $("#barangay_c").append(option1);
 
                 data.forEach(element => {
@@ -1291,7 +1291,7 @@
             html +=
                 '<td><input required type="text" name="suspect_number[]" style="width: 200px;" class="form-control disabled_field" value="1" hidden><div type="text" style="width: 200px;" class="form-control disabled_field">Auto Generated</div></td>';
             html +=
-                '<td><select name="suspect_status_id[]" class="form-control" style="width: 200px;"><option value="" selected>None</option>@foreach ($suspect_status as $sstat)<option value="{{ $sstat->id }}">{{ $sstat->name }}</option>@endforeach</select></td>';
+                '<td><select name="suspect_status_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($suspect_status as $sstat)<option value="{{ $sstat->id }}">{{ $sstat->name }}</option>@endforeach</select></td>';
             html +=
                 '<td><input required type="text" name="lastname[]" style="width: 200px;" class="form-control"></td>';
             html +=
@@ -1307,43 +1307,43 @@
             html +=
                 '<td><input type="text" name="birthplace[]" style="width: 200px;" class="form-control"></td>';
             html +=
-                '<td><select name="present_region_c[]" class="form-control present_region_c" style="width: 200px;"><option value="" selected>None</option>@foreach ($region as $rg)<option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} - {{ $rg->region_m }}</option>@endforeach</select></td>';
+                '<td><select name="present_region_c[]" class="form-control present_region_c" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($region as $rg)<option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} - {{ $rg->region_m }}</option>@endforeach</select></td>';
             html +=
-                '<td><select name="present_province_c[]" class="form-control present_province_c" style="width: 200px;"><option value="" selected>None</option></select></td>';
+                '<td><select name="present_province_c[]" class="form-control present_province_c" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
             html +=
-                '<td><select name="present_city_c[]" class="form-control present_city_c" style="width: 200px;"><option value="" selected>None</option></select></td>';
+                '<td><select name="present_city_c[]" class="form-control present_city_c" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
             html +=
-                '<td><select name="present_barangay_c[]" class="form-control present_barangay_c" style="width: 200px;"><option value="" selected>None</option></select></td>';
+                '<td><select name="present_barangay_c[]" class="form-control present_barangay_c" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
             html +=
                 '<td><input type="text" name="present_street[]" style="width: 200px;" class="form-control"></td>';
             html +=
-                '<td><select name="permanent_region_c[]" class="form-control permanent_region_c" style="width: 200px;"><option value="" selected>None</option>@foreach ($region as $rg)<option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} - {{ $rg->region_m }}</option>@endforeach</select></td>';
+                '<td><select name="permanent_region_c[]" class="form-control permanent_region_c" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($region as $rg)<option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} - {{ $rg->region_m }}</option>@endforeach</select></td>';
             html +=
-                '<td><select name="permanent_province_c[]" class="form-control permanent_province_c" style="width: 200px;"><option value="" selected>None</option></select></td>';
+                '<td><select name="permanent_province_c[]" class="form-control permanent_province_c" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
             html +=
-                '<td><select name="permanent_city_c[]" class="form-control permanent_city_c" style="width: 200px;"><option value="" selected>None</option></select></td>';
+                '<td><select name="permanent_city_c[]" class="form-control permanent_city_c" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
             html +=
-                '<td><select name="permanent_barangay_c[]" class="form-control permanent_barangay_c" style="width: 200px;"><option value="" selected>None</option></select></td>';
+                '<td><select name="permanent_barangay_c[]" class="form-control permanent_barangay_c" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
             html +=
                 '<td><input type="text" name="permanent_street[]" style="width: 200px;" class="form-control"></td>';
             html +=
                 '<td><select name="gender[]" class="form-control" style="width: 200px;"><option value="male">Male</option><option value="female">Female</option></select></td>';
             html +=
-                '<td><select name="civil_status_id[]" class="form-control" style="width: 200px;"><option value="" selected>None</option>@foreach ($civil_status as $cs)<option value="{{ $cs->id }}">{{ $cs->name }}</option>@endforeach</select></td>';
+                '<td><select name="civil_status_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($civil_status as $cs)<option value="{{ $cs->id }}">{{ $cs->name }}</option>@endforeach</select></td>';
             html +=
-                '<td><select name="nationality_id[]" class="form-control" style="width: 200px;"><option value="" selected>None</option>@foreach ($nationality as $na)<option value="{{ $na->id }}">{{ $na->name }}</option>@endforeach</select></td>';
+                '<td><select name="nationality_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($nationality as $na)<option value="{{ $na->id }}">{{ $na->name }}</option>@endforeach</select></td>';
             html +=
-                '<td><select name="ethnic_group_id[]" class="form-control" style="width: 200px;"><option value="" selected>None</option>@foreach ($ethnic_group as $eg)<option value="{{ $eg->id }}">{{ $eg->name }}</option>@endforeach</select></td>';
+                '<td><select name="ethnic_group_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($ethnic_group as $eg)<option value="{{ $eg->id }}">{{ $eg->name }}</option>@endforeach</select></td>';
             html +=
-                '<td><select name="religion_id[]" class="form-control" style="width: 200px;"><option value="" selected>None</option>@foreach ($religion as $rl)<option value="{{ $rl->id }}">{{ $rl->name }}</option>@endforeach</select></td>';
+                '<td><select name="religion_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($religion as $rl)<option value="{{ $rl->id }}">{{ $rl->name }}</option>@endforeach</select></td>';
             html +=
-                '<td><select name="educational_attainment_id[]" class="form-control" style="width: 200px;"><option value="" selected>None</option>@foreach ($education as $ed)<option value="{{ $ed->id }}">{{ $ed->name }}</option>@endforeach</select></td>';
+                '<td><select name="educational_attainment_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($education as $ed)<option value="{{ $ed->id }}">{{ $ed->name }}</option>@endforeach</select></td>';
             html +=
-                '<td><select name="occupation_id[]" class="form-control" style="width: 200px;"><option value="" selected>None</option>@foreach ($occupation as $occ)<option value="{{ $occ->id }}">{{ $occ->name }}</option>@endforeach</select></td>';
+                '<td><select name="occupation_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($occupation as $occ)<option value="{{ $occ->id }}">{{ $occ->name }}</option>@endforeach</select></td>';
             html +=
-                '<td><select name="suspect_classification_id[]" class="form-control suspect_classification_id" style="width: 200px;"><option value="" selected>None</option>@foreach ($suspect_classification as $sclass)<option value="{{ $sclass->id }}">{{ $sclass->name }}</option>@endforeach</select></td>';
+                '<td><select name="suspect_classification_id[]" class="form-control suspect_classification_id" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($suspect_classification as $sclass)<option value="{{ $sclass->id }}">{{ $sclass->name }}</option>@endforeach</select></td>';
             html +=
-                '<td><select name="suspect_category_id[]" class="form-control" style="width: 200px;"><option value="" selected>None</option></select></td>';
+                '<td><select name="suspect_category_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
             html +=
                 '<td><input type="text" name="whereabouts[]" style="width: 200px;" class="form-control"></td>';
             html +=
@@ -1371,7 +1371,7 @@
         html = '<tr class="suspect_item_details" id="items-row' + items_row + '">';
         html += '<td hidden><input type="number" name="spot_evidence_id[]" class="form-control" value=""></td>';
         html +=
-            '<td><select style="width: 300px;" name="suspect_number_item[]" class="form-control @error("suspect name") is-invalid @enderror suspect_number_item"><option value="0" selected>None</option></select></td>';
+            '<td><select style="width: 300px;" name="suspect_number_item[]" class="form-control @error("suspect name") is-invalid @enderror suspect_number_item"><option value="0" selected>Select Option</option></select></td>';
         html +=
             '<td><select style="width: 200px;" name="drug[]" class="form-control drugSLCT"><option value="" selected>Select Option</option><option value="drug">Drug</option><option value="non-drug">Non-Drug</option></select></td>';
         html += '<td><select style="width: 200px;" name="evidence_id[]" class="form-control evidenceSLCT"><option value="" selected>Select Option</option></select></td>';
@@ -1421,9 +1421,9 @@
     function addCase() {
         html = '<tr id="case-row' + case_row + '">';
         html += '<td hidden><input type="number" name="spot_case_id[]" class="form-control" value=""></td>';
-        html += '<td><select style="width: 400px;" name="suspect_number_case[]" class="form-control @error("suspect name") is-invalid @enderror suspect_number_case"><option value="" selected>None</option>@foreach ($suspect_information as $si)<option value="{{ $si->suspect_number }}">{{ $si->lastname }}, {{ $si->firstname }} {{ $si->middlename }} -- Alias: "{{ $si->alias }}"</option>@endforeach </select></td>';
+        html += '<td><select style="width: 400px;" name="suspect_number_case[]" class="form-control @error("suspect name") is-invalid @enderror suspect_number_case"><option value="" selected>Select Option</option>@foreach ($suspect_information as $si)<option value="{{ $si->suspect_number }}">{{ $si->lastname }}, {{ $si->firstname }} {{ $si->middlename }} -- Alias: "{{ $si->alias }}"</option>@endforeach </select></td>';
         html +=
-            '<td><select style="width: 400px;" name="case_id[]" class="form-control"><option value="" selected>None</option>@foreach ($case as $c)<option value="{{ $c->id }}">{{ $c->description }}</option>@endforeach </select></td>';
+            '<td><select style="width: 400px;" name="case_id[]" class="form-control"><option value="" selected>Select Option</option>@foreach ($case as $c)<option value="{{ $c->id }}">{{ $c->description }}</option>@endforeach </select></td>';
         html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#case-row' + case_row +
             '\').remove();"><i class="fa fa-trash"></i> Delete</button></td>';
 
@@ -1499,12 +1499,12 @@
                 $($row.find("td:eq(11) select")).empty();
                 $($row.find("td:eq(12) select")).empty();
                 $($row.find("td:eq(13) select")).empty();
-                var option1 = " <option value='' selected>None</option>";
+                var option1 = " <option value='' selected>Select Option</option>";
                 $($row.find("td:eq(11) select")).append(option1);
-                var option2 = " <option value='' selected>None</option>";
+                var option2 = " <option value='' selected>Select Option</option>";
                 $($row.find("td:eq(12) select")).append(option2);
 
-                var option3 = " <option value='' selected>None</option>";
+                var option3 = " <option value='' selected>Select Option</option>";
                 $($row.find("td:eq(13) select")).append(option3);
 
 
@@ -1536,9 +1536,9 @@
 
                 $($row.find("td:eq(12) select")).empty();
                 $($row.find("td:eq(13) select")).empty();
-                var option1 = " <option value='' selected>None</option>";
+                var option1 = " <option value='' selected>Select Option</option>";
                 $($row.find("td:eq(12) select")).append(option1);
-                var option3 = " <option value='' selected>None</option>";
+                var option3 = " <option value='' selected>Select Option</option>";
                 $($row.find("td:eq(13) select")).append(option3);
 
                 data.forEach(element => {
@@ -1568,7 +1568,7 @@
                 var data = JSON.parse(data);
 
                 $($row.find("td:eq(13) select")).empty();
-                var option1 = " <option value='' selected>None</option>";
+                var option1 = " <option value='' selected>Select Option</option>";
                 $($row.find("td:eq(13) select")).append(option1);
 
                 data.forEach(element => {
@@ -1600,11 +1600,11 @@
                 $($row.find("td:eq(16) select")).empty();
                 $($row.find("td:eq(17) select")).empty();
                 $($row.find("td:eq(18) select")).empty();
-                var option1 = " <option value='' selected>None</option>";
+                var option1 = " <option value='' selected>Select Option</option>";
                 $($row.find("td:eq(16) select")).append(option1);
-                var option2 = " <option value='' selected>None</option>";
+                var option2 = " <option value='' selected>Select Option</option>";
                 $($row.find("td:eq(17) select")).append(option2);
-                var option3 = " <option value='' selected>None</option>";
+                var option3 = " <option value='' selected>Select Option</option>";
                 $($row.find("td:eq(18) select")).append(option3);
 
                 data.forEach(element => {
@@ -1635,9 +1635,9 @@
 
                 $($row.find("td:eq(17) select")).empty();
                 $($row.find("td:eq(18) select")).empty();
-                var option1 = " <option value='' selected>None</option>";
+                var option1 = " <option value='' selected>Select Option</option>";
                 $($row.find("td:eq(17) select")).append(option1);
-                var option3 = " <option value='' selected>None</option>";
+                var option3 = " <option value='' selected>Select Option</option>";
                 $($row.find("td:eq(18) select")).append(option3);
 
                 data.forEach(element => {
@@ -1667,7 +1667,7 @@
                 var data = JSON.parse(data);
 
                 $($row.find("td:eq(18) select")).empty();
-                var option1 = " <option value='' selected>None</option>";
+                var option1 = " <option value='' selected>Select Option</option>";
                 $($row.find("td:eq(18) select")).append(option1);
 
                 data.forEach(element => {
@@ -1838,7 +1838,7 @@
 
                 $($row.find("td:eq(3) select")).empty();
                 var option1 =
-                    " <option value='' selected>None</option>";
+                    " <option value='' selected>Select Option</option>";
                 $($row.find("td:eq(3) select")).append(option1);
 
                 data.forEach(element => {
@@ -1894,7 +1894,7 @@
 
                 $($row.find("td:eq(28) select")).empty();
                 var option1 =
-                    " <option value='' selected>None</option>";
+                    " <option value='' selected>Select Option</option>";
                 $($row.find("td:eq(28) select")).append(option1);
 
                 data.forEach(element => {

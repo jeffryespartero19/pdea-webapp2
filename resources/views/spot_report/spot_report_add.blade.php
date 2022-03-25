@@ -302,7 +302,7 @@
                                                             <td><input type="text" name="suspect_number[]" style="width: 200px;" class="form-control cc1 disabled_field" value="Auto Generated"></td>
                                                             <td>
                                                                 <select name="suspect_status_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                     @foreach ($suspect_status as $sstat)
                                                                     <option value="{{ $sstat->id }}">
@@ -327,7 +327,7 @@
                                                             <td><input type="text" name="birthplace[]" style="width: 200px;" class="form-control"></td>
                                                             <td>
                                                                 <select name="present_region_c[]" class="form-control present_region_c" style="width: 200px;">
-                                                                    <option value='' selected>None
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                     @foreach ($region as $rg)
                                                                     <option value="{{ $rg->region_c }}">
@@ -339,26 +339,26 @@
                                                             </td>
                                                             <td>
                                                                 <select name="present_province_c[]" class="form-control present_province_c" style="width: 200px;">
-                                                                    <option value='' selected>None
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td>
                                                                 <select name="present_city_c[]" class="form-control present_city_c" style="width: 200px;">
-                                                                    <option value='' selected>None
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td>
                                                                 <select name="present_barangay_c[]" class="form-control present_barangay_c" style="width: 200px;">
-                                                                    <option value='' selected>None
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td><input type="text" name="present_street[]" style="width: 200px;" class="form-control"></td>
                                                             <td>
                                                                 <select name="permanent_region_c[]" class="form-control permanent_region_c" style="width: 200px;">
-                                                                    <option value='' selected>None
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                     @foreach ($region as $rg)
                                                                     <option value="{{ $rg->region_c }}">
@@ -370,19 +370,19 @@
                                                             </td>
                                                             <td>
                                                                 <select name="permanent_province_c[]" class="form-control permanent_province_c" style="width: 200px;">
-                                                                    <option value='' selected>None
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td>
                                                                 <select name="permanent_city_c[]" class="form-control permanent_city_c" style="width: 200px;">
-                                                                    <option value='' selected>None
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td>
                                                                 <select name="permanent_barangay_c[]" class="form-control permanent_barangay_c" style="width: 200px;">
-                                                                    <option value='' selected>None
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
@@ -395,7 +395,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="civil_status_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                     @foreach ($civil_status as $cs)
                                                                     <option value="{{ $cs->id }}">
@@ -406,7 +406,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="nationality_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                     @foreach ($nationality as $na)
                                                                     <option value="{{ $na->id }}">
@@ -417,7 +417,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="ethnic_group_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                     @foreach ($ethnic_group as $eg)
                                                                     <option value="{{ $eg->id }}">
@@ -428,7 +428,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="religion_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                     @foreach ($religion as $rl)
                                                                     <option value="{{ $rl->id }}">
@@ -439,7 +439,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="educational_attainment_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                     @foreach ($education as $ed)
                                                                     <option value="{{ $ed->id }}">
@@ -450,7 +450,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="occupation_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                     @foreach ($occupation as $occ)
                                                                     <option value="{{ $occ->id }}">
@@ -461,7 +461,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="suspect_classification_id[]" class="form-control suspect_classification_id" style="width: 200px;">
-                                                                    <option value='' selected>None
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                     @foreach ($suspect_classification as $sclass)
                                                                     <option value="{{ $sclass->id }}">
@@ -472,7 +472,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="suspect_category_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>None
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
@@ -510,7 +510,7 @@
                                                         <tr class="suspect_item_details">
                                                             <td>
                                                                 <select style="width: 300px;" name="suspect_number_item[]" class="form-control @error('region') is-invalid @enderror suspect_number_item">
-                                                                    <option value=''>None
+                                                                    <option value=''>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
@@ -583,14 +583,14 @@
                                                         <tr>
                                                             <td>
                                                                 <select name="suspect_number_case[]" style="width: 400px;" class="form-control @error('region') is-invalid @enderror suspect_number_case">
-                                                                    <option value='' selected>None
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td class="row">
                                                                 <div class="col-10">
                                                                     <select name="case_id[]" class="form-control" style="width: 400px" data-placeholder="Select a Case">
-                                                                        <option value="0" selected>None</option>
+                                                                        <option value="0" selected>Select Option</option>
                                                                         @foreach ($case as $c)
                                                                         <option value="{{ $c->id }}">
                                                                             {{ $c->description }}
@@ -761,7 +761,7 @@
                 $("#city_c").empty();
                 $("#barangay_c").empty();
 
-                var option1 = " <option value='' selected>None</option>";
+                var option1 = " <option value='' selected>Select Option</option>";
                 $("#province_c").append(option1);
 
                 data.forEach(element => {
@@ -792,7 +792,7 @@
                 $("#city_c").empty();
                 $("#barangay_c").empty();
 
-                var option1 = " <option value='' selected>None</option>";
+                var option1 = " <option value='' selected>Select Option</option>";
                 $("#city_c").append(option1);
 
                 data.forEach(element => {
@@ -822,7 +822,7 @@
 
                 $("#barangay_c").empty();
 
-                var option1 = " <option value='' selected>None</option>";
+                var option1 = " <option value='' selected>Select Option</option>";
                 $("#barangay_c").append(option1);
 
                 data.forEach(element => {
@@ -946,7 +946,7 @@
     function addItems() {
         html = '<tr class="suspect_item_details" id="items-row' + items_row + '">';
         html +=
-            '<td><select style="width: 300px;" name="suspect_number_item[]" class="form-control @error("suspect name") is-invalid @enderror suspect_number_item"><option value="" selected>None</option></select></td>';
+            '<td><select style="width: 300px;" name="suspect_number_item[]" class="form-control @error("suspect name") is-invalid @enderror suspect_number_item"><option value="" selected>Select Option</option></select></td>';
         html +=
             '<td><select style="width: 200px;" name="drug[]" class="form-control drugSLCT"><option value="" disabled selected>Select Option</option><option value="drug">Drug</option><option value="non-drug">Non-Drug</option></select></td>';
         html += '<td><select style="width: 200px;" name="evidence_id[]" class="form-control evidenceSLCT"><option value="" disabled selected>Select Option</option></select></td>';
@@ -995,9 +995,9 @@
     function addCase() {
         html = '<tr id="case-row' + case_row + '">';
         html +=
-            '<td><select style="width:400px" name="suspect_number_case[]" class="form-control @error("suspect name") is-invalid @enderror suspect_number_case"><option value="" selected>None</option></select></td>';
+            '<td><select style="width:400px" name="suspect_number_case[]" class="form-control @error("suspect name") is-invalid @enderror suspect_number_case"><option value="" selected>Select Option</option></select></td>';
         html +=
-            '<td><select style="width:400px" name="case_id[]" class="form-control"><option value="0" selected>None</option>@foreach ($case as $c)<option value="{{ $c->id }}">{{ $c->description }}</option>@endforeach </select></td>';
+            '<td><select style="width:400px" name="case_id[]" class="form-control"><option value="0" selected>Select Option</option>@foreach ($case as $c)<option value="{{ $c->id }}">{{ $c->description }}</option>@endforeach </select></td>';
         html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#case-row' + case_row +
             '\').remove();"><i class="fa fa-trash"></i> Delete</button></td>';
 
@@ -1268,18 +1268,18 @@
                 success: function(data) {
                     var data = JSON.parse(data);
 
-                    $($row.find("td:eq(8) select")).empty();
-                    $($row.find("td:eq(9) select")).empty();
                     $($row.find("td:eq(10) select")).empty();
+                    $($row.find("td:eq(11) select")).empty();
+                    $($row.find("td:eq(12) select")).empty();
                     var option1 =
-                        " <option value='' selected>None</option>";
-                    $($row.find("td:eq(8) select")).append(option1);
+                        " <option value='' selected>Select Option</option>";
+                    $($row.find("td:eq(10) select")).append(option1);
                     var option2 =
-                        " <option value='' selected>None</option>";
-                    $($row.find("td:eq(9) select")).append(option2);
+                        " <option value='' selected>Select Option</option>";
+                    $($row.find("td:eq(11) select")).append(option2);
                     var option3 =
-                        " <option value='' selected>None</option>";
-                    $($row.find("td:eq(10) select")).append(option3);
+                        " <option value='' selected>Select Option</option>";
+                    $($row.find("td:eq(12) select")).append(option3);
 
                     data.forEach(element => {
                         var option = " <option value='" +
@@ -1287,7 +1287,7 @@
                             "'>" +
                             element["province_m"] +
                             "</option>";
-                        $($row.find("td:eq(8) select")).append(option);
+                        $($row.find("td:eq(10) select")).append(option);
                     });
                 }
             });
@@ -1307,14 +1307,14 @@
                 success: function(data) {
                     var data = JSON.parse(data);
 
-                    $($row.find("td:eq(9) select")).empty();
-                    $($row.find("td:eq(10) select")).empty();
+                    $($row.find("td:eq(11) select")).empty();
+                    $($row.find("td:eq(12) select")).empty();
                     var option1 =
-                        " <option value='' selected>None</option>";
-                    $($row.find("td:eq(9) select")).append(option1);
+                        " <option value='' selected>Select Option</option>";
+                    $($row.find("td:eq(11) select")).append(option1);
                     var option3 =
-                        " <option value='' selected>None</option>";
-                    $($row.find("td:eq(10) select")).append(option3);
+                        " <option value='' selected>Select Option</option>";
+                    $($row.find("td:eq(12) select")).append(option3);
 
                     data.forEach(element => {
                         var option = " <option value='" +
@@ -1322,7 +1322,7 @@
                             "'>" +
                             element["city_m"] +
                             "</option>";
-                        $($row.find("td:eq(9) select")).append(option);
+                        $($row.find("td:eq(11) select")).append(option);
                     });
                 }
             });
@@ -1342,10 +1342,10 @@
                 success: function(data) {
                     var data = JSON.parse(data);
 
-                    $($row.find("td:eq(10) select")).empty();
+                    $($row.find("td:eq(12) select")).empty();
                     var option1 =
-                        " <option value='' selected>None</option>";
-                    $($row.find("td:eq(10) select")).append(option1);
+                        " <option value='' selected>Select Option</option>";
+                    $($row.find("td:eq(12) select")).append(option1);
 
                     data.forEach(element => {
                         var option = " <option value='" +
@@ -1353,7 +1353,7 @@
                             "'>" +
                             element["barangay_m"] +
                             "</option>";
-                        $($row.find("td:eq(10) select")).append(option);
+                        $($row.find("td:eq(12) select")).append(option);
                     });
                 }
             });
@@ -1373,16 +1373,18 @@
                 success: function(data) {
                     var data = JSON.parse(data);
 
-                    $($row.find("td:eq(13) select")).empty();
+                    $($row.find("td:eq(15) select")).empty();
+                    $($row.find("td:eq(16) select")).empty();
+                    $($row.find("td:eq(17) select")).empty();
                     var option1 =
-                        " <option value='' selected>None</option>";
-                    $($row.find("td:eq(13) select")).append(option1);
+                        " <option value='' selected>Select Option</option>";
+                    $($row.find("td:eq(15) select")).append(option1);
                     var option2 =
-                        " <option value='' selected>None</option>";
-                    $($row.find("td:eq(24) select")).append(option1);
+                        " <option value='' selected>Select Option</option>";
+                    $($row.find("td:eq(16) select")).append(option1);
                     var option3 =
-                        " <option value='' selected>None</option>";
-                    $($row.find("td:eq(15) select")).append(option3);
+                        " <option value='' selected>Select Option</option>";
+                    $($row.find("td:eq(17) select")).append(option3);
 
                     data.forEach(element => {
                         var option = " <option value='" +
@@ -1390,7 +1392,7 @@
                             "'>" +
                             element["province_m"] +
                             "</option>";
-                        $($row.find("td:eq(13) select")).append(option);
+                        $($row.find("td:eq(15) select")).append(option);
                     });
                 }
             });
@@ -1410,13 +1412,14 @@
                 success: function(data) {
                     var data = JSON.parse(data);
 
-                    $($row.find("td:eq(14) select")).empty();
+                    $($row.find("td:eq(16) select")).empty();
+                    $($row.find("td:eq(17) select")).empty();
                     var option1 =
-                        " <option value='' selected>None</option>";
-                    $($row.find("td:eq(14) select")).append(option1);
+                        " <option value='' selected>Select Option</option>";
+                    $($row.find("td:eq(16) select")).append(option1);
                     var option3 =
-                        " <option value='' selected>None</option>";
-                    $($row.find("td:eq(15) select")).append(option3);
+                        " <option value='' selected>Select Option</option>";
+                    $($row.find("td:eq(17) select")).append(option3);
 
                     data.forEach(element => {
                         var option = " <option value='" +
@@ -1424,7 +1427,7 @@
                             "'>" +
                             element["city_m"] +
                             "</option>";
-                        $($row.find("td:eq(14) select")).append(option);
+                        $($row.find("td:eq(16) select")).append(option);
                     });
                 }
             });
@@ -1444,10 +1447,10 @@
                 success: function(data) {
                     var data = JSON.parse(data);
 
-                    $($row.find("td:eq(15) select")).empty();
+                    $($row.find("td:eq(17) select")).empty();
                     var option1 =
-                        " <option value='' selected>None</option>";
-                    $($row.find("td:eq(15) select")).append(option1);
+                        " <option value='' selected>Select Option</option>";
+                    $($row.find("td:eq(17) select")).append(option1);
 
                     data.forEach(element => {
                         var option = " <option value='" +
@@ -1455,7 +1458,7 @@
                             "'>" +
                             element["barangay_m"] +
                             "</option>";
-                        $($row.find("td:eq(15) select")).append(option);
+                        $($row.find("td:eq(17) select")).append(option);
                     });
                 }
             });
@@ -1578,7 +1581,7 @@
 
                     $($row.find("td:eq(2) select")).empty();
                     var option1 =
-                        " <option value='' selected>None</option>";
+                        " <option value='' selected>Select Option</option>";
                     $($row.find("td:eq(2) select")).append(option1);
 
                     data.forEach(element => {
@@ -1634,7 +1637,7 @@
 
                     $($row.find("td:eq(27) select")).empty();
                     var option1 =
-                        " <option value='' selected>None</option>";
+                        " <option value='' selected>Select Option</option>";
                     $($row.find("td:eq(27) select")).append(option1);
 
                     data.forEach(element => {
