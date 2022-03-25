@@ -60,11 +60,13 @@ class AfterOperationReportController extends Controller
         $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
         $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
         $negative_reason = DB::table('negative_reason')->where('status', true)->orderby('name', 'asc')->get();
-        $preops = DB::table('preops_header')
-            ->where('status', true)
-            ->where('with_aor', 0)
-            ->where('with_sr', 0)
-            ->orderby('id', 'asc')->get();
+        $preops = DB::table('preops_header as a')
+            ->leftjoin('regional_office as b', 'a.ro_code', '=', 'b.ro_code')
+            ->where('a.status', true)
+            ->where('b.id', Auth::user()->regional_office_id)
+            ->where('a.with_aor', 0)
+            ->where('a.with_sr', 0)
+            ->orderby('a.id', 'asc')->get();
         $regional_office = DB::table('regional_office')->orderby('print_order', 'asc')->get();
         $evidence = DB::table('evidence as a')
             ->join('evidence_type as b', 'a.evidence_type_id', '=', 'b.id')

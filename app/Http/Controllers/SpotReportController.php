@@ -60,13 +60,15 @@ class SpotReportController extends Controller
         $barangay = DB::table('barangay')->orderby('barangay_m', 'asc')->get();
         $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
         $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
-        $preops_header = DB::table('preops_header')
-            ->whereNotIn('preops_number', function ($query) {
+        $preops_header = DB::table('preops_header as a')
+            ->leftjoin('regional_office as b', 'a.ro_code', '=', 'b.ro_code')
+            ->whereNotIn('a.preops_number', function ($query) {
                 $query->select('preops_number')->from('spot_report_header');
             })
-            ->where('status', true)
-            ->where('with_aor', 0)
-            ->orderby('id', 'asc')
+            ->where('a.status', true)
+            ->where('a.with_aor', 0)
+            ->where('b.id', Auth::user()->regional_office_id)
+            ->orderby('a.id', 'asc')
             ->get();
         $report_header = DB::table('spot_report_header')->orderby('report_header', 'asc')->get();
         $suspect_information = DB::table('suspect_information')->where('status', true)->orderby('lastname', 'asc')->get();
