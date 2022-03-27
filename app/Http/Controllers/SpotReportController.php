@@ -776,10 +776,10 @@ class SpotReportController extends Controller
             if (isset($data['support_unit_id'])) {
                 $spot_su = [];
 
+                DB::table('spot_report_support_unit')->where('spot_report_number', $request->spot_report_number)->delete();
+
                 for ($i = 0; $i < count($data['support_unit_id']); $i++) {
                     if ($data['support_unit_id'][$i] != NULL) {
-
-                        DB::table('spot_report_support_unit')->where('spot_report_number', $request->spot_report_number)->delete();
 
                         $spot_su = [
                             'spot_report_number' => $request->spot_report_number,
@@ -1057,6 +1057,11 @@ class SpotReportController extends Controller
         $team = DB::table('spot_report_team as a')
             ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
             ->where('b.id', $id)->get();
+        $support_unit = DB::table('spot_report_support_unit as a')
+            ->leftjoin('support_unit as b', 'a.support_unit_id', '=', 'b.id')
+            ->where('a.spot_report_number', $spot_report[0]->spot_report_number)
+            ->select('b.name')
+            ->get();
 
         date_default_timezone_set('Asia/Manila');
         $date = Carbon::now();
@@ -1124,9 +1129,23 @@ class SpotReportController extends Controller
                 <br>
                 <span style="margin-right:14px; margin-left:33px">Type of Operation:</span><span style="font-weight:bold">' . $operation_type[0]->name . '</span>
                 <br>
+                <span style="margin-right:49px; margin-left:33px">Support Unit:</span><span style="font-weight:bold">';
+
+        $count = 0;
+        foreach ($support_unit as $su) {
+            $count++;
+            if ($count == 1) {
+                $output .= $su->name;
+            } else {
+                $output .= ', ' .$su->name;
+            }
+        }
+        $output .= '</span>
+                
+                <br>
                 <br>
                 <span style="margin-right:14px; margin-left:33px">Area of Operation:</span>
-                <p style="margin-right:14px; margin-left:33px; margin-top: 5px;"><u>' . $barangay[0]->barangay_m . ', ' . $city[0]->city_m . ', ' . $province[0]->province_m . ', ' . $region[0]->region_m . '</u></p>
+                <p style="margin-right:14px; margin-left:33px; margin-top: 5px;"><u>' . $barangay[0]->barangay_m . ', ' . $city[0]->city_m . '</u></p>
                 <span style="margin-right:74px; margin-left:33px">Remarks:</span><span>' . $spot_report[0]->remarks . '</span>
                 <br>
                 <br>
@@ -1141,7 +1160,7 @@ class SpotReportController extends Controller
         foreach ($evidence as $ar) {
             $output .= '
                 <tr>
-                    <td style="border: none; padding:0 12px;" width="25%" align="right">' . $ar->quantity . ' ' . $ar->unit_measurement . '</td>
+                    <td style="border: none; padding:0 12px;" width="25%" align="left">' . $ar->quantity . ' ' . $ar->unit_measurement . '</td>
                     <td style="border: none; padding:0 12px;" width="25%">' . $ar->evidence_type . ' - ' . $ar->evidence . '</td>
                     <td style="border: none; padding:0 12px;" width="50%">Sample</td>
                 </tr>';
@@ -1169,15 +1188,21 @@ class SpotReportController extends Controller
         $output .= '
                 <br>
                 <table width="100%" style="border-collapse: collapse; border: 0px;">
-                    <tr style="border: 1px solid;">
+                    <tr style="border: 1px solid; border-bottom:none">
                         <th style="border: none; padding:0 12px;" width="50%" align="left">Operating Team</th>
+                        <th style="border: none; padding:0 12px;" width="50%" align="left"></th>
+                    </tr>
+                    <tr style="border: 1px solid; border-top:none">
+                        <th style="border: none; padding:0 12px;" width="50%" align="left">Name</th>
+                        <th style="border: none; padding:0 12px;" width="50%" align="left">Position/Department</th>
                     </tr>';
 
         // Team
         foreach ($team as $tm) {
             $output .= '
                     <tr>
-                        <td style="border: none; padding:0 12px;" width="50%">' . $tm->officer_name . '<span style="margin-left:50px">-' . $tm->officer_position . '</span></td>
+                        <td style="border: none; padding:0 12px;" width="50%">' . $tm->officer_name . '</td>
+                        <td style="border: none; padding:0 12px;" width="50%">' . $tm->officer_position . '</td>
                     </tr>';
         }
         $output .= '</table>';

@@ -59,7 +59,11 @@ class ProgressReportController extends Controller
         $region = DB::table('region')->orderby('region_sort', 'asc')->get();
         $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
         $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
-        $spot_report_header = DB::table('spot_report_header')->where('status', true)->orderby('id', 'asc')->get();
+        $spot_report_header = DB::table('spot_report_header as a')
+            ->leftjoin('regional_office as b', 'a.region_c', '=', 'b.region_c')
+            ->where('a.status', true)
+            ->where('b.id', Auth::user()->regional_office_id)
+            ->orderby('a.id', 'asc')->get();
         $civil_status = DB::table('civil_status')->where('active', true)->orderby('name', 'asc')->get();
         $religion = DB::table('religions')->where('active', true)->orderby('name', 'asc')->get();
         $education = DB::table('Educational_attainment')->where('status', true)->orderby('name', 'asc')->get();
@@ -530,7 +534,7 @@ class ProgressReportController extends Controller
         $spot_report = $this->get_spot_report($id);
         $regional_office = DB::table('regional_office as a')
             ->join('preops_header as b', 'a.ro_code', '=', 'b.ro_code')
-            ->select('a.name', 'a.address', 'a.contact_number')
+            ->select('a.name', 'a.address', 'a.contact_number', 'a.report_header')
             ->where('b.preops_number', $spot_report[0]->preops_number)->get();
         $region = DB::table('region')->where('region_c', $spot_report[0]->region_c)->get();
         $province = DB::table('province')->where('province_c', $spot_report[0]->province_c)->get();
@@ -614,14 +618,9 @@ class ProgressReportController extends Controller
 
 
         $output .= '
+                <img src="./files/uploads/report_header/' . $regional_office[0]->report_header . '" class="col-3" style="width:100%;">
                 <br>
-                <img src="./dist/img/pdea_logo.jpg" class="col-3" style="width:100px; height:100px; float:left">
-                <span style="padding-left:20px">Republic of the Philippines</span>
                 <br>
-                <span style="padding-left:20px">Office of the President</span>
-                <hr style="margin-left:120px; margin-top:0px;  margin-bottom:0px">
-                <span style="padding-left:20px; font-weight: bold; font-size:20px; margin-bottom:0px">PHILIPPINE DRUG ENFORCEMENT AGENCY</span>
-                <p style="padding-left:40px; font-size:13px; margin-top:0px; margin-left:80px">' . $regional_office[0]->address . ' | www.pdea.gov.ph | ' . $regional_office[0]->contact_number . '</p>
                 <div style="text-align:center;"><h2>' . $spot_report[0]->spot_report_number . '</h2></div>
                 <div style="border:solid;" align="center"><span style="font-size:20px">PROGRESS REPORT</span></div>
                 <br>
