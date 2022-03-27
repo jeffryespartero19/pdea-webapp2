@@ -29,7 +29,7 @@ class SpotReportController extends Controller
             $data = DB::table('spot_report_header as a')
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status')
+                ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.created_at')
                 ->where('a.report_status', 0)
                 ->orderby('spot_report_number', 'asc')
                 ->get();
@@ -38,7 +38,7 @@ class SpotReportController extends Controller
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
                 ->join('regional_office as d', 'a.region_c', '=', 'd.region_c')
-                ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status')
+                ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.created_at')
                 ->where('a.report_status', 0)
                 ->where('d.id', Auth::user()->regional_office_id)
                 ->orderby('spot_report_number', 'asc')
@@ -154,6 +154,7 @@ class SpotReportController extends Controller
             'summary' => $request->summary,
             'operation_lvl' => $request->has('operation_lvl') ? true : false,
             'reference_number' => $request->reference_number,
+            'created_at' => Carbon::now(),
         );
 
         $sr_id = DB::table('spot_report_header')->insertGetId($form_data);
@@ -543,6 +544,7 @@ class SpotReportController extends Controller
         // dd($request->all());
         $data = $request->all();
         // dd(isset($data['suspect_number_item']));
+        date_default_timezone_set('Asia/Manila');
 
         if (Auth::user()->user_level_id == 2) {
             $pos_data = array(
@@ -567,6 +569,7 @@ class SpotReportController extends Controller
                 'summary' => $request->summary,
                 'operation_lvl' => $request->has('operation_lvl') ? true : false,
                 'reference_number' => $request->reference_number,
+                'updated_at' => Carbon::now(),
             );
 
 
@@ -1030,6 +1033,15 @@ class SpotReportController extends Controller
     // Print PDF Format
     function convert_spot_report_to_html($id)
     {
+        date_default_timezone_set('Asia/Manila');
+        $date = Carbon::now();
+
+        $pos_data = array(
+            'print_count' => DB::raw('print_count+1'),
+            'print_date' => $date,
+        );
+        DB::table('spot_report_header')->where('id', $id)->update($pos_data);
+
         $spot_report = $this->get_spot_report($id);
         $regional_office = DB::table('regional_office as a')
             ->join('preops_header as b', 'a.ro_code', '=', 'b.ro_code')
@@ -1063,8 +1075,7 @@ class SpotReportController extends Controller
             ->select('b.name')
             ->get();
 
-        date_default_timezone_set('Asia/Manila');
-        $date = Carbon::now();
+
 
         // Header
         $output = '<html>
@@ -1137,7 +1148,7 @@ class SpotReportController extends Controller
             if ($count == 1) {
                 $output .= $su->name;
             } else {
-                $output .= ', ' .$su->name;
+                $output .= ', ' . $su->name;
             }
         }
         $output .= '</span>
@@ -1220,6 +1231,13 @@ class SpotReportController extends Controller
         $output .= '
                 <footer>
                     ' . $date . ' | ' . Auth::user()->name . '
+                    <br>';
+        if ($spot_report[0]->print_count == 1) {
+            $output .= 'ORIGINAL';
+        } else {
+            $output .= 'COPY';
+        }
+        $output .='
                 </footer>
             </body>
             </html>';

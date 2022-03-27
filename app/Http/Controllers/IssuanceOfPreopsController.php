@@ -505,6 +505,15 @@ class IssuanceOfPreopsController extends Controller
 
     function convert_preops_data_to_html($id)
     {
+        date_default_timezone_set('Asia/Manila');
+        $date = Carbon::now();
+
+        $pos_data = array(
+            'print_count' => DB::raw('print_count+1'),
+            'print_date' => $date,
+        );
+        DB::table('preops_header')->where('id', $id)->update($pos_data);
+
         $preops_data = DB::table('preops_header')
             ->where('id', $id)
             ->get();
@@ -534,8 +543,7 @@ class IssuanceOfPreopsController extends Controller
 
         $tbluserlevel = DB::table('tbluserlevel')->where('id', Auth::user()->user_level_id)->get();
 
-        date_default_timezone_set('Asia/Manila');
-        $date = Carbon::now();
+
 
         $output = '<html>
         <head>
@@ -648,7 +656,13 @@ class IssuanceOfPreopsController extends Controller
         $output .= '
                 <footer>
                     ' . $date . ' | ' . Auth::user()->name . '
-                </footer>
+                    <br>';
+        if ($preops_data[0]->print_count == 1) {
+            $output .= 'ORIGINAL';
+        } else {
+            $output .= 'COPY';
+        }
+        $output .= '</footer>
             </body>
             </html>';
 

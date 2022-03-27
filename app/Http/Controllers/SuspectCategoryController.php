@@ -43,6 +43,7 @@ class SuspectCategoryController extends Controller
             'name' => $request->name,
             'suspect_classification_id' => $request->suspect_classification_id,
             'status' => $request->has('status') ? true : false,
+            'hvt' => $request->has('hvt') ? true : false,
         );
 
         DB::table('suspect_category')->insert($form_data);
@@ -79,6 +80,7 @@ class SuspectCategoryController extends Controller
             'name' =>  $request->name,
             'suspect_classification_id' => $request->suspect_classification_id,
             'status' => $request->has('status') ? true : false,
+            'hvt' => $request->has('hvt') ? true : false,
         );
 
         DB::table('suspect_category')->where('id', $id)->update($pos_data);

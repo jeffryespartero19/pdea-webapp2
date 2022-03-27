@@ -545,6 +545,7 @@ class ProgressReportController extends Controller
 
         $suspect = DB::table('spot_report_suspect as a')
             ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
+            ->leftjoin('drug_type as c', 'a.drug_type_id', '=', 'c.id')
             ->select(
                 'a.lastname',
                 'a.firstname',
@@ -552,6 +553,7 @@ class ProgressReportController extends Controller
                 'a.alias',
                 'a.drug_test_result',
                 'a.whereabouts',
+                'c.name as drug_name'
             )
             ->where('b.id', $id)->get();
         $evidence = DB::table('spot_report_evidence as a')
@@ -638,7 +640,7 @@ class ProgressReportController extends Controller
                 <br>
                 <br>
                 <span style="margin-right:14px; margin-left:33px">Area of Operation:</span>
-                <p style="margin-right:14px; margin-left:33px; margin-top: 5px;"><u>' . $barangay[0]->barangay_m . ', ' . $city[0]->city_m . ', ' . $province[0]->province_m . ', ' . $region[0]->region_m . '</u></p>
+                <p style="margin-right:14px; margin-left:33px; margin-top: 5px;"><u>' . $barangay[0]->barangay_m . ', ' . $city[0]->city_m . '</u></p>
                 <span style="margin-right:74px; margin-left:33px">Remarks:</span><span>' . $spot_report[0]->remarks . '</span>
                 <br>';
 
@@ -648,9 +650,10 @@ class ProgressReportController extends Controller
                 <tr style="border: 1px solid;">
                     <th style="border: none; padding:0 12px;" align="left">Suspect(s) Arrested</th>
                     <th style="border: none; padding:0 12px;" align="left"></th>
+                    <th style="border: none; padding:0 12px;" align="left"></th>
                 </tr>';
 
-        // Evidence
+        // Suspect
         foreach ($suspect as $sp) {
             $output .= '
                 <tr>
@@ -658,6 +661,7 @@ class ProgressReportController extends Controller
                 </tr>
                 <tr>
                     <td style="border: none; padding-left:22px;" align="left">Drug Test Result: <b>' . $sp->drug_test_result . '</b></td>
+                    <td style="border: none; padding-left:22px;" align="left">Metabolites: <b>' . $sp->drug_name . '</b></td>
                 </tr>
                 <tr>
                     <td style="border: none; padding-left:22px;" align="left">Whereabouts: <b>' . $sp->whereabouts . '</b></td>

@@ -380,6 +380,7 @@
                                                             <th style="color: gray;">Unit Measurement</th>
                                                             <th style="color: gray;">Drug Test Result</th>
                                                             <th style="color: gray;">Chemistry Report Number</th>
+                                                            <th style="color: gray;">Laboratory Facility</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody id="evidence_details">
@@ -391,7 +392,7 @@
                                                             <td><input type="text" name="qty_onsite[]" style="width: 200px;" class="form-control" value="{{$srv->qty_onsite}}"></td>
                                                             <td><input type="text" name="actual_qty[]" style="width: 200px;" class="form-control" value="{{$srv->actual_qty}}"></td>
                                                             <td><input type="text" name="unit_measurement[]" style="width: 200px;" class="form-control disabled_field" value="{{$srv->unit_measurement}}"></td>
-                                                            <td><select name="drug_test_result[]" class="form-control e_drug_test_result" style="width: 200px;">
+                                                            <td><select name="e_drug_test_result[]" class="form-control e_drug_test_result" style="width: 200px;">
                                                                     <option value="positive" {{'positive' == $srv->drug_test_result ? 'selected' : ''}}>Positive</option>
                                                                     <option value="negative" {{'negative' == $srv->drug_test_result ? 'selected' : ''}}>Negative</option>
                                                                 </select>

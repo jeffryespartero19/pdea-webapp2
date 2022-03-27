@@ -92,6 +92,7 @@
                         <th>Operating Unit</th>
                         <th>Operation Type</th>
                         <th>Operation Date</th>
+                        <th>Encoded Date</th>
                         <th>Active</th>
                         <th>Edit</th>
                     </tr>
@@ -103,6 +104,7 @@
                         <td>{{ $spot_report->operating_unit }}</td>
                         <td>{{ $spot_report->operation_type }}</td>
                         <td>{{ $spot_report->operation_datetime }}</td>
+                        <td>{{ $spot_report->created_at }}</td>
                         <td>{{ $spot_report->status == 1 ? 'Yes' : 'No' }}</td>
                         <td>
                             <center>

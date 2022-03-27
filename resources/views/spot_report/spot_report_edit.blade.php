@@ -1927,8 +1927,8 @@
     });
 
     $(document).on('click', '.su_remove', function() {
-            $(this).closest(".su_options").remove();
-        });
+        $(this).closest(".su_options").remove();
+    });
 </script>
 
 <script>

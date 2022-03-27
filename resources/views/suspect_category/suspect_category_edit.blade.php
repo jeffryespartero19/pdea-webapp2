@@ -70,6 +70,10 @@
                     </div>
                 </div>
                 <div class="custom-control custom-checkbox mb-2">
+                    <input name="hvt" class="custom-control-input" type="checkbox" id="customCheckbox2" {{ $suspect_category[0]->hvt == true ? 'checked' : '' }}>
+                    <label for="customCheckbox2" class="custom-control-label">Is HVT</label>
+                </div>
+                <div class="custom-control custom-checkbox mb-2">
                     <input name="status" class="custom-control-input" type="checkbox" id="customCheckbox9" {{ $suspect_category[0]->status == true ? 'checked' : '' }}>
                     <label for="customCheckbox9" class="custom-control-label">Set as Active</label>
                 </div>
