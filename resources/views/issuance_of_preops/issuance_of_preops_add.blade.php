@@ -45,7 +45,7 @@
             <h3 class="card-title">Add Issuance of Pre-Ops</h3>
         </div>
         <div class="card-body">
-            <form action="/issuance_of_preops_add" role="form" method="post" enctype="multipart/form-data">
+            <form action="/issuance_of_preops_add" role="form" method="post" enctype="multipart/form-data" id="preops_form">
                 @csrf
                 <div class="row">
                     <div class="form-group col-6" style="margin: 0px;">
@@ -105,7 +105,7 @@
                             @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                             <input id="preops_number" name="preops_number" type="text" class="form-control @error('Preops Number') is-invalid @enderror HPRNumber" value="{{ old('preops_number') }}" autocomplete="off" required>
                             @else
-                            <input id="preops_number" name="preops_number" type="text" class="form-control PRNumber" autocomplete="off" required style="pointer-events: none; background-color : #e9ecef;" value="">
+                            <input id="preops_number" name="preops_number" type="text" class="form-control PRNumber" autocomplete="off" required style="pointer-events: none; background-color : #e9ecef;" value="Auto Generate">
                             <input id="prc_date" type="text" hidden value="{{$date}}">
                             <input id="prc_id" type="text" hidden value="{{$preops_id}}">
                             @endif
@@ -190,7 +190,7 @@
                             @else
                             <input id="operation_datetime" name="operation_datetime" type="datetime-local" class="form-control operation_datetime" value="{{ old('operation_datetime') }}" required>
                             @endif
-                            
+
                         </div>
                     </div>
                     <div class="form-group col-6" style="margin: 0px;">
@@ -248,9 +248,9 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr class="area_details">
-                                                            <td><input type="text" name="area[]" class="form-control change_control cc1" placeholder="Area" style="width: 200px;"></td>
+                                                            <td><input type="text" name="area[]" class="form-control change_control cc1" placeholder="Area" style="width: 200px;" required></td>
                                                             <td>
-                                                                <select name="area_region_c[]" class="form-control region_c change_control cc2 disabled_field" style="width: 300px;">
+                                                                <select name="area_region_c[]" class="form-control region_c change_control cc2 disabled_field area_region_c" style="width: 300px;">
                                                                     <option value='0' selected>None
                                                                     </option>
                                                                     @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
@@ -310,9 +310,9 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td><input type="text" name="target_name[]" class="form-control" placeholder="Name of Target"></td>
+                                                            <td><input type="text" name="target_name[]" class="form-control target_name" placeholder="Name of Target" required></td>
                                                             <td>
-                                                                <select name="nationality_id[]" class="form-control @error('nationality') is-invalid @enderror">
+                                                                <select name="nationality_id[]" class="form-control nationality_id" required>
                                                                     @foreach($nationality as $nat)
                                                                     <option value="{{ $nat->id }}" {{ $nat->id == 1 ? 'selected' : '' }}>{{ $nat->name }}</option>
                                                                     @endforeach
@@ -341,9 +341,9 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td><input type="text" name="team_name[]" class="form-control tchange_control tcc1" placeholder="Name"></td>
-                                                            <td><input type="text" name="team_position[]" class="form-control tchange_control tcc2l" placeholder="Position" value="Team Leader" style="pointer-events:none; background-color : #e9ecef;" readonly></td>
-                                                            <td><input type="text" name="team_contact[]" class="form-control tchange_control tcc3" placeholder="Contact No."></td>
+                                                            <td><input type="text" name="team_name[]" class="form-control tchange_control tcc1 team_name" placeholder="Name" required></td>
+                                                            <td><input type="text" name="team_position[]" class="form-control tchange_control tcc2l team_position" placeholder="Position" value="Team Leader" style="pointer-events:none; background-color : #e9ecef;" readonly></td>
+                                                            <td><input type="text" name="team_contact[]" class="form-control tchange_control tcc3 team_contact" placeholder="Contact No." required></td>
                                                             <td class="mt-10"><button type="button" class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button></td>
                                                         </tr>
                                                     </tbody>
@@ -453,7 +453,7 @@
             $(".province_c").removeClass('prc_1');
 
             html = '<tr class="area_details" id="faqs-row' + aop_row + '">';
-            html += '<td><input type="text" name="area[]" class="form-control" placeholder="Area"  style="width: 200px;"></td>';
+            html += '<td><input type="text" name="area[]" class="form-control" placeholder="Area"  style="width: 200px;" required></td>';
             html +=
                 '<td><select required name="area_region_c[]" }}" class="form-control region_c disabled_field"><option value="0" selected>None</option>@foreach ($region as $rg)<option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} - {{ $rg->region_m }}</option>@endforeach</select></td>';
             html +=
@@ -645,7 +645,6 @@
 
 <script>
     $(document).ready(function() {
-
 
         //Populate Header Province
         $(document).on("change", ".ro_code", function() {
@@ -969,30 +968,30 @@
         }
     });
 
-    $(document).on("change", "#province_c", function() {
+    // $(document).on("change", "#province_c", function() {
 
-        $ro_code = $('.ro_code').val();
-        $province_c = $('#province_c').val();
-        $prc_date = $('#prc_date').val();
-        $prc_id = $('#prc_id').val();
+    //     $ro_code = $('.ro_code').val();
+    //     $province_c = $('#province_c').val();
+    //     $prc_date = $('#prc_date').val();
+    //     $prc_id = $('#prc_id').val();
 
-        $.ajax({
-            type: "GET",
-            url: "/get_preops_header_count/" + $ro_code + "/" + $province_c,
-            fail: function() {
-                alert("request failed");
-            },
-            success: function(preops_id) {
-                var preops_id = JSON.parse(preops_id);
+    //     $.ajax({
+    //         type: "GET",
+    //         url: "/get_preops_header_count/" + $ro_code + "/" + $province_c,
+    //         fail: function() {
+    //             alert("request failed");
+    //         },
+    //         success: function(preops_id) {
+    //             var preops_id = JSON.parse(preops_id);
 
-                $Preops_number = $ro_code + '-' + $province_c + '-' + $prc_date + '-' + preops_id;
+    //             $Preops_number = $ro_code + '-' + $province_c + '-' + $prc_date + '-' + preops_id;
 
-                $('.PRNumber').val($Preops_number);
-                $('.HPRNumber').empty();
+    //             $('.PRNumber').val($Preops_number);
+    //             $('.HPRNumber').empty();
 
-            }
-        });
-    });
+    //         }
+    //     });
+    // });
 
 
     // Add Support Unit
@@ -1047,6 +1046,35 @@
     var today = new Date().toISOString().slice(0, 16);
 
     $('.operation_datetime')[0].min = today;
+</script>
+
+<!-- Check EMpty Fields -->
+<script>
+    $('#saveBTN').click(function() {
+        $('input:invalid').each(function() {
+            // Find the tab-pane that this element is inside, and get the id
+            var $closest = $(this).closest('.tab-pane');
+            var id = $closest.attr('id');
+
+            // Find the link that corresponds to the pane and have it show
+            $('.nav a[href="#' + id + '"]').tab('show');
+            $(this).css('border-color', 'red');
+
+            // Only want to do it once
+            return false;
+        });
+    });
+
+    $('.form-control').keyup(function() {
+        if($(this).val() != null) {
+            $(this).css('border-color', 'green');
+        }
+    });
+    $('.form-control').change(function() {
+        if($(this).val() != null) {
+            $(this).css('border-color', 'green');
+        }
+    });
 </script>
 
 @endsection

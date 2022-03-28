@@ -293,7 +293,7 @@
                                                         @forelse($area as $ar)
                                                         <tr class="area_details">
                                                             <td hidden><input type="number" name="area_id[]" class="form-control" value="{{ $ar->id }}" style="width: 200px;"></td>
-                                                            <td><input type="text" name="area[]" class="form-control" placeholder="Area" value="{{ $ar->area }}" style="width: 200px;" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                                            <td><input required type="text" name="area[]" class="form-control" placeholder="Area" value="{{ $ar->area }}" style="width: 200px;" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                                                 @else
                                                                 disabled
                                                                 @endif
@@ -315,7 +315,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="province_c[]" class="form-control province_c" required @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                                                <select name="province_c[]" class="form-control province_c" style="width: 300px;" required @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                                                     @else
                                                                     disabled
                                                                     @endif
@@ -365,13 +365,13 @@
                                                         @empty
                                                         <tr class="area_details">
                                                             <td hidden><input type="number" name="area_id[]" class="form-control"></td>
-                                                            <td><input type="text" name="area[]" class="form-control a_change_control a_cc1" placeholder="Area" style="width: 200px;" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                                            <td><input required type="text" name="area[]" class="form-control a_change_control a_cc1" placeholder="Area" style="width: 200px;" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                                                 @else
-                                                                disabled
+                                                                disabled value="null"
                                                                 @endif
                                                                 ></td>
                                                             <td>
-                                                                <select name="area_region_c[]" class="form-control region_c a_change_control a_cc2" style="width: 200px;" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                                                <select required name="area_region_c[]" class="form-control region_c a_change_control a_cc2" style="width: 200px;" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                                                     @else
                                                                     disabled
                                                                     @endif
@@ -387,7 +387,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="province_c[]" class="form-control province_c a_change_control a_cc3" style="width: 200px;" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                                                <select required name="province_c[]" class="form-control province_c a_change_control a_cc3" style="width: 200px;" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                                                     @else
                                                                     disabled
                                                                     @endif
@@ -448,13 +448,13 @@
                                                         @forelse($target as $tg)
                                                         <tr>
                                                             <td hidden><input type="number" name="target_id[]" class="form-control" value="{{ $tg->id }}"></td>
-                                                            <td><input type="text" name="target_name[]" class="form-control" placeholder="Name of Target" value="{{ $tg->name }}" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                                            <td><input required type="text" name="target_name[]" class="form-control" placeholder="Name of Target" value="{{ $tg->name }}" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                                                 @else
                                                                 disabled
                                                                 @endif
                                                                 ></td>
                                                             <td>
-                                                                <select name="nationality_id[]" class="form-control @error('nationality') is-invalid @enderror" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                                                <select required name="nationality_id[]" class="form-control @error('nationality') is-invalid @enderror" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                                                     @else
                                                                     disabled
                                                                     @endif
@@ -469,13 +469,13 @@
                                                         @empty
                                                         <tr>
                                                             <td hidden><input type="number" name="target_id[]" class="form-control"></td>
-                                                            <td><input type="text" name="target_name[]" class="form-control" placeholder="Name of Target" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                                            <td><input required type="text" name="target_name[]" class="form-control" placeholder="Name of Target" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                                                 @else
                                                                 disabled
                                                                 @endif
                                                                 ></td>
                                                             <td>
-                                                                <select name="nationality_id[]" class="form-control @error('nationality') is-invalid @enderror" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                                                <select required name="nationality_id[]" class="form-control @error('nationality') is-invalid @enderror" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                                                     @else
                                                                     disabled
                                                                     @endif
@@ -488,13 +488,13 @@
                                                             <td class="mt-10"><button type="button" class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button></td>
                                                         </tr>
                                                         @endforelse
-                                                        <tr hidden>
+                                                        <!-- <tr hidden>
                                                             <td hidden><input type="number" name="target_id[]" class="form-control" value="0"></td>
                                                             <td><input type="text" name="target_name[]" class="form-control" placeholder="Name of Target"></td>
                                                             <td><input type="text" name="nationality_id[]" class="form-control" placeholder="Nationality ID" value="0">
                                                             </td>
                                                             <td class="mt-10"><button type="button" class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button></td>
-                                                        </tr>
+                                                        </tr> -->
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -523,17 +523,17 @@
                                                         @forelse($team as $tm)
                                                         <tr>
                                                             <td hidden><input type="number" name="team_id[]" class="form-control" value="{{ $tm->id }}"></td>
-                                                            <td><input type="text" name="team_name[]" class="form-control tchange_control tcc1" placeholder="Name" value="{{ $tm->name }}" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                                            <td><input required type="text" name="team_name[]" class="form-control tchange_control tcc1" placeholder="Name" value="{{ $tm->name }}" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                                                 @else
                                                                 disabled
                                                                 @endif
                                                                 ></td>
-                                                            <td><input type="text" name="team_position[]" class="form-control tchange_controll tcc2" placeholder="Position" value="{{ $tm->position }}" style="pointer-events:none; background-color : #e9ecef;" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                                            <td><input required type="text" name="team_position[]" class="form-control tchange_controll tcc2" placeholder="Position" value="{{ $tm->position }}" style="pointer-events:none; background-color : #e9ecef;" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                                                 @else
                                                                 disabled
                                                                 @endif
                                                                 ></td>
-                                                            <td><input type="text" name="team_contact[]" class="form-control tchange_control tcc3" placeholder="Contact No." value="{{ $tm->contact }}" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                                            <td><input required type="text" name="team_contact[]" class="form-control tchange_control tcc3" placeholder="Contact No." value="{{ $tm->contact }}" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                                                 @else
                                                                 disabled
                                                                 @endif
@@ -543,17 +543,17 @@
                                                         @empty
                                                         <tr>
                                                             <td hidden><input type="number" name="team_id[]" class="form-control"></td>
-                                                            <td><input type="text" name="team_name[]" class="form-control tchange_control tcc1" placeholder="Name" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                                            <td><input required type="text" name="team_name[]" class="form-control tchange_control tcc1" placeholder="Name" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                                                 @else
                                                                 disabled
                                                                 @endif
                                                                 ></td>
-                                                            <td><input type="text" name="team_position[]" class="form-control tchange_control tcc2" placeholder="Position" style="pointer-events:none; background-color : #e9ecef;" value="Team Leader" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                                            <td><input required type="text" name="team_position[]" class="form-control tchange_control tcc2" placeholder="Position" style="pointer-events:none; background-color : #e9ecef;" value="Team Leader" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                                                 @else
                                                                 disabled
                                                                 @endif
                                                                 ></td>
-                                                            <td><input type="text" name="team_contact[]" class="form-control tchange_control tcc3" placeholder="Contact No." @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                                            <td><input required type="text" name="team_contact[]" class="form-control tchange_control tcc3" placeholder="Contact No." @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                                                 @else
                                                                 disabled
                                                                 @endif
@@ -673,7 +673,7 @@
 
                 </div>
                 <div class="form-group mt-5">
-                    <button type="submit" class="btn btn-primary">Save Issuance of Pre-Ops</button>
+                    <button id="saveBTN" type="submit" class="btn btn-primary">Save Issuance of Pre-Ops</button>
 
                 </div>
             </form>
@@ -706,11 +706,11 @@
 
             html = '<tr class="area_details" id="faqs-row' + aop_row + '">';
             html += '<td hidden><input type="number" name="area_id[]" class="form-control"></td>';
-            html += '<td><input type="text" name="area[]" class="form-control" placeholder="Area"  style="width: 200px;"></td>';
+            html += '<td><input required type="text" name="area[]" class="form-control" placeholder="Area"  style="width: 200px;"></td>';
             html +=
-                '<td><select name="area_region_c[]" class="form-control region_c"><option value="0" selected>None</option>@foreach ($region as $rg)<option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} - {{ $rg->region_m }}</option>@endforeach</select></td>';
+                '<td><select required name="area_region_c[]" style="width: 300px;" class="form-control region_c"><option value="0" selected>None</option>@foreach ($region as $rg)<option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} - {{ $rg->region_m }}</option>@endforeach</select></td>';
             html +=
-                '<td><select name="province_c[]" class="form-control province_c prc_1"><option value="0" selected>None</option></select></td>';
+                '<td><select required name="province_c[]" style="width: 300px;" class="form-control province_c prc_1"><option value="0" selected>None</option></select></td>';
             html +=
                 '<td><select name="city_c[]" class="form-control city_c" style="width: 200px;"><option value="0" selected>None</option></select></td>';
             html +=
@@ -788,8 +788,8 @@
     function addtarget() {
         html = '<tr id="faqs-row' + target_row + '">';
         html += '<td hidden><input type="number" name="target_id[]" class="form-control"></td>';
-        html += '<td><input type="text" name="target_name[]" class="form-control" placeholder="Name of Target"></td>';
-        html += "<td><select name='nationality_id[]' class='form-control @error('nationality') is-invalid @enderror'>@foreach($nationality as $nat)<option value='{{ $nat->id }}' {{ $nat->id == 1 ? 'selected' : '' }}>{{ $nat->name }}</option>@endforeach</select></td>";
+        html += '<td><input required type="text" name="target_name[]" class="form-control" placeholder="Name of Target"></td>';
+        html += "<td><select required name='nationality_id[]' class='form-control @error('nationality') is-invalid @enderror'>@foreach($nationality as $nat)<option value='{{ $nat->id }}' {{ $nat->id == 1 ? 'selected' : '' }}>{{ $nat->name }}</option>@endforeach</select></td>";
         html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#faqs-row' + target_row + '\').remove();"><i class="fa fa-trash"></i> Delete</button></td>';
 
         html += '</tr>';
@@ -1034,6 +1034,35 @@
     // var today = new Date().toISOString().slice(0, 16);
 
     // $('.coordinated_datetime')[0].min = today;
+</script>
+
+<!-- Check EMpty Fields -->
+<script>
+    $('#saveBTN').click(function() {
+        $('input:invalid').each(function() {
+            // Find the tab-pane that this element is inside, and get the id
+            var $closest = $(this).closest('.tab-pane');
+            var id = $closest.attr('id');
+
+            // Find the link that corresponds to the pane and have it show
+            $('.nav a[href="#' + id + '"]').tab('show');
+            $(this).css('border-color', 'red');
+
+            // Only want to do it once
+            return false;
+        });
+    });
+
+    $('.form-control').keyup(function() {
+        if ($(this).val() != null) {
+            $(this).css('border-color', 'green');
+        }
+    });
+    $('.form-control').change(function() {
+        if ($(this).val() != null) {
+            $(this).css('border-color', 'green');
+        }
+    });
 </script>
 
 

@@ -92,12 +92,23 @@ class IssuanceOfPreopsController extends Controller
         date_default_timezone_set('Asia/Manila');
         $date = Carbon::now();
 
-        $request->validate([
-            'preops_number' => 'required|unique:preops_header',
-        ]);
+        // Auto Preops Number
+        date_default_timezone_set('Asia/Manila');
+        $p_date = Carbon::now()->format('mdY');
+        $preops_id = 0 + DB::table('preops_header')
+            ->where('ro_code', $request->ro_code)
+            ->where('province_c', $request->hprovince_c)
+            ->whereDate('coordinated_datetime', Carbon::now()->format('Y-m-d'))
+            ->count();
+        $preops_id += 1;
+        $preops_id = sprintf("%03s", $preops_id);
+
+        $preops_number = $request->ro_code . '-' . $request->hprovince_c . '-' . $p_date . '-' . $preops_id;
+
+        
 
         $form_data = array(
-            'preops_number' => $request->preops_number,
+            'preops_number' => $preops_number,
             'ro_code' => $request->ro_code,
             'province_c' => $request->hprovince_c,
             'operating_unit_id' => $request->operating_unit_id,
@@ -117,7 +128,7 @@ class IssuanceOfPreopsController extends Controller
 
         DB::table('preops_header')->insert($form_data);
 
-        $preops_id_c =  DB::table('preops_header')->where('preops_number', $request->preops_number)->select('id')->get();
+        $preops_id_c =  DB::table('preops_header')->where('preops_number', $preops_number)->select('id')->get();
 
         if ($request->hasfile('fileattach')) {
             foreach ($request->file('fileattach') as $file) {
@@ -238,7 +249,7 @@ class IssuanceOfPreopsController extends Controller
         $preops_id_c = $preops_id_c[0]->id;
 
 
-        return back()->with('success', 'You have successfully added new suspect information!')->with('preops_id_c', $preops_id_c);
+        return back()->with('success', 'COC Issuance has been saved to records.')->with('preops_id_c', $preops_id_c);
     }
 
     public function edit($id)

@@ -1696,4 +1696,33 @@
     });
 </script>
 
+<!-- Check EMpty Fields -->
+<script>
+    $('#saveBTN').click(function() {
+        $('input:invalid').each(function() {
+            // Find the tab-pane that this element is inside, and get the id
+            var $closest = $(this).closest('.tab-pane');
+            var id = $closest.attr('id');
+
+            // Find the link that corresponds to the pane and have it show
+            $('.nav a[href="#' + id + '"]').tab('show');
+            $(this).css('border-color', 'red');
+
+            // Only want to do it once
+            return false;
+        });
+    });
+
+    $('.form-control').keyup(function() {
+        if ($(this).val() != null) {
+            $(this).css('border-color', 'green');
+        }
+    });
+    $('.form-control').change(function() {
+        if ($(this).val() != null) {
+            $(this).css('border-color', 'green');
+        }
+    });
+</script>
+
 @endsection
