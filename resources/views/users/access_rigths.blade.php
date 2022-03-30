@@ -90,6 +90,9 @@
                                         <li class="nav-item">
                                             <a class="nav-link" id="custom-tabs-four-settings-tab" data-toggle="pill" href="#custom-tabs-four-settings" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Control Panel</a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="custom-tabs-four-om-tab" data-toggle="pill" href="#custom-tabs-four-om" role="tab" aria-controls="custom-tabs-four-om" aria-selected="false">Other Modules</a>
+                                        </li>
                                     </ul>
                                 </div>
                                 <div class="card-body">
@@ -227,6 +230,40 @@
                                                     </table>
                                                 </div>
                                                 <!-- /.card-body -->
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="custom-tabs-four-om" role="tabpanel" aria-labelledby="custom-tabs-four-om-tab-tab">
+                                            <div class="custom-control custom-checkbox mb-2">
+                                                @if($info[0]->with_geomapping_access == true)
+                                                <input name="with_geomapping_access" class="custom-control-input" type="checkbox" checked id="customCheckbox9">
+                                                @else
+                                                <input name="with_geomapping_access" class="custom-control-input" type="checkbox" id="customCheckbox9">
+                                                @endif
+                                                <label for="customCheckbox9" class="custom-control-label">Give access to Geomapping</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox mb-2">
+                                                @if($info[0]->with_file_upload_access == true)
+                                                <input name="with_file_upload_access" class="custom-control-input" type="checkbox" checked id="customCheckbox10">
+                                                @else
+                                                <input name="with_file_upload_access" class="custom-control-input" type="checkbox" id="customCheckbox10">
+                                                @endif
+                                                <label for="customCheckbox10" class="custom-control-label">Give access to File Uploads</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox mb-2">
+                                                @if($info[0]->with_drug_management_access == true)
+                                                <input name="with_drug_management_access" class="custom-control-input" type="checkbox" checked id="customCheckbox11">
+                                                @else
+                                                <input name="with_drug_management_access" class="custom-control-input" type="checkbox" id="customCheckbox11">
+                                                @endif
+                                                <label for="customCheckbox11" class="custom-control-label">Give access to Drug Management</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox mb-2">
+                                                @if($info[0]->with_drug_verification_access == true)
+                                                <input name="with_drug_verification_access" class="custom-control-input" type="checkbox" checked id="customCheckbox12">
+                                                @else
+                                                <input name="with_drug_verification_access" class="custom-control-input" type="checkbox" id="customCheckbox12">
+                                                @endif
+                                                <label for="customCheckbox12" class="custom-control-label">Give access to Drug Verification</label>
                                             </div>
                                         </div>
                                     </div>
