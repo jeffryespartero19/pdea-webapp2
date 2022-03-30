@@ -51,15 +51,49 @@ class Xporter implements FromView
         ///Data_Geomapping
         $area_ID=$this->filter1b;
 
+        $user_area=Auth::user()->region_c;
+        $datetime_now=Carbon::now();
+        $city2='';
+        $brgy2='';
+        $Title_Loc=$area_ID;
+
         if($area_ID>137400){
+            $the_province=DB::table('city')->where('city_c',$area_ID)->pluck('province_c');
+            $the_region=DB::table('province')->where('province_c',$the_province[0])->pluck('region_c');
+            
+            if($user_area !=0){
+                if($the_region[0] != $user_area){
+                    return redirect('geo_mapping')->with('warning', 'This is not your Region');
+                }
+            }
+
             $ops_details_area=DB::table('preops_area')->where('city_c',$area_ID)->orderBy('created_at','DESC')->get();
             $ops_numbers=DB::table('preops_area')->where('city_c',$area_ID)->pluck('preops_number');
 
-            $ops_details=DB::table('preops_header')->where('status',1)->whereIn('preops_number',$ops_numbers)->get();
+            $ops_details=DB::table('preops_header')->where('status',1)->where('operation_datetime','<=',$datetime_now)->where('validity','>=',$datetime_now)->whereIn('preops_number',$ops_numbers)->get();
             $ops_count=count($ops_details);
+            $ops_numbers2=$ops_details->pluck('preops_number');
+            $ops_details_area2=DB::table('preops_area')->whereIn('preops_number',$ops_numbers2)->get();
 
-            $the_teams=DB::table('preops_header')->where('status',1)->whereIn('preops_number',$ops_numbers)->pluck('operating_unit_id');
-            $ops_teams=DB::table('preops_team')->whereIn('id',$the_teams)->get();
+            $the_teams=DB::table('preops_header')->where('status',1)->whereIn('preops_number',$ops_numbers2)->pluck('preops_number');
+            $ops_teams=DB::table('preops_team')->whereIn('preops_number',$the_teams)->get();
+
+            
+            $region=[]; $regionB=[];
+            $province=[];  $provinceB=[]; 
+            $city=[]; $cityB=[];
+            $brgy=[]; $brgyB=[];
+
+            $city2=[]; $city2B=[];
+            $brgy2=[]; $brgy2B=[];
+
+            //////////////////////////
+            $ops_details2=DB::table('preops_header')->where('operation_datetime','>',$datetime_now)->whereIn('preops_number',$ops_numbers)->get();
+            $ops_numbers3=$ops_details2->pluck('preops_number');
+            $ops_details_area3=DB::table('preops_area')->whereIn('preops_number',$ops_numbers3)->get();
+
+            $the_teams2=DB::table('preops_header')->where('status',1)->whereIn('preops_number',$ops_numbers3)->pluck('preops_number');
+            $ops_teams2=DB::table('preops_team')->whereIn('preops_number',$the_teams2)->get();
 
             if($ops_details_area->isEmpty()){
                 $region=['---'];
@@ -67,24 +101,87 @@ class Xporter implements FromView
                 $city=['---'];
                 $brgy=['---'];
             }else{
-                $region=DB::table('region')->where('region_c',$ops_details_area[0]->region_c)->pluck('region_m');
-                $province=DB::table('province')->where('province_c',$ops_details_area[0]->province_c)->pluck('province_m');
-                $city=DB::table('city')->where('city_c',$area_ID)->pluck('city_m');
-                $brgy=DB::table('barangay')->where('barangay_c',$ops_details_area[0]->barangay_c)->pluck('barangay_m');
-            }
+                foreach($ops_details as $key => $opd){
 
-            
+                    $regionX=DB::table('region')->where('region_c',$ops_details_area2[$key]->region_c)->pluck('region_m');
+                    array_push($region, $regionX[0]);
+                    $provinceX=DB::table('province')->where('province_c',$ops_details_area2[$key]->province_c)->pluck('province_m');
+                    array_push($province, $provinceX[0]);
+                    $cityX=DB::table('city')->where('city_c',$ops_details_area2[$key]->city_c)->pluck('city_m');
+                    array_push($city, $cityX[0]);
+                    $brgyX=DB::table('barangay')->where('barangay_c',$ops_details_area2[$key]->barangay_c)->pluck('barangay_m');
+                    if($ops_details_area2[$key]->barangay_c){
+                        array_push($brgy, $brgyX[0]);
+                    }else{
+                        array_push($brgy, "---");
+                    }
+    
+                    $cityX2=$ops_details_area2[$key]->city_c;
+                    array_push($city2, $cityX2);
+                    $brgyX2=$ops_details_area2[$key]->barangay_c;
+                    array_push($brgy2, $brgyX2);
+                }
+                foreach($ops_details2 as $key => $opd2){
+
+                    $regionXB=DB::table('region')->where('region_c',$ops_details_area3[$key]->region_c)->pluck('region_m');
+                    array_push($regionB, $regionXB[0]);
+                    $provinceXB=DB::table('province')->where('province_c',$ops_details_area3[$key]->province_c)->pluck('province_m');
+                    array_push($provinceB, $provinceXB[0]);
+                    $cityXB=DB::table('city')->where('city_c',$ops_details_area3[$key]->city_c)->pluck('city_m');
+                    array_push($cityB, $cityXB[0]);
+                    $brgyXB=DB::table('barangay')->where('barangay_c',$ops_details_area3[$key]->barangay_c)->pluck('barangay_m');
+                    if($ops_details_area3[$key]->barangay_c){
+                        array_push($brgy, $brgyXB[0]);
+                    }else{
+                        array_push($brgy, "---");
+                    }
+    
+                    $cityX2B=$ops_details_area3[$key]->city_c;
+                    array_push($city2B, $cityX2B);
+                    $brgyX2B=$ops_details_area3[$key]->barangay_c;
+                    array_push($brgy2B, $brgyX2B);
+                }
+                
+            }
         }
 
         if($area_ID==1){
+            $the_province=DB::table('city')->where('city_c',133901)->pluck('province_c');
+            $the_region=DB::table('province')->where('province_c',$the_province[0])->pluck('region_c');
+
+            if($user_area !=0){
+                if($the_region[0] != $user_area){
+                    return redirect('geo_mapping')->with('warning', 'This is not your Region');
+                }
+            }
+
             $ops_details_area=DB::table('preops_area')->whereBetween('city_c',[133901,133914])->orderBy('created_at','DESC')->get();
             $ops_numbers=DB::table('preops_area')->whereBetween('city_c',[133901,133914])->pluck('preops_number');
 
-            $ops_details=DB::table('preops_header')->where('status',1)->whereIn('preops_number',$ops_numbers)->get();
+            $ops_details=DB::table('preops_header')->where('status',1)->where('operation_datetime','<=',$datetime_now)->where('validity','>=',$datetime_now)->whereIn('preops_number',$ops_numbers)->get();
             $ops_count=count($ops_details);
+            $ops_numbers2=$ops_details->pluck('preops_number');
+            $ops_details_area2=DB::table('preops_area')->whereIn('preops_number',$ops_numbers2)->get();
 
-            $the_teams=DB::table('preops_header')->where('status',1)->whereIn('preops_number',$ops_numbers)->pluck('operating_unit_id');
-            $ops_teams=DB::table('preops_team')->whereIn('id',$the_teams)->get();
+            $the_teams=DB::table('preops_header')->where('status',1)->whereIn('preops_number',$ops_numbers2)->pluck('preops_number');
+            $ops_teams=DB::table('preops_team')->whereIn('preops_number',$the_teams)->get();
+
+            
+            $region=[]; $regionB=[];
+            $province=[];  $provinceB=[]; 
+            $city=[]; $cityB=[];
+            $brgy=[]; $brgyB=[];
+
+            $city2=[]; $city2B=[];
+            $brgy2=[]; $brgy2B=[];
+
+            //////////////////////////
+            $ops_details2=DB::table('preops_header')->where('operation_datetime','>',$datetime_now)->whereIn('preops_number',$ops_numbers)->get();
+            $ops_numbers3=$ops_details2->pluck('preops_number');
+            $ops_details_area3=DB::table('preops_area')->whereIn('preops_number',$ops_numbers3)->get();
+
+            $the_teams2=DB::table('preops_header')->where('status',1)->whereIn('preops_number',$ops_numbers3)->pluck('preops_number');
+            $ops_teams2=DB::table('preops_team')->whereIn('preops_number',$the_teams2)->get();
 
             if($ops_details_area->isEmpty()){
                 $region=['---'];
@@ -92,38 +189,143 @@ class Xporter implements FromView
                 $city=['---'];
                 $brgy=['---'];
             }else{
-                $region=DB::table('region')->where('region_c',$ops_details_area[0]->region_c)->pluck('region_m');
-                $province=DB::table('province')->where('province_c',$ops_details_area[0]->province_c)->pluck('province_m');
-                $city=DB::table('city')->where('city_c',$ops_details_area[0]->city_c)->pluck('city_m');
-                $brgy=DB::table('barangay')->where('barangay_c',$ops_details_area[0]->barangay_c)->pluck('barangay_m');
+                foreach($ops_details as $key => $opd){
+
+                    $regionX=DB::table('region')->where('region_c',$ops_details_area2[$key]->region_c)->pluck('region_m');
+                    array_push($region, $regionX[0]);
+                    $provinceX=DB::table('province')->where('province_c',$ops_details_area2[$key]->province_c)->pluck('province_m');
+                    array_push($province, $provinceX[0]);
+                    $cityX=DB::table('city')->where('city_c',$ops_details_area2[$key]->city_c)->pluck('city_m');
+                    array_push($city, $cityX[0]);
+                    $brgyX=DB::table('barangay')->where('barangay_c',$ops_details_area2[$key]->barangay_c)->pluck('barangay_m');
+                    if($ops_details_area2[$key]->barangay_c){
+                        array_push($brgy, $brgyX[0]);
+                    }else{
+                        array_push($brgy, "---");
+                    }
+    
+                    $cityX2=$ops_details_area2[$key]->city_c;
+                    array_push($city2, $cityX2);
+                    $brgyX2=$ops_details_area2[$key]->barangay_c;
+                    array_push($brgy2, $brgyX2);
+                }
+                foreach($ops_details2 as $key => $opd2){
+
+                    $regionXB=DB::table('region')->where('region_c',$ops_details_area3[$key]->region_c)->pluck('region_m');
+                    array_push($regionB, $regionXB[0]);
+                    $provinceXB=DB::table('province')->where('province_c',$ops_details_area3[$key]->province_c)->pluck('province_m');
+                    array_push($provinceB, $provinceXB[0]);
+                    $cityXB=DB::table('city')->where('city_c',$ops_details_area3[$key]->city_c)->pluck('city_m');
+                    array_push($cityB, $cityXB[0]);
+                    $brgyXB=DB::table('barangay')->where('barangay_c',$ops_details_area3[$key]->barangay_c)->pluck('barangay_m');
+                    if($ops_details_area3[$key]->barangay_c){
+                        array_push($brgy, $brgyXB[0]);
+                    }else{
+                        array_push($brgy, "---");
+                    }
+    
+                    $cityX2B=$ops_details_area3[$key]->city_c;
+                    array_push($city2B, $cityX2B);
+                    $brgyX2B=$ops_details_area3[$key]->barangay_c;
+                    array_push($brgy2B, $brgyX2B);
+                }
             }
         }
 
         if($area_ID<137400 && $area_ID!=1){
+            $the_region=DB::table('province')->where('province_c',$area_ID)->pluck('region_c');
+            
+            if($user_area !=0){
+                if($the_region[0] != $user_area){
+                    return redirect('geo_mapping')->with('warning', 'This is not your Region');
+                }
+            }
+
             $ops_details_area=DB::table('preops_area')->where('province_c',$area_ID)->orderBy('created_at','DESC')->get();
             $ops_numbers=DB::table('preops_area')->where('province_c',$area_ID)->pluck('preops_number');
 
-            $ops_details=DB::table('preops_header')->where('status',1)->whereIn('preops_number',$ops_numbers)->get();
+            $ops_details=DB::table('preops_header')->where('status',1)->where('operation_datetime','<=',$datetime_now)->where('validity','>=',$datetime_now)->whereIn('preops_number',$ops_numbers)->get();
             $ops_count=count($ops_details);
 
-            $the_teams=DB::table('preops_header')->where('status',1)->whereIn('preops_number',$ops_numbers)->pluck('operating_unit_id');
-            $ops_teams=DB::table('preops_team')->whereIn('id',$the_teams)->get();
+            $ops_numbers2=$ops_details->pluck('preops_number');
+            $ops_details_area2=DB::table('preops_area')->whereIn('preops_number',$ops_numbers2)->get();
+
+            $the_teams=DB::table('preops_header')->where('status',1)->whereIn('preops_number',$ops_numbers2)->pluck('preops_number');
+            $ops_teams=DB::table('preops_team')->whereIn('preops_number',$the_teams)->get();
+
+            
+            $region=[]; $regionB=[];
+            $province=[];  $provinceB=[]; 
+            $city=[]; $cityB=[];
+            $brgy=[]; $brgyB=[];
+
+            $city2=[]; $city2B=[];
+            $brgy2=[]; $brgy2B=[];
+
+            //////////////////////////
+            $ops_details2=DB::table('preops_header')->where('operation_datetime','>',$datetime_now)->whereIn('preops_number',$ops_numbers)->get();
+            $ops_numbers3=$ops_details2->pluck('preops_number');
+            $ops_details_area3=DB::table('preops_area')->whereIn('preops_number',$ops_numbers3)->get();
+
+            $the_teams2=DB::table('preops_header')->where('status',1)->whereIn('preops_number',$ops_numbers3)->pluck('preops_number');
+            $ops_teams2=DB::table('preops_team')->whereIn('preops_number',$the_teams2)->get();
+            //dd($ops_details_area2);
 
             if($ops_details_area->isEmpty()){
                 $region=['---'];
-                $province=['---'];
+                $province=['---']; 
                 $city=['---'];
                 $brgy=['---'];
             }else{
-                $region=DB::table('region')->where('region_c',$ops_details_area[0]->region_c)->pluck('region_m');
-                $province=DB::table('province')->where('province_c',$ops_details_area[0]->province_c)->pluck('province_m');
-                $city=DB::table('city')->where('city_c',$ops_details_area[0]->city_c)->pluck('city_m');
-                $brgy=DB::table('barangay')->where('barangay_c',$ops_details_area[0]->barangay_c)->pluck('barangay_m');
-            }
-        }
+                foreach($ops_details as $key => $opd){
 
-        
-            return view('xports.ops_data_tableX',compact('ops_details','ops_details_area','ops_count','ops_teams','region','province','city','brgy') );
+                    $regionX=DB::table('region')->where('region_c',$ops_details_area2[$key]->region_c)->pluck('region_m');
+                    array_push($region, $regionX[0]);
+                    $provinceX=DB::table('province')->where('province_c',$ops_details_area2[$key]->province_c)->pluck('province_m');
+                    array_push($province, $provinceX[0]);
+                    $cityX=DB::table('city')->where('city_c',$ops_details_area2[$key]->city_c)->pluck('city_m');
+                    array_push($city, $cityX[0]);
+                    $brgyX=DB::table('barangay')->where('barangay_c',$ops_details_area2[$key]->barangay_c)->pluck('barangay_m');
+                    if($ops_details_area2[$key]->barangay_c){
+                        array_push($brgy, $brgyX[0]);
+                    }else{
+                        array_push($brgy, "---");
+                    }
+    
+                    $cityX2=$ops_details_area2[$key]->city_c;
+                    array_push($city2, $cityX2);
+                    $brgyX2=$ops_details_area2[$key]->barangay_c;
+                    array_push($brgy2, $brgyX2);
+                }
+                foreach($ops_details2 as $key => $opd2){
+
+                    $regionXB=DB::table('region')->where('region_c',$ops_details_area3[$key]->region_c)->pluck('region_m');
+                    array_push($regionB, $regionXB[0]);
+                    $provinceXB=DB::table('province')->where('province_c',$ops_details_area3[$key]->province_c)->pluck('province_m');
+                    array_push($provinceB, $provinceXB[0]);
+                    $cityXB=DB::table('city')->where('city_c',$ops_details_area3[$key]->city_c)->pluck('city_m');
+                    array_push($cityB, $cityXB[0]);
+                    $brgyXB=DB::table('barangay')->where('barangay_c',$ops_details_area3[$key]->barangay_c)->pluck('barangay_m');
+                    if($ops_details_area3[$key]->barangay_c){
+                        array_push($brgy, $brgyXB[0]);
+                    }else{
+                        array_push($brgy, "---");
+                    }
+    
+                    $cityX2B=$ops_details_area3[$key]->city_c;
+                    array_push($city2B, $cityX2B);
+                    $brgyX2B=$ops_details_area3[$key]->barangay_c;
+                    array_push($brgy2B, $brgyX2B);
+                }
+               
+            }
+            
+        }
+        $area_IDx=$area_ID;
+
+
+        return view('xports.ops_data_tableX',compact('ops_details','ops_details_area','ops_count','area_IDx','ops_teams','ops_teams2',
+                    'region','province','city','brgy','city2','brgy2','Title_Loc','ops_details2','regionB','provinceB','cityB','brgyB','city2B','brgy2B') );
 
 
     }

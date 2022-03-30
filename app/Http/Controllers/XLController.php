@@ -20,7 +20,7 @@ class XLController extends Controller
         $data = request()->all();
         if($request->has('this_area_ID')){$filter1b =$data['this_area_ID'];}else{$filter1b =[''];}
 
-        return Excel::download(new Xporter($filter1b), 'Ongoing_OPS_details.csv');
+        return Excel::download(new Xporter($filter1b), 'OPS_details.csv');
     }
 
 }
