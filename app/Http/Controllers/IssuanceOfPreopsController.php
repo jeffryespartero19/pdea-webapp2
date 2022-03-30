@@ -138,7 +138,7 @@ class IssuanceOfPreopsController extends Controller
                 $file->move($filePath, $filename);
 
                 $file_data = array(
-                    'preops_number' => $request->preops_number,
+                    'preops_number' => $preops_number,
                     'filenames' => $filename,
                 );
                 $file_id = DB::table('issuance_of_preops_files')->insertGetId($file_data);
@@ -158,13 +158,13 @@ class IssuanceOfPreopsController extends Controller
         $ops_su_data = [];
 
         if (!empty($data['support_unit_id'])) {
-            DB::table('preops_support_unit')->where('preops_number', $request->preops_number)->delete();
+            DB::table('preops_support_unit')->where('preops_number', $preops_number)->delete();
 
             for ($i = 0; $i < count($data['support_unit_id']); $i++) {
                 if ($data['support_unit_id'][$i] != NULL) {
 
                     $ops_su_data = [
-                        'preops_number' => $request->preops_number,
+                        'preops_number' => $preops_number,
                         'support_unit_id' => $data['support_unit_id'][$i],
                     ];
 
@@ -185,7 +185,7 @@ class IssuanceOfPreopsController extends Controller
 
                 $ops_area_data = [
                     'area' => $data['area'][$i],
-                    'preops_number' => $request->preops_number,
+                    'preops_number' => $preops_number,
                     'region_c' => $data['area_region_c'][$i],
                     'province_c' => $data['province_c'][$i],
                     'city_c' => $data['city_c'][$i],
@@ -208,7 +208,7 @@ class IssuanceOfPreopsController extends Controller
                 $ops_target_data = [
                     'name' => $data['target_name'][$i],
                     'nationality_id' => $data['nationality_id'][$i],
-                    'preops_number' => $request->preops_number,
+                    'preops_number' => $preops_number,
                 ];
 
                 DB::table('preops_target')->updateOrInsert(['id' => $id], $ops_target_data);
@@ -228,7 +228,7 @@ class IssuanceOfPreopsController extends Controller
                     'name' => $data['team_name'][$i],
                     'position' => $data['team_position'][$i],
                     'contact' => $data['team_contact'][$i],
-                    'preops_number' => $request->preops_number,
+                    'preops_number' => $preops_number,
                 ];
 
                 DB::table('preops_team')->updateOrInsert(['id' => $id], $ops_team_data);
