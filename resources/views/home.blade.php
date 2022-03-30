@@ -77,7 +77,7 @@
                 'Report Submitted',
             ],
             datasets: [{
-                data: [active_coc, expired_coc, pending_coc, submitted_report],
+                data: [active_coc, pending_coc, expired_coc, submitted_report],
                 backgroundColor: ['#00a65a', '#f39c12', '#f56954', '#00c0ef'],
             }],
             
