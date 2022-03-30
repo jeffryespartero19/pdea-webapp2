@@ -33,6 +33,8 @@ class ProgressReportController extends Controller
                 ->where('a.report_status', 1)
                 ->orderby('spot_report_number', 'asc')
                 ->get();
+
+            $region = DB::table('region')->orderby('region_sort', 'asc')->get();
         } else {
             $data = DB::table('spot_report_header as a')
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
@@ -43,9 +45,14 @@ class ProgressReportController extends Controller
                 ->where('d.id', Auth::user()->regional_office_id)
                 ->orderby('spot_report_number', 'asc')
                 ->get();
+
+            $region = DB::table('region as a')
+                ->join('regional_office as d', 'a.region_c', '=', 'd.region_c')
+                ->where('d.id', Auth::user()->regional_office_id)
+                ->get();
         }
 
-        $region = DB::table('region')->orderby('region_sort', 'asc')->get();
+
         $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
         $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
 
