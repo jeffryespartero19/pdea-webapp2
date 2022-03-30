@@ -33,7 +33,7 @@ class IssuanceOfPreopsController extends Controller
                 ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
                 ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity')
-                ->orderby('preops_number', 'asc')
+                ->orderby('a.id', 'asc')
                 ->get();
         } else {
             $data = DB::table('preops_header as a')
@@ -42,7 +42,7 @@ class IssuanceOfPreopsController extends Controller
                 ->join('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
                 ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity')
                 ->where('d.id', Auth::user()->regional_office_id)
-                ->orderby('preops_number', 'asc')
+                ->orderby('a.id', 'asc')
                 ->get();
         }
 
