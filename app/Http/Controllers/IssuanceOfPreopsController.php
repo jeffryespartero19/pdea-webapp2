@@ -605,7 +605,7 @@ class IssuanceOfPreopsController extends Controller
             </header>';
 
         $output .= '
-                <img src="./files/uploads/report_header/' . $regional_office[0]->report_header . '" class="col-3" style="width:100%;">
+                <img src="./files/uploads/report_header/' . $regional_office[0]->report_header . '" onerror=this.src="./files/uploads/report_header/newhead.jpg" class="col-3" style="width:100%;">
                 <br>
                 <br>
                 <h3 align="center">CERTIFICATE OF COORDINATION</h3>
