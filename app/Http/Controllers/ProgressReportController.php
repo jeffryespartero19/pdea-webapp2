@@ -62,6 +62,7 @@ class ProgressReportController extends Controller
         $spot_report_header = DB::table('spot_report_header as a')
             ->leftjoin('regional_office as b', 'a.region_c', '=', 'b.region_c')
             ->where('a.status', true)
+            ->where('a.report_status', 0)
             ->where('b.id', Auth::user()->regional_office_id)
             ->orderby('a.id', 'asc')->get();
         $civil_status = DB::table('civil_status')->where('active', true)->orderby('name', 'asc')->get();

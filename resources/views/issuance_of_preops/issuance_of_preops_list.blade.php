@@ -106,7 +106,10 @@
                         <td>{{ $preops_header->operation_datetime }}</td>
                         <td>
                             <?php date_default_timezone_set('Asia/Manila'); ?>
-                            @if($preops_header->validity < date("Y-m-d H:i:s")) No @else Yes @endif </td>
+                            @if($preops_header->validity < date("Y-m-d H:i:s")) No
+                            @elseif($preops_header->validity > date("Y-m-d H:i:s") && $preops_header->operation_datetime > date("Y-m-d H:i:s")) Pending
+                            @elseif($preops_header->validity > date("Y-m-d H:i:s") && $preops_header->operation_datetime < date("Y-m-d H:i:s")) Yes 
+                            @endif </td>
                         <td>
                             <center>
                                 <a href="{{ url('issuance_of_preops_edit/'.$preops_header->id) }}" class="btn btn-info">Edit</a>
