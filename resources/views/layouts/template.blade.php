@@ -120,7 +120,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
-                        <li id="geo" class="nav-item">
+                        <li id="geo" class="nav-item" {{ Auth::user()->with_geomapping_access ? '' : 'hidden' }}>
                             <a href="{{ route('geo_mapping') }}" class="nav-link" id="geo_link">
                                 <i class="nav-icon fas fa-globe"></i>
                                 <p>
@@ -210,10 +210,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li id="drug_verification" class="nav-item" @if(Auth::user()->user_level_id != 5)hidden
-                            @else
-                            @endif
-                            >
+                        <li id="drug_verification" class="nav-item" {{ Auth::user()->with_drug_verification_access ? '' : 'hidden' }}>
                             <a href="{{ route('drug_verification_list') }}" class="nav-link" id="dver_link">
                                 <i class="nav-icon fas fa-check"></i>
                                 <p>
@@ -221,10 +218,7 @@
                                 </p>
                             </a>
                         </li>
-                        <li id="drug_management" class="nav-item" @if(Auth::user()->user_level_id != 6)hidden
-                            @else
-                            @endif
-                            >
+                        <li id="drug_management" class="nav-item" {{ Auth::user()->with_drug_management_access ? '' : 'hidden' }}>
                             <a href="{{ route('drug_management_list') }}" class="nav-link" id="dman_link">
                                 <i class="nav-icon fas fa-list"></i>
                                 <p>
@@ -232,11 +226,7 @@
                                 </p>
                             </a>
                         </li>
-                        <li id="file_uploads" class="nav-item" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
-                            @else
-                            hidden
-                            @endif
-                            >
+                        <li id="file_uploads" class="nav-item" {{ Auth::user()->with_file_upload_access ? '' : 'hidden' }}>
                             <a href="{{ route('file_uploads') }}" class="nav-link" id="fu_link">
                                 <i class="nav-icon fas fa-file"></i>
                                 <p>

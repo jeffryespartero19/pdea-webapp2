@@ -102,6 +102,10 @@ class AccessRightsController extends Controller
             'with_coc_access' => $request->has('with_coc_access') ? true : false,
             'with_sap_access' => $request->has('with_sap_access') ? true : false,
             'with_settings_access' => $request->has('with_settings_access') ? true : false,
+            'with_geomapping_access' => $request->has('with_geomapping_access') ? true : false,
+            'with_file_upload_access' => $request->has('with_file_upload_access') ? true : false,
+            'with_drug_management_access' => $request->has('with_drug_management_access') ? true : false,
+            'with_drug_verification_access' => $request->has('with_drug_verification_access') ? true : false,
         );
 
         DB::table('users')->where(['id' => $id])->update($data);
