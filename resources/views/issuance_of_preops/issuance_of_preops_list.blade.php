@@ -104,7 +104,9 @@
                         <td>{{ $preops_header->operating_unit }}</td>
                         <td>{{ $preops_header->operation_type }}</td>
                         <td>{{ $preops_header->operation_datetime }}</td>
-                        <td>{{ $preops_header->status == 1 ? 'Yes' : 'No' }}</td>
+                        <td>
+                            <?php date_default_timezone_set('Asia/Manila'); ?>
+                            @if($preops_header->validity < date("Y-m-d H:i:s")) No @else Yes @endif </td>
                         <td>
                             <center>
                                 <a href="{{ url('issuance_of_preops_edit/'.$preops_header->id) }}" class="btn btn-info">Edit</a>
@@ -153,7 +155,7 @@
         var operation_type_id = $('#operation_type_id').val();
         var operation_date = $('#operation_date').val();
 
-        
+
 
         if (ro_code == '' || ro_code == null) {
             ro_code = 0;
@@ -187,7 +189,7 @@
                 if (data.length > 0) {
                     data.forEach(element => {
 
-                        if(element["status"] == 1) {
+                        if (element["status"] == 1) {
                             status = 'Yes';
                         } else {
                             status = 'No';
