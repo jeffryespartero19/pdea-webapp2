@@ -215,7 +215,8 @@
         },
 
         colorAxis: {
-            min: 1
+            min: 0,
+            max: 3
         },
 
         series: [{
