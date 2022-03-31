@@ -627,7 +627,6 @@ class IssuanceOfPreopsController extends Controller
                 <div style="background-color:green; color:white; padding-left:5px">Area(s) of Operation</div>';
 
         $output .= '
-                <br>
                 <table width="100%" style="border-collapse: collapse; border: 0px;">
                     <tr style="border: 1px solid;">
                         <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Region</th>
@@ -651,13 +650,23 @@ class IssuanceOfPreopsController extends Controller
         $output .= '</table>';
 
         $output .= '
-        <br>
-        <div style="background-color:green; color:white; padding-left:5px">Target(s)</div>';
+                <br>
+                <div style="background-color:green; color:white; padding-left:5px">Targets</div>
+                <table width="100%" style="border-collapse: collapse; border: 0px;">
+                    <tr style="border: 1px solid;">
+                        <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Name</th>
+                        <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Nationality</th>
+                    </tr>';
 
+        // Targets
         foreach ($target as $tr) {
             $output .= '
-            <div  style="margin-left:40px"><span>' . $tr->name . ' (' . $tr->nationality . ')</span></div>';
+                    <tr>
+                        <td style="border:solid; border-width: thin; padding:0 12px;">' . $tr->name . '</td>
+                        <td style="border:solid; border-width: thin; padding:0 12px;">' . $tr->nationality . '</td>
+                    </tr>';
         }
+        $output .= '</table>';
 
         $output .= '
         <h4 align="center">***** nothing follows *****</h4>
