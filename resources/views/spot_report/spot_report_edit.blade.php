@@ -1141,7 +1141,7 @@
                             <select name="prepared_by" class="form-control" required>
                                 <option value='' selected>Select Option</option>
                                 @foreach($regional_user as $reg_u)
-                                <option value="{{ $reg_u->name }}">{{ $reg_u->name }}</option>
+                                <option value="{{ $reg_u->name }}" {{ $reg_u->name == $spot_report_header[0]->prepared_by ? 'selected' : '' }}>{{ $reg_u->name }}</option>
                                 @endforeach
                             </select>
                             @else

@@ -628,7 +628,7 @@ class ProgressReportController extends Controller
 
 
         $output .= '
-                <img src="./files/uploads/report_header/' . $regional_office[0]->report_header . '" class="col-3" style="width:100%;">
+                <img src="./files/uploads/report_header/' . $regional_office[0]->report_header . '" onerror=this.src="./files/uploads/report_header/newhead.jpg" class="col-3" style="width:100%;">
                 <br>
                 <br>
                 <div style="text-align:center;"><h2>' . $spot_report[0]->spot_report_number . '</h2></div>
