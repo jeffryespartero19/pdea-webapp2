@@ -33,6 +33,8 @@ class AfterOperationReportController extends Controller
                 ->where('a.with_aor', 1)
                 ->orderby('preops_number', 'asc')
                 ->get();
+
+            $regional_office = DB::table('regional_office')->orderby('print_order', 'asc')->get();
         } else {
             $data = DB::table('preops_header as a')
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
@@ -43,12 +45,16 @@ class AfterOperationReportController extends Controller
                 ->where('d.id', Auth::user()->regional_office_id)
                 ->orderby('preops_number', 'asc')
                 ->get();
+
+            $regional_office = DB::table('regional_office')
+                ->where('id', Auth::user()->regional_office_id)
+                ->get();
         }
 
         $region = DB::table('region')->orderby('region_sort', 'asc')->get();
         $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
         $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
-        $regional_office = DB::table('regional_office')->orderby('print_order', 'asc')->get();
+
 
         return view('after_operation_report.after_operation_report_list', compact('data', 'region', 'operating_unit', 'operation_type', 'regional_office'));
     }
