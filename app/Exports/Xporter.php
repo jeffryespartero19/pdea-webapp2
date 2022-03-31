@@ -51,7 +51,7 @@ class Xporter implements FromView
         ///Data_Geomapping
         $area_ID=$this->filter1b;
 
-        $user_area=Auth::user()->region_c;
+        $user_area=Auth::user()->regional_office_id;
         $datetime_now=Carbon::now();
         $city2='';
         $brgy2='';
@@ -61,8 +61,63 @@ class Xporter implements FromView
             $the_province=DB::table('city')->where('city_c',$area_ID)->pluck('province_c');
             $the_region=DB::table('province')->where('province_c',$the_province[0])->pluck('region_c');
             
-            if($user_area !=0){
-                if($the_region[0] != $user_area){
+            if($the_region[0]=="01"){
+                $X_Region=1;
+            }
+            if($the_region[0]=="02"){
+                $X_Region=2;
+            }
+            if($the_region[0]=="03"){
+                $X_Region=3;
+            }
+            if($the_region[0]=="04"){
+                $X_Region=4;
+            }
+            if($the_region[0]=="05"){
+                $X_Region=6;
+            }
+            if($the_region[0]=="06"){
+                $X_Region=7;
+            }
+            if($the_region[0]=="07"){
+                $X_Region=8;
+            }
+            if($the_region[0]=="08"){
+                $X_Region=9;
+            }
+            if($the_region[0]=="09"){
+                $X_Region=10;
+            }
+            if($the_region[0]=="10"){
+                $X_Region=11;
+            }
+            if($the_region[0]=="11"){
+                $X_Region=12;
+            }
+            if($the_region[0]=="12"){
+                $X_Region=13;
+            }
+            if($the_region[0]=="13"){
+                $X_Region=17;
+            }
+            if($the_region[0]=="14"){
+                $X_Region=16;
+            }
+            if($the_region[0]=="15"){
+                $X_Region=15;
+            }
+            if($the_region[0]=="16"){
+                $X_Region=14;
+            }
+            if($the_region[0]=="17"){
+                $X_Region=5;
+            }
+            if($the_region[0]=="18"){
+                $X_Region=19;
+            }
+            
+            if($user_area !=18){
+                if($X_Region != $user_area){
                     return redirect('geo_mapping')->with('warning', 'This is not your Region');
                 }
             }
@@ -149,8 +204,63 @@ class Xporter implements FromView
             $the_province=DB::table('city')->where('city_c',133901)->pluck('province_c');
             $the_region=DB::table('province')->where('province_c',$the_province[0])->pluck('region_c');
 
-            if($user_area !=0){
-                if($the_region[0] != $user_area){
+            if($the_region[0]=="01"){
+                $X_Region=1;
+            }
+            if($the_region[0]=="02"){
+                $X_Region=2;
+            }
+            if($the_region[0]=="03"){
+                $X_Region=3;
+            }
+            if($the_region[0]=="04"){
+                $X_Region=4;
+            }
+            if($the_region[0]=="05"){
+                $X_Region=6;
+            }
+            if($the_region[0]=="06"){
+                $X_Region=7;
+            }
+            if($the_region[0]=="07"){
+                $X_Region=8;
+            }
+            if($the_region[0]=="08"){
+                $X_Region=9;
+            }
+            if($the_region[0]=="09"){
+                $X_Region=10;
+            }
+            if($the_region[0]=="10"){
+                $X_Region=11;
+            }
+            if($the_region[0]=="11"){
+                $X_Region=12;
+            }
+            if($the_region[0]=="12"){
+                $X_Region=13;
+            }
+            if($the_region[0]=="13"){
+                $X_Region=17;
+            }
+            if($the_region[0]=="14"){
+                $X_Region=16;
+            }
+            if($the_region[0]=="15"){
+                $X_Region=15;
+            }
+            if($the_region[0]=="16"){
+                $X_Region=14;
+            }
+            if($the_region[0]=="17"){
+                $X_Region=5;
+            }
+            if($the_region[0]=="18"){
+                $X_Region=19;
+            }
+            
+            if($user_area !=18){
+                if($X_Region != $user_area){
                     return redirect('geo_mapping')->with('warning', 'This is not your Region');
                 }
             }
@@ -235,8 +345,63 @@ class Xporter implements FromView
         if($area_ID<137400 && $area_ID!=1){
             $the_region=DB::table('province')->where('province_c',$area_ID)->pluck('region_c');
             
-            if($user_area !=0){
-                if($the_region[0] != $user_area){
+            if($the_region[0]=="01"){
+                $X_Region=1;
+            }
+            if($the_region[0]=="02"){
+                $X_Region=2;
+            }
+            if($the_region[0]=="03"){
+                $X_Region=3;
+            }
+            if($the_region[0]=="04"){
+                $X_Region=4;
+            }
+            if($the_region[0]=="05"){
+                $X_Region=6;
+            }
+            if($the_region[0]=="06"){
+                $X_Region=7;
+            }
+            if($the_region[0]=="07"){
+                $X_Region=8;
+            }
+            if($the_region[0]=="08"){
+                $X_Region=9;
+            }
+            if($the_region[0]=="09"){
+                $X_Region=10;
+            }
+            if($the_region[0]=="10"){
+                $X_Region=11;
+            }
+            if($the_region[0]=="11"){
+                $X_Region=12;
+            }
+            if($the_region[0]=="12"){
+                $X_Region=13;
+            }
+            if($the_region[0]=="13"){
+                $X_Region=17;
+            }
+            if($the_region[0]=="14"){
+                $X_Region=16;
+            }
+            if($the_region[0]=="15"){
+                $X_Region=15;
+            }
+            if($the_region[0]=="16"){
+                $X_Region=14;
+            }
+            if($the_region[0]=="17"){
+                $X_Region=5;
+            }
+            if($the_region[0]=="18"){
+                $X_Region=19;
+            }
+            
+            if($user_area !=18){
+                if($X_Region != $user_area){
                     return redirect('geo_mapping')->with('warning', 'This is not your Region');
                 }
             }
