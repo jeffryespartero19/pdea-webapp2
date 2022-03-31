@@ -51,7 +51,7 @@
                         <label for="">Name</label>
                     </div>
                     <div class="input-group mb-3">
-                        <input id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Suspect Classification Name" autocomplete="off">
+                        <input required id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Suspect Classification Name" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
@@ -59,7 +59,7 @@
                         <label for="">Description</label>
                     </div>
                     <div class="input-group mb-3">
-                        <input id="description" name="description" type="text" class="form-control @error('description') is-invalid @enderror" value="{{ old('description') }}" placeholder="Suspect Classification Description" autocomplete="off">
+                        <input required id="description" name="description" type="text" class="form-control @error('description') is-invalid @enderror" value="{{ old('description') }}" placeholder="Suspect Classification Description" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
@@ -67,7 +67,7 @@
                         <label for="">Reason</label>
                     </div>
                     <div class="input-group mb-3">
-                        <input id="reason" name="reason" type="text" class="form-control @error('reason') is-invalid @enderror" value="{{ old('reason') }}" placeholder="Suspect Classification Reason" autocomplete="off">
+                        <input required id="reason" name="reason" type="text" class="form-control @error('reason') is-invalid @enderror" value="{{ old('reason') }}" placeholder="Suspect Classification Reason" autocomplete="off">
                     </div>
                 </div>
                 <div class="custom-control custom-checkbox mb-2">
