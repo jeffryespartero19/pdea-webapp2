@@ -35,10 +35,13 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
+        if ($request->regional_office_id == 18) {
+            $region_c = 00;
+        } else {
+            $regional_office = DB::table('regional_office')->where('id', $request->regional_office_id)->get();
+            $region_c = $regional_office[0]->region_c;
+        }
 
-        
-
-        $regional_office = DB::table('regional_office')->where('id', $request->regional_office_id)->get();
 
         if ($request->user_id > 0) {
             if ($request->password == '' || $request->password == null) {
@@ -51,9 +54,8 @@ class UsersController extends Controller
                     'user_level_id' => $request->user_level_id,
                     'regional_office_id' => $request->regional_office_id,
                     'active' => $request->has('active') ? true : false,
-                    'region_c' => $regional_office[0]->region_c,
+                    'region_c' => $region_c,
                 );
-                
             } else {
                 $form_data = array(
                     'name' => $request->name,
@@ -64,7 +66,7 @@ class UsersController extends Controller
                     'user_level_id' => $request->user_level_id,
                     'regional_office_id' => $request->regional_office_id,
                     'active' => $request->has('active') ? true : false,
-                    'region_c' => $regional_office[0]->region_c,
+                    'region_c' => $region_c,
                 );
             }
             DB::table('users')->where('id', $request->user_id)->update($form_data);
@@ -73,7 +75,7 @@ class UsersController extends Controller
                 'name' => 'required|string|min:3|unique:users',
                 'email' => 'required|string|min:3|unique:users'
             ]);
-            
+
             $form_data = array(
                 'name' => $request->name,
                 'email' => $request->email,
@@ -83,7 +85,7 @@ class UsersController extends Controller
                 'user_level_id' => $request->user_level_id,
                 'regional_office_id' => $request->regional_office_id,
                 'active' => $request->has('active') ? true : false,
-                'region_c' => $regional_office[0]->region_c,
+                'region_c' => $region_c,
             );
 
             DB::table('users')->insert($form_data);
