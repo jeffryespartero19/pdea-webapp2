@@ -681,12 +681,11 @@ class IssuanceOfPreopsController extends Controller
 
         $output .= '
                 <footer>
-                    ' . $date . ' | ' . Auth::user()->name . '
-                    <br>';
+                    ' . $date . ' | ' . Auth::user()->name . ' | ';
         if ($preops_data[0]->print_count == 1) {
-            $output .= 'ORIGINAL';
+            $output .= 'O';
         } else {
-            $output .= 'COPY';
+            $output .= 'C';
         }
         $output .= '</footer>
             </body>

@@ -1250,12 +1250,11 @@ class SpotReportController extends Controller
 
         $output .= '
                 <footer>
-                    ' . $date . ' | ' . Auth::user()->name . '
-                    <br>';
+                    ' . $date . ' | ' . Auth::user()->name . ' | ';
         if ($spot_report[0]->print_count == 1) {
-            $output .= 'ORIGINAL';
+            $output .= 'O';
         } else {
-            $output .= 'COPY';
+            $output .= 'C';
         }
         $output .= '
                 </footer>
