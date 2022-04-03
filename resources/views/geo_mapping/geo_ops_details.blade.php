@@ -69,6 +69,7 @@
                     </tr>
                 </thead>
                 <tbody class="table_body">
+                    @if($ops_details!=[])
                     @foreach($ops_details as $opd)
                         <?php $x=$loop->index ?>
                         <tr>
@@ -134,10 +135,10 @@
                                     <input id="opd_ID" name="opd_ID" value="{{$opd->id}}" hidden>
 
                                     @if($opd->warning_issuance != 1)
-                                        <input id="opd_action" name="opd_action" value=1 hidden>
+                                        <input  name="opd_action" value=1 hidden>
                                         <button type="submit">Warning Sent</button>
                                     @else
-                                        <input id="opd_action" name="opd_action" value=0 hidden>
+                                        <input  name="opd_action" value=0 hidden>
                                         <button type="submit">No Warning Sent</button>
                                     @endif
 
@@ -145,6 +146,7 @@
                             </td>
                         </tr>
                     @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>
@@ -180,6 +182,7 @@
                     </tr>
                 </thead>
                 <tbody class="table_body">
+                    @if($ops_details2!=[])
                     @foreach($ops_details2 as $opd2)
                     <?php $x2=$loop->index ?>
                         <tr>
@@ -201,29 +204,29 @@
                             </td>
                             <td>@isset($regionB[0]){{$regionB[$x2]}}@endisset</td>
                             <td>
-                                @foreach ($ops_details_area as $opd_a)
-                                    @if ($opd->preops_number == $opd_a->preops_number)
+                                @foreach ($ops_details_area3 as $opd_a)
+                                    @if ($opd2->preops_number == $opd_a->preops_number)
                                         @isset($provinceB[0]){{$provinceB[$x2]}}@endisset
                                     @endif
                                 @endforeach
                             </td>
                             <td>
-                                @foreach ($ops_details_area as $opd_a)
-                                    @if ($opd->preops_number == $opd_a->preops_number)
+                                @foreach ($ops_details_area3 as $opd_a)
+                                    @if ($opd2->preops_number == $opd_a->preops_number)
                                         @isset($cityB[0]){{$cityB[$x2]}}@endisset
                                     @endif
                                 @endforeach    
                             </td>
                             <td>
-                                @foreach ($ops_details_area as $opd_a)
-                                    @if ($opd->preops_number == $opd_a->preops_number)
-                                        @isset($brgyB[0]){{$brgyB[$x2]}}@endisset
+                                @foreach ($ops_details_area3 as $opd_a)
+                                    @if ($opd2->preops_number == $opd_a->preops_number)
+                                        @isset($brgyXB[0]){{$brgyXB[$x2]}}@endisset
                                     @endif
                                 @endforeach    
                             </td>
                             <td>
-                                @foreach ($ops_details_area as $opd_a)
-                                    @if ($opd->preops_number == $opd_a->preops_number)
+                                @foreach ($ops_details_area3 as $opd_a)
+                                    @if ($opd2->preops_number == $opd_a->preops_number)
                                         @if($brgy2B[$x2]!=0)
                                             @isset($brgy2B[0]){{$brgy2B[$x2]}}@endisset
                                         @else
@@ -233,7 +236,7 @@
                                 @endforeach 
                             </td>
                             <td style="text-align: center">
-                                @if($opd->warning_issuance == 1)
+                                @if($opd2->warning_issuance == 1)
                                 <span style="background:green; padding:3px;">Issued</span> 
                                 @else 
                                 <span style="background:salmon; padding:3px;">Not Issued</span>
@@ -241,13 +244,13 @@
                             </td>
                             <td style="text-align: center">
                                 <form id="update_warning" method="POST" action="{{ route('ops_update_warning') }}" autocomplete="off" enctype="multipart/form-data">@csrf
-                                    <input id="opd_ID" name="opd_ID" value="{{$opd->id}}" hidden>
+                                    <input id="opd_ID" name="opd_ID" value="{{$opd2->id}}" hidden>
 
-                                    @if($opd->warning_issuance != 1)
-                                        <input id="opd_action" name="opd_action" value=1 hidden>
+                                    @if($opd2->warning_issuance != 1)
+                                        <input  name="opd_action" value=1 hidden>
                                         <button type="submit">Warning Sent</button>
                                     @else
-                                        <input id="opd_action" name="opd_action" value=0 hidden>
+                                        <input  name="opd_action" value=0 hidden>
                                         <button type="submit">No Warning Sent</button>
                                     @endif
 
@@ -255,6 +258,7 @@
                             </td>
                         </tr>
                     @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>

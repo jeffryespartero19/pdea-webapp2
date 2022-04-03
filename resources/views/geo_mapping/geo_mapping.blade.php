@@ -221,7 +221,7 @@
 
         series: [{
             data: data,
-            name: 'Ops',
+            name: 'Ongoing-Ops',
         
             states: {
                 hover: {

@@ -67,7 +67,7 @@ class GeoMappingController extends Controller
             $Cagayan       =DB::table('preops_area')->where('province_c',215)->where('ops_status',1)->count();
             $Isabela       =DB::table('preops_area')->where('province_c',231)->where('ops_status',1)->count();
             $Nueva_Vizcaya =DB::table('preops_area')->where('province_c',250)->where('ops_status',1)->count();
-            $Quirino       =DB::table('preops_area')->where('province_c',128)->where('ops_status',1)->count();
+            $Quirino       =DB::table('preops_area')->where('province_c',257)->where('ops_status',1)->count();
         }else{
             $Batanes       =0;
             $Cagayan       =0;
@@ -770,6 +770,7 @@ class GeoMappingController extends Controller
 
             $city2=[]; $city2B=[];
             $brgy2=[]; $brgy2B=[];
+            $brgyXB=[];
 
             //////////////////////////
             $ops_details2=DB::table('preops_header')->where('operation_datetime','>',$datetime_now)->whereIn('preops_number',$ops_numbers)->get();
@@ -832,10 +833,9 @@ class GeoMappingController extends Controller
         }
         $area_IDx=$data['area_ID'];
 
-
         return view('geo_mapping/geo_ops_details',compact('ops_details','ops_details_area','ops_count','area_IDx','ops_teams',
                     'region','province','city','brgy','city2','brgy2','Title_Loc','ops_details2','regionB','provinceB','cityB','brgyB','city2B','brgy2B',
-                    'ops_teams2',
+                    'ops_teams2','ops_details_area3','brgyXB'
                                     ) );
     }
 
