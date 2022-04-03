@@ -315,7 +315,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="province_c[]" class="form-control province_c" style="width: 300px;" required @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                                                <select name="province_c[]" class="form-control province_c" style="width: 300px;" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                                                     @else
                                                                     disabled
                                                                     @endif
@@ -710,7 +710,7 @@
             html +=
                 '<td><select required name="area_region_c[]" style="width: 300px;" class="form-control region_c"><option value="0" selected>None</option>@foreach ($region as $rg)<option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} - {{ $rg->region_m }}</option>@endforeach</select></td>';
             html +=
-                '<td><select required name="province_c[]" style="width: 300px;" class="form-control province_c prc_1"><option value="0" selected>None</option></select></td>';
+                '<td><select name="province_c[]" style="width: 300px;" class="form-control province_c prc_1"><option value="0" selected>None</option></select></td>';
             html +=
                 '<td><select name="city_c[]" class="form-control city_c" style="width: 200px;"><option value="0" selected>None</option></select></td>';
             html +=
@@ -765,6 +765,7 @@
             // });
         });
     });
+
 
     var opt_row = 0;
 
@@ -1062,6 +1063,24 @@
         if ($(this).val() != null) {
             $(this).css('border-color', 'green');
         }
+    });
+</script>
+
+<!-- Set Date Operation -->
+<script>
+    $(document).on('change', '#coordinated_datetime', function() {
+        var date = $("#coordinated_datetime").val();
+
+        $('#operation_datetime')[0].min = date;
+
+        $('#operation_datetime').val('');
+        $('#validity').val('');
+    });
+
+    $(document).on('change', '#operation_datetime', function() {
+        var date = $("#coordinated_datetime").val();
+
+        $('#operation_datetime')[0].min = date;
     });
 </script>
 

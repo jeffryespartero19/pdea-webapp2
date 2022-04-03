@@ -145,7 +145,7 @@
                             <a id="SPadd" href="#" style="float: right;"><i class="fas fa-plus pr-2"></i></a>
                         </div>
                         <div class="input-group mb-3 su_options">
-                            <select name="support_unit_id[]" class="form-control @error('operation type') is-invalid @enderror" required>
+                            <select name="support_unit_id[]" class="form-control @error('operation type') is-invalid @enderror">
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach($support_unit as $su)
                                 <option value="{{ $su->id }}">{{ $su->name }}</option>
@@ -186,7 +186,7 @@
                         </div>
                         <div class="input-group mb-3">
                             @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
-                            <input id="operation_datetime" name="operation_datetime" type="datetime-local" class="form-control @error('operation date and time') is-invalid @enderror" value="{{ old('operation_datetime') }}" required>
+                            <input id="operation_datetime" name="operation_datetime" type="datetime-local" class="form-control @error('operation date and time') is-invalid @enderror" value="{{ old('operation_datetime') }}"  required>
                             @else
                             <input id="operation_datetime" name="operation_datetime" type="datetime-local" class="form-control operation_datetime" value="{{ old('operation_datetime') }}" required>
                             @endif
@@ -457,7 +457,7 @@
             html +=
                 '<td><select required name="area_region_c[]" }}" class="form-control region_c disabled_field"><option value="0" selected>None</option>@foreach ($region as $rg)<option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} - {{ $rg->region_m }}</option>@endforeach</select></td>';
             html +=
-                '<td><select required name="province_c[]" class="form-control province_c disabled_field prc_1"><option value="0" selected>None</option>@foreach ($province as $pr)<option value="{{ $pr->province_c }}">{{ $pr->province_m }}</option>@endforeach</select></td>';
+                '<td><select name="province_c[]" class="form-control province_c disabled_field prc_1"><option value="0" selected>None</option>@foreach ($province as $pr)<option value="{{ $pr->province_c }}">{{ $pr->province_m }}</option>@endforeach</select></td>';
             html +=
                 '<td><select name="city_c[]" class="form-control city_c" style="width: 300px;"><option value="0" selected>None</option></select></td>';
             html +=
@@ -1040,6 +1040,7 @@
         var date = $("#coordinated_datetime").val();
 
         $('#operation_datetime')[0].min = date;
+        
         $('#operation_datetime').val('');
         $('#validity').val('');
     });
