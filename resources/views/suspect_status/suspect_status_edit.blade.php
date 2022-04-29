@@ -44,7 +44,7 @@
             <h3 class="card-title">Edit Suspect Status Information</h3>
         </div>
         <div class="card-body">
-            <form action="/nationality_edit/{{ $suspect_status[0]->id }}" role="form" method="post">
+            <form action="/suspect_status_edit/{{ $suspect_status[0]->id }}" role="form" method="post">
                 @csrf
                 @method('PATCH')
                 <div class="form-group">

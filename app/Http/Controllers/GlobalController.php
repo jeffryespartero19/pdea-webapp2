@@ -94,7 +94,7 @@ class GlobalController extends Controller
         return json_encode($data);
     }
 
-    public function get_preops_list($ro_code, $operating_unit_id, $operation_type_id, $operation_date)
+    public function get_preops_list($ro_code, $operating_unit_id, $operation_type_id, $operation_date, $operation_date_to)
     {
         $data = DB::table('preops_header as a')
             ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
@@ -111,7 +111,10 @@ class GlobalController extends Controller
             $data->where(['a.operation_type_id' => $operation_type_id]);
         }
         if ($operation_date != 0) {
-            $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), $operation_date);
+            $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))") , '>=', $operation_date);
+        }
+        if ($operation_date_to != 0) {
+            $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))") , '<=', $operation_date_to);
         }
 
         $data = $data->get();
@@ -153,19 +156,19 @@ class GlobalController extends Controller
             ->join('province as e', 'a.province_c', '=', 'e.province_c')
             ->join('city as f', 'a.city_c', '=', 'f.city_c')
             ->join('barangay as g', 'a.barangay_c', '=', 'g.barangay_c')
-            ->select('a.id', 'a.spot_report_number', 'd.name as operation_type_name', 'a.operation_type_id', 'a.operating_unit_id', 'c.name as operating_unit_name', 'a.region_c', 'b.region_m', 'a.operation_datetime', 'a.province_c', 'e.province_m','a.city_c', 'f.city_m','a.barangay_c', 'g.barangay_m',)
+            ->select('a.id', 'a.spot_report_number', 'd.name as operation_type_name', 'a.operation_type_id', 'a.operating_unit_id', 'c.name as operating_unit_name', 'a.region_c', 'b.region_m', 'a.operation_datetime', 'a.province_c', 'e.province_m', 'a.city_c', 'f.city_m', 'a.barangay_c', 'g.barangay_m',)
             ->where(['spot_report_number' => $spot_report_number])
             ->get();
 
         return json_encode($data);
     }
 
-    public function get_spot_report_list($region_c, $operating_unit_id, $operation_type_id, $operation_date)
+    public function get_spot_report_list($region_c, $operating_unit_id, $operation_type_id, $operation_date, $operation_date_to)
     {
         $data = DB::table('spot_report_header as a')
             ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
             ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-            ->select('a.id', 'a.spot_report_number', 'a.operating_unit_id', 'operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.region_c', 'a.status')
+            ->select('a.id', 'a.spot_report_number', 'a.operating_unit_id', 'operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.region_c', 'a.status', 'a.created_at')
             ->where('a.report_status', 0);
         if ($region_c != 0) {
             $data->where(['a.region_c' => $region_c]);
@@ -177,9 +180,11 @@ class GlobalController extends Controller
             $data->where(['a.operation_type_id' => $operation_type_id]);
         }
         if ($operation_date != 0) {
-            $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), $operation_date);
+            $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))") , '>=', $operation_date);
         }
-
+        if ($operation_date_to != 0) {
+            $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))") , '<=', $operation_date_to);
+        }
         $data = $data->get();
 
         return json_encode($data);

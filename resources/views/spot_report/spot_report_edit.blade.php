@@ -391,7 +391,7 @@
                                                             <td hidden><input type="number" name="spot_suspect_id[]" class="form-control" value="{{ $srs->id }}"></td>
                                                             <td><input required type="text" name="suspect_number[]" style="width: 200px; pointer-events:none; background-color : #e9ecef;" class="form-control" value="{{ $srs->suspect_number }}"></td>
                                                             <td>
-                                                                <select name="suspect_status_id[]" class="form-control" style="width: 200px;" required>
+                                                                <select name="suspect_status_id[]" class="form-control suspect_status_id" style="width: 200px;" required>
                                                                     <option value='' selected>Select Option</option>
                                                                     @foreach ($suspect_status as $sstat)
                                                                     <option value="{{ $sstat->id }}" {{ $sstat->id == $srs->suspect_status_id ? 'selected' : '' }}>
@@ -600,7 +600,7 @@
                                                                 <div type="text" style="width: 200px;" class="form-control disabled_field">Auto Generated</div>
                                                             </td>
                                                             <td>
-                                                                <select name="suspect_status_id[]" class="form-control" style="width: 200px;">
+                                                                <select name="suspect_status_id[]" class="form-control suspect_status_id" style="width: 200px;">
                                                                     <option value='' selected>Select Option</option>
                                                                     @foreach ($suspect_status as $sstat)
                                                                     <option value="{{ $sstat->id }}">
@@ -1294,17 +1294,17 @@
             html +=
                 '<td><input required type="text" name="suspect_number[]" style="width: 200px;" class="form-control disabled_field" value="1" hidden><div type="text" style="width: 200px;" class="form-control disabled_field">Auto Generated</div></td>';
             html +=
-                '<td><select name="suspect_status_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($suspect_status as $sstat)<option value="{{ $sstat->id }}">{{ $sstat->name }}</option>@endforeach</select></td>';
+                '<td><select name="suspect_status_id[]" class="form-control suspect_status_id" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($suspect_status as $sstat)<option value="{{ $sstat->id }}">{{ $sstat->name }}</option>@endforeach</select></td>';
             html +=
-                '<td><input required type="text" name="lastname[]" style="width: 200px;" class="form-control"></td>';
+                '<td><input required type="text" name="lastname[]" style="width: 200px;" class="form-control last_name"></td>';
             html +=
-                '<td><input required type="text" name="firstname[]" style="width: 200px;" class="form-control"></td>';
+                '<td><input required type="text" name="firstname[]" style="width: 200px;" class="form-control first_name"></td>';
             html +=
-                '<td><input required type="text" name="middlename[]" style="width: 200px;" class="form-control"></td>';
+                '<td><input required type="text" name="middlename[]" style="width: 200px;" class="form-control middle_name"></td>';
             html +=
-                '<td><input required type="text" name="alias[]" style="width: 200px;" class="form-control"></td>';
+                '<td><input required type="text" name="alias[]" style="width: 200px;" class="form-control alias"></td>';
             html +=
-                '<td><input type="date" name="birthdate[]" style="width: 200px;" class="form-control"></td>';
+                '<td><input required type="date" name="birthdate[]" style="width: 200px;" class="form-control birthdate"></td>';
             html +=
                 '<td><select name="est_birthdate[]" class="form-control" style="width: 200px;"><option value="0">No</option><option value="1">Yes</option></select></td>';
             html +=
@@ -1928,6 +1928,30 @@
 
     $(document).on('click', '.su_remove', function() {
         $(this).closest(".su_options").remove();
+    });
+
+    // Remove Required On At Large Surpect Status
+    $(document).on("change", ".suspect_status_id", function() {
+      
+        var suspect_status_id = $(this).val();
+        var $row = $(this).closest(".suspect_details");
+
+
+        if (suspect_status_id == 2) {
+            $row.find("td:eq(3) input").attr('required', false);
+            $row.find("td:eq(4) input").attr('required', false);
+            $row.find("td:eq(5) input").attr('required', false);
+            $row.find("td:eq(6) input").attr('required', false);
+            $row.find("td:eq(7) input").attr('required', false);
+        } else {
+            $row.find("td:eq(3) input").attr('required', true);
+            $row.find("td:eq(4) input").attr('required', true);
+            $row.find("td:eq(5) input").attr('required', true);
+            $row.find("td:eq(6) input").attr('required', true);
+            $row.find("td:eq(7) input").attr('required', true);
+        }
+
+
     });
 </script>
 

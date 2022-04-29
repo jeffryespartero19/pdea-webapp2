@@ -31,7 +31,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
     <!-- Other styles -->
     <link rel="stylesheet" href="{{ asset('css/c_gl.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/fontawesome.min.css') }}">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
     <script src="{{ asset('/js/chatX.js') }}" defer></script>
 
@@ -239,6 +240,14 @@
                                 <i class="nav-icon fas fa-list"></i>
                                 <p>
                                     Memo
+                                </p>
+                            </a>
+                        </li>
+                        <li id="report_generation" class="nav-item" hidden>
+                            <a href="{{ route('report_generation_list') }}" class="nav-link" id="report_generation_link">
+                                <i class="nav-icon fas fa-list"></i>
+                                <p>
+                                    Report Generation
                                 </p>
                             </a>
                         </li>

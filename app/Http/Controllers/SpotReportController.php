@@ -217,7 +217,7 @@ class SpotReportController extends Controller
             $spot_suspect = [];
 
             for ($i = 0; $i < count($data['lastname']); $i++) {
-                if ($data['lastname'][$i] != NULL && $data['firstname'][$i] != NULL && $data['middlename'][$i] != NULL && $data['birthdate'][$i] != NULL) {
+                if ($data['lastname'][$i] != NULL && $data['firstname'][$i] != NULL && $data['middlename'][$i] != NULL && $data['birthdate'][$i] != NULL || $data['suspect_status_id'][$i] == 2) {
 
                     // Auto SUspect Number
                     $suspect_number = 0 + DB::table('suspect_information')

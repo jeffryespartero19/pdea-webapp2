@@ -27,7 +27,7 @@
             <h3 class="card-title">Filter</h3>
         </div>
         <div class="card-body row">
-            <div class="form-group col-3" style="margin: 0px;">
+            <div class="form-group col-4" style="margin: 0px;">
                 <div>
                     <label for="">Region</label>
                 </div>
@@ -40,7 +40,7 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group col-3" style="margin: 0px;">
+            <div class="form-group col-4" style="margin: 0px;">
                 <div>
                     <label for="">Operating Unit</label>
                 </div>
@@ -53,7 +53,7 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group col-3" style="margin: 0px;">
+            <div class="form-group col-4" style="margin: 0px;">
                 <div>
                     <label for="">Type of OPN</label>
                 </div>
@@ -66,12 +66,20 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group col-3" style="margin: 0px;">
+            <div class="form-group col-4" style="margin: 0px;">
                 <div>
-                    <label for="">Operation Date</label>
+                    <label for="">Operation Date From</label>
                 </div>
                 <div class="input-group mb-3">
                     <input id="operation_date" name="operation_date" type="date" class="form-control @error('operation') is-invalid @enderror" value="{{ old('operation_date') }}" autocomplete="off">
+                </div>
+            </div>
+            <div class="form-group col-4" style="margin: 0px;">
+                <div>
+                    <label for="">Operation Date To</label>
+                </div>
+                <div class="input-group mb-3">
+                    <input id="operation_date_to" name="operation_date_to" type="date" class="form-control @error('operation') is-invalid @enderror" value="{{ old('operation_date_to') }}" autocomplete="off">
                 </div>
             </div>
             <div class="mr-2" style="width: 100%;">
@@ -106,10 +114,8 @@
                         <td>{{ $preops_header->operation_datetime }}</td>
                         <td>
                             <?php date_default_timezone_set('Asia/Manila'); ?>
-                            @if($preops_header->validity < date("Y-m-d H:i:s")) No
-                            @elseif($preops_header->validity > date("Y-m-d H:i:s") && $preops_header->operation_datetime > date("Y-m-d H:i:s")) Pending
-                            @elseif($preops_header->validity > date("Y-m-d H:i:s") && $preops_header->operation_datetime < date("Y-m-d H:i:s")) Yes 
-                            @endif </td>
+                            @if($preops_header->validity < date("Y-m-d H:i:s")) No @elseif($preops_header->validity > date("Y-m-d H:i:s") && $preops_header->operation_datetime > date("Y-m-d H:i:s")) Pending
+                                @elseif($preops_header->validity > date("Y-m-d H:i:s") && $preops_header->operation_datetime < date("Y-m-d H:i:s")) Yes @endif </td>
                         <td>
                             <center>
                                 <a href="{{ url('issuance_of_preops_edit/'.$preops_header->id) }}" class="btn btn-info">Edit</a>
@@ -152,12 +158,16 @@
         PreopsFilter();
     });
 
+    $('#operation_date_to').change(function() {
+        PreopsFilter();
+    });
+
     function PreopsFilter() {
         var ro_code = $('#ro_code').val();
         var operating_unit_id = $('#operating_unit_id').val();
         var operation_type_id = $('#operation_type_id').val();
         var operation_date = $('#operation_date').val();
-
+        var operation_date_to = $('#operation_date_to').val();
 
 
         if (ro_code == '' || ro_code == null) {
@@ -166,6 +176,9 @@
         if (operation_date == '' || operation_date == null) {
             operation_date = 0;
         }
+        if (operation_date_to == '' || operation_date_to == null) {
+            operation_date_to = 0;
+        }
         if (operating_unit_id == '' || operating_unit_id == null) {
             operating_unit_id = 0;
         }
@@ -173,13 +186,17 @@
             operation_type_id = 0;
         }
 
+        var table = $('#example1').DataTable();
+
+        
 
         $.ajax({
             type: "GET",
             url: "/get_preops_list/" + ro_code +
                 "/" + operating_unit_id +
                 "/" + operation_type_id +
-                "/" + operation_date,
+                "/" + operation_date +
+                "/" + operation_date_to,
             fail: function() {
                 alert("request failed");
             },
@@ -215,10 +232,18 @@
                         $("#preops_list").append(details);
 
                     });
+
                 }
+
+
 
             }
         });
+
+        table
+            .clear()
+            .draw();
+
 
     }
 </script>

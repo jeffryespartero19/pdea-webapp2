@@ -190,7 +190,7 @@
                     <div id="sp_list" class="form-group col-4 " style="margin: 0px;">
                         <div>
                             <label for="">Supporting Unit</label>
-                            <a id="SPadd" href="#" style="float: right;" hidden><i class="fas fa-plus pr-2"></i></a>
+                            <a id="SPadd" href="#" style="float: right;"><i class="fas fa-plus pr-2"></i></a>
                         </div>
                         <div class="SUdetails">
                             <div id="SUOptions" class="input-group mb-3 ">
@@ -301,7 +301,7 @@
                                                         <tr class="suspect_details">
                                                             <td><input type="text" name="suspect_number[]" style="width: 200px;" class="form-control cc1 disabled_field" value="Auto Generated"></td>
                                                             <td>
-                                                                <select name="suspect_status_id[]" class="form-control" style="width: 200px;">
+                                                                <select name="suspect_status_id[]" class="form-control suspect_status_id" style="width: 200px;">
                                                                     <option value='' selected>Select Option
                                                                     </option>
                                                                     @foreach ($suspect_status as $sstat)
@@ -872,7 +872,7 @@
             html +=
                 '<td><input type="text" required name="suspect_number[]" style="width: 200px;" class="form-control disabled_field" value="Auto Generated"></td>';
             html +=
-                '<td><select required name="suspect_status_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($suspect_status as $sstat)<option value="{{ $sstat->id }}">{{ $sstat->name }}</option>@endforeach</select></td>';
+                '<td><select required name="suspect_status_id[]" class="form-control suspect_status_id" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($suspect_status as $sstat)<option value="{{ $sstat->id }}">{{ $sstat->name }}</option>@endforeach</select></td>';
             html +=
                 '<td><input type="text" required name="lastname[]" style="width: 200px;" class="form-control"></td>';
             html +=
@@ -1723,6 +1723,30 @@
             $(this).css('border-color', 'green');
         }
     });
+
+     // Remove Required On At Large Surpect Status
+     $(document).on("change", ".suspect_status_id", function() {
+      
+      var suspect_status_id = $(this).val();
+      var $row = $(this).closest(".suspect_details");
+
+
+      if (suspect_status_id == 2) {
+          $row.find("td:eq(3) input").attr('required', false);
+          $row.find("td:eq(4) input").attr('required', false);
+          $row.find("td:eq(5) input").attr('required', false);
+          $row.find("td:eq(6) input").attr('required', false);
+          $row.find("td:eq(2) input").attr('required', false);
+      } else {
+          $row.find("td:eq(3) input").attr('required', true);
+          $row.find("td:eq(4) input").attr('required', true);
+          $row.find("td:eq(5) input").attr('required', true);
+          $row.find("td:eq(6) input").attr('required', true);
+          $row.find("td:eq(2) input").attr('required', true);
+      }
+
+
+  });
 </script>
 
 @endsection

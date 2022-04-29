@@ -27,7 +27,7 @@
             <h3 class="card-title">Filter</h3>
         </div>
         <div class="card-body row">
-            <div class="form-group col-3" style="margin: 0px;">
+            <div class="form-group col-4" style="margin: 0px;">
                 <div>
                     <label for="">Region</label>
                 </div>
@@ -40,7 +40,7 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group col-3" style="margin: 0px;">
+            <div class="form-group col-4" style="margin: 0px;">
                 <div>
                     <label for="">Operating Unit</label>
                 </div>
@@ -53,7 +53,7 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group col-3" style="margin: 0px;">
+            <div class="form-group col-4" style="margin: 0px;">
                 <div>
                     <label for="">Type of OPN</label>
                 </div>
@@ -66,12 +66,20 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group col-3" style="margin: 0px;">
+            <div class="form-group col-4" style="margin: 0px;">
                 <div>
                     <label for="">Operation Date</label>
                 </div>
                 <div class="input-group mb-3">
                     <input id="operation_date" name="operation_date" type="date" class="form-control @error('operation') is-invalid @enderror" value="{{ old('operation_date') }}" autocomplete="off">
+                </div>
+            </div>
+            <div class="form-group col-4" style="margin: 0px;">
+                <div>
+                    <label for="">Operation Date To</label>
+                </div>
+                <div class="input-group mb-3">
+                    <input id="operation_date_to" name="operation_date_to" type="date" class="form-control @error('operation') is-invalid @enderror" value="{{ old('operation_date_to') }}" autocomplete="off">
                 </div>
             </div>
             <div class="mr-2" style="width: 100%;">
@@ -148,11 +156,16 @@
         PreopsFilter();
     });
 
+    $('#operation_date_to').change(function() {
+        PreopsFilter();
+    });
+
     function PreopsFilter() {
         var region_c = $('#region_c').val();
         var operating_unit_id = $('#operating_unit_id').val();
         var operation_type_id = $('#operation_type_id').val();
         var operation_date = $('#operation_date').val();
+        var operation_date_to = $('#operation_date_to').val();
 
 
 
@@ -162,20 +175,25 @@
         if (operation_date == '' || operation_date == null) {
             operation_date = 0;
         }
+        if (operation_date_to == '' || operation_date_to == null) {
+            operation_date_to = 0;
+        }
         if (operating_unit_id == '' || operating_unit_id == null) {
             operating_unit_id = 0;
         }
         if (operation_type_id == '' || operation_type_id == null) {
             operation_type_id = 0;
         }
-
+        
+        var table = $('#example1').DataTable();
 
         $.ajax({
             type: "GET",
             url: "/get_spot_report_list/" + region_c +
                 "/" + operating_unit_id +
                 "/" + operation_type_id +
-                "/" + operation_date,
+                "/" + operation_date +
+                "/" + operation_date_to,
             fail: function() {
                 alert("request failed");
             },
@@ -200,6 +218,7 @@
                             '<td>' + element["operating_unit_name"] + '</td>' +
                             '<td>' + element["operation_type_name"] + '</td>' +
                             '<td>' + element["operation_datetime"] + '</td>' +
+                            '<td>' + element["created_at"] + '</td>' +
                             '<td>' + status + '</td>' +
                             '<td>' +
                             '<center>' +
@@ -215,6 +234,11 @@
 
             }
         });
+
+        table
+            .clear()
+            .draw();
+
 
     }
 </script>

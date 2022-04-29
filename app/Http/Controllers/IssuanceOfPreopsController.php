@@ -517,6 +517,39 @@ class IssuanceOfPreopsController extends Controller
     {
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($this->convert_preops_data_to_html($id));
+        // $pdf->setPaper('L');
+        // $pdf->output();
+        // $canvas = $pdf->getDomPDF()->getCanvas();
+
+        // $height = $canvas->get_height();
+        // $width = $canvas->get_width();
+
+        // $canvas->set_opacity(.2, "Multiply");
+
+        // $canvas->set_opacity(.2);
+
+        // $canvas->page_text(
+        //     $width / 5,
+        //     $height / 2,
+        //     'Nicesnippets.com',
+        //     null,
+        //     55,
+        //     array(0, 0, 0),
+        //     2,
+        //     2,
+        //     -30
+        // );
+
+        $image1 = "./dist/img/pdea_logo.jpg";
+        // $canvas->image($image1, 100, 140, 400, 400, 50);
+        $pdf->setPaper('L');
+        $pdf->output();
+        $canvas = $pdf->getDomPDF()->getCanvas();
+        $height = $canvas->get_height();
+        $width = $canvas->get_width();
+        $canvas->set_opacity(.2,"Multiply");
+        $canvas->page_text($width/3, $height/2, 'PDEA', null,
+         90, array(0,0,0),2,2,-30);
         return $pdf->stream();
     }
 
@@ -613,13 +646,13 @@ class IssuanceOfPreopsController extends Controller
                 <br>
                 <span style="margin-right:39px;">Pre-Ops Control Number:</span><span style="font-weight: bold;">' . $preops_data[0]->preops_number . '</span>
                 <br>
-                <span style="margin-right:23px">Date and Time Coordinated:</span><span>' . Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->coordinated_datetime)->format('M/d/Y H:i:s') . '</span>
+                <span style="margin-right:23px">Date and Time Coordinated:</span><span>' . Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->coordinated_datetime)->format('F d, Y H:i') . 'H</span>
                 <br>
                 <span style="margin-right:104px">Operating Unit:</span><span style="font-weight: bold;">' . $operating_unit[0]->name . '</span>
                 <br>
                 <span style="margin-right:82px">Type of Operation:</span><span style="font-weight: bold;">' . $operation_type[0]->name . '</span>
                 <br>
-                <span style="margin-right:143px">Duration:</span><span>' . Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->operation_datetime)->format('M/d/Y H:i:s') . ' to ' . Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->validity)->format('M/d/Y H:i:s') . ' (' . $duration . ' HRS)</span>
+                <span style="margin-right:143px">Duration:</span><span>' . Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->operation_datetime)->format('F d, Y H:i') . 'H to ' . Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->validity)->format('F d, Y H:i') . 'H (' . $duration . ' HRS)</span>
                 <br>
                 <span style="margin-right:149px">Remark:</span><span>' . $preops_data[0]->remarks . '</span>
                 <br>
@@ -651,7 +684,7 @@ class IssuanceOfPreopsController extends Controller
 
         $output .= '
                 <br>
-                <div style="background-color:green; color:white; padding-left:5px">Targets</div>
+                <div style="background-color:green; color:white; padding-left:5px">Target(s)</div>
                 <table width="100%" style="border-collapse: collapse; border: 0px;">
                     <tr style="border: 1px solid;">
                         <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Name</th>
@@ -681,13 +714,14 @@ class IssuanceOfPreopsController extends Controller
 
         $output .= '
                 <footer>
+                <div class="row" style="float:right; font-size:9">
                     ' . $date . ' | ' . Auth::user()->name . ' | ';
         if ($preops_data[0]->print_count == 1) {
             $output .= 'O';
         } else {
             $output .= 'C';
         }
-        $output .= '</footer>
+        $output .= '</div></footer>
             </body>
             </html>';
 
