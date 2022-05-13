@@ -117,7 +117,7 @@
                             <label for="">Operating Unit<code> *</code></label>
                         </div>
                         <div class="input-group mb-3">
-                            <select name="operating_unit_id" class="form-control @error('operating unit') is-invalid @enderror" required>
+                            <select id="operating_unit_id" name="operating_unit_id" class="form-control @error('operating unit') is-invalid @enderror" required>
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach($operating_unit as $ou)
                                 <option value="{{ $ou->id }}">{{ $ou->name }}</option>
@@ -145,10 +145,10 @@
                             <a id="SPadd" href="#" style="float: right;"><i class="fas fa-plus pr-2"></i></a>
                         </div>
                         <div class="input-group mb-3 su_options">
-                            <select name="support_unit_id[]" class="form-control @error('operation type') is-invalid @enderror">
+                            <select name="support_unit_id[]" class="form-control @error('operation type') is-invalid @enderror support_unit_id">
                                 <option value='' disabled selected>Select Option</option>
-                                @foreach($support_unit as $su)
-                                <option value="{{ $su->id }}">{{ $su->name }}</option>
+                                @foreach($operating_unit as $ou)
+                                <option value="{{ $ou->id }}">{{ $ou->name }}</option>
                                 @endforeach
                             </select>
                             <a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>
@@ -186,7 +186,7 @@
                         </div>
                         <div class="input-group mb-3">
                             @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
-                            <input id="operation_datetime" name="operation_datetime" type="datetime-local" class="form-control @error('operation date and time') is-invalid @enderror" value="{{ old('operation_datetime') }}"  required>
+                            <input id="operation_datetime" name="operation_datetime" type="datetime-local" class="form-control @error('operation date and time') is-invalid @enderror" value="{{ old('operation_datetime') }}" required>
                             @else
                             <input id="operation_datetime" name="operation_datetime" type="datetime-local" class="form-control operation_datetime" value="{{ old('operation_datetime') }}" required>
                             @endif
@@ -405,11 +405,12 @@
                             <label for="">Approved By<code> *</code></label>
                         </div>
                         <div class="input-group mb-3">
-                            @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
-                            <input id="approved_by" name="approved_by" type="text" class="form-control" value="{{ old('approved_by') }}" autocomplete="off">
-                            @else
-                            <input id="approved_by" name="approved_by" type="text" class="form-control" style="pointer-events: none;" value="{{ $roc_regional_officer[0]->name }}">
-                            @endif
+                            <select id="approved_by" name="approved_by" class="form-control" required>
+                                <option value='' selected>Select Option</option>
+                                @foreach($approved_by as $ab)
+                                <option value="{{ $ab->id }}">{{ $ab->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <!-- <div class="form-group col-7" style="margin: 0px;">
@@ -716,6 +717,62 @@
                     });
                 }
             });
+
+            $.ajax({
+                type: "GET",
+                url: "/get_operating_unit/" + ro_code,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+
+                    var data = JSON.parse(data);
+                    // alert(data);
+
+                    $("#operating_unit_id").empty();
+                    $(".support_unit_id").empty();
+
+                    var option1 = " <option value='0' disabled selected>Select Option</option>";
+                    $("#operating_unit_id").append(option1);
+                    $(".support_unit_id").append(option1);
+
+                    data.forEach(element => {
+                        var option = " <option value='" +
+                            element["id"] +
+                            "'>" +
+                            element["name"] +
+                            "</option>";
+                        $("#operating_unit_id").append(option);
+                        $(".support_unit_id").append(option);
+                    });
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "/get_approved_by/" + ro_code,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    $("#approved_by").empty();
+
+                    var option1 = " <option value='0' selected>Select Option</option>";
+                    $("#approved_by").append(option1);
+
+
+                    data.forEach(element => {
+                        var option = " <option value='" +
+                            element["id"] +
+                            "'>" +
+                            element["name"] +
+                            "</option>";
+                        $("#approved_by").append(option);
+                    });
+                }
+            });
         });
 
         //Populate Present Province
@@ -998,14 +1055,43 @@
     $('#sp_list').on("click", "#SPadd", function() {
         var ro_code = $('.ro_code').val();
 
-        html = '<div class="input-group mb-3 su_options">';
-        html += '<select name="support_unit_id[]" class="form-control">';
-        html += '<option value="" disabled selected>Select Option</option>@foreach($support_unit as $su)<option value="{{ $su->id }}">{{ $su->name }}</option>@endforeach';
-        html += '</select>';
-        html += '<a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
-        html += '</div>';
+        $.ajax({
+            type: "GET",
+            url: "/get_operating_unit/" + ro_code,
+            fail: function() {
+                alert("request failed");
+            },
+            success: function(data) {
 
-        $('#sp_list').append(html);
+                var data = JSON.parse(data);
+                // alert(data);
+
+                html = '<div class="input-group mb-3 su_options">';
+                html += '<select name="support_unit_id[]" class="form-control support_unit_id">';
+                html += '</select>';
+                html += '<a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
+                html += '</div>';
+
+                $('#sp_list').append(html);
+
+                $("#operating_unit_id").empty();
+                $(".support_unit_id").empty();
+
+                var option1 = " <option value='0' disabled selected>Select Option</option>";
+                $("#operating_unit_id").append(option1);
+                $(".support_unit_id").append(option1);
+
+                data.forEach(element => {
+                    var option = " <option value='" +
+                        element["id"] +
+                        "'>" +
+                        element["name"] +
+                        "</option>";
+                    $("#operating_unit_id").append(option);
+                    $(".support_unit_id").append(option);
+                });
+            }
+        });
 
     });
 
@@ -1040,7 +1126,7 @@
         var date = $("#coordinated_datetime").val();
 
         $('#operation_datetime')[0].min = date;
-        
+
         $('#operation_datetime').val('');
         $('#validity').val('');
     });
@@ -1067,12 +1153,12 @@
     });
 
     $('.form-control').keyup(function() {
-        if($(this).val() != null) {
+        if ($(this).val() != null) {
             $(this).css('border-color', 'green');
         }
     });
     $('.form-control').change(function() {
-        if($(this).val() != null) {
+        if ($(this).val() != null) {
             $(this).css('border-color', 'green');
         }
     });

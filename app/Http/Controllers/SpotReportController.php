@@ -39,7 +39,7 @@ class SpotReportController extends Controller
             $data = DB::table('spot_report_header as a')
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                ->join('regional_office as d', 'a.region_c', '=', 'd.region_c')
+                ->leftjoin('regional_office as d', 'a.region_c', '=', 'd.region_c')
                 ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.created_at')
                 ->where('a.report_status', 0)
                 ->where('d.id', Auth::user()->regional_office_id)
@@ -65,7 +65,7 @@ class SpotReportController extends Controller
 
         $city = DB::table('city')->orderby('city_m', 'asc')->get();
         $barangay = DB::table('barangay')->orderby('barangay_m', 'asc')->get();
-        $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
+
         $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
 
         if (Auth::user()->user_level_id == 2) {
@@ -77,6 +77,7 @@ class SpotReportController extends Controller
                 ->where('with_aor', 0)
                 ->orderby('id', 'asc')
                 ->get();
+            $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
         } else {
             $preops_header = DB::table('preops_header as a')
                 ->leftjoin('regional_office as b', 'a.ro_code', '=', 'b.ro_code')
@@ -88,6 +89,7 @@ class SpotReportController extends Controller
                 ->where('b.id', Auth::user()->regional_office_id)
                 ->orderby('a.id', 'asc')
                 ->get();
+            $operating_unit = DB::table('operating_unit')->where('status', true)->where('region_c', Auth::user()->region_c)->orderby('name', 'asc')->get();
         }
 
         $report_header = DB::table('spot_report_header')->orderby('report_header', 'asc')->get();
@@ -110,7 +112,13 @@ class SpotReportController extends Controller
         $roc_regional_office = DB::table('regional_office')->where('id', Auth::user()->regional_office_id)->get();
         $region = DB::table('region')->where('status', true)->orderby('region_sort', 'asc')->get();
         $province = DB::table('province')->orderby('province_m', 'asc')->get();
-        $sregion = DB::table('region')->where('region_c', $roc_regional_office[0]->region_c)->orderby('region_sort', 'asc')->get();
+
+        if (Auth::user()->user_level_id == 1) {
+            $sregion = DB::table('region')->where('region_c', $roc_regional_office[0]->region_c)->orderby('region_sort', 'asc')->get();
+        } else {
+            $sregion = DB::table('region')->orderby('region_sort', 'asc')->get();
+        }
+
 
         date_default_timezone_set('Asia/Manila');
         $date = Carbon::now()->format('mdY');
@@ -213,11 +221,11 @@ class SpotReportController extends Controller
 
 
 
-        if (isset($data['lastname'])) {
+        if (isset($data['suspect_status_id'])) {
             $spot_suspect = [];
 
             for ($i = 0; $i < count($data['lastname']); $i++) {
-                if ($data['lastname'][$i] != NULL && $data['firstname'][$i] != NULL && $data['middlename'][$i] != NULL && $data['birthdate'][$i] != NULL || $data['suspect_status_id'][$i] == 2) {
+                if ($data['suspect_status_id'][$i] != 2 && $data['suspect_status_id'][$i] != 0) {
 
                     // Auto SUspect Number
                     $suspect_number = 0 + DB::table('suspect_information')
@@ -303,6 +311,90 @@ class SpotReportController extends Controller
 
                     DB::table('spot_report_suspect')->updateOrInsert(['id' => $id], $spot_suspect);
                     DB::table('suspect_information')->updateOrInsert(['suspect_number' => $suspect_number], $suspect_information);
+                } else {
+                    if ($data['lastname'][$i] != null  || $data['firstname'][$i] != null  || $data['alias'][$i] != null) {
+                        // Auto SUspect Number
+                        $suspect_number = 0 + DB::table('suspect_information')
+                            ->whereDate('created_at', Carbon::now()->format('Y-m-d'))
+                            ->count();
+                        $suspect_number += 1;
+                        $suspect_number = sprintf("%04s", $suspect_number);
+                        $date = Carbon::now()->format('mdY');
+
+                        $suspect_number = $date . "-" . $suspect_number;
+
+                        $id = 0 + DB::table('spot_report_suspect')->max('id');
+                        $id += 1;
+
+                        $spot_suspect = [
+                            'suspect_number' => $suspect_number,
+                            'spot_report_number' => $spot_report_number,
+                            'lastname' => $data['lastname'][$i],
+                            'firstname' => $data['firstname'][$i],
+                            'middlename' => $data['middlename'][$i],
+                            'alias' => $data['alias'][$i],
+                            'gender' => $data['gender'][$i],
+                            'birthdate' => $data['birthdate'][$i],
+                            'birthplace' => $data['birthplace'][$i],
+                            'nationality_id' => $data['nationality_id'][$i],
+                            'civil_status_id' => $data['civil_status_id'][$i],
+                            'religion_id' => $data['religion_id'][$i],
+                            'educational_attainment_id' => $data['educational_attainment_id'][$i],
+                            'ethnic_group_id' => $data['ethnic_group_id'][$i],
+                            'occupation_id' => $data['occupation_id'][$i],
+                            'region_c' => $data['present_region_c'][$i],
+                            'province_c' => $data['present_province_c'][$i],
+                            'city_c' => $data['present_city_c'][$i],
+                            'barangay_c' => $data['present_barangay_c'][$i],
+                            'street' => $data['present_street'][$i],
+                            'permanent_region_c' => $data['permanent_region_c'][$i],
+                            'permanent_province_c' => $data['permanent_province_c'][$i],
+                            'permanent_city_c' => $data['permanent_city_c'][$i],
+                            'permanent_barangay_c' => $data['permanent_barangay_c'][$i],
+                            'permanent_street' => $data['permanent_street'][$i],
+                            'suspect_status_id' => $data['suspect_status_id'][$i],
+                            'suspect_classification_id' => $data['suspect_classification_id'][$i],
+                            'suspect_category_id' => $data['suspect_category_id'][$i],
+                            'remarks' => $data['remarks'][$i],
+                            'status' => true,
+                            'created_at' => Carbon::now()->format('Y-m-d'),
+                            'est_birthdate' => $data['est_birthdate'][$i],
+                            'whereabouts' => $data['whereabouts'][$i],
+                        ];
+
+                        $suspect_information = [
+                            'suspect_number' => $suspect_number,
+                            'lastname' => $data['lastname'][$i],
+                            'firstname' => $data['firstname'][$i],
+                            'middlename' => $data['middlename'][$i],
+                            'alias' => $data['alias'][$i],
+                            'gender' => $data['gender'][$i],
+                            'birthdate' => $data['birthdate'][$i],
+                            'birthplace' => $data['birthplace'][$i],
+                            'nationality_id' => $data['nationality_id'][$i],
+                            'civil_status_id' => $data['civil_status_id'][$i],
+                            'religion_id' => $data['religion_id'][$i],
+                            'educational_attainment_id' => $data['educational_attainment_id'][$i],
+                            'ethnic_group_id' => $data['ethnic_group_id'][$i],
+                            'occupation_id' => $data['occupation_id'][$i],
+                            'operation_region' => $request->region_c,
+                            'region_c' => $data['present_region_c'][$i],
+                            'province_c' => $data['present_province_c'][$i],
+                            'city_c' => $data['present_city_c'][$i],
+                            'barangay_c' => $data['present_barangay_c'][$i],
+                            'street' => $data['present_street'][$i],
+                            'permanent_region_c' => $data['permanent_region_c'][$i],
+                            'permanent_province_c' => $data['permanent_province_c'][$i],
+                            'permanent_city_c' => $data['permanent_city_c'][$i],
+                            'permanent_barangay_c' => $data['permanent_barangay_c'][$i],
+                            'permanent_street' => $data['permanent_street'][$i],
+                            'status' => true,
+                            'operating_unit_id' => $request->operating_unit_id,
+                            'created_at' => Carbon::now()->format('Y-m-d'),
+                            'est_birthdate' => $data['est_birthdate'][$i],
+                            'whereabouts' => $data['whereabouts'][$i],
+                        ];
+                    }
                 }
             }
         }
@@ -523,7 +615,12 @@ class SpotReportController extends Controller
         $province = DB::table('province')->orderby('province_m', 'asc')->get();
         $city = DB::table('city')->orderby('city_m', 'asc')->get();
         $barangay = DB::table('barangay')->orderby('barangay_m', 'asc')->get();
-        $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
+        // $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
+        if (Auth::user()->user_level_id == 2) {
+            $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
+        } else {
+            $operating_unit = DB::table('operating_unit')->where('status', true)->where('region_c', Auth::user()->region_c)->orderby('name', 'asc')->get();
+        }
         $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
         $preops_header = DB::table('preops_header')->where('status', true)->orderby('id', 'asc')->get();
         $suspect_information = DB::table('spot_report_suspect as a')
@@ -629,7 +726,7 @@ class SpotReportController extends Controller
                 $spot_suspect = [];
 
                 for ($i = 0; $i < count($data['spot_suspect_id']); $i++) {
-                    if ($data['lastname'][$i] != null && $data['firstname'][$i] != null && $data['middlename'][$i] != null && $data['birthdate'][$i] != null) {
+                    if ($data['suspect_status_id'][$i] != 2 && $data['suspect_status_id'][$i] != 0) {
                         if ($data['spot_suspect_id'][$i] == 0) {
 
                             // Auto SUspect Number
@@ -791,6 +888,171 @@ class SpotReportController extends Controller
 
                             DB::table('spot_report_suspect')->updateOrInsert(['id' => $id], $spot_suspect);
                             DB::table('suspect_information')->updateOrInsert(['suspect_number' => $data['suspect_number'][$i]], $suspect_information);
+                        }
+                    } else {
+                        if ($data['lastname'][$i] != null  || $data['firstname'][$i] != null  || $data['alias'][$i] != null) {
+                            if ($data['spot_suspect_id'][$i] == 0) {
+
+                                // Auto SUspect Number
+                                $suspect_number = 0 + DB::table('suspect_information')
+                                    ->whereDate('created_at', Carbon::now()->format('Y-m-d'))
+                                    ->count();
+                                $suspect_number += 1;
+                                $suspect_number = sprintf("%04s", $suspect_number);
+                                $date = Carbon::now()->format('mdY');
+
+                                $suspect_number = $date . "-" . $suspect_number;
+
+                                $id = 0 + DB::table('spot_report_suspect')->max('id');
+                                $id += 1;
+
+                                $spot_suspect = [
+                                    'suspect_number' => $suspect_number,
+                                    'spot_report_number' => $request->spot_report_number,
+                                    'lastname' => $data['lastname'][$i],
+                                    'firstname' => $data['firstname'][$i],
+                                    'middlename' => $data['middlename'][$i],
+                                    'alias' => $data['alias'][$i],
+                                    'gender' => $data['gender'][$i],
+                                    'birthdate' => $data['birthdate'][$i],
+                                    'birthplace' => $data['birthplace'][$i],
+                                    'nationality_id' => $data['nationality_id'][$i],
+                                    'civil_status_id' => $data['civil_status_id'][$i],
+                                    'religion_id' => $data['religion_id'][$i],
+                                    'educational_attainment_id' => $data['educational_attainment_id'][$i],
+                                    'ethnic_group_id' => $data['ethnic_group_id'][$i],
+                                    'occupation_id' => $data['occupation_id'][$i],
+                                    'region_c' => $data['present_region_c'][$i],
+                                    'province_c' => $data['present_province_c'][$i],
+                                    'city_c' => $data['present_city_c'][$i],
+                                    'barangay_c' => $data['present_barangay_c'][$i],
+                                    'street' => $data['present_street'][$i],
+                                    'permanent_region_c' => $data['permanent_region_c'][$i],
+                                    'permanent_province_c' => $data['permanent_province_c'][$i],
+                                    'permanent_city_c' => $data['permanent_city_c'][$i],
+                                    'permanent_barangay_c' => $data['permanent_barangay_c'][$i],
+                                    'permanent_street' => $data['permanent_street'][$i],
+                                    'suspect_status_id' => $data['suspect_status_id'][$i],
+                                    'suspect_classification_id' => $data['suspect_classification_id'][$i],
+                                    'suspect_category_id' => $data['suspect_category_id'][$i],
+                                    'remarks' => $data['remarks'][$i],
+                                    'status' => true,
+                                    'created_at' => Carbon::now()->format('Y-m-d'),
+                                    'est_birthdate' => $data['est_birthdate'][$i],
+                                    'whereabouts' => $data['whereabouts'][$i],
+                                ];
+
+                                $suspect_information = [
+                                    'suspect_number' => $suspect_number,
+                                    'lastname' => $data['lastname'][$i],
+                                    'firstname' => $data['firstname'][$i],
+                                    'middlename' => $data['middlename'][$i],
+                                    'alias' => $data['alias'][$i],
+                                    'gender' => $data['gender'][$i],
+                                    'birthdate' => $data['birthdate'][$i],
+                                    'birthplace' => $data['birthplace'][$i],
+                                    'nationality_id' => $data['nationality_id'][$i],
+                                    'civil_status_id' => $data['civil_status_id'][$i],
+                                    'religion_id' => $data['religion_id'][$i],
+                                    'educational_attainment_id' => $data['educational_attainment_id'][$i],
+                                    'ethnic_group_id' => $data['ethnic_group_id'][$i],
+                                    'occupation_id' => $data['occupation_id'][$i],
+                                    'operation_region' => $request->region_c,
+                                    'region_c' => $data['present_region_c'][$i],
+                                    'province_c' => $data['present_province_c'][$i],
+                                    'city_c' => $data['present_city_c'][$i],
+                                    'barangay_c' => $data['present_barangay_c'][$i],
+                                    'street' => $data['present_street'][$i],
+                                    'permanent_region_c' => $data['permanent_region_c'][$i],
+                                    'permanent_province_c' => $data['permanent_province_c'][$i],
+                                    'permanent_city_c' => $data['permanent_city_c'][$i],
+                                    'permanent_barangay_c' => $data['permanent_barangay_c'][$i],
+                                    'permanent_street' => $data['permanent_street'][$i],
+                                    'status' => true,
+                                    'operating_unit_id' => $request->operating_unit_id,
+                                    'created_at' => Carbon::now()->format('Y-m-d'),
+                                    'est_birthdate' => $data['est_birthdate'][$i],
+                                    'whereabouts' => $data['whereabouts'][$i],
+                                ];
+
+                                DB::table('spot_report_suspect')->updateOrInsert(['id' => $id], $spot_suspect);
+                                DB::table('suspect_information')->updateOrInsert(['suspect_number' => $data['suspect_number'][$i]], $suspect_information);
+                            } else if ($data['spot_suspect_id'] > 0) {
+                                $id = $data['spot_suspect_id'][$i];
+
+                                $spot_suspect = [
+                                    'suspect_number' => $data['suspect_number'][$i],
+                                    'spot_report_number' => $request->spot_report_number,
+                                    'lastname' => $data['lastname'][$i],
+                                    'firstname' => $data['firstname'][$i],
+                                    'middlename' => $data['middlename'][$i],
+                                    'alias' => $data['alias'][$i],
+                                    'gender' => $data['gender'][$i],
+                                    'birthdate' => $data['birthdate'][$i],
+                                    'birthplace' => $data['birthplace'][$i],
+                                    'nationality_id' => $data['nationality_id'][$i],
+                                    'civil_status_id' => $data['civil_status_id'][$i],
+                                    'religion_id' => $data['religion_id'][$i],
+                                    'educational_attainment_id' => $data['educational_attainment_id'][$i],
+                                    'ethnic_group_id' => $data['ethnic_group_id'][$i],
+                                    'occupation_id' => $data['occupation_id'][$i],
+                                    'region_c' => $data['present_region_c'][$i],
+                                    'province_c' => $data['present_province_c'][$i],
+                                    'city_c' => $data['present_city_c'][$i],
+                                    'barangay_c' => $data['present_barangay_c'][$i],
+                                    'street' => $data['present_street'][$i],
+                                    'permanent_region_c' => $data['permanent_region_c'][$i],
+                                    'permanent_province_c' => $data['permanent_province_c'][$i],
+                                    'permanent_city_c' => $data['permanent_city_c'][$i],
+                                    'permanent_barangay_c' => $data['permanent_barangay_c'][$i],
+                                    'permanent_street' => $data['permanent_street'][$i],
+                                    'suspect_status_id' => $data['suspect_status_id'][$i],
+                                    'suspect_classification_id' => $data['suspect_classification_id'][$i],
+                                    'suspect_category_id' => $data['suspect_category_id'][$i],
+                                    'remarks' => $data['remarks'][$i],
+                                    'status' => true,
+                                    'updated_at' => Carbon::now()->format('Y-m-d'),
+                                    'est_birthdate' => $data['est_birthdate'][$i],
+                                    'whereabouts' => $data['whereabouts'][$i],
+
+                                ];
+
+                                $suspect_information = [
+                                    'suspect_number' => $data['suspect_number'][$i],
+                                    'lastname' => $data['lastname'][$i],
+                                    'firstname' => $data['firstname'][$i],
+                                    'middlename' => $data['middlename'][$i],
+                                    'alias' => $data['alias'][$i],
+                                    'gender' => $data['gender'][$i],
+                                    'birthdate' => $data['birthdate'][$i],
+                                    'birthplace' => $data['birthplace'][$i],
+                                    'nationality_id' => $data['nationality_id'][$i],
+                                    'civil_status_id' => $data['civil_status_id'][$i],
+                                    'religion_id' => $data['religion_id'][$i],
+                                    'educational_attainment_id' => $data['educational_attainment_id'][$i],
+                                    'ethnic_group_id' => $data['ethnic_group_id'][$i],
+                                    'occupation_id' => $data['occupation_id'][$i],
+                                    'operation_region' => $request->region_c,
+                                    'region_c' => $data['present_region_c'][$i],
+                                    'province_c' => $data['present_province_c'][$i],
+                                    'city_c' => $data['present_city_c'][$i],
+                                    'barangay_c' => $data['present_barangay_c'][$i],
+                                    'street' => $data['present_street'][$i],
+                                    'permanent_region_c' => $data['permanent_region_c'][$i],
+                                    'permanent_province_c' => $data['permanent_province_c'][$i],
+                                    'permanent_city_c' => $data['permanent_city_c'][$i],
+                                    'permanent_barangay_c' => $data['permanent_barangay_c'][$i],
+                                    'permanent_street' => $data['permanent_street'][$i],
+                                    'status' => true,
+                                    'operating_unit_id' => $request->operating_unit_id,
+                                    'updated_at' => Carbon::now()->format('Y-m-d'),
+                                    'est_birthdate' => $data['est_birthdate'][$i],
+                                    'whereabouts' => $data['whereabouts'][$i],
+                                ];
+
+                                DB::table('spot_report_suspect')->updateOrInsert(['id' => $id], $spot_suspect);
+                                DB::table('suspect_information')->updateOrInsert(['suspect_number' => $data['suspect_number'][$i]], $suspect_information);
+                            }
                         }
                     }
                 }

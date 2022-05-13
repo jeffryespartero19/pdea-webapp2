@@ -252,36 +252,117 @@
 <script>
     $(document).on('click', '#region', function() {
         var isChecked = $(this).is(':checked');
+        if(isChecked == 'true') {
+            $('.region').attr('hiden', false)
+        } else {
+            $('.region').attr('hiden', true)
+        }
+        
+    });
+    $(document).on('click', '#preops_number', function() {
+        var isChecked = $(this).is(':checked');
         alert(isChecked);
     });
-
-    // <td class="region">Region</td>
-    // <td class="preops_number">Preops Number</td>
-    // <td class="province">Province</td>
-    // <td class="type_operation">Type Of Operation</td>
-    // <td class="operating_unit">Operating Unit</td>
-    // <td class="support_unit">Support Unit</td>
-    // <td class="datetime_coordinate">Date/Time Coordinate</td>
-    // <td class="datetime_operation">Date/Time Operation</td>
-    // <td class="valid_until">Valid Until</td>
-    // <td class="a_area">Area</td>
-    // <td class="a_region">Region</td>
-    // <td class="a_province">Province</td>
-    // <td class="a_city">City</td>
-    // <td class="a_barangay">Barangay</td>
-    // <td class="taget_name">Name</td>
-    // <td class="target_nationality">Nationality</td>
-    // <td class="ot_name">Name</td>
-    // <td class="ot_position">Position</td>
-    // <td class="ot_contact">Contact</td>
-    // <td class="prepared_by">Prepared By</td>
-    // <td class="ao_result">Operation Result</td>
-    // <td class="ao_negative_reason">Negative Reason</td>
-    // <td class="ao_illegal_drug">Illegal Drug</td>
-    // <td class="ao_quantity">Quantity</td>
-    // <td class="ao_unit_measure">Unit Measure</td>
-    // <td class="ao_crn">Chemistry Report Number</td>
-    // <td class="ao_date_received">Date Received</td>
+    $(document).on('click', '#province', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#type_operation', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#operating_unit', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#support_unit', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#datetime_coordinate', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#datetime_operation', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#valid_until', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#a_area', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#a_region', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#a_province', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#a_city', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#a_barangay', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#taget_name', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#target_nationality', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#ot_name', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#ot_position', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#ot_contact', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#prepared_by', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#ao_result', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#ao_negative_reason', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#ao_illegal_drug', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#ao_quantity', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#ao_unit_measure', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#ao_crn', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
+    $(document).on('click', '#ao_date_received', function() {
+        var isChecked = $(this).is(':checked');
+        alert(isChecked);
+    });
 </script>
 
 <script>

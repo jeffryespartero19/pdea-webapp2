@@ -243,7 +243,7 @@
                                 </p>
                             </a>
                         </li>
-                        <li id="report_generation" class="nav-item" hidden>
+                        <li id="report_generation" class="nav-item">
                             <a href="{{ route('report_generation_list') }}" class="nav-link" id="report_generation_link">
                                 <i class="nav-icon fas fa-list"></i>
                                 <p>
@@ -469,7 +469,7 @@
                                     </a>
                                 </li>
                                 @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "support_unit" && $accessmenu->status == true)
+                                <!-- @if(rtrim($accessmenu->menu_key) == "support_unit" && $accessmenu->status == true)
                                 <li class="nav-item">
                                     @break
                                     @else
@@ -480,7 +480,7 @@
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Support Unit Setup</p>
                                     </a>
-                                </li>
+                                </li> -->
                                 @foreach($access_menu as $accessmenu)
                                 @if(rtrim($accessmenu->menu_key) == "educational_attainment" && $accessmenu->status == true)
                                 <li class="nav-item">
@@ -674,6 +674,32 @@
                                     <a id="group_affiliation_list_setup" href="{{ route('group_affiliation_list') }}" class="nav-link" onclick="setactive('cpm','group_affiliation_list_setup')">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Group Affiliation</p>
+                                    </a>
+                                </li>
+                                @foreach($access_menu as $accessmenu)
+                                @if(rtrim($accessmenu->menu_key) == "officer_position" && $accessmenu->status == true)
+                                <li class="nav-item">
+                                    @break
+                                    @else
+                                <li class="nav-item" hidden>
+                                    @endif
+                                    @endforeach
+                                    <a id="officer_position_list_setup" href="{{ route('officer_position_list') }}" class="nav-link" onclick="setactive('cpm','officer_position_list_setup')">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Officer Position</p>
+                                    </a>
+                                </li>
+                                @foreach($access_menu as $accessmenu)
+                                @if(rtrim($accessmenu->menu_key) == "approved_by" && $accessmenu->status == true)
+                                <li class="nav-item">
+                                    @break
+                                    @else
+                                <li class="nav-item" hidden>
+                                    @endif
+                                    @endforeach
+                                    <a id="approved_by_list_setup" href="{{ route('approved_by_list') }}" class="nav-link" onclick="setactive('cpm','approved_by_list_setup')">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Approved By</p>
                                     </a>
                                 </li>
                                 @foreach($access_menu as $accessmenu)

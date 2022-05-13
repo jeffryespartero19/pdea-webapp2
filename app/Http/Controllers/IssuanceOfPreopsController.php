@@ -67,7 +67,7 @@ class IssuanceOfPreopsController extends Controller
 
         $region = DB::table('region')->where('status', true)->orderby('region_sort', 'asc')->get();
         $province = DB::table('province')->where('status', true)->orderby('province_c', 'asc')->get();
-        $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
+        // $operating_unit = DB::table('operating_unit')->where('status', true)->where('region_c', Auth::user()->region_c)->orderby('name', 'asc')->get();
         $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
         $nationality = DB::table('nationality')->where('status', true)->orderby('name', 'asc')->get();
         $support_unit = DB::table('support_unit')->where('status', true)->orderby('name', 'asc')->get();
@@ -76,6 +76,20 @@ class IssuanceOfPreopsController extends Controller
         $roc_regional_office = DB::table('regional_office')->where('id', Auth::user()->regional_office_id)->get();
         $roc_regional_officer = DB::table('users')->where('regional_office_id', Auth::user()->regional_office_id)->get();
         $regional_province = DB::table('province')->where('region_c', $roc_regional_office[0]->region_c)->where('status', true)->orderby('province_m', 'asc')->get();
+
+
+        if (Auth::user()->user_level_id == 2) {
+            $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
+            $approved_by = DB::table('approved_by')->orderby('name', 'asc')->get();
+        } else {
+            $operating_unit = DB::table('operating_unit')->where('status', true)->where('region_c', Auth::user()->region_c)->orderby('name', 'asc')->get();
+            $approved_by = DB::table('approved_by as a')
+                ->join('regional_office as b', 'a.ro_code', '=', 'b.ro_code')
+                ->select('a.name', 'a.id')
+                ->where('b.region_c', Auth::user()->region_c)
+                ->orderby('a.name', 'asc')
+                ->get();
+        }
 
         date_default_timezone_set('Asia/Manila');
         $date = Carbon::now()->format('mdY');
@@ -87,7 +101,7 @@ class IssuanceOfPreopsController extends Controller
         $preops_id += 1;
         $preops_id = sprintf("%03s", $preops_id);
 
-        return view('issuance_of_preops.issuance_of_preops_add', compact('region', 'province', 'operating_unit', 'operation_type', 'nationality', 'support_unit', 'regional_office', 'regional_user', 'roc_regional_office', 'date', 'preops_id', 'roc_regional_officer', 'regional_province'));
+        return view('issuance_of_preops.issuance_of_preops_add', compact('region', 'province', 'operating_unit', 'operation_type', 'nationality', 'support_unit', 'regional_office', 'regional_user', 'roc_regional_office', 'date', 'preops_id', 'roc_regional_officer', 'regional_province', 'approved_by'));
     }
 
     public function store(Request $request)
@@ -109,7 +123,13 @@ class IssuanceOfPreopsController extends Controller
         $preops_id += 1;
         $preops_id = sprintf("%03s", $preops_id);
 
-        $preops_number = $request->ro_code . '-' . $request->hprovince_c . '-' . $p_date . '-' . $preops_id;
+        if (Auth::user()->user_level_id == 2) {
+            $preops_number = $request->preops_number;
+        } else {
+            $preops_number = $request->ro_code . '-' . $request->hprovince_c . '-' . $p_date . '-' . $preops_id;
+        }
+
+
 
 
 
@@ -269,7 +289,19 @@ class IssuanceOfPreopsController extends Controller
             ->get();
         $city = DB::table('city')->orderby('city_m', 'asc')->get();
         $barangay = DB::table('barangay')->orderby('barangay_m', 'asc')->get();
-        $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
+        // $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
+        if (Auth::user()->user_level_id == 2) {
+            $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
+            $approved_by = DB::table('approved_by')->orderby('name', 'asc')->get();
+        } else {
+            $operating_unit = DB::table('operating_unit')->where('status', true)->where('region_c', Auth::user()->region_c)->orderby('name', 'asc')->get();
+            $approved_by = DB::table('approved_by as a')
+                ->join('regional_office as b', 'a.ro_code', '=', 'b.ro_code')
+                ->select('a.name', 'a.id')
+                ->where('b.region_c', Auth::user()->region_c)
+                ->orderby('a.name', 'asc')
+                ->get();
+        }
         $support_unit = DB::table('support_unit')->where('status', true)->orderby('name', 'asc')->get();
         $operation_type = DB::table('operation_type')->where('operation_classification_id', 2)->where('status', true)->orderby('name', 'asc')->get();
         $nationality = DB::table('nationality')->where('status', true)->orderby('name', 'asc')->get();
@@ -292,7 +324,7 @@ class IssuanceOfPreopsController extends Controller
         $issuance_of_preops_files = DB::table('issuance_of_preops_files')->where('preops_number', $issuance_of_preops[0]->preops_number)->get();
         $preops_support_unit = DB::table('preops_support_unit')->where('preops_number', $issuance_of_preops[0]->preops_number)->get();
 
-        return view('issuance_of_preops.issuance_of_preops_edit', compact('issuance_of_preops', 'region', 'operating_unit', 'operation_type', 'nationality', 'area', 'team', 'target', 'province', 'city', 'barangay', 'support_unit', 'regional_office', 'regional_user', 'issuance_of_preops_files', 'preops_support_unit'));
+        return view('issuance_of_preops.issuance_of_preops_edit', compact('issuance_of_preops', 'region', 'operating_unit', 'operation_type', 'nationality', 'area', 'team', 'target', 'province', 'city', 'barangay', 'support_unit', 'regional_office', 'regional_user', 'issuance_of_preops_files', 'preops_support_unit', 'approved_by'));
     }
 
     public function update(Request $request, $id)
@@ -547,9 +579,18 @@ class IssuanceOfPreopsController extends Controller
         $canvas = $pdf->getDomPDF()->getCanvas();
         $height = $canvas->get_height();
         $width = $canvas->get_width();
-        $canvas->set_opacity(.2,"Multiply");
-        $canvas->page_text($width/3, $height/2, 'PDEA', null,
-         90, array(0,0,0),2,2,-30);
+        $canvas->set_opacity(.2, "Multiply");
+        $canvas->page_text(
+            $width / 3,
+            $height / 2,
+            'PDEA',
+            null,
+            90,
+            array(0, 0, 0),
+            2,
+            2,
+            -30
+        );
         return $pdf->stream();
     }
 
@@ -590,6 +631,7 @@ class IssuanceOfPreopsController extends Controller
         $operation_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->operation_datetime);
         $validity = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->validity);
         $duration = $operation_datetime->diffInHours($validity);
+        $approved_by = DB::table('approved_by')->where('id', $preops_data[0]->approved_by)->get();
 
         $tbluserlevel = DB::table('tbluserlevel')->where('id', Auth::user()->user_level_id)->get();
 
@@ -708,7 +750,7 @@ class IssuanceOfPreopsController extends Controller
         <div style="margin-right:39px;">DUTY, ROC</div>
         <br>
         <div style="padding-left:300px; margin-bottom:40px">Approved by:</div>
-        <div style="padding-left:300px; font-weight: bold;">' . $preops_data[0]->approved_by . '</div>
+        <div style="padding-left:300px; font-weight: bold;">' . $approved_by[0]->name . '</div>
         <div style="padding-left:300px;">REGIONAL DIRECTOR</div>
         ';
 

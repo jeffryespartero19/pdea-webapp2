@@ -12,7 +12,7 @@
 */
 
 
-Route::group(['middleware' => ['auth', 'cp_acess']], function() {
+Route::group(['middleware' => ['auth', 'cp_acess']], function () {
     // Control Pannel Routes
 
     // User List
@@ -224,6 +224,18 @@ Route::group(['middleware' => ['auth', 'cp_acess']], function() {
     Route::get('suspect_category_edit/{id}', 'SuspectCategoryController@edit')->name('suspect_category_edit');
     Route::post('suspect_category_add', 'SuspectCategoryController@store');
     Route::patch('suspect_category_edit/{id}', 'SuspectCategoryController@update');
+    // Officer Position Setup
+    Route::get('officer_position_list', 'OfficerPositionController@index')->name('officer_position_list');
+    Route::get('officer_position_add', 'OfficerPositionController@add')->name('officer_position_add');
+    Route::get('officer_position_edit/{id}', 'OfficerPositionController@edit')->name('officer_position_edit');
+    Route::post('officer_position_add', 'OfficerPositionController@store');
+    Route::patch('officer_position_edit/{id}', 'OfficerPositionController@update');
+    // Approved By Setup
+    Route::get('approved_by_list', 'ApprovedByController@index')->name('approved_by_list');
+    Route::get('approved_by_add', 'ApprovedByController@add')->name('approved_by_add');
+    Route::get('approved_by_edit/{id}', 'ApprovedByController@edit')->name('approved_by_edit');
+    Route::post('approved_by_add', 'ApprovedByController@store');
+    Route::patch('approved_by_edit/{id}', 'ApprovedByController@update');
 });
 
 
@@ -321,6 +333,8 @@ Route::get('/get_unit_measure/{evidence_id}', 'GlobalController@getUnitMeasure')
 Route::get('/get_operation_type/{operation_type_id}', 'GlobalController@get_operation_type');
 Route::get('/get_province_details/{province_c}', 'GlobalController@get_province_details');
 Route::get('/get_suspect_category/{suspect_classification_id}', 'GlobalController@get_suspect_category');
+Route::get('/get_operating_unit/{ro_code}', 'GlobalController@get_operating_unit');
+Route::get('/get_approved_by/{ro_code}', 'GlobalController@get_approved_by');
 
 // Report Generation
 Route::get('report_generation_list', 'ReportGenerationController@index')->name('report_generation_list');
@@ -339,5 +353,3 @@ Route::get('ops_details', 'GeoMappingController@ops_details')->name('ops_details
 Route::get('chat', 'ChatController@index')->name('chat');
 Route::post('ops_update_warning', 'GeoMappingController@ops_update_warning')->name('ops_update_warning');
 Route::post('ops_details_Xport', 'XLController@ops_details_Xport')->name('ops_details_Xport');
-
-

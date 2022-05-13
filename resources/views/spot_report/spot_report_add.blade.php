@@ -109,7 +109,7 @@
                             <label for="">Region</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="region_c" name="region_c" class="form-control @error('region') is-invalid @enderror disabled_field" required>
+                            <select id="region_c" name="region_c" class="form-control @error('region') is-invalid @enderror " required>
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach ($sregion as $rg)
                                 <option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} -
@@ -171,7 +171,7 @@
                             <label for="">Date/Time of Operation</label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="operation_datetime" name="operation_datetime" type="datetime-local" class="form-control @error('operation date') is-invalid @enderror disabled_field" value="{{ old('operation_date') }}" autocomplete="off" required>
+                            <input id="operation_datetime" name="operation_datetime" type="datetime-local" class="form-control @error('operation date') is-invalid @enderror" value="{{ old('operation_date') }}" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="form-group col-4" style="margin: 0px;">
@@ -196,7 +196,7 @@
                             <div id="SUOptions" class="input-group mb-3 ">
                                 <select id="support_unit_id" name="support_unit_id[]" class="form-control @error('region') is-invalid @enderror disabled_field" required>
                                     <option value='' disabled selected>Select Option</option>
-                                    @foreach ($support_unit as $su)
+                                    @foreach ($operating_unit as $su)
                                     <option value="{{ $su->id }}">{{ $su->name }}</option>
                                     @endforeach
                                 </select>
@@ -1059,7 +1059,7 @@
             $("#operation_type_id").removeClass("disabled_field");
             $("#region_c").removeClass("disabled_field");
             $("#province_c").removeClass("disabled_field");
-            $("#operation_datetime").removeClass("disabled_field");
+            // $("#operation_datetime").removeClass("disabled_field");
             $("#operating_unit_id").removeClass("disabled_field");
             $("#support_unit_id").removeClass("disabled_field");
             $('.SUdetails').empty();
@@ -1080,7 +1080,7 @@
             $("#operation_type_id").addClass("disabled_field");
             $("#region_c").addClass("disabled_field");
             $("#province_c").addClass("disabled_field");
-            $("#operation_datetime").addClass("disabled_field");
+            // $("#operation_datetime").addClass("disabled_field");
             $("#operating_unit_id").addClass("disabled_field");
             $("#support_unit_id").addClass("disabled_field");
 
@@ -1101,6 +1101,11 @@
                             $('#operating_unit_id option[value=' + element['operating_unit_id'] + ']').attr('selected', 'selected');
                             $('#support_unit_id option[value=' + element['support_unit_id'] + ']').attr('selected', 'selected');
                             $('#operation_datetime').val(element['operation_datetime']);
+
+                            var date = $("#operation_datetime").val();
+
+                            $('#operation_datetime')[0].min = date;
+                            // alert(element['region_c']);
 
                             var region_c = element['region_c'];
                             $.ajax({
@@ -1244,7 +1249,6 @@
 
 
         }
-
 
 
 
@@ -1520,15 +1524,29 @@
         });
 
         $(document).on("change", ".change_control", function() {
-            $cc2 = $('.cc2').val();
-            $cc3 = $('.cc3').val();
-            $cc4 = $('.cc4').val();
-            $cc5 = $('.cc5').val();
-            if ($cc2 == '' || $cc2 == null && $cc3 == '' || $cc3 == null && $cc4 == '' || $cc4 == null && $cc5 == '' || $cc5 == null) {
-                $('.change_control').attr('required', false)
+
+            var $row = $(this).closest(".suspect_details");
+            var suspect_status_id = $row.find("td:eq(1) select").val();
+
+
+            if (suspect_status_id != 2) {
+                $cc2 = $('.cc2').val();
+                $cc3 = $('.cc3').val();
+                $cc4 = $('.cc4').val();
+                $cc5 = $('.cc5').val();
+                if ($cc2 == '' || $cc2 == null && $cc3 == '' || $cc3 == null && $cc4 == '' || $cc4 == null && $cc5 == '' || $cc5 == null) {
+                    $('.change_control').attr('required', false)
+                } else {
+                    $('.change_control').attr('required', true)
+                }
             } else {
-                $('.change_control').attr('required', true)
+                $row.find("td:eq(3) input").attr('required', false);
+                $row.find("td:eq(4) input").attr('required', false);
+                $row.find("td:eq(5) input").attr('required', false);
+                $row.find("td:eq(6) input").attr('required', false);
+                $row.find("td:eq(2) input").attr('required', false);
             }
+
         });
 
         $(document).on("change", "#operation_datetime", function() {
@@ -1666,7 +1684,7 @@
 
         html = '<div class="input-group mb-3 su_options">';
         html += '<select name="support_unit_id[]" class="form-control" required>';
-        html += '<option value="" disabled selected>Select Option</option>@foreach($support_unit as $su)<option value="{{ $su->id }}">{{ $su->name }}</option>@endforeach';
+        html += '<option value="" disabled selected>Select Option</option>@foreach($operating_unit as $su)<option value="{{ $su->id }}">{{ $su->name }}</option>@endforeach';
         html += '</select>';
         html += '<a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
         html += '</div>';
@@ -1724,29 +1742,29 @@
         }
     });
 
-     // Remove Required On At Large Surpect Status
-     $(document).on("change", ".suspect_status_id", function() {
-      
-      var suspect_status_id = $(this).val();
-      var $row = $(this).closest(".suspect_details");
+    // Remove Required On At Large Surpect Status
+    $(document).on("change", ".suspect_status_id", function() {
+
+        var suspect_status_id = $(this).val();
+        var $row = $(this).closest(".suspect_details");
 
 
-      if (suspect_status_id == 2) {
-          $row.find("td:eq(3) input").attr('required', false);
-          $row.find("td:eq(4) input").attr('required', false);
-          $row.find("td:eq(5) input").attr('required', false);
-          $row.find("td:eq(6) input").attr('required', false);
-          $row.find("td:eq(2) input").attr('required', false);
-      } else {
-          $row.find("td:eq(3) input").attr('required', true);
-          $row.find("td:eq(4) input").attr('required', true);
-          $row.find("td:eq(5) input").attr('required', true);
-          $row.find("td:eq(6) input").attr('required', true);
-          $row.find("td:eq(2) input").attr('required', true);
-      }
+        if (suspect_status_id == 2) {
+            $row.find("td:eq(3) input").attr('required', false);
+            $row.find("td:eq(4) input").attr('required', false);
+            $row.find("td:eq(5) input").attr('required', false);
+            $row.find("td:eq(6) input").attr('required', false);
+            $row.find("td:eq(2) input").attr('required', false);
+        } else {
+            $row.find("td:eq(3) input").attr('required', true);
+            $row.find("td:eq(4) input").attr('required', true);
+            $row.find("td:eq(5) input").attr('required', true);
+            $row.find("td:eq(6) input").attr('required', true);
+            $row.find("td:eq(2) input").attr('required', true);
+        }
 
 
-  });
+    });
 </script>
 
 @endsection

@@ -393,4 +393,24 @@ class GlobalController extends Controller
 
         return json_encode($data);
     }
+
+    public function get_operating_unit($ro_code)
+    {
+        $data = DB::table('operating_unit as a')
+            ->join('regional_office as b', 'a.region_c', '=', 'b.region_c')
+            ->select('a.name', 'a.id')
+            ->where(['b.ro_code' => $ro_code])
+            ->get();
+
+        return json_encode($data);
+    }
+
+    public function get_approved_by($ro_code)
+    {
+        $data = DB::table('approved_by')
+            ->where(['ro_code' => $ro_code])
+            ->get();
+
+        return json_encode($data);
+    }
 }

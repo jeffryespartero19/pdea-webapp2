@@ -264,7 +264,7 @@
                                     @endif
                                     >
                                     <option value='' disabled selected>Select Option</option>
-                                    @foreach ($support_unit as $su)
+                                    @foreach ($operating_unit as $su)
                                     <option value="{{ $su->id }}" {{ $su->id == $psu->support_unit_id ? 'selected' : '' }}>
                                         {{ $su->name }}
                                     </option>
@@ -400,11 +400,11 @@
                                                                     @endforeach
                                                                 </select>
                                                             </td>
-                                                            <td><input required type="text" name="lastname[]" style="width: 200px;" class="form-control" value="{{ $srs->lastname }}"></td>
-                                                            <td><input required type="text" name="firstname[]" style="width: 200px;" class="form-control" value="{{ $srs->firstname }}"></td>
-                                                            <td><input required type="text" name="middlename[]" style="width: 200px;" class="form-control" value="{{ $srs->middlename }}"></td>
-                                                            <td><input required type="text" name="alias[]" style="width: 200px;" class="form-control" value="{{ $srs->alias }}"></td>
-                                                            <td><input required type="date" name="birthdate[]" style="width: 200px;" class="form-control" value="{{ $srs->birthdate }}"></td>
+                                                            <td><input required type="text" name="lastname[]" style="width: 200px;" class="form-control change_control cc1" value="{{ $srs->lastname }}"></td>
+                                                            <td><input required type="text" name="firstname[]" style="width: 200px;" class="form-control change_control cc2" value="{{ $srs->firstname }}"></td>
+                                                            <td><input required type="text" name="middlename[]" style="width: 200px;" class="form-control change_control cc3" value="{{ $srs->middlename }}"></td>
+                                                            <td><input required type="text" name="alias[]" style="width: 200px;" class="form-control change_control cc4" value="{{ $srs->alias }}"></td>
+                                                            <td><input required type="date" name="birthdate[]" style="width: 200px;" class="form-control change_control cc5" value="{{ $srs->birthdate }}"></td>
                                                             <td>
                                                                 <select name="est_birthdate[]" class="form-control" style="width: 200px;">
                                                                     <option value="0" {{ $srs->est_birthdate == false ? 'selected' : '' }}>No
@@ -1757,16 +1757,29 @@
     });
 
     $(document).on("change", ".change_control", function() {
-        $cc1 = $('.cc1').val();
-        $cc2 = $('.cc2').val();
-        $cc3 = $('.cc3').val();
-        $cc4 = $('.cc4').val();
-        $cc5 = $('.cc5').val();
-        if ($cc1 == '' || $cc1 == null && $cc2 == '' || $cc2 == null && $cc3 == '' || $cc3 == null && $cc4 == '' || $cc4 == null && $cc5 == '' || $cc5 == null) {
-            $('.change_control').attr('required', false)
+        var $row = $(this).closest(".suspect_details");
+        var suspect_status_id = $row.find("td:eq(2) select").val();
+        if (suspect_status_id != 2) {
+            $cc1 = $('.cc1').val();
+            $cc2 = $('.cc2').val();
+            $cc3 = $('.cc3').val();
+            $cc4 = $('.cc4').val();
+            $cc5 = $('.cc5').val();
+            if ($cc1 == '' || $cc1 == null && $cc2 == '' || $cc2 == null && $cc3 == '' || $cc3 == null && $cc4 == '' || $cc4 == null && $cc5 == '' || $cc5 == null) {
+                $('.change_control').attr('required', false)
+            } else {
+                $('.change_control').attr('required', true)
+            }
         } else {
-            $('.change_control').attr('required', true)
+            $row.find("td:eq(3) input").attr('required', false);
+            $row.find("td:eq(4) input").attr('required', false);
+            $row.find("td:eq(5) input").attr('required', false);
+            $row.find("td:eq(6) input").attr('required', false);
+            $row.find("td:eq(7) input").attr('required', false);
         }
+
+
+
 
     });
 
@@ -1917,7 +1930,7 @@
 
         html = '<div class="input-group mb-3 su_options">';
         html += '<select name="support_unit_id[]" class="form-control" required>';
-        html += '<option value="" disabled selected>Select Option</option>@foreach($support_unit as $su)<option value="{{ $su->id }}">{{ $su->name }}</option>@endforeach';
+        html += '<option value="" disabled selected>Select Option</option>@foreach($operating_unit as $su)<option value="{{ $su->id }}">{{ $su->name }}</option>@endforeach';
         html += '</select>';
         html += '<a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
         html += '</div>';
@@ -1932,8 +1945,9 @@
 
     // Remove Required On At Large Surpect Status
     $(document).on("change", ".suspect_status_id", function() {
-      
+
         var suspect_status_id = $(this).val();
+        alert(suspect_status_id);
         var $row = $(this).closest(".suspect_details");
 
 
