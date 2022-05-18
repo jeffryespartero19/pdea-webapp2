@@ -414,7 +414,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="suspect_number" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->suspect_number }}&nbsp;
                             <br> <br>
@@ -422,7 +422,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="suspect_status" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->suspect_status }}&nbsp;
                             <br> <br>
@@ -430,7 +430,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="lastname" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->lastname }}&nbsp;
                             <br> <br>
@@ -438,7 +438,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="firstname" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->firstname }}&nbsp;
                             <br> <br>
@@ -446,7 +446,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="middlename" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->middlename }}&nbsp;
                             <br> <br>
@@ -454,7 +454,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="alias" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->alias }}&nbsp;
                             <br> <br>
@@ -462,7 +462,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="birthdate" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->birthdate }}&nbsp;
                             <br> <br>
@@ -470,7 +470,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="est_birthdate" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             @if ($sps->est_birthdate == 1)
                             Yes&nbsp;
@@ -483,7 +483,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="birthplace" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->birthplace }}&nbsp;
                             <br> <br>
@@ -491,7 +491,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="s_region" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->s_region }}&nbsp;
                             <br> <br>
@@ -499,7 +499,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="s_province" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->s_province }}&nbsp;
                             <br> <br>
@@ -507,7 +507,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="s_city" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->s_city }}&nbsp;
                             <br> <br>
@@ -515,7 +515,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="s_barangay" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->s_barangay }}&nbsp;
                             <br> <br>
@@ -523,7 +523,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="street" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->street }}&nbsp;
                             <br> <br>
@@ -531,7 +531,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="p_region" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->p_region }}&nbsp;
                             <br> <br>
@@ -539,7 +539,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="p_province" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->p_province }}&nbsp;
                             <br> <br>
@@ -547,7 +547,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="p_city" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->p_city }}&nbsp;
                             <br> <br>
@@ -555,7 +555,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="p_barangay" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->p_barangay }}&nbsp;
                             <br> <br>
@@ -563,7 +563,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="permanent_street" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->permanent_street }}&nbsp;
                             <br> <br>
@@ -571,7 +571,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="gender" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->gender }}&nbsp;
                             <br> <br>
@@ -579,7 +579,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="civil_status" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->civil_status }}&nbsp;
                             <br> <br>
@@ -587,7 +587,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="nationality" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->nationality }}&nbsp;
                             <br> <br>
@@ -595,7 +595,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="ethnic_group" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->ethnic_group }}&nbsp;
                             <br> <br>
@@ -603,7 +603,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="religion" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->religion }}&nbsp;
                             <br> <br>
@@ -611,7 +611,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="educational_attainment" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->educational_attainment }}&nbsp;
                             <br> <br>
@@ -619,7 +619,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="occupation" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->occupation }}&nbsp;
                             <br> <br>
@@ -627,7 +627,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="suspect_classification" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->suspect_classification }}&nbsp;
                             <br> <br>
@@ -635,7 +635,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="suspect_category" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->suspect_category }}&nbsp;
                             <br> <br>
@@ -643,7 +643,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="whereabouts" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->whereabouts }}&nbsp;
                             <br> <br>
@@ -651,7 +651,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="hio" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="remarks" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->remarks }}&nbsp;
                             <br> <br>

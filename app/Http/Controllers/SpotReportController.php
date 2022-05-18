@@ -312,7 +312,7 @@ class SpotReportController extends Controller
                     DB::table('spot_report_suspect')->updateOrInsert(['id' => $id], $spot_suspect);
                     DB::table('suspect_information')->updateOrInsert(['suspect_number' => $suspect_number], $suspect_information);
                 } else {
-                    if ($data['lastname'][$i] != null  || $data['firstname'][$i] != null  || $data['alias'][$i] != null) {
+                    if ($data['lastname'][$i] != null || $data['firstname'][$i] != null  || $data['alias'][$i] != null) {
                         // Auto SUspect Number
                         $suspect_number = 0 + DB::table('suspect_information')
                             ->whereDate('created_at', Carbon::now()->format('Y-m-d'))
@@ -394,6 +394,9 @@ class SpotReportController extends Controller
                             'est_birthdate' => $data['est_birthdate'][$i],
                             'whereabouts' => $data['whereabouts'][$i],
                         ];
+
+                        DB::table('spot_report_suspect')->updateOrInsert(['id' => $id], $spot_suspect);
+                    DB::table('suspect_information')->updateOrInsert(['suspect_number' => $suspect_number], $suspect_information);
                     }
                 }
             }
@@ -1092,21 +1095,32 @@ class SpotReportController extends Controller
 
                         if ($data['spot_evidence_id'][$i] == null) {
                             $sdata = explode(",", $data['suspect_number_item'][$i]);
-                            $lastname = $sdata[0];
-                            $firstname = $sdata[1];
-                            $middlename = $sdata[2];
-                            $alias = $sdata[3];
-                            $birthdate = $sdata[4];
 
-                            $suspect_data = DB::table('spot_report_suspect')
-                                ->where('lastname', $lastname)
-                                ->where('firstname', $firstname)
-                                ->where('middlename', $middlename)
-                                ->where('alias', $alias)
-                                ->where('birthdate', $birthdate)
-                                ->select('suspect_number')
-                                ->get();
-                            $suspect_number = $suspect_data[0]->suspect_number;
+                            if (isset($sdata[0])) {
+                                $suspect_number1 = $sdata[0];
+                            }
+
+                            if (isset($sdata[1])) {
+                                $lastname = $sdata[0];
+                                $firstname = $sdata[1];
+                                $middlename = $sdata[2];
+                                $alias = $sdata[3];
+                                $birthdate = $sdata[4];
+
+                                $suspect_data = DB::table('spot_report_suspect')
+                                    ->where('lastname', $lastname)
+                                    ->where('firstname', $firstname)
+                                    ->where('middlename', $middlename)
+                                    ->where('alias', $alias)
+                                    ->where('birthdate', $birthdate)
+                                    ->select('suspect_number')
+                                    ->get();
+
+                                $suspect_number1 = $suspect_data[0]->suspect_number;
+                            }
+
+
+                            $suspect_number = $suspect_number1;
                         } else if ($data['spot_evidence_id'] > 0) {
                             $suspect_number = $data['suspect_number_item'][$i];
                             $sdata = explode(",", $data['suspect_number_item'][$i]);

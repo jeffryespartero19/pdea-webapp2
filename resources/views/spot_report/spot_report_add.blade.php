@@ -970,23 +970,21 @@
         $(".suspect_number_item").find(':selected').addClass('disabled_field');
 
         table.find('tr').each(function(i) {
-            var $tds = $(this).find('td input');
-            var lastname = $tds.eq(1).val();
-            var firstname = $tds.eq(2).val();
-            var middlename = $tds.eq(3).val();
-            var alias = $tds.eq(4).val();
-            var birthdate = $tds.eq(5).val();
+                var $tds = $(this).find('td input');
+                var lastname = $tds.eq(1).val();
+                var firstname = $tds.eq(2).val();
+                var middlename = $tds.eq(3).val();
+                var alias = $tds.eq(4).val();
+                var birthdate = $tds.eq(5).val();
 
-            if (lastname == null || lastname == '' && firstname == null || firstname == '' && middlename == null || middlename == '' && alias == null || alias == '' && birthdate == null || birthdate == '') {
-
-            } else {
-                $(".suspect_number_item").append("<option value=" +
-                    lastname + "," + firstname + "," + middlename + "," + alias + "," + birthdate + ">" +
-                    lastname + ", " + firstname + " " +
-                    middlename + " -- Alias: '" + alias +
-                    "'</option>");
-            }
-        });
+                if (lastname != null || firstname != null || middlename != null || alias != null) {
+                    $(".suspect_number_item").append("<option value=" +
+                        lastname + "," + firstname + "," + middlename + "," + alias + "," + birthdate + ">" +
+                        lastname + ", " + firstname + " " +
+                        middlename + " -- Alias: '" + alias +
+                        "'</option>");
+                }
+            });
     }
 
     //Add rows for Case
@@ -1484,9 +1482,7 @@
                 var alias = $tds.eq(4).val();
                 var birthdate = $tds.eq(5).val();
 
-                if (lastname == null || lastname == '' && firstname == null || firstname == '' && middlename == null || middlename == '' && alias == null || alias == '' && birthdate == null || birthdate == '') {
-
-                } else {
+                if (lastname != null || firstname != null || middlename != null || alias != null) {
                     $(".suspect_number_item").append("<option value=" +
                         lastname + "," + firstname + "," + middlename + "," + alias + "," + birthdate + ">" +
                         lastname + ", " + firstname + " " +
@@ -1513,7 +1509,7 @@
                 var birthdate = $tds.eq(5).val();
 
 
-                if (lastname != null) {
+                if (lastname != null || firstname != null || middlename != null || alias != null) {
                     $(".suspect_number_case").append("<option value=" +
                         lastname + "," + firstname + "," + middlename + "," + alias + "," + birthdate + ">" +
                         lastname + ", " + firstname + " " +

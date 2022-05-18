@@ -400,11 +400,11 @@
                                                                     @endforeach
                                                                 </select>
                                                             </td>
-                                                            <td><input required type="text" name="lastname[]" style="width: 200px;" class="form-control change_control cc1" value="{{ $srs->lastname }}"></td>
-                                                            <td><input required type="text" name="firstname[]" style="width: 200px;" class="form-control change_control cc2" value="{{ $srs->firstname }}"></td>
-                                                            <td><input required type="text" name="middlename[]" style="width: 200px;" class="form-control change_control cc3" value="{{ $srs->middlename }}"></td>
-                                                            <td><input required type="text" name="alias[]" style="width: 200px;" class="form-control change_control cc4" value="{{ $srs->alias }}"></td>
-                                                            <td><input required type="date" name="birthdate[]" style="width: 200px;" class="form-control change_control cc5" value="{{ $srs->birthdate }}"></td>
+                                                            <td><input {{ 2 == $srs->suspect_status_id ? '' : 'required' }} type="text" name="lastname[]" style="width: 200px;" class="form-control change_control cc1" value="{{ $srs->lastname }}"></td>
+                                                            <td><input {{ 2 == $srs->suspect_status_id ? '' : 'required' }} type="text" name="firstname[]" style="width: 200px;" class="form-control change_control cc2" value="{{ $srs->firstname }}"></td>
+                                                            <td><input {{ 2 == $srs->suspect_status_id ? '' : 'required' }} type="text" name="middlename[]" style="width: 200px;" class="form-control change_control cc3" value="{{ $srs->middlename }}"></td>
+                                                            <td><input {{ 2 == $srs->suspect_status_id ? '' : 'required' }} type="text" name="alias[]" style="width: 200px;" class="form-control change_control cc4" value="{{ $srs->alias }}"></td>
+                                                            <td><input {{ 2 == $srs->suspect_status_id ? '' : 'required' }} type="date" name="birthdate[]" style="width: 200px;" class="form-control change_control cc5" value="{{ $srs->birthdate }}"></td>
                                                             <td>
                                                                 <select name="est_birthdate[]" class="form-control" style="width: 200px;">
                                                                     <option value="0" {{ $srs->est_birthdate == false ? 'selected' : '' }}>No
@@ -429,9 +429,12 @@
                                                                 <select name="present_province_c[]" class="form-control present_province_c" style="width: 200px;">
                                                                     <option value='' selected>Select Option</option>
                                                                     @foreach ($province as $pr)
+                                                                    @if($pr->province_c == $srs->province_c)
                                                                     <option value="{{ $pr->province_c }}" {{ $pr->province_c == $srs->province_c ? 'selected' : '' }}>
                                                                         {{ $pr->province_m }}
                                                                     </option>
+                                                                    @else
+                                                                    @endif
                                                                     @endforeach
                                                                 </select>
                                                             </td>
@@ -439,9 +442,12 @@
                                                                 <select name="present_city_c[]" class="form-control present_city_c" style="width: 200px;">
                                                                     <option value='' selected>Select Option</option>
                                                                     @foreach ($city as $ct)
+                                                                    @if($ct->city_c == $srs->city_c)
                                                                     <option value="{{ $ct->city_c }}" {{ $ct->city_c == $srs->city_c ? 'selected' : '' }}>
                                                                         {{ $ct->city_m }}
                                                                     </option>
+                                                                    @else
+                                                                    @endif
                                                                     @endforeach
                                                                 </select>
                                                             </td>
@@ -449,9 +455,12 @@
                                                                 <select name="present_barangay_c[]" class="form-control present_barangay_c" style="width: 200px;">
                                                                     <option value='' selected>Select Option</option>
                                                                     @foreach ($barangay as $br)
+                                                                    @if($br->barangay_c == $srs->barangay_c)
                                                                     <option value="{{ $br->barangay_c }}" {{ $br->barangay_c == $srs->barangay_c ? 'selected' : '' }}>
                                                                         {{ $br->barangay_m }}
                                                                     </option>
+                                                                    @else
+                                                                    @endif
                                                                     @endforeach
                                                                 </select>
                                                             </td>
@@ -459,10 +468,10 @@
                                                             <td>
                                                                 <select name="permanent_region_c[]" class="form-control permanent_region_c" style="width: 200px;">
                                                                     <option value='' selected>Select Option</option>
-                                                                    @foreach ($region as $rg)
-                                                                    <option value="{{ $rg->region_c }}" {{ $rg->region_c == $srs->permanent_region_c ? 'selected' : '' }}>
-                                                                        {{ $rg->abbreviation }} -
-                                                                        {{ $rg->region_m }}
+                                                                    @foreach ($region as $prg)
+                                                                    <option value="{{ $prg->region_c }}" {{ $prg->region_c == $srs->permanent_region_c ? 'selected' : '' }}>
+                                                                        {{ $prg->abbreviation }} -
+                                                                        {{ $prg->region_m }}
                                                                     </option>
                                                                     @endforeach
                                                                 </select>
@@ -470,30 +479,39 @@
                                                             <td>
                                                                 <select name="permanent_province_c[]" class="form-control permanent_province_c" style="width: 200px;">
                                                                     <option value='' selected>Select Option</option>
-                                                                    @foreach ($province as $pr)
-                                                                    <option value="{{ $pr->province_c }}" {{ $pr->province_c == $srs->permanent_province_c ? 'selected' : '' }}>
-                                                                        {{ $pr->province_m }}
+                                                                    @foreach ($province as $ppr)
+                                                                    @if($ppr->province_c == $srs->permanent_province_c)
+                                                                    <option value="{{ $ppr->province_c }}" {{ $ppr->province_c == $srs->permanent_province_c ? 'selected' : '' }}>
+                                                                        {{ $ppr->province_m }}
                                                                     </option>
+                                                                    @else
+                                                                    @endif
                                                                     @endforeach
                                                                 </select>
                                                             </td>
                                                             <td>
                                                                 <select name="permanent_city_c[]" class="form-control permanent_city_c" style="width: 200px;">
                                                                     <option value='' selected>Select Option</option>
-                                                                    @foreach ($city as $ct)
-                                                                    <option value="{{ $ct->city_c }}" {{ $ct->city_c == $srs->permanent_city_c ? 'selected' : '' }}>
-                                                                        {{ $ct->city_m }}
+                                                                    @foreach ($city as $pct)
+                                                                    @if($pct->city_c == $srs->permanent_city_c)
+                                                                    <option value="{{ $pct->city_c }}" {{ $pct->city_c == $srs->permanent_city_c ? 'selected' : '' }}>
+                                                                        {{ $pct->city_m }}
                                                                     </option>
+                                                                    @else
+                                                                    @endif
                                                                     @endforeach
                                                                 </select>
                                                             </td>
                                                             <td>
                                                                 <select name="permanent_barangay_c[]" class="form-control permanent_barangay_c" style="width: 200px;">
                                                                     <option value='' selected>Select Option</option>
-                                                                    @foreach ($barangay as $br)
-                                                                    <option value="{{ $br->barangay_c }}" {{ $br->barangay_c == $srs->permanent_barangay_c ? 'selected' : '' }}>
-                                                                        {{ $br->barangay_m }}
+                                                                    @foreach ($barangay as $pbr)
+                                                                    @if($pbr->barangay_c == $srs->permanent_barangay_c)
+                                                                    <option value="{{ $pbr->barangay_c }}" {{ $pbr->barangay_c == $srs->permanent_barangay_c ? 'selected' : '' }}>
+                                                                        {{ $pbr->barangay_m }}
                                                                     </option>
+                                                                    @else
+                                                                    @endif
                                                                     @endforeach
                                                                 </select>
                                                             </td>
@@ -1396,7 +1414,6 @@
         $(".suspect_number_item").find('option').not(':selected').remove();
         // $(".suspect_number_item").find(':selected').attr('hidden', 'true');
 
-
         table.find('tr').each(function(i) {
             var $tds = $(this).find('td input');
             var suspect_number = $tds.eq(1).val();
@@ -1406,17 +1423,45 @@
             var alias = $tds.eq(5).val();
             var birthdate = $tds.eq(6).val();
 
+            if (suspect_number == 1) {
 
-            if (lastname == null || lastname == '' && firstname == null || firstname == '' && middlename == null || middlename == '' && alias == null || alias == '' && birthdate == null || birthdate == '') {
-
-            } else {
                 $(".suspect_number_item").append("<option value=" +
                     lastname + "," + firstname + "," + middlename + "," + alias + "," + birthdate + ">" +
                     lastname + ", " + firstname + " " +
                     middlename + " -- Alias: '" + alias +
                     "'</option>");
+            } else if (suspect_number == 0) {
+
+            } else {
+                $(".suspect_number_item").append("<option value=" +
+                    suspect_number + ">" +
+                    lastname + ", " + firstname + " " +
+                    middlename + " -- Alias: '" + alias +
+                    "'</option>");
             }
         });
+
+
+        // table.find('tr').each(function(i) {
+        //     var $tds = $(this).find('td input');
+        //     var suspect_number = $tds.eq(1).val();
+        //     var lastname = $tds.eq(2).val();
+        //     var firstname = $tds.eq(3).val();
+        //     var middlename = $tds.eq(4).val();
+        //     var alias = $tds.eq(5).val();
+        //     var birthdate = $tds.eq(6).val();
+
+
+        //     if (lastname == null || lastname == '' && firstname == null || firstname == '' && middlename == null || middlename == '' && alias == null || alias == '' && birthdate == null || birthdate == '') {
+
+        //     } else {
+        //         $(".suspect_number_item").append("<option value=" +
+        //             lastname + "," + firstname + "," + middlename + "," + alias + "," + birthdate + ">" +
+        //             lastname + ", " + firstname + " " +
+        //             middlename + " -- Alias: '" + alias +
+        //             "'</option>");
+        //     }
+        // });
     }
 
     var case_row = 0;
@@ -1947,7 +1992,7 @@
     $(document).on("change", ".suspect_status_id", function() {
 
         var suspect_status_id = $(this).val();
-        alert(suspect_status_id);
+        // alert(suspect_status_id);
         var $row = $(this).closest(".suspect_details");
 
 
