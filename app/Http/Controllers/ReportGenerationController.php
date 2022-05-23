@@ -176,6 +176,7 @@ class ReportGenerationController extends Controller
                 ->leftjoin('suspect_classification as m', 'a.suspect_classification_id', '=', 'm.id')
                 ->leftjoin('suspect_category as n', 'a.suspect_category_id', '=', 'n.id')
                 ->leftjoin('spot_report_header as o', 'a.spot_report_number', '=', 'o.spot_report_number')
+                ->leftjoin('drug_type as p', 'a.drug_type_id', '=', 'p.id')
                 ->select(
                     'o.preops_number',
                     'a.spot_report_number',
@@ -208,11 +209,47 @@ class ReportGenerationController extends Controller
                     'm.name as suspect_classification',
                     'n.name as suspect_category',
                     'a.whereabouts',
-                    'a.remarks'
+                    'a.remarks',
+                    'p.name as drug_type'
 
 
                 )
 
+                ->orderby('a.id', 'asc')
+                ->get();
+
+            $spot_report_evidence = DB::table('spot_report_evidence as a')
+                ->leftjoin('spot_report_header as a1', 'a.spot_report_number', '=', 'a1.spot_report_number')
+                ->leftjoin('spot_report_suspect as b', 'a.suspect_number', '=', 'b.suspect_number')
+                ->leftjoin('evidence as c', 'a.evidence_id', '=', 'c.id')
+                ->leftjoin('unit_measurement as d', 'a.unit', '=', 'd.id')
+                ->leftjoin('packaging as e', 'a.packaging_id', '=', 'e.id')
+                ->select(
+                    'b.lastname',
+                    'b.firstname',
+                    'b.middlename',
+                    'a.drug',
+                    'a.evidence',
+                    'a.quantity',
+                    'd.name as unit_measure',
+                    'e.name as packaging',
+                    'a.markings',
+                    'a1.preops_number'
+                )
+                ->orderby('a.id', 'asc')
+                ->get();
+
+            $spot_report_case = DB::table('spot_report_case as a')
+                ->leftjoin('spot_report_header as a1', 'a.spot_report_number', '=', 'a1.spot_report_number')
+                ->leftjoin('spot_report_suspect as b', 'a.suspect_number', '=', 'b.suspect_number')
+                ->leftjoin('case_list as c', 'a.case_id', '=', 'c.id')
+                ->select(
+                    'b.lastname',
+                    'b.firstname',
+                    'b.middlename',
+                    'c.description as case',
+                    'a1.preops_number'
+                )
                 ->orderby('a.id', 'asc')
                 ->get();
 
@@ -230,7 +267,9 @@ class ReportGenerationController extends Controller
                 'preops_team',
                 'after_operations_evidence',
                 'spot_report_header',
-                'spot_report_suspect'
+                'spot_report_suspect',
+                'spot_report_evidence',
+                'spot_report_case'
             ));
         } else {
             $data = DB::table('spot_report_header as a')

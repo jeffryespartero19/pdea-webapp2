@@ -140,6 +140,8 @@
                         <th id="IOP" colspan="20" style="white-space: nowrap;  text-align:center; font-size: 30px">Issuance of Pre-Ops</th>
                         <th id="AO" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 30px">After Operations</th>
                         <th id="SR" colspan="43" style="white-space: nowrap;  text-align:center; font-size: 30px">Spot Report</th>
+                        <th id="PR" colspan="26" style="white-space: nowrap;  text-align:center; font-size: 30px">Progress Report</th>
+                        <th id="DV" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 30px">Drug Verification List</th>
                         <!-- <th class="a_area" rowspan="2" style="white-space: nowrap">Area</th>
                         <th class="a_region" rowspan="2" style="white-space: nowrap">Region</th>
                         <th class="a_province" rowspan="2" style="white-space: nowrap">Province</th>
@@ -189,6 +191,12 @@
                         <th class="case_filed" colspan="2" style="white-space: nowrap;  text-align:center; font-size: 20px">Case Filed</th>
                         <th class="summary" colspan="2" style="white-space: nowrap;  text-align:center; font-size: 20px">Summary</th>
                         <th class="prepared_by" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Prepared By</th>
+                        <th class="summary" colspan="6" style="white-space: nowrap;  text-align:center; font-size: 20px">Suspect</th>
+                        <th class="summary" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 20px">Item Seized</th>
+                        <th class="summary" colspan="3" style="white-space: nowrap;  text-align:center; font-size: 20px">Case Filed</th>
+                        <th class="summary" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Inquest</th>
+                        <th class="summary" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Preliminary Investigation</th>
+                        <th class="summary" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 20px">High Impact Operation</th>
                         <!-- <th class="sample">Sample</th>
                         <th class="sample">Sample</th>
                         <th class="sample">Sample</th>
@@ -217,47 +225,83 @@
                         <th class="ot_name" style="white-space: nowrap">Position</th>
                         <th class="ot_name" style="white-space: nowrap">Contact</th>
 
-                        <th class="ot_name" style="white-space: nowrap">Suspect Number</th>
-                        <th class="ot_name" style="white-space: nowrap">Suspect Status</th>
-                        <th class="ot_name" style="white-space: nowrap">Last Name</th>
-                        <th class="ot_name" style="white-space: nowrap">First Name</th>
-                        <th class="ot_name" style="white-space: nowrap">Middle Name</th>
-                        <th class="ot_name" style="white-space: nowrap">Alias</th>
-                        <th class="ot_name" style="white-space: nowrap">Birthdate</th>
-                        <th class="ot_name" style="white-space: nowrap">Estimated Birthdate</th>
-                        <th class="ot_name" style="white-space: nowrap">Birth Place</th>
-                        <th class="ot_name" style="white-space: nowrap">Region</th>
-                        <th class="ot_name" style="white-space: nowrap">Province</th>
-                        <th class="ot_name" style="white-space: nowrap">City</th>
-                        <th class="ot_name" style="white-space: nowrap">Barangay</th>
-                        <th class="ot_name" style="white-space: nowrap">Street</th>
-                        <th class="ot_name" style="white-space: nowrap">Permanent Region</th>
-                        <th class="ot_name" style="white-space: nowrap">Permanent Province</th>
-                        <th class="ot_name" style="white-space: nowrap">Permanent City</th>
-                        <th class="ot_name" style="white-space: nowrap">Permanent Barangay</th>
-                        <th class="ot_name" style="white-space: nowrap">Permanent Street</th>
-                        <th class="ot_name" style="white-space: nowrap">Sex</th>
-                        <th class="ot_name" style="white-space: nowrap">Civil Status</th>
-                        <th class="ot_name" style="white-space: nowrap">Nationality</th>
-                        <th class="ot_name" style="white-space: nowrap">Ethnic Group</th>
-                        <th class="ot_name" style="white-space: nowrap">Religion</th>
-                        <th class="ot_name" style="white-space: nowrap">Educational Attainment</th>
-                        <th class="ot_name" style="white-space: nowrap">Occupation</th>
-                        <th class="ot_name" style="white-space: nowrap">Suspect Classification</th>
-                        <th class="ot_name" style="white-space: nowrap">Suspect Category</th>
-                        <th class="ot_name" style="white-space: nowrap">Whereabouts</th>
-                        <th class="ot_name" style="white-space: nowrap">Remarks</th>
-                        <th class="ot_name" style="white-space: nowrap">Seized From (Suspect)</th>
-                        <th class="ot_name" style="white-space: nowrap">Drug/Non-Drug</th>
-                        <th class="ot_name" style="white-space: nowrap">Type of Evidence</th>
-                        <th class="ot_name" style="white-space: nowrap">Quantity/Weight</th>
-                        <th class="ot_name" style="white-space: nowrap">Unit of Measure</th>
-                        <th class="ot_name" style="white-space: nowrap">Packaging</th>
-                        <th class="ot_name" style="white-space: nowrap">Markings</th>
-                        <th class="ot_name" style="white-space: nowrap">Name of Suspect</th>
-                        <th class="ot_name" style="white-space: nowrap">Case(s) Filed</th>
-                        <th class="ot_name" style="white-space: nowrap">Report Header</th>
-                        <th class="ot_name" style="white-space: nowrap">Summary</th>
+                        <th class="suspect_number" style="white-space: nowrap">Suspect Number</th>
+                        <th class="status" style="white-space: nowrap">Suspect Status</th>
+                        <th class="lastname" style="white-space: nowrap">Last Name</th>
+                        <th class="firstname" style="white-space: nowrap">First Name</th>
+                        <th class="middlename" style="white-space: nowrap">Middle Name</th>
+                        <th class="alias" style="white-space: nowrap">Alias</th>
+                        <th class="birthdate" style="white-space: nowrap">Birthdate</th>
+                        <th class="est_birthdate" style="white-space: nowrap">Estimated Birthdate</th>
+                        <th class="birthplace" style="white-space: nowrap">Birth Place</th>
+                        <th class="region" style="white-space: nowrap">Region</th>
+                        <th class="province" style="white-space: nowrap">Province</th>
+                        <th class="city" style="white-space: nowrap">City</th>
+                        <th class="barangay" style="white-space: nowrap">Barangay</th>
+                        <th class="street" style="white-space: nowrap">Street</th>
+                        <th class="p_region" style="white-space: nowrap">Permanent Region</th>
+                        <th class="p_province" style="white-space: nowrap">Permanent Province</th>
+                        <th class="p_city" style="white-space: nowrap">Permanent City</th>
+                        <th class="p_barangay" style="white-space: nowrap">Permanent Barangay</th>
+                        <th class="p_street" style="white-space: nowrap">Permanent Street</th>
+                        <th class="sex" style="white-space: nowrap">Sex</th>
+                        <th class="civil_status" style="white-space: nowrap">Civil Status</th>
+                        <th class="nationality" style="white-space: nowrap">Nationality</th>
+                        <th class="ethnic_gtoup" style="white-space: nowrap">Ethnic Group</th>
+                        <th class="religion" style="white-space: nowrap">Religion</th>
+                        <th class="educational_attainment" style="white-space: nowrap">Educational Attainment</th>
+                        <th class="occupation" style="white-space: nowrap">Occupation</th>
+                        <th class="clasiffication" style="white-space: nowrap">Suspect Classification</th>
+                        <th class="category" style="white-space: nowrap">Suspect Category</th>
+                        <th class="whereabouts" style="white-space: nowrap">Whereabouts</th>
+                        <th class="remarks" style="white-space: nowrap">Remarks</th>
+                        <th class="seized_from" style="white-space: nowrap">Seized From (Suspect)</th>
+                        <th class="drug" style="white-space: nowrap">Drug/Non-Drug</th>
+                        <th class="evidence" style="white-space: nowrap">Type of Evidence</th>
+                        <th class="quantity" style="white-space: nowrap">Quantity/Weight</th>
+                        <th class="unit" style="white-space: nowrap">Unit of Measure</th>
+                        <th class="packaging" style="white-space: nowrap">Packaging</th>
+                        <th class="markings" style="white-space: nowrap">Markings</th>
+                        <th class="case_name" style="white-space: nowrap">Name of Suspect</th>
+                        <th class="case_type" style="white-space: nowrap">Case(s) Filed</th>
+                        <th class="report_header" style="white-space: nowrap">Report Header</th>
+                        <th class="summary" style="white-space: nowrap">Summary</th>
+
+                        <th class="suspect_name" style="white-space: nowrap">Suspect Name</th>
+                        <th class="suspect_name" style="white-space: nowrap">Suspect Classification</th>
+                        <th class="suspect_name" style="white-space: nowrap">Suspect Status</th>
+                        <th class="suspect_name" style="white-space: nowrap">Drug Test Result</th>
+                        <th class="suspect_name" style="white-space: nowrap">Drug Type</th>
+                        <th class="suspect_name" style="white-space: nowrap">Remarks</th>
+
+                        <th class="suspect_name" style="white-space: nowrap">Drug Seized</th>
+                        <th class="suspect_name" style="white-space: nowrap">Qty. Onsite</th>
+                        <th class="suspect_name" style="white-space: nowrap">Actual Qty</th>
+                        <th class="suspect_name" style="white-space: nowrap">Unit Measurement</th>
+                        <th class="suspect_name" style="white-space: nowrap">Drug Test Result</th>
+                        <th class="suspect_name" style="white-space: nowrap">Chemistry Report Number</th>
+                        <th class="suspect_name" style="white-space: nowrap">Laboratory Facility</th>
+
+                        <th class="suspect_name" style="white-space: nowrap">Case Filed</th>
+                        <th class="suspect_name" style="white-space: nowrap">Docket Number</th>
+                        <th class="suspect_name" style="white-space: nowrap">Case Status</th>  
+                        
+                        <th class="suspect_name" style="white-space: nowrap">Case Status</th>
+                        <th class="suspect_name" style="white-space: nowrap">Date</th>
+                        <th class="suspect_name" style="white-space: nowrap">IS/NPS Number</th>
+                        <th class="suspect_name" style="white-space: nowrap">Name of Prosecutor</th>
+                        <th class="suspect_name" style="white-space: nowrap">Prosecutor Office</th>
+
+                        <th class="suspect_name" style="white-space: nowrap">Case Status</th>
+                        <th class="suspect_name" style="white-space: nowrap">Date Filed in Court</th>
+                        <th class="suspect_name" style="white-space: nowrap">IS/NPS Number</th>
+                        <th class="suspect_name" style="white-space: nowrap">Name of Prosecutor</th>
+                        <th class="suspect_name" style="white-space: nowrap">Prosecutor Office</th>
+
+                        <th class="suspect_name" style="white-space: nowrap">Suspect Name</th>
+                        <th class="suspect_name" style="white-space: nowrap">Listed</th>
+                        <th class="suspect_name" style="white-space: nowrap">NDIS ID</th>
+                        <th class="suspect_name" style="white-space: nowrap">Remarks</th>
 
                     </tr>
                 </thead>
@@ -659,7 +703,167 @@
                             @endif
                             @endforeach
                         </td>
-                        
+                        <td class="s_name" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
+                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
+                            {{ $spe->lastname }}, {{ $spe->firstname }} {{ $spe->middlename }},&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="remarks" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
+                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
+                            {{ $spe->drug }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="evidence" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
+                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
+                            {{ $spe->evidence }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="quantity" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
+                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
+                            {{ $spe->quantity }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="unit_measure" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
+                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
+                            {{ $spe->unit_measure }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="packaging" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
+                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
+                            {{ $spe->packaging }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="markings" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
+                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
+                            {{ $spe->markings }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="is_name" style="white-space: nowrap">@foreach($spot_report_case as $spc)
+                            @if ($spc->preops_number == $issuance_of_preops->preops_number)
+                            {{ $spc->lastname }}, {{ $spc->firstname }} {{ $spc->middlename }},&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="case" style="white-space: nowrap">@foreach($spot_report_case as $spc)
+                            @if ($spc->preops_number == $issuance_of_preops->preops_number)
+                            {{ $spc->case }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="report_header" style="white-space: nowrap">@foreach($spot_report_header as $sph)
+                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
+                            {{ $sph->report_header }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="summary" style="white-space: nowrap">@foreach($spot_report_header as $sph)
+                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
+                            {{ $sph->summary }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="summary" style="white-space: nowrap">@foreach($spot_report_header as $sph)
+                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
+                            {{ $sph->prepared_by }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_lastname" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
+                            {{ $sps->lastname }}, {{$sps->firstname}} {{$sps->middlename}}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_suspect_classification" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
+                            {{ $sps->suspect_classification }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_suspect_status" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
+                            {{ $sps->suspect_status }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_drug_test_result" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
+                            {{ $sps->drug_test_result }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_drug_type" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
+                            {{ $sps->drug_type }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_remarks" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
+                            {{ $sps->remarks }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_evidence" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
+                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
+                            {{ $spe->evidence }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_quantity_on_site" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
+                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
+                            {{ $spe->quantity }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+
                     </tr>
                     @endforeach
                 </tbody>
