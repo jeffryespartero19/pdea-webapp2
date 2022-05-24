@@ -141,7 +141,7 @@
                     </div>
                     <div id="sp_list" class="form-group col-6" style="margin: 0px;">
                         <div>
-                            <label for="">Support Unit<code> *</code></label>
+                            <label for="">Support Unit</label>
                             <a id="SPadd" href="#" style="float: right;"><i class="fas fa-plus pr-2"></i></a>
                         </div>
                         <div class="input-group mb-3 su_options">
