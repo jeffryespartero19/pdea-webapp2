@@ -445,8 +445,8 @@
 
     <div class="card card-info col-10">
 
-        <div class="card-body" style="overflow-x:auto; height: 300px">
-            <table class="table table-bordered table-striped table-hover">
+        <div class="card-body" style="overflow-x:auto; height: 300px;">
+            <table id="example1" class="table table-bordered table-striped table-hover" style="width: fit-content;">
                 <thead>
                     <tr>
                         <th id="IOP" colspan="20" style="white-space: nowrap;  text-align:center; font-size: 30px">Issuance of Pre-Ops</th>
@@ -1624,6 +1624,8 @@
             });
         });
     });
+
+
 </script>
 
 
