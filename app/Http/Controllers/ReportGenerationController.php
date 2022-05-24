@@ -177,6 +177,7 @@ class ReportGenerationController extends Controller
                 ->leftjoin('suspect_category as n', 'a.suspect_category_id', '=', 'n.id')
                 ->leftjoin('spot_report_header as o', 'a.spot_report_number', '=', 'o.spot_report_number')
                 ->leftjoin('drug_type as p', 'a.drug_type_id', '=', 'p.id')
+                ->leftjoin('drug_management as q', 'a.id', '=', 'q.suspect_id')
                 ->select(
                     'o.preops_number',
                     'a.spot_report_number',
@@ -210,7 +211,11 @@ class ReportGenerationController extends Controller
                     'n.name as suspect_category',
                     'a.whereabouts',
                     'a.remarks',
-                    'p.name as drug_type'
+                    'p.name as drug_type',
+                    'a.drug_test_result',
+                    'q.listed',
+                    'q.ndis_id',
+                    'q.remarks'
 
 
                 )
@@ -224,6 +229,7 @@ class ReportGenerationController extends Controller
                 ->leftjoin('evidence as c', 'a.evidence_id', '=', 'c.id')
                 ->leftjoin('unit_measurement as d', 'a.unit', '=', 'd.id')
                 ->leftjoin('packaging as e', 'a.packaging_id', '=', 'e.id')
+                ->leftjoin('laboratory_facility as f', 'a.laboratory_facility_id', '=', 'f.id')
                 ->select(
                     'b.lastname',
                     'b.firstname',
@@ -234,7 +240,13 @@ class ReportGenerationController extends Controller
                     'd.name as unit_measure',
                     'e.name as packaging',
                     'a.markings',
-                    'a1.preops_number'
+                    'a1.preops_number',
+                    'a.qty_onsite',
+                    'a.actual_qty',
+                    'a.drug_test_result',
+                    'a.chemist_report_number',
+                    'a.drug_test_result',
+                    'f.name as laboratory_facility'
                 )
                 ->orderby('a.id', 'asc')
                 ->get();
@@ -248,7 +260,9 @@ class ReportGenerationController extends Controller
                     'b.firstname',
                     'b.middlename',
                     'c.description as case',
-                    'a1.preops_number'
+                    'a1.preops_number',
+                    'a.docket_number',
+                    'a.case_status'
                 )
                 ->orderby('a.id', 'asc')
                 ->get();
@@ -462,9 +476,8 @@ class ReportGenerationController extends Controller
                     'm.name as suspect_classification',
                     'n.name as suspect_category',
                     'a.whereabouts',
-                    'a.remarks'
-
-
+                    'a.remarks',
+                    'a.drug_test_result'
                 )
 
                 ->orderby('a.id', 'asc')

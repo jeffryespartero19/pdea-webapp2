@@ -27,6 +27,10 @@
             <h3 class="card-title">Filter</h3>
         </div>
         <div class="card-body" style="overflow-y: scroll; height: 800px">
+            <label>Enter Keyword:</label>
+            <input id="myInput" type="text" placeholder="Search..">
+
+            <hr>
             <h4>COC</h4>
             <div class="custom-control custom-checkbox">
                 <input class="custom-control-input" type="checkbox" id="region" checked value="option1">
@@ -127,6 +131,314 @@
                 <label for="ao_date_received" class="custom-control-label">Date Received</label>
             </div>
 
+            <!-- Spot Report -->
+            <hr>
+            <h4>Spot Report</h4>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="sp_name" checked>
+                <label for="sp_name" class="custom-control-label">High Impact Operation</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_negative_reason" checked>
+                <label for="ao_negative_reason" class="custom-control-label">Suspect Number</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_illegal_drug" checked>
+                <label for="ao_illegal_drug" class="custom-control-label">Suspect Status</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_quantity" checked>
+                <label for="ao_quantity" class="custom-control-label">Last Name</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_unit_measure" checked>
+                <label for="ao_unit_measure" class="custom-control-label">First Name</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_crn" checked>
+                <label for="ao_crn" class="custom-control-label">Middle Name</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Alias</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Birthdate</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Estimated Birthdate</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Birth Place</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Region</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Province</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">City</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Barangay</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Street</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Permanent Region</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Permanent Province</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Permanent City</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Permanent Barangay</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Permanent Street</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Sex</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Civil Status</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Nationality</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Ethnic Group</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Religion</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Educational Attainment</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Occupation</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Suspect Classification</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Suspect Category</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Whereabouts</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Remarks</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Seized From (Suspect)</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Drug/Non-Drug</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Type of Evidence</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Quantity/Weight</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Unit of Measure</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Packaging</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Markings</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Suspect Name</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Case(s) Filed</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Report Header</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Summary</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Prepared By</label>
+            </div>
+
+            <!-- Progress Report -->
+            <hr>
+            <h4>Progress Report</h4>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_negative_reason" checked>
+                <label for="ao_negative_reason" class="custom-control-label">Suspect Name</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_illegal_drug" checked>
+                <label for="ao_illegal_drug" class="custom-control-label">Suspect Classification</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_illegal_drug" checked>
+                <label for="ao_illegal_drug" class="custom-control-label">Suspect Status</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_quantity" checked>
+                <label for="ao_quantity" class="custom-control-label">Drug Test Result</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_unit_measure" checked>
+                <label for="ao_unit_measure" class="custom-control-label">Drug Type</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_crn" checked>
+                <label for="ao_crn" class="custom-control-label">Remarks</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Drug Seized</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Qty. Onsite</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Actual Qty</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Unit Measurement</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <label for="ao_date_received" class="custom-control-label">Drug Test Result</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_crn" checked>
+                <label for="ao_crn" class="custom-control-label">Chemistry Report Number</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_crn" checked>
+                <label for="ao_crn" class="custom-control-label">Laboratory Facility</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_crn" checked>
+                <label for="ao_crn" class="custom-control-label">Suspect Name</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_crn" checked>
+                <label for="ao_crn" class="custom-control-label">Case Filed</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_crn" checked>
+                <label for="ao_crn" class="custom-control-label">Docket Number</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_crn" checked>
+                <label for="ao_crn" class="custom-control-label">Case Status</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_crn" checked>
+                <label for="ao_crn" class="custom-control-label">Case Status</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_crn" checked>
+                <label for="ao_crn" class="custom-control-label">Date</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_crn" checked>
+                <label for="ao_crn" class="custom-control-label">IS/NPS Number</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_crn" checked>
+                <label for="ao_crn" class="custom-control-label">Name of Prosecutor </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_crn" checked>
+                <label for="ao_crn" class="custom-control-label">Prosecutor Office</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_crn" checked>
+                <label for="ao_crn" class="custom-control-label">Case Status</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_crn" checked>
+                <label for="ao_crn" class="custom-control-label">Date Filed in Court</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_crn" checked>
+                <label for="ao_crn" class="custom-control-label">IS/NPS Number</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_crn" checked>
+                <label for="ao_crn" class="custom-control-label">Name of Prosecutor</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_crn" checked>
+                <label for="ao_crn" class="custom-control-label">Prosecutor Office</label>
+            </div>
+
+            <!-- Drug Verification List -->
+            <hr>
+            <h4>Drug Verification List</h4>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_negative_reason" checked>
+                <label for="ao_negative_reason" class="custom-control-label">Suspect Name</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_illegal_drug" checked>
+                <label for="ao_illegal_drug" class="custom-control-label">Listed</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_illegal_drug" checked>
+                <label for="ao_illegal_drug" class="custom-control-label">NDIS ID</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="ao_quantity" checked>
+                <label for="ao_quantity" class="custom-control-label">Remarks</label>
+            </div>
+
         </div>
     </div>
     <!-- /.card -->
@@ -140,29 +452,8 @@
                         <th id="IOP" colspan="20" style="white-space: nowrap;  text-align:center; font-size: 30px">Issuance of Pre-Ops</th>
                         <th id="AO" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 30px">After Operations</th>
                         <th id="SR" colspan="43" style="white-space: nowrap;  text-align:center; font-size: 30px">Spot Report</th>
-                        <th id="PR" colspan="26" style="white-space: nowrap;  text-align:center; font-size: 30px">Progress Report</th>
+                        <th id="PR" colspan="27" style="white-space: nowrap;  text-align:center; font-size: 30px">Progress Report</th>
                         <th id="DV" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 30px">Drug Verification List</th>
-                        <!-- <th class="a_area" rowspan="2" style="white-space: nowrap">Area</th>
-                        <th class="a_region" rowspan="2" style="white-space: nowrap">Region</th>
-                        <th class="a_province" rowspan="2" style="white-space: nowrap">Province</th>
-                        <th class="a_city" rowspan="2" style="white-space: nowrap">City</th>
-                        <th class="a_barangay" rowspan="2" style="white-space: nowrap">Barangay</th> -->
-
-                        <!-- <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th> -->
                     </tr>
                     <tr>
                         <th class="region" rowspan="2" style="white-space: nowrap; text-align:center; font-size: 20px; vertical-align : middle;text-align:center;">Region</th>
@@ -193,25 +484,10 @@
                         <th class="prepared_by" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Prepared By</th>
                         <th class="summary" colspan="6" style="white-space: nowrap;  text-align:center; font-size: 20px">Suspect</th>
                         <th class="summary" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 20px">Item Seized</th>
-                        <th class="summary" colspan="3" style="white-space: nowrap;  text-align:center; font-size: 20px">Case Filed</th>
+                        <th class="summary" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 20px">Case Filed</th>
                         <th class="summary" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Inquest</th>
                         <th class="summary" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Preliminary Investigation</th>
                         <th class="summary" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 20px">High Impact Operation</th>
-                        <!-- <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th>
-                        <th class="sample">Sample</th> -->
                     </tr>
                     <tr>
                         <th class="a_area" style="white-space: nowrap">Area</th>
@@ -262,7 +538,7 @@
                         <th class="unit" style="white-space: nowrap">Unit of Measure</th>
                         <th class="packaging" style="white-space: nowrap">Packaging</th>
                         <th class="markings" style="white-space: nowrap">Markings</th>
-                        <th class="case_name" style="white-space: nowrap">Name of Suspect</th>
+                        <th class="case_name" style="white-space: nowrap">Suspect Name</th>
                         <th class="case_type" style="white-space: nowrap">Case(s) Filed</th>
                         <th class="report_header" style="white-space: nowrap">Report Header</th>
                         <th class="summary" style="white-space: nowrap">Summary</th>
@@ -282,10 +558,11 @@
                         <th class="suspect_name" style="white-space: nowrap">Chemistry Report Number</th>
                         <th class="suspect_name" style="white-space: nowrap">Laboratory Facility</th>
 
+                        <th class="case_name" style="white-space: nowrap">Suspect Name</th>
                         <th class="suspect_name" style="white-space: nowrap">Case Filed</th>
                         <th class="suspect_name" style="white-space: nowrap">Docket Number</th>
-                        <th class="suspect_name" style="white-space: nowrap">Case Status</th>  
-                        
+                        <th class="suspect_name" style="white-space: nowrap">Case Status</th>
+
                         <th class="suspect_name" style="white-space: nowrap">Case Status</th>
                         <th class="suspect_name" style="white-space: nowrap">Date</th>
                         <th class="suspect_name" style="white-space: nowrap">IS/NPS Number</th>
@@ -305,7 +582,7 @@
 
                     </tr>
                 </thead>
-                <tbody id="spot_report_list">
+                <tbody id="myTable">
                     @php ($current_preops_number = "")
                     @foreach($issuance_of_preops as $issuance_of_preops)
 
@@ -791,7 +1068,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="summary" style="white-space: nowrap">@foreach($spot_report_header as $sph)
+                        <td class="prepared_by" style="white-space: nowrap">@foreach($spot_report_header as $sph)
                             @if ($sph->preops_number == $issuance_of_preops->preops_number)
                             {{ $sph->prepared_by }}&nbsp;
                             <br> <br>
@@ -825,7 +1102,7 @@
                         </td>
                         <td class="pr_drug_test_result" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->drug_test_result }}&nbsp;
+                            {{ $sps->drug_test_result}}&nbsp;
                             <br> <br>
                             @else
                             @endif
@@ -857,7 +1134,191 @@
                         </td>
                         <td class="pr_quantity_on_site" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
                             @if ($spe->preops_number == $issuance_of_preops->preops_number)
-                            {{ $spe->quantity }}&nbsp;
+                            {{ $spe->qty_onsite }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_quantity_on_site" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
+                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
+                            {{ $spe->actual_qty }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_quantity_on_site" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
+                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
+                            {{ $spe->unit_measure }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_quantity_on_site" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
+                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
+                            {{ $spe->drug_test_result }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_quantity_on_site" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
+                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
+                            {{ $spe->chemist_report_number }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_quantity_on_site" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
+                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
+                            {{ $spe->laboratory_facility }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_name" style="white-space: nowrap">@foreach($spot_report_case as $spc)
+                            @if ($spc->preops_number == $issuance_of_preops->preops_number)
+                            {{ $spc->lastname }}, {{ $spc->firstname }} {{ $spc->middlename }},&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_case" style="white-space: nowrap">@foreach($spot_report_case as $spc)
+                            @if ($spc->preops_number == $issuance_of_preops->preops_number)
+                            {{ $spc->case }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_docket_number" style="white-space: nowrap">@foreach($spot_report_case as $spc)
+                            @if ($spc->preops_number == $issuance_of_preops->preops_number)
+                            {{ $spc->docket_number }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_case_status" style="white-space: nowrap">@foreach($spot_report_header as $spc)
+                            @if ($spc->preops_number == $issuance_of_preops->preops_number)
+                            {{ $spc->case_status }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_case_status" style="white-space: nowrap">@foreach($spot_report_header as $sph)
+                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
+                            {{ $sph->case_status }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_case_status_date" style="white-space: nowrap">@foreach($spot_report_header as $sph)
+                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
+                            {{ $sph->case_status_date }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_is_number" style="white-space: nowrap">@foreach($spot_report_header as $sph)
+                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
+                            {{ $sph->is_number }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_procecutor_name" style="white-space: nowrap">@foreach($spot_report_header as $sph)
+                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
+                            {{ $sph->procecutor_name }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_procecutor_office" style="white-space: nowrap">@foreach($spot_report_header as $sph)
+                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
+                            {{ $sph->procecutor_office }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_prelim_case_status" style="white-space: nowrap">@foreach($spot_report_header as $sph)
+                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
+                            {{ $sph->prelim_case_status }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_prelim_case_date" style="white-space: nowrap">@foreach($spot_report_header as $sph)
+                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
+                            {{ $sph->prelim_case_date }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_prelim_is_number" style="white-space: nowrap">@foreach($spot_report_header as $sph)
+                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
+                            {{ $sph->prelim_is_number }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_prelim_prosecutor" style="white-space: nowrap">@foreach($spot_report_header as $sph)
+                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
+                            {{ $sph->prelim_prosecutor }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="pr_prelim_prosecutor_office" style="white-space: nowrap">@foreach($spot_report_header as $sph)
+                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
+                            {{ $sph->prelim_prosecutor_office }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="dr_name" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                            @if ($sps->preops_number == $issuance_of_preops->preops_number && $sps->listed == 1)
+                            {{ $sps->lastname }}, {{ $sps->firstname }} {{ $sps->middlename }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="dr_listed" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                            @if ($sps->preops_number == $issuance_of_preops->preops_number && $sps->listed == 1)
+                            Yes&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="dr_ndis_id" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                            @if ($sps->preops_number == $issuance_of_preops->preops_number && $sps->listed == 1)
+                            {{ $sps->ndis_id }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
+                        </td>
+                        <td class="dr_remarks" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                            @if ($sps->preops_number == $issuance_of_preops->preops_number && $sps->listed == 1)
+                            {{ $sps->remarks }}&nbsp;
                             <br> <br>
                             @else
                             @endif
@@ -1150,13 +1611,18 @@
 
 <script>
     $(function() {
-        $('#sap').addClass('menu-open');
+        $('#report_generation_link').addClass('active');
     });
-    $(function() {
-        $('#sap_link').addClass('active');
-    });
-    $(function() {
-        $('#spot_report').addClass('active');
+</script>
+
+<script>
+    $(document).ready(function() {
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
     });
 </script>
 
