@@ -27,10 +27,10 @@
             <h3 class="card-title">Filter</h3>
         </div>
         <div class="card-body" style="overflow-y: scroll; height: 800px">
-            <label>Enter Keyword:</label>
+            <!-- <label>Enter Keyword:</label>
             <input id="myInput" type="text" placeholder="Search..">
 
-            <hr>
+            <hr> -->
             <h4>COC</h4>
             <div class="custom-control custom-checkbox">
                 <input class="custom-control-input" type="checkbox" id="region" checked value="option1">
@@ -446,7 +446,7 @@
     <div class="card card-info col-10">
 
         <div class="card-body" style="overflow-x:auto; height: 300px;">
-            <table id="example1" class="table table-bordered table-striped table-hover" style="width: fit-content;">
+            <table id="example11" class="table table-bordered table-striped table-hover" style="width: fit-content;">
                 <thead>
                     <tr>
                         <th id="IOP" colspan="20" style="white-space: nowrap;  text-align:center; font-size: 30px">Issuance of Pre-Ops</th>
@@ -1625,7 +1625,14 @@
         });
     });
 
-
+    $(function() {
+        $("#example11").DataTable({
+            "responsive": false,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print"]
+        }).buttons().container().appendTo('#example11_wrapper .col-md-6:eq(0)');
+    });
 </script>
 
 
