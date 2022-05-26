@@ -47,6 +47,9 @@ class OperationTypeController extends Controller
             'status' => $request->has('status') ? true : false,
             'is_warrant' => $request->has('is_warrant') ? true : false,
             'is_testbuy' => $request->has('is_testbuy') ? true : false,
+            'show_preops' => $request->has('show_preops') ? true : false,
+            'show_spot_report' => $request->has('show_spot_report') ? true : false,
+            'operation_category_id' => $request->operation_category_id,
         );
 
         DB::table('operation_type')->insert($form_data);
@@ -69,8 +72,9 @@ class OperationTypeController extends Controller
     {
         $operation_type = DB::table('operation_type')->where('id', $id)->get();
         $operation_classification = DB::table('operation_classification')->where('status', true)->orderby('name', 'asc')->get();
+        $operation_category  = DB::table('operation_category')->where('status', true)->orderby('name', 'asc')->get();
 
-        return view('operation_type.operation_type_edit', compact('operation_type', 'operation_classification'));
+        return view('operation_type.operation_type_edit', compact('operation_type', 'operation_classification', 'operation_category'));
     }
 
     public function update(Request $request, $id)
@@ -85,6 +89,9 @@ class OperationTypeController extends Controller
             'status' => $request->has('status') ? true : false,
             'is_warrant' => $request->has('is_warrant') ? true : false,
             'is_testbuy' => $request->has('is_testbuy') ? true : false,
+            'show_preops' => $request->has('show_preops') ? true : false,
+            'show_spot_report' => $request->has('show_spot_report') ? true : false,
+            'operation_category_id' => $request->operation_category_id,
         );
 
         DB::table('operation_type')->where('id', $id)->update($pos_data);

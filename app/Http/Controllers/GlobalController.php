@@ -413,4 +413,13 @@ class GlobalController extends Controller
 
         return json_encode($data);
     }
+
+    public function get_operation_category($operation_classification_id)
+    {
+        $data = DB::table('operation_category')
+            ->where(['operation_classification_id' => $operation_classification_id])
+            ->get();
+
+        return json_encode($data);
+    }
 }

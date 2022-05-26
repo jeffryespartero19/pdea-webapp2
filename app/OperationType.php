@@ -11,6 +11,6 @@ class OperationType extends Model
     protected $table = 'operation_type';
 
     protected $fillable = [
-        'name', 'status', 'operation_classification_id', 'is_warrant', 'is_testbuy'
+        'name', 'status', 'operation_classification_id', 'is_warrant', 'is_testbuy', 'show_preops', 'show_spot_report'
     ];
 }

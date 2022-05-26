@@ -67,6 +67,8 @@ class SpotReportController extends Controller
         $barangay = DB::table('barangay')->orderby('barangay_m', 'asc')->get();
 
         $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
+        $operation_type_spot_report = DB::table('operation_type')->where('status', true)->where('show_spot_report', true)->orderby('name', 'asc')->get();
+
 
         if (Auth::user()->user_level_id == 2) {
             $preops_header = DB::table('preops_header')
@@ -138,7 +140,7 @@ class SpotReportController extends Controller
         $suspect_number += 1;
         $suspect_number = sprintf("%04s", $suspect_number);
 
-        return view('spot_report.spot_report_add', compact('report_header', 'packaging', 'sregion', 'suspect_category', 'suspect_number', 'roc_regional_office', 'date', 'spot_report_number', 'unit_measurement', 'evidence_type', 'suspect_classification', 'province', 'city', 'barangay', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'case', 'operation_type', 'operating_unit', 'region', 'preops_header', 'suspect_information', 'suspect_status', 'support_unit', 'regional_user'));
+        return view('spot_report.spot_report_add', compact('report_header', 'packaging', 'sregion', 'suspect_category', 'suspect_number', 'roc_regional_office', 'date', 'spot_report_number', 'unit_measurement', 'evidence_type', 'suspect_classification', 'province', 'city', 'barangay', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'case', 'operation_type', 'operating_unit', 'region', 'preops_header', 'suspect_information', 'suspect_status', 'support_unit', 'regional_user', 'operation_type_spot_report'));
     }
 
     public function store(Request $request)

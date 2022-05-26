@@ -68,7 +68,7 @@ class IssuanceOfPreopsController extends Controller
         $region = DB::table('region')->where('status', true)->orderby('region_sort', 'asc')->get();
         $province = DB::table('province')->where('status', true)->orderby('province_c', 'asc')->get();
         // $operating_unit = DB::table('operating_unit')->where('status', true)->where('region_c', Auth::user()->region_c)->orderby('name', 'asc')->get();
-        $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
+        $operation_type = DB::table('operation_type')->where('status', true)->where('show_preops', true)->orderby('name', 'asc')->get();
         $nationality = DB::table('nationality')->where('status', true)->orderby('name', 'asc')->get();
         $support_unit = DB::table('support_unit')->where('status', true)->orderby('name', 'asc')->get();
         $regional_office = DB::table('regional_office')->orderby('print_order', 'asc')->get();
@@ -303,7 +303,7 @@ class IssuanceOfPreopsController extends Controller
                 ->get();
         }
         $support_unit = DB::table('support_unit')->where('status', true)->orderby('name', 'asc')->get();
-        $operation_type = DB::table('operation_type')->where('operation_classification_id', 2)->where('status', true)->orderby('name', 'asc')->get();
+        $operation_type = DB::table('operation_type')->where('operation_classification_id', 2)->where('status', true)->where('show_preops', true)->orderby('name', 'asc')->get();
         $nationality = DB::table('nationality')->where('status', true)->orderby('name', 'asc')->get();
         $area = DB::table('preops_area as a')
             ->join('preops_header as b', 'a.preops_number', '=', 'b.preops_number')

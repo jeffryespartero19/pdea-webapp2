@@ -970,21 +970,21 @@
         $(".suspect_number_item").find(':selected').addClass('disabled_field');
 
         table.find('tr').each(function(i) {
-                var $tds = $(this).find('td input');
-                var lastname = $tds.eq(1).val();
-                var firstname = $tds.eq(2).val();
-                var middlename = $tds.eq(3).val();
-                var alias = $tds.eq(4).val();
-                var birthdate = $tds.eq(5).val();
+            var $tds = $(this).find('td input');
+            var lastname = $tds.eq(1).val();
+            var firstname = $tds.eq(2).val();
+            var middlename = $tds.eq(3).val();
+            var alias = $tds.eq(4).val();
+            var birthdate = $tds.eq(5).val();
 
-                if (lastname != null || firstname != null || middlename != null || alias != null) {
-                    $(".suspect_number_item").append("<option value=" +
-                        lastname + "," + firstname + "," + middlename + "," + alias + "," + birthdate + ">" +
-                        lastname + ", " + firstname + " " +
-                        middlename + " -- Alias: '" + alias +
-                        "'</option>");
-                }
-            });
+            if (lastname != null || firstname != null || middlename != null || alias != null) {
+                $(".suspect_number_item").append("<option value=" +
+                    lastname + "," + firstname + "," + middlename + "," + alias + "," + birthdate + ">" +
+                    lastname + ", " + firstname + " " +
+                    middlename + " -- Alias: '" + alias +
+                    "'</option>");
+            }
+        });
     }
 
     //Add rows for Case
@@ -1073,6 +1073,9 @@
 
             $('.SUdetails').append(html);
 
+            $('#operation_type_id').empty();
+            html2 = '<option value="" disabled selected>Select Option</option>@foreach($operation_type_spot_report as $opsr)<option value="{{ $opsr->id }}">{{ $opsr->name }}</option>@endforeach';
+            $('#operation_type_id').append(html2);
         } else {
 
             $("#operation_type_id").addClass("disabled_field");
@@ -1081,6 +1084,7 @@
             // $("#operation_datetime").addClass("disabled_field");
             $("#operating_unit_id").addClass("disabled_field");
             $("#support_unit_id").addClass("disabled_field");
+
 
             // Display Preops Header Info
             $.ajax({

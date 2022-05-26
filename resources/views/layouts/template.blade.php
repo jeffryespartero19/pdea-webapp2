@@ -625,19 +625,6 @@
                                     </a>
                                 </li>
                                 @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "operation_type" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="operation_type_list_setup" href="{{ route('operation_type_list') }}" class="nav-link" onclick="setactive('cpm','operation_type_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Operation Type</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
                                 @if(rtrim($accessmenu->menu_key) == "operation_classification" && $accessmenu->status == true)
                                 <li class="nav-item">
                                     @break
@@ -650,6 +637,33 @@
                                         <p>Operation Classification</p>
                                     </a>
                                 </li>
+                                @foreach($access_menu as $accessmenu)
+                                @if(rtrim($accessmenu->menu_key) == "operation_category" && $accessmenu->status == true)
+                                <li class="nav-item">
+                                    @break
+                                    @else
+                                <li class="nav-item" hidden>
+                                    @endif
+                                    @endforeach
+                                    <a id="operation_category_list_setup" href="{{ route('operation_category_list') }}" class="nav-link" onclick="setactive('cpm','operation_category_list_setup')">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Operation Category</p>
+                                    </a>
+                                </li>
+                                @foreach($access_menu as $accessmenu)
+                                @if(rtrim($accessmenu->menu_key) == "operation_type" && $accessmenu->status == true)
+                                <li class="nav-item">
+                                    @break
+                                    @else
+                                <li class="nav-item" hidden>
+                                    @endif
+                                    @endforeach
+                                    <a id="operation_type_list_setup" href="{{ route('operation_type_list') }}" class="nav-link" onclick="setactive('cpm','operation_type_list_setup')">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Operation Type</p>
+                                    </a>
+                                </li>
+                               
                                 @foreach($access_menu as $accessmenu)
                                 @if(rtrim($accessmenu->menu_key) == "identifier" && $accessmenu->status == true)
                                 <li class="nav-item">

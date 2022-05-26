@@ -95,6 +95,12 @@ Route::group(['middleware' => ['auth', 'cp_acess']], function () {
     Route::get('operating_unit_edit/{id}', 'OperatingUnitController@edit')->name('operating_unit_edit');
     Route::post('operating_unit_add', 'OperatingUnitController@store');
     Route::patch('operating_unit_edit/{id}', 'OperatingUnitController@update');
+    // Operation Category Setup
+    Route::get('operation_category_list', 'OperationCategoryController@index')->name('operation_category_list');
+    Route::get('operation_category_add', 'OperationCategoryController@add')->name('operation_category_add');
+    Route::get('operation_category_edit/{id}', 'OperationCategoryController@edit')->name('operation_category_edit');
+    Route::post('operation_category_add', 'OperationCategoryController@store');
+    Route::patch('operation_category_edit/{id}', 'OperationCategoryController@update');
     // Operation Type Setup
     Route::get('operation_type_list', 'OperationTypeController@index')->name('operation_type_list');
     Route::get('operation_type_add', 'OperationTypeController@add')->name('operation_type_add');
@@ -335,6 +341,7 @@ Route::get('/get_province_details/{province_c}', 'GlobalController@get_province_
 Route::get('/get_suspect_category/{suspect_classification_id}', 'GlobalController@get_suspect_category');
 Route::get('/get_operating_unit/{ro_code}', 'GlobalController@get_operating_unit');
 Route::get('/get_approved_by/{ro_code}', 'GlobalController@get_approved_by');
+Route::get('/get_operation_category/{operation_classification_id}', 'GlobalController@get_operation_category');
 
 // Report Generation
 Route::get('report_generation_list', 'ReportGenerationController@index')->name('report_generation_list');

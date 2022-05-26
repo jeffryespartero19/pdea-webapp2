@@ -48,14 +48,25 @@
                 @csrf
                 <div class="form-group">
                     <div>
-                        <label for="">Operation CLassification</label>
+                        <label for="">Operation Classification</label>
                     </div>
                     <div class="input-group mb-3">
-                        <select name="operation_classification_id" class="form-control" style="width: 200px;" required>
+                        <select id="operation_classification_id" name="operation_classification_id" class="form-control" style="width: 200px;" required>
                             <option value='' disabled selected>Select Option</option>
                             @foreach($operation_classification as $oc)
                             <option value="{{ $oc->id }}">{{ $oc->name}}</option>
                             @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <label for="">Operation Category</label>
+                    </div>
+                    <div class="input-group mb-3">
+                        <select id="operation_category_id" name="operation_category_id" class="form-control" style="width: 200px;" required>
+                            <option value='' disabled selected>Select Option</option>
+
                         </select>
                     </div>
                 </div>
@@ -76,6 +87,14 @@
                     <label for="customCheckbox2" class="custom-control-label">Is Test-Buy</label>
                 </div>
                 <div class="custom-control custom-checkbox mb-2">
+                    <input name="show_preops" class="custom-control-input" type="checkbox" id="show_preops">
+                    <label for="show_preops" class="custom-control-label">Show in Pre-ops</label>
+                </div>
+                <div class="custom-control custom-checkbox mb-2">
+                    <input name="show_spot_report" class="custom-control-input" type="checkbox" id="show_spot_report">
+                    <label for="show_spot_report" class="custom-control-label">Show in Spot Report</label>
+                </div>
+                <div class="custom-control custom-checkbox mb-2">
                     <input name="status" class="custom-control-input" type="checkbox" id="customCheckbox9">
                     <label for="customCheckbox9" class="custom-control-label">Set as Active</label>
                 </div>
@@ -94,4 +113,43 @@
 <!-- /.content -->
 
 <!-- Set menu to collapse and active -->
+@endsection
+
+
+@section('scripts')
+
+<script>
+    $(document).on("change", "#operation_classification_id", function() {
+
+   
+
+        $operation_classification_id = $('#operation_classification_id').val();
+
+        $.ajax({
+            type: "GET",
+            url: "/get_operation_category/" + $operation_classification_id,
+            fail: function() {
+                alert("request failed");
+            },
+            success: function(data) {
+                var data = JSON.parse(data);
+
+                $("#operation_category_id").empty();
+                var option1 = " <option value='' disabled selected>Select Option</option>";
+                $("#operation_category_id").append(option1);
+
+                data.forEach(element => {
+                    var option = " <option value='" +
+                        element["id"] +
+                        "'>" +
+                        element["name"] +
+                        "</option>";
+                    $("#operation_category_id").append(option);
+                });
+
+            }
+        });
+    });
+</script>
+
 @endsection
