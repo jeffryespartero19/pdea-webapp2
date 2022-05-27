@@ -33,71 +33,75 @@
             <hr> -->
             <h4>COC</h4>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="region" checked value="option1">
+                <input class="custom-control-input" type="checkbox" id="all_coc" checked value="option1">
+                <label for="all_coc" class="custom-control-label">All</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input po_item" type="checkbox" id="region" checked value="option1">
                 <label for="region" class="custom-control-label">Region</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" checked id="preops_number" value="option1">
+                <input class="custom-control-input  po_item" type="checkbox" checked id="preops_number" value="option1">
                 <label for="preops_number" class="custom-control-label">Preops Number</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" checked id="province" value="option1">
+                <input class="custom-control-input  po_item" type="checkbox" checked id="province" value="option1">
                 <label for="province" class="custom-control-label">Province</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" checked id="type_operation" value="option1">
+                <input class="custom-control-input  po_item" type="checkbox" checked id="type_operation" value="option1">
                 <label for="type_operation" class="custom-control-label">Type of Operation</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" checked id="operating_unit" value="option1">
+                <input class="custom-control-input  po_item" type="checkbox" checked id="operating_unit" value="option1">
                 <label for="operating_unit" class="custom-control-label">Operating Unit</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" checked id="support_unit" value="option1">
+                <input class="custom-control-input  po_item" type="checkbox" checked id="support_unit" value="option1">
                 <label for="support_unit" class="custom-control-label">Support Unit</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" checked id="datetime_coordinate" value="option1">
+                <input class="custom-control-input  po_item" type="checkbox" checked id="datetime_coordinate" value="option1">
                 <label for="datetime_coordinate" class="custom-control-label">Date/Time Coordinate</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" checked id="datetime_operation" value="option1">
+                <input class="custom-control-input  po_item" type="checkbox" checked id="datetime_operation" value="option1">
                 <label for="datetime_operation" class="custom-control-label">Date/Time Operation</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" checked id="valid_until" value="option1">
+                <input class="custom-control-input  po_item" type="checkbox" checked id="valid_until" value="option1">
                 <label for="valid_until" class="custom-control-label">Valid Until</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" checked id="a_area" value="option1">
+                <input class="custom-control-input  po_item" type="checkbox" checked id="a_area" value="option1">
                 <label for="a_area" class="custom-control-label">Area Operation</label>
             </div>
             <!-- <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" checked id="a_region" value="option1">
+                <input class="custom-control-input  po_item" type="checkbox" checked id="a_region" value="option1">
                 <label for="a_region" class="custom-control-label">Region</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" checked id="a_province" value="option1">
+                <input class="custom-control-input  po_item" type="checkbox" checked id="a_province" value="option1">
                 <label for="a_province" class="custom-control-label">Province</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" checked id="a_city" value="option1">
+                <input class="custom-control-input  po_item" type="checkbox" checked id="a_city" value="option1">
                 <label for="a_city" class="custom-control-label">City</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" checked id="a_barangay" value="option1">
+                <input class="custom-control-input  po_item" type="checkbox" checked id="a_barangay" value="option1">
                 <label for="a_barangay" class="custom-control-label">Barangay</label>
             </div> -->
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" checked id="taget_name" value="option1">
+                <input class="custom-control-input  po_item" type="checkbox" checked id="taget_name" value="option1">
                 <label for="taget_name" class="custom-control-label">Target</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" checked id="ot_name" value="option1">
+                <input class="custom-control-input  po_item" type="checkbox" checked id="ot_name" value="option1">
                 <label for="ot_name" class="custom-control-label">Operating Team</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" checked id="prepared_by" value="option1">
+                <input class="custom-control-input  po_item" type="checkbox" checked id="prepared_by" value="option1">
                 <label for="prepared_by" class="custom-control-label">Prepared By</label>
             </div>
             <hr>
@@ -449,7 +453,7 @@
             <table id="example11" class="table table-bordered table-striped table-hover" style="width: fit-content;">
                 <thead>
                     <tr>
-                        <th id="IOP" colspan="20" style="white-space: nowrap;  text-align:center; font-size: 30px">Issuance of Pre-Ops</th>
+                        <th id="IOP" class="po" colspan="20" style="white-space: nowrap;  text-align:center; font-size: 30px">Issuance of Pre-Ops</th>
                         <th id="AO" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 30px">After Operations</th>
                         <th id="SP" colspan="43" style="white-space: nowrap;  text-align:center; font-size: 30px">Spot Report</th>
                         <th id="PR" colspan="27" style="white-space: nowrap;  text-align:center; font-size: 30px">Progress Report</th>
@@ -465,29 +469,29 @@
                         <th class="po datetime_coordinate" rowspan="2" style="white-space: nowrap; text-align:center; font-size: 20px; vertical-align : middle;text-align:center;">Date/Time Coordinate</th>
                         <th class="po datetime_operation" rowspan="2" style="white-space: nowrap; text-align:center; font-size: 20px; vertical-align : middle;text-align:center;">Date/Time Operation</th>
                         <th class="po valid_until" rowspan="2" style="white-space: nowrap; text-align:center; font-size: 20px; vertical-align : middle;text-align:center;">Valid Until</th>
-                        <th class="po a_area" colspan="5" style="white-space: nowrap; text-align:center; font-size: 20px">Area of Operation</th>
-                        <th class="po taget_name" colspan="2" style="white-space: nowrap;  text-align:center; font-size: 20px">Target</th>
-                        <th class="po ot_name" colspan="3" style="white-space: nowrap; text-align:center;  font-size: 20px">Operating Team</th>
-                        <th class="po prepared_by" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Prepared By</th>
-                        <th class="po ao_result" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Operation Result</th>
-                        <th class="po ao_negative_reason" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Negative Reason</th>
-                        <th class="po ao_illegal_drug" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Illegal Drug</th>
-                        <th class="po ao_quantity" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Quantity</th>
-                        <th class="po ao_unit_measure" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Unit Measure</th>
-                        <th class="po ao_crn" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Chemistry Report Number</th>
-                        <th class="po ao_date_received" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Date Received</th>
+                        <th class="ao a_area" colspan="5" style="white-space: nowrap; text-align:center; font-size: 20px">Area of Operation</th>
+                        <th class="ao taget_name" colspan="2" style="white-space: nowrap;  text-align:center; font-size: 20px">Target</th>
+                        <th class="ao ot_name" colspan="3" style="white-space: nowrap; text-align:center;  font-size: 20px">Operating Team</th>
+                        <th class="ao prepared_by" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Prepared By</th>
+                        <th class="ao ao_result" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Operation Result</th>
+                        <th class="ao ao_negative_reason" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Negative Reason</th>
+                        <th class="ao ao_illegal_drug" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Illegal Drug</th>
+                        <th class="ao ao_quantity" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Quantity</th>
+                        <th class="ao ao_unit_measure" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Unit Measure</th>
+                        <th class="ao ao_crn" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Chemistry Report Number</th>
+                        <th class="ao ao_date_received" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Date Received</th>
                         <th class="sp sp_hio" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">High Impact Operation</th>
                         <th class="sp suspect" id="SP_suspect" colspan="30" style="white-space: nowrap;  text-align:center; font-size: 20px">Suspect</th>
                         <th class="sp item_seized" id="SP_item_seized" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 20px">Item Seized</th>
                         <th class="sp case_filed" id="SP_CF" colspan="2" style="white-space: nowrap;  text-align:center; font-size: 20px">Case Filed</th>
                         <th class="sp sp_summary" colspan="2" style="white-space: nowrap;  text-align:center; font-size: 20px">Summary</th>
                         <th class="sp sp_prepared_by" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Prepared By</th>
-                        <th class="po pr_suspect" colspan="6" style="white-space: nowrap;  text-align:center; font-size: 20px">Suspect</th>
-                        <th class="po pr_evidence" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 20px">Item Seized</th>
-                        <th class="po pr_case" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 20px">Case Filed</th>
-                        <th class="po pr_inquest" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Inquest</th>
-                        <th class="po pr_prelim" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Preliminary Investigation</th>
-                        <th class="po dv_hio" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 20px">High Impact Operation</th>
+                        <th class="pr pr_suspect" colspan="6" style="white-space: nowrap;  text-align:center; font-size: 20px">Suspect</th>
+                        <th class="pr pr_evidence" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 20px">Item Seized</th>
+                        <th class="pr pr_case" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 20px">Case Filed</th>
+                        <th class="pr pr_inquest" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Inquest</th>
+                        <th class="pr pr_prelim" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Preliminary Investigation</th>
+                        <th class="dv dv_hio" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 20px">High Impact Operation</th>
                     </tr>
                     <tr>
                         <th class="ao a_area" style="white-space: nowrap">Area</th>
@@ -594,16 +598,16 @@
                     @endif
 
                     <tr>
-                        <td class="region" style="white-space: nowrap">{{ $region }}</td>
-                        <td class="preops_number" style="white-space: nowrap">{{ $preops_number }}</td>
-                        <td class="province" style="white-space: nowrap">{{ $issuance_of_preops->province_m }}</td>
-                        <td class="type_operation" style="white-space: nowrap">{{ $issuance_of_preops->operation_type }}</td>
-                        <td class="operating_unit" style="white-space: nowrap">{{ $issuance_of_preops->operating_unit }}</td>
-                        <td class="support_unit" style="white-space: nowrap">{{ $issuance_of_preops->support_unit }}</td>
-                        <td class="datetime_coordinate" style="white-space: nowrap">{{ $issuance_of_preops->coordinated_datetime }}</td>
-                        <td class="datetime_operation" style="white-space: nowrap">{{ $issuance_of_preops->operation_datetime }}</td>
-                        <td class="valid_until" style="white-space: nowrap">{{ $issuance_of_preops->validity }}</td>
-                        <td class="a_area" style="white-space: nowrap">
+                        <td class="po region" style="white-space: nowrap">{{ $region }}</td>
+                        <td class="po preops_number" style="white-space: nowrap">{{ $preops_number }}</td>
+                        <td class="po province" style="white-space: nowrap">{{ $issuance_of_preops->province_m }}</td>
+                        <td class="po type_operation" style="white-space: nowrap">{{ $issuance_of_preops->operation_type }}</td>
+                        <td class="po operating_unit" style="white-space: nowrap">{{ $issuance_of_preops->operating_unit }}</td>
+                        <td class="po support_unit" style="white-space: nowrap">{{ $issuance_of_preops->support_unit }}</td>
+                        <td class="po datetime_coordinate" style="white-space: nowrap">{{ $issuance_of_preops->coordinated_datetime }}</td>
+                        <td class="po datetime_operation" style="white-space: nowrap">{{ $issuance_of_preops->operation_datetime }}</td>
+                        <td class="po valid_until" style="white-space: nowrap">{{ $issuance_of_preops->validity }}</td>
+                        <td class="ao a_area" style="white-space: nowrap">
                             @foreach($preops_area as $pa)
                             @if ($pa->preops_number == $issuance_of_preops->preops_number)
                             {{ $pa->a_area }}
@@ -612,7 +616,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="a_area" style="white-space: nowrap"> @foreach($preops_area as $pa)
+                        <td class="ao a_area" style="white-space: nowrap"> @foreach($preops_area as $pa)
                             @if ($pa->preops_number == $issuance_of_preops->preops_number)
                             {{ $pa->a_region_m}}&nbsp;
                             <br> <br>
@@ -620,7 +624,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="a_area" style="white-space: nowrap"> @foreach($preops_area as $pa)
+                        <td class="ao a_area" style="white-space: nowrap"> @foreach($preops_area as $pa)
                             @if ($pa->preops_number == $issuance_of_preops->preops_number)
                             {{ $pa->a_province_m }}&nbsp;
                             <br> <br>
@@ -628,7 +632,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="a_area" style="white-space: nowrap"> @foreach($preops_area as $pa)
+                        <td class="ao a_area" style="white-space: nowrap"> @foreach($preops_area as $pa)
                             @if ($pa->preops_number == $issuance_of_preops->preops_number)
                             {{ $pa->a_city_m }}&nbsp;
                             <br> <br>
@@ -636,7 +640,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="a_area" style="white-space: nowrap"> @foreach($preops_area as $pa)
+                        <td class="ao a_area" style="white-space: nowrap"> @foreach($preops_area as $pa)
                             @if ($pa->preops_number == $issuance_of_preops->preops_number)
                             {{ $pa->a_barangay_m }}&nbsp;
                             <br> <br>
@@ -644,7 +648,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="taget_name" style="white-space: nowrap"> @foreach($preops_target as $pt)
+                        <td class="ao taget_name" style="white-space: nowrap"> @foreach($preops_target as $pt)
                             @if ($pt->preops_number == $issuance_of_preops->preops_number)
                             {{ $pt->name }}&nbsp;
                             <br> <br>
@@ -652,7 +656,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="taget_name" style="white-space: nowrap">@foreach($preops_target as $pt)
+                        <td class="ao taget_name" style="white-space: nowrap">@foreach($preops_target as $pt)
                             @if ($pt->preops_number == $issuance_of_preops->preops_number)
                             {{ $pt->nationality }}&nbsp;
                             <br> <br>
@@ -660,7 +664,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="ot_name" style="white-space: nowrap">@foreach($preops_team as $ptm)
+                        <td class="ao ot_name" style="white-space: nowrap">@foreach($preops_team as $ptm)
                             @if ($ptm->preops_number == $issuance_of_preops->preops_number)
                             {{ $ptm->name }}&nbsp;
                             <br> <br>
@@ -668,7 +672,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="ot_name" style="white-space: nowrap">@foreach($preops_team as $ptm)
+                        <td class="ao ot_name" style="white-space: nowrap">@foreach($preops_team as $ptm)
                             @if ($ptm->preops_number == $issuance_of_preops->preops_number)
                             {{ $ptm->position }}&nbsp;
                             <br> <br>
@@ -676,7 +680,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="ot_name" style="white-space: nowrap">@foreach($preops_team as $ptm)
+                        <td class="ao ot_name" style="white-space: nowrap">@foreach($preops_team as $ptm)
                             @if ($ptm->preops_number == $issuance_of_preops->preops_number)
                             {{ $ptm->contact }}&nbsp;
                             <br> <br>
@@ -684,10 +688,10 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="prepared_by" style="white-space: nowrap">{{ $issuance_of_preops->prepared_by }}</td>
-                        <td class="ao_result" style="white-space: nowrap">{{ $issuance_of_preops->result }}</td>
-                        <td class="ao_negative_reason" style="white-space: nowrap">{{ $issuance_of_preops->negative_reason }}</td>
-                        <td class="ao_illegal_drug" style="white-space: nowrap">@foreach($after_operations_evidence as $aoe)
+                        <td class="ao prepared_by" style="white-space: nowrap">{{ $issuance_of_preops->prepared_by }}</td>
+                        <td class="ao ao_result" style="white-space: nowrap">{{ $issuance_of_preops->result }}</td>
+                        <td class="ao ao_negative_reason" style="white-space: nowrap">{{ $issuance_of_preops->negative_reason }}</td>
+                        <td class="ao ao_illegal_drug" style="white-space: nowrap">@foreach($after_operations_evidence as $aoe)
                             @if ($aoe->preops_number == $issuance_of_preops->preops_number)
                             {{ $aoe->evidence }}&nbsp;
                             <br> <br>
@@ -695,7 +699,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="ao_quantity" style="white-space: nowrap">@foreach($after_operations_evidence as $aoe)
+                        <td class="ao ao_quantity" style="white-space: nowrap">@foreach($after_operations_evidence as $aoe)
                             @if ($aoe->preops_number == $issuance_of_preops->preops_number)
                             {{ $aoe->quantity }}&nbsp;
                             <br> <br>
@@ -703,7 +707,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="ao_unit_measure" style="white-space: nowrap">@foreach($after_operations_evidence as $aoe)
+                        <td class="ao ao_unit_measure" style="white-space: nowrap">@foreach($after_operations_evidence as $aoe)
                             @if ($aoe->preops_number == $issuance_of_preops->preops_number)
                             {{ $aoe->unit }}&nbsp;
                             <br> <br>
@@ -711,7 +715,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="ao_crn" style="white-space: nowrap">@foreach($after_operations_evidence as $aoe)
+                        <td class="ao ao_crn" style="white-space: nowrap">@foreach($after_operations_evidence as $aoe)
                             @if ($aoe->preops_number == $issuance_of_preops->preops_number)
                             {{ $aoe->chemist_report_number }}&nbsp;
                             <br> <br>
@@ -719,8 +723,8 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="ao_date_received" style="white-space: nowrap">{{ $issuance_of_preops->received_date }}</td>
-                        <td class="sp_hio" style="white-space: nowrap">@foreach($spot_report_header as $sph)
+                        <td class="ao ao_date_received" style="white-space: nowrap">{{ $issuance_of_preops->received_date }}</td>
+                        <td class="sp sp_hio" style="white-space: nowrap">@foreach($spot_report_header as $sph)
                             @if ($sph->preops_number == $issuance_of_preops->preops_number)
                             @if ($sph->operation_lvl == 1)
                             Yes&nbsp;
@@ -1346,10 +1350,22 @@
 @section('scripts')
 
 <script>
+    $(document).on('click', '#all_coc', function() {
+        if ($(this).is(":checked")) {
+            $('.po').attr('hidden', false);
+            $('.po_item').prop('checked', true);
+            $('#IOP').prop("colspan", 20)
+
+        } else {
+            $('.po').attr('hidden', true);
+            $('.po_item').prop('checked', false);
+             $('#IOP').prop("colspan", 1)
+        }
+    });
     $(document).on('click', '#region', function() {
         if ($(this).is(":checked")) {
             $('.region').attr('hidden', false);
-            if ($('#IOP').prop("colspan") == 1) {
+            if ($('#IOP').prop("colspan") == 1 && $('#IOP').is(":hidden") == true) {
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 1;
@@ -1369,7 +1385,7 @@
     $(document).on('click', '#preops_number', function() {
         if ($(this).is(":checked")) {
             $('.preops_number').attr('hidden', false);
-            if ($('#IOP').prop("colspan") == 1) {
+            if ($('#IOP').prop("colspan") == 1 && $('#IOP').is(":hidden") == true) {
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 1;
@@ -1388,7 +1404,7 @@
     $(document).on('click', '#province', function() {
         if ($(this).is(":checked")) {
             $('.province').attr('hidden', false);
-            if ($('#IOP').prop("colspan") == 1) {
+            if ($('#IOP').prop("colspan") == 1 && $('#IOP').is(":hidden") == true) {
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 1;
@@ -1407,7 +1423,7 @@
     $(document).on('click', '#type_operation', function() {
         if ($(this).is(":checked")) {
             $('.type_operation').attr('hidden', false);
-            if ($('#IOP').prop("colspan") == 1) {
+            if ($('#IOP').prop("colspan") == 1 && $('#IOP').is(":hidden") == true) {
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 1;
@@ -1426,7 +1442,7 @@
     $(document).on('click', '#operating_unit', function() {
         if ($(this).is(":checked")) {
             $('.operating_unit').attr('hidden', false);
-            if ($('#IOP').prop("colspan") == 1) {
+            if ($('#IOP').prop("colspan") == 1 && $('#IOP').is(":hidden") == true) {
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 1;
@@ -1445,7 +1461,7 @@
     $(document).on('click', '#support_unit', function() {
         if ($(this).is(":checked")) {
             $('.support_unit').attr('hidden', false);
-            if ($('#IOP').prop("colspan") == 1) {
+            if ($('#IOP').prop("colspan") == 1 && $('#IOP').is(":hidden") == true) {
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 1;
@@ -1464,7 +1480,7 @@
     $(document).on('click', '#datetime_coordinate', function() {
         if ($(this).is(":checked")) {
             $('.datetime_coordinate').attr('hidden', false);
-            if ($('#IOP').prop("colspan") == 1) {
+            if ($('#IOP').prop("colspan") == 1 && $('#IOP').is(":hidden") == true) {
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 1;
@@ -1483,7 +1499,7 @@
     $(document).on('click', '#datetime_operation', function() {
         if ($(this).is(":checked")) {
             $('.datetime_operation').attr('hidden', false);
-            if ($('#IOP').prop("colspan") == 1) {
+            if ($('#IOP').prop("colspan") == 1 && $('#IOP').is(":hidden") == true) {
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 1;
@@ -1502,7 +1518,7 @@
     $(document).on('click', '#valid_until', function() {
         if ($(this).is(":checked")) {
             $('.valid_until').attr('hidden', false);
-            if ($('#IOP').prop("colspan") == 1) {
+            if ($('#IOP').prop("colspan") == 1 && $('#IOP').is(":hidden") == true) {
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 1;
@@ -1521,23 +1537,41 @@
     $(document).on('click', '#a_area', function() {
         if ($(this).is(":checked")) {
             $('.a_area').attr('hidden', false);
-            $iop = $('#IOP').prop("colspan") + 5;
-            $('#IOP').prop("colspan", $iop)
+            if ($('#IOP').prop("colspan") == 5 && $('#IOP').is(":hidden") == true) {
+                $('#IOP').attr('hidden', false);
+            } else {
+                $iop = $('#IOP').prop("colspan") + 5;
+                $('#IOP').prop("colspan", $iop)
+            }
+
         } else {
             $('.a_area').attr('hidden', true);
-            $iop = $('#IOP').prop("colspan") - 5;
-            $('#IOP').prop("colspan", $iop)
+            if ($('#IOP').prop("colspan") == 5) {
+                $('#IOP').attr('hidden', true);
+            } else {
+                $iop = $('#IOP').prop("colspan") - 5;
+                $('#IOP').prop("colspan", $iop)
+            }
+
         }
     });
     $(document).on('click', '#taget_name', function() {
         if ($(this).is(":checked")) {
             $('.taget_name').attr('hidden', false);
-            $iop = $('#IOP').prop("colspan") + 2;
-            $('#IOP').prop("colspan", $iop)
+            if ($('#IOP').prop("colspan") == 2 && $('#IOP').is(":hidden") == true) {
+                $('#IOP').attr('hidden', false);
+            } else {
+                $iop = $('#IOP').prop("colspan") + 2;
+                $('#IOP').prop("colspan", $iop)
+            }
         } else {
             $('.taget_name').attr('hidden', true);
-            $iop = $('#IOP').prop("colspan") - 2;
-            $('#IOP').prop("colspan", $iop)
+            if ($('#IOP').prop("colspan") == 2) {
+                $('#IOP').attr('hidden', true);
+            } else {
+                $iop = $('#IOP').prop("colspan") - 2;
+                $('#IOP').prop("colspan", $iop)
+            }
         }
     });
     // $(document).on('click', '#target_nationality', function() {
@@ -1554,18 +1588,26 @@
     $(document).on('click', '#ot_name', function() {
         if ($(this).is(":checked")) {
             $('.ot_name').attr('hidden', false);
-            $iop = $('#IOP').prop("colspan") + 3;
-            $('#IOP').prop("colspan", $iop)
+            if ($('#IOP').prop("colspan") == 3 && $('#IOP').is(":hidden") == true) {
+                $('#IOP').attr('hidden', false);
+            } else {
+                $iop = $('#IOP').prop("colspan") + 3;
+                $('#IOP').prop("colspan", $iop)
+            }
         } else {
             $('.ot_name').attr('hidden', true);
-            $iop = $('#IOP').prop("colspan") - 3;
-            $('#IOP').prop("colspan", $iop)
+            if ($('#IOP').prop("colspan") == 3) {
+                $('#IOP').attr('hidden', true);
+            } else {
+                $iop = $('#IOP').prop("colspan") - 3;
+                $('#IOP').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#prepared_by', function() {
         if ($(this).is(":checked")) {
             $('.prepared_by').attr('hidden', false);
-            if ($('#IOP').prop("colspan") == 1) {
+            if ($('#IOP').prop("colspan") == 1 && $('#IOP').is(":hidden") == true) {
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 1;
@@ -1584,78 +1626,134 @@
     $(document).on('click', '#ao_result', function() {
         if ($(this).is(":checked")) {
             $('.ao_result').attr('hidden', false);
-            $iop = $('#AO').prop("colspan") + 1;
-            $('#AO').prop("colspan", $iop)
+            if ($('#AO').prop("colspan") == 1 && $('#AO').is(":hidden") == true) {
+                $('#AO').attr('hidden', false);
+            } else {
+                $iop = $('#AO').prop("colspan") + 1;
+                $('#AO').prop("colspan", $iop)
+            }
         } else {
             $('.ao_result').attr('hidden', true);
-            $iop = $('#AO').prop("colspan") - 1;
-            $('#AO').prop("colspan", $iop)
+            if ($('#AO').prop("colspan") == 1) {
+                $('#AO').attr('hidden', true);
+            } else {
+                $iop = $('#AO').prop("colspan") - 1;
+                $('#AO').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#ao_negative_reason', function() {
         if ($(this).is(":checked")) {
             $('.ao_negative_reason').attr('hidden', false);
-            $iop = $('#AO').prop("colspan") + 1;
-            $('#AO').prop("colspan", $iop)
+            if ($('#AO').prop("colspan") == 1 && $('#AO').is(":hidden") == true) {
+                $('#AO').attr('hidden', false);
+            } else {
+                $iop = $('#AO').prop("colspan") + 1;
+                $('#AO').prop("colspan", $iop)
+            }
         } else {
             $('.ao_negative_reason').attr('hidden', true);
-            $iop = $('#AO').prop("colspan") - 1;
-            $('#AO').prop("colspan", $iop)
+            if ($('#AO').prop("colspan") == 1) {
+                $('#AO').attr('hidden', true);
+            } else {
+                $iop = $('#AO').prop("colspan") - 1;
+                $('#AO').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#ao_illegal_drug', function() {
         if ($(this).is(":checked")) {
             $('.ao_illegal_drug').attr('hidden', false);
-            $iop = $('#AO').prop("colspan") + 1;
-            $('#AO').prop("colspan", $iop)
+            if ($('#AO').prop("colspan") == 1 && $('#AO').is(":hidden") == true) {
+                $('#AO').attr('hidden', false);
+            } else {
+                $iop = $('#AO').prop("colspan") + 1;
+                $('#AO').prop("colspan", $iop)
+            }
         } else {
             $('.ao_illegal_drug').attr('hidden', true);
-            $iop = $('#AO').prop("colspan") - 1;
-            $('#AO').prop("colspan", $iop)
+            if ($('#AO').prop("colspan") == 1) {
+                $('#AO').attr('hidden', true);
+            } else {
+                $iop = $('#AO').prop("colspan") - 1;
+                $('#AO').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#ao_quantity', function() {
         if ($(this).is(":checked")) {
             $('.ao_quantity').attr('hidden', false);
-            $iop = $('#AO').prop("colspan") + 1;
-            $('#AO').prop("colspan", $iop)
+            if ($('#AO').prop("colspan") == 1 && $('#AO').is(":hidden") == true) {
+                $('#AO').attr('hidden', false);
+            } else {
+                $iop = $('#AO').prop("colspan") + 1;
+                $('#AO').prop("colspan", $iop)
+            }
         } else {
             $('.ao_quantity').attr('hidden', true);
-            $iop = $('#AO').prop("colspan") - 1;
-            $('#AO').prop("colspan", $iop)
+            if ($('#AO').prop("colspan") == 1) {
+                $('#AO').attr('hidden', true);
+            } else {
+                $iop = $('#AO').prop("colspan") - 1;
+                $('#AO').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#ao_unit_measure', function() {
         if ($(this).is(":checked")) {
             $('.ao_unit_measure').attr('hidden', false);
-            $iop = $('#AO').prop("colspan") + 1;
-            $('#AO').prop("colspan", $iop)
+            if ($('#AO').prop("colspan") == 1 && $('#AO').is(":hidden") == true) {
+                $('#AO').attr('hidden', false);
+            } else {
+                $iop = $('#AO').prop("colspan") + 1;
+                $('#AO').prop("colspan", $iop)
+            }
         } else {
             $('.ao_unit_measure').attr('hidden', true);
-            $iop = $('#AO').prop("colspan") - 1;
-            $('#AO').prop("colspan", $iop)
+            if ($('#AO').prop("colspan") == 1) {
+                $('#AO').attr('hidden', true);
+            } else {
+                $iop = $('#AO').prop("colspan") - 1;
+                $('#AO').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#ao_crn', function() {
         if ($(this).is(":checked")) {
             $('.ao_crn').attr('hidden', false);
-            $iop = $('#AO').prop("colspan") + 1;
-            $('#AO').prop("colspan", $iop)
+            if ($('#AO').prop("colspan") == 1 && $('#AO').is(":hidden") == true) {
+                $('#AO').attr('hidden', false);
+            } else {
+                $iop = $('#AO').prop("colspan") + 1;
+                $('#AO').prop("colspan", $iop)
+            }
         } else {
             $('.ao_crn').attr('hidden', true);
-            $iop = $('#AO').prop("colspan") - 1;
-            $('#AO').prop("colspan", $iop)
+            if ($('#AO').prop("colspan") == 1) {
+                $('#AO').attr('hidden', true);
+            } else {
+                $iop = $('#AO').prop("colspan") - 1;
+                $('#AO').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#ao_date_received', function() {
         if ($(this).is(":checked")) {
             $('.ao_date_received').attr('hidden', false);
-            $iop = $('#AO').prop("colspan") + 1;
-            $('#AO').prop("colspan", $iop)
+            if ($('#AO').prop("colspan") == 1 && $('#AO').is(":hidden") == true) {
+                $('#AO').attr('hidden', false);
+            } else {
+                $iop = $('#AO').prop("colspan") + 1;
+                $('#AO').prop("colspan", $iop)
+            }
         } else {
             $('.ao_date_received').attr('hidden', true);
-            $iop = $('#AO').prop("colspan") - 1;
-            $('#AO').prop("colspan", $iop)
+            if ($('#AO').prop("colspan") == 1) {
+                $('#AO').attr('hidden', true);
+            } else {
+                $iop = $('#AO').prop("colspan") - 1;
+                $('#AO').prop("colspan", $iop)
+            }
         }
     });
 
@@ -1663,28 +1761,55 @@
     $(document).on('click', '#sp_hio', function() {
         if ($(this).is(":checked")) {
             $('.sp_hio').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop)
+            }
         } else {
             $('.sp_hio').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_suspect_number', function() {
         if ($(this).is(":checked")) {
             $('.sp_suspect_number').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                $('#SP_suspect').prop("colspan", $iop2);
+            }
         } else {
             $('.sp_suspect_number').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
 
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_status', function() {
