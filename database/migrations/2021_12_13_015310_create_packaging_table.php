@@ -31,3 +31,7 @@ class CreatePackagingTable extends Migration
         Schema::dropIfExists('packaging');
     }
 }
+
+
+
+
