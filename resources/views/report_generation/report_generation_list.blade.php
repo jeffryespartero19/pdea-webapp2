@@ -107,31 +107,35 @@
             <hr>
             <h4>After Operations</h4>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="ao_result" checked>
+                <input class="custom-control-input" type="checkbox" id="all_ao" checked value="option1">
+                <label for="all_ao" class="custom-control-label">All</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input ao_item" type="checkbox" id="ao_result" checked>
                 <label for="ao_result" class="custom-control-label">Operation Result</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="ao_negative_reason" checked>
+                <input class="custom-control-input ao_item" type="checkbox" id="ao_negative_reason" checked>
                 <label for="ao_negative_reason" class="custom-control-label">Negative Reason</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="ao_illegal_drug" checked>
+                <input class="custom-control-input ao_item" type="checkbox" id="ao_illegal_drug" checked>
                 <label for="ao_illegal_drug" class="custom-control-label">Illegal Drug</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="ao_quantity" checked>
+                <input class="custom-control-input ao_item" type="checkbox" id="ao_quantity" checked>
                 <label for="ao_quantity" class="custom-control-label">Quantity</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="ao_unit_measure" checked>
+                <input class="custom-control-input ao_item" type="checkbox" id="ao_unit_measure" checked>
                 <label for="ao_unit_measure" class="custom-control-label">Unit Measure</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="ao_crn" checked>
+                <input class="custom-control-input ao_item" type="checkbox" id="ao_crn" checked>
                 <label for="ao_crn" class="custom-control-label">Chemistry Report Number</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="ao_date_received" checked>
+                <input class="custom-control-input ao_item" type="checkbox" id="ao_date_received" checked>
                 <label for="ao_date_received" class="custom-control-label">Date Received</label>
             </div>
 
@@ -139,175 +143,179 @@
             <hr>
             <h4>Spot Report</h4>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_hio" checked>
+                <input class="custom-control-input" type="checkbox" id="all_sr" checked value="option1">
+                <label for="all_sr" class="custom-control-label">All</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input sr_item" type="checkbox" id="sp_hio" checked>
                 <label for="sp_hio" class="custom-control-label">High Impact Operation</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_suspect_number" checked>
+                <input class="custom-control-input sr_item" type="checkbox" id="sp_suspect_number" checked>
                 <label for="sp_suspect_number" class="custom-control-label">Suspect Number</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_status" checked>
+                <input class="custom-control-input sr_item" type="checkbox" id="sp_status" checked>
                 <label for="sp_status" class="custom-control-label">Suspect Status</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_lastname" checked>
+                <input class="custom-control-input sr_item" type="checkbox" id="sp_lastname" checked>
                 <label for="sp_lastname" class="custom-control-label">Last Name</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_firstname" checked>
+                <input class="custom-control-input sr_item" type="checkbox" id="sp_firstname" checked>
                 <label for="sp_firstname" class="custom-control-label">First Name</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_middlename" checked>
+                <input class="custom-control-input sr_item" type="checkbox" id="sp_middlename" checked>
                 <label for="sp_middlename" class="custom-control-label">Middle Name</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_alias" checked>
+                <input class="custom-control-input sr_item" type="checkbox" id="sp_alias" checked>
                 <label for="sp_alias" class="custom-control-label">Alias</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_birthdate" checked>
+                <input class="custom-control-input sr_item" type="checkbox" id="sp_birthdate" checked>
                 <label for="sp_birthdate" class="custom-control-label">Birthdate</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_est_birthdate" checked>
+                <input class="custom-control-input sr_item" type="checkbox" id="sp_est_birthdate" checked>
                 <label for="sp_est_birthdate" class="custom-control-label">Estimated Birthdate</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_birthplace" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_birthplace" checked>
                 <label for="sp_birthplace" class="custom-control-label">Birth Place</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_region" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_region" checked>
                 <label for="sp_region" class="custom-control-label">Region</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_province" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_province" checked>
                 <label for="sp_province" class="custom-control-label">Province</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_city" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_city" checked>
                 <label for="sp_city" class="custom-control-label">City</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_barangay" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_barangay" checked>
                 <label for="sp_barangay" class="custom-control-label">Barangay</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_street" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_street" checked>
                 <label for="sp_street" class="custom-control-label">Street</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_p_region" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_p_region" checked>
                 <label for="sp_p_region" class="custom-control-label">Permanent Region</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_p_province" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_p_province" checked>
                 <label for="sp_p_province" class="custom-control-label">Permanent Province</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_p_city" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_p_city" checked>
                 <label for="sp_p_city" class="custom-control-label">Permanent City</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_p_barangay" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_p_barangay" checked>
                 <label for="sp_p_barangay" class="custom-control-label">Permanent Barangay</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_p_street" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_p_street" checked>
                 <label for="sp_p_street" class="custom-control-label">Permanent Street</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_sex" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_sex" checked>
                 <label for="sp_sex" class="custom-control-label">Sex</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_civil_status" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_civil_status" checked>
                 <label for="sp_civil_status" class="custom-control-label">Civil Status</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_nationality" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_nationality" checked>
                 <label for="sp_nationality" class="custom-control-label">Nationality</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_ethnic_group" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_ethnic_group" checked>
                 <label for="sp_ethnic_group" class="custom-control-label">Ethnic Group</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_religion" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_religion" checked>
                 <label for="sp_religion" class="custom-control-label">Religion</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_educational_attainment" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_educational_attainment" checked>
                 <label for="sp_educational_attainment" class="custom-control-label">Educational Attainment</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_occupation" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_occupation" checked>
                 <label for="sp_occupation" class="custom-control-label">Occupation</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_classification" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_classification" checked>
                 <label for="sp_classification" class="custom-control-label">Suspect Classification</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_category" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_category" checked>
                 <label for="sp_category" class="custom-control-label">Suspect Category</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_whereabouts" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_whereabouts" checked>
                 <label for="sp_whereabouts" class="custom-control-label">Whereabouts</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_remarks" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_remarks" checked>
                 <label for="sp_remarks" class="custom-control-label">Remarks</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_seized_from" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_seized_from" checked>
                 <label for="sp_seized_from" class="custom-control-label">Seized From (Suspect)</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_drug" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_drug" checked>
                 <label for="sp_drug" class="custom-control-label">Drug/Non-Drug</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_evidence" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_evidence" checked>
                 <label for="sp_evidence" class="custom-control-label">Type of Evidence</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_quantity" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_quantity" checked>
                 <label for="sp_quantity" class="custom-control-label">Quantity/Weight</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_unit" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_unit" checked>
                 <label for="sp_unit" class="custom-control-label">Unit of Measure</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_packaging" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_packaging" checked>
                 <label for="sp_packaging" class="custom-control-label">Packaging</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_markings" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_markings" checked>
                 <label for="sp_markings" class="custom-control-label">Markings</label>
             </div>
             <!-- <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_case_name" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_case_name" checked>
                 <label for="sp_case_name" class="custom-control-label">Suspect Name</label>
             </div> -->
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_case_type" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_case_type" checked>
                 <label for="sp_case_type" class="custom-control-label">Case(s) Filed</label>
             </div>
             <!-- <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_report_header" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_report_header" checked>
                 <label for="sp_report_header" class="custom-control-label">Report Header</label>
             </div> -->
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_summary" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_summary" checked>
                 <label for="sp_summary" class="custom-control-label">Summary</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="sp_prepared_by" checked>
+                <input class="custom-control-input  sr_item" type="checkbox" id="sp_prepared_by" checked>
                 <label for="sp_prepared_by" class="custom-control-label">Prepared By</label>
             </div>
 
@@ -315,111 +323,115 @@
             <hr>
             <h4>Progress Report</h4>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_suspect_name" checked>
+                <input class="custom-control-input" type="checkbox" id="all_pr" checked value="option1">
+                <label for="all_pr" class="custom-control-label">All</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input  pr_item pr_item" type="checkbox" id="pr_suspect_name" checked>
                 <label for="pr_suspect_name" class="custom-control-label">Suspect Name</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_suspect_classification" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_suspect_classification" checked>
                 <label for="pr_suspect_classification" class="custom-control-label">Suspect Classification</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_suspect_status" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_suspect_status" checked>
                 <label for="pr_suspect_status" class="custom-control-label">Suspect Status</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_drug_test_result" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_drug_test_result" checked>
                 <label for="pr_drug_test_result" class="custom-control-label">Drug Test Result</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_drug_type" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_drug_type" checked>
                 <label for="pr_drug_type" class="custom-control-label">Drug Type</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_remarks" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_remarks" checked>
                 <label for="pr_remarks" class="custom-control-label">Remarks</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_drug_seized" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_drug_seized" checked>
                 <label for="pr_drug_seized" class="custom-control-label">Drug Seized</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_qty_onsite" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_qty_onsite" checked>
                 <label for="pr_qty_onsite" class="custom-control-label">Qty. Onsite</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_actual_qty" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_actual_qty" checked>
                 <label for="pr_actual_qty" class="custom-control-label">Actual Qty</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_unit" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_unit" checked>
                 <label for="pr_unit" class="custom-control-label">Unit Measurement</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_id_drug_test_result" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_id_drug_test_result" checked>
                 <label for="pr_id_drug_test_result" class="custom-control-label">Drug Test Result</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_id_cr_number" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_id_cr_number" checked>
                 <label for="pr_id_cr_number" class="custom-control-label">Chemistry Report Number</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_id_laboratory" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_id_laboratory" checked>
                 <label for="pr_id_laboratory" class="custom-control-label">Laboratory Facility</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_cf_suspect_name" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_cf_suspect_name" checked>
                 <label for="pr_cf_suspect_name" class="custom-control-label">Suspect Name</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_cf_case" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_cf_case" checked>
                 <label for="pr_cf_case" class="custom-control-label">Case Filed</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_cf_docket_number" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_cf_docket_number" checked>
                 <label for="pr_cf_docket_number" class="custom-control-label">Docket Number</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_cf_status" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_cf_status" checked>
                 <label for="pr_cf_status" class="custom-control-label">Case Status</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_inquest_status" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_inquest_status" checked>
                 <label for="pr_inquest_status" class="custom-control-label">Case Status</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_inquest_date" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_inquest_date" checked>
                 <label for="pr_inquest_date" class="custom-control-label">Date</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_inquest_nps" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_inquest_nps" checked>
                 <label for="pr_inquest_nps" class="custom-control-label">IS/NPS Number</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_inquest_prosecutor" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_inquest_prosecutor" checked>
                 <label for="pr_inquest_prosecutor" class="custom-control-label">Name of Prosecutor </label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_inquest_office" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_inquest_office" checked>
                 <label for="pr_inquest_office" class="custom-control-label">Prosecutor Office</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_prelim_status" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_prelim_status" checked>
                 <label for="pr_prelim_status" class="custom-control-label">Case Status</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_prelim_date" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_prelim_date" checked>
                 <label for="pr_prelim_date" class="custom-control-label">Date Filed in Court</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_prelim_nps" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_prelim_nps" checked>
                 <label for="pr_prelim_nps" class="custom-control-label">IS/NPS Number</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_prelim_prosecutor" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_prelim_prosecutor" checked>
                 <label for="pr_prelim_prosecutor" class="custom-control-label">Name of Prosecutor</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="pr_prelim_office" checked>
+                <input class="custom-control-input  pr_item" type="checkbox" id="pr_prelim_office" checked>
                 <label for="pr_prelim_office" class="custom-control-label">Prosecutor Office</label>
             </div>
 
@@ -427,19 +439,23 @@
             <hr>
             <h4>Drug Verification List</h4>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="dv_suspect_name" checked>
+                <input class="custom-control-input" type="checkbox" id="all_dv" checked value="option1">
+                <label for="all_dv" class="custom-control-label">All</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input dv_item" type="checkbox" id="dv_suspect_name" checked>
                 <label for="dv_suspect_name" class="custom-control-label">Suspect Name</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="dv_listed" checked>
+                <input class="custom-control-input dv_item" type="checkbox" id="dv_listed" checked>
                 <label for="dv_listed" class="custom-control-label">Listed</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="dv_ndis" checked>
+                <input class="custom-control-input dv_item" type="checkbox" id="dv_ndis" checked>
                 <label for="dv_ndis" class="custom-control-label">NDIS ID</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="dv_remarks" checked>
+                <input class="custom-control-input dv_item" type="checkbox" id="dv_remarks" checked>
                 <label for="dv_remarks" class="custom-control-label">Remarks</label>
             </div>
 
@@ -450,14 +466,14 @@
     <div class="card card-info col-10">
 
         <div class="card-body" style="overflow-x:auto;">
-            <table id="example11" class="table table-bordered table-striped table-hover" style="width: fit-content;">
+            <table id="example11" class="table table-bordered table-striped table-hover" style="width:auto">
                 <thead>
                     <tr>
                         <th id="IOP" class="po" colspan="20" style="white-space: nowrap;  text-align:center; font-size: 30px">Issuance of Pre-Ops</th>
-                        <th id="AO" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 30px">After Operations</th>
-                        <th id="SP" colspan="43" style="white-space: nowrap;  text-align:center; font-size: 30px">Spot Report</th>
-                        <th id="PR" colspan="27" style="white-space: nowrap;  text-align:center; font-size: 30px">Progress Report</th>
-                        <th id="DV" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 30px">Drug Verification List</th>
+                        <th id="AO" class="ao" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 30px">After Operations</th>
+                        <th id="SP" class="sp" colspan="43" style="white-space: nowrap;  text-align:center; font-size: 30px">Spot Report</th>
+                        <th id="PR" class="pr" colspan="27" style="white-space: nowrap;  text-align:center; font-size: 30px">Progress Report</th>
+                        <th id="DV" class="dv" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 30px">Drug Verification List</th>
                     </tr>
                     <tr>
                         <th class="po region" rowspan="2" style="white-space: nowrap; text-align:center; font-size: 20px; vertical-align : middle;text-align:center;">Region</th>
@@ -490,7 +506,7 @@
                         <th class="pr pr_evidence" id="PR_IS" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 20px">Item Seized</th>
                         <th class="pr pr_case" id="PR_CASE" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 20px">Case Filed</th>
                         <th class="pr pr_inquest" id="PR_INQUEST" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Inquest</th>
-                        <th class="pr pr_prelim"  id="PR_PRELIM" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Preliminary Investigation</th>
+                        <th class="pr pr_prelim" id="PR_PRELIM" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Preliminary Investigation</th>
                         <th class="dv dv_hio" id="DV_HIO" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 20px">High Impact Operation</th>
                     </tr>
                     <tr>
@@ -1360,6 +1376,54 @@
             $('.po').attr('hidden', true);
             $('.po_item').prop('checked', false);
             $('#IOP').prop("colspan", 1)
+        }
+    });
+    $(document).on('click', '#all_ao', function() {
+        if ($(this).is(":checked")) {
+            $('.ao').attr('hidden', false);
+            $('.ao_item').prop('checked', true);
+            $('#AO').prop("colspan", 20)
+
+        } else {
+            $('.ao').attr('hidden', true);
+            $('.ao_item').prop('checked', false);
+            $('#AO').prop("colspan", 1)
+        }
+    });
+    $(document).on('click', '#all_sr', function() {
+        if ($(this).is(":checked")) {
+            $('.sp').attr('hidden', false);
+            $('.sr_item').prop('checked', true);
+            $('#SP').prop("colspan", 20)
+
+        } else {
+            $('.sp').attr('hidden', true);
+            $('.sr_item').prop('checked', false);
+            $('#SP').prop("colspan", 1)
+        }
+    });
+    $(document).on('click', '#all_pr', function() {
+        if ($(this).is(":checked")) {
+            $('.pr').attr('hidden', false);
+            $('.pr_item').prop('checked', true);
+            $('#PR').prop("colspan", 20)
+
+        } else {
+            $('.pr').attr('hidden', true);
+            $('.pr_item').prop('checked', false);
+            $('#PR').prop("colspan", 1)
+        }
+    });
+    $(document).on('click', '#all_dv', function() {
+        if ($(this).is(":checked")) {
+            $('.dv').attr('hidden', false);
+            $('.dv_item').prop('checked', true);
+            $('#DV').prop("colspan", 20)
+
+        } else {
+            $('.dv').attr('hidden', true);
+            $('.dv_item').prop('checked', false);
+            $('#DV').prop("colspan", 1)
         }
     });
     $(document).on('click', '#region', function() {
