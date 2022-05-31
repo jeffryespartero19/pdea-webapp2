@@ -26,7 +26,7 @@
         <div class="card-header">
             <h3 class="card-title">Filter</h3>
         </div>
-        <div class="card-body" style="overflow-y: scroll; height: 800px">
+        <div class="card-body" style="overflow-y: scroll; height: 1000px">
             <!-- <label>Enter Keyword:</label>
             <input id="myInput" type="text" placeholder="Search..">
 
@@ -449,7 +449,7 @@
 
     <div class="card card-info col-10">
 
-        <div class="card-body" style="overflow-x:auto; height: 300px;">
+        <div class="card-body" style="overflow-x:auto;">
             <table id="example11" class="table table-bordered table-striped table-hover" style="width: fit-content;">
                 <thead>
                     <tr>
@@ -486,12 +486,12 @@
                         <th class="sp case_filed" id="SP_CF" colspan="2" style="white-space: nowrap;  text-align:center; font-size: 20px">Case Filed</th>
                         <th class="sp sp_summary" colspan="2" style="white-space: nowrap;  text-align:center; font-size: 20px">Summary</th>
                         <th class="sp sp_prepared_by" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Prepared By</th>
-                        <th class="pr pr_suspect" colspan="6" style="white-space: nowrap;  text-align:center; font-size: 20px">Suspect</th>
-                        <th class="pr pr_evidence" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 20px">Item Seized</th>
-                        <th class="pr pr_case" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 20px">Case Filed</th>
-                        <th class="pr pr_inquest" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Inquest</th>
-                        <th class="pr pr_prelim" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Preliminary Investigation</th>
-                        <th class="dv dv_hio" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 20px">High Impact Operation</th>
+                        <th class="pr pr_suspect" id="PR_suspect" colspan="6" style="white-space: nowrap;  text-align:center; font-size: 20px">Suspect</th>
+                        <th class="pr pr_evidence" id="PR_IS" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 20px">Item Seized</th>
+                        <th class="pr pr_case" id="PR_CASE" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 20px">Case Filed</th>
+                        <th class="pr pr_inquest" id="PR_INQUEST" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Inquest</th>
+                        <th class="pr pr_prelim"  id="PR_PRELIM" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Preliminary Investigation</th>
+                        <th class="dv dv_hio" id="DV_HIO" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 20px">High Impact Operation</th>
                     </tr>
                     <tr>
                         <th class="ao a_area" style="white-space: nowrap">Area</th>
@@ -1078,7 +1078,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="pr_lastname" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="pr pr_suspect_name" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number)
                             {{ $sps->lastname }}, {{$sps->firstname}} {{$sps->middlename}}&nbsp;
                             <br> <br>
@@ -1182,7 +1182,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="pr pr_name" style="white-space: nowrap">@foreach($spot_report_case as $spc)
+                        <td class="pr pr_cs_name" style="white-space: nowrap">@foreach($spot_report_case as $spc)
                             @if ($spc->preops_number == $issuance_of_preops->preops_number)
                             {{ $spc->lastname }}, {{ $spc->firstname }} {{ $spc->middlename }},&nbsp;
                             <br> <br>
@@ -1294,7 +1294,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="dv dv_name" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="dv dv_suspect_name" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number && $sps->listed == 1)
                             {{ $sps->lastname }}, {{ $sps->firstname }} {{ $sps->middlename }}&nbsp;
                             <br> <br>
@@ -1310,7 +1310,7 @@
                             @endif
                             @endforeach
                         </td>
-                        <td class="dv dv_ndis_id" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
+                        <td class="dv dv_ndis" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
                             @if ($sps->preops_number == $issuance_of_preops->preops_number && $sps->listed == 1)
                             {{ $sps->ndis_id }}&nbsp;
                             <br> <br>
@@ -1359,7 +1359,7 @@
         } else {
             $('.po').attr('hidden', true);
             $('.po_item').prop('checked', false);
-             $('#IOP').prop("colspan", 1)
+            $('#IOP').prop("colspan", 1)
         }
     });
     $(document).on('click', '#region', function() {
@@ -1779,21 +1779,32 @@
     });
     $(document).on('click', '#sp_suspect_number', function() {
         if ($(this).is(":checked")) {
-            $('.sp_suspect_number').attr('hidden', false);
 
             if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
                 $('#SP').attr('hidden', false);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
+                    $('.sp_suspect_number').attr('hidden', false);
+
                 } else {
                     $iop2 = $('#SP_suspect').prop("colspan") + 1;
                     $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_suspect_number').attr('hidden', false);
+
                 }
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
-                $iop2 = $('#SP_suspect').prop("colspan") + 1;
-                $('#SP_suspect').prop("colspan", $iop2);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_suspect_number').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_suspect_number').attr('hidden', false);
+
+                }
             }
         } else {
             $('.sp_suspect_number').attr('hidden', true);
@@ -1814,542 +1825,1622 @@
     });
     $(document).on('click', '#sp_status', function() {
         if ($(this).is(":checked")) {
-            $('.sp_status').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_status').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_status').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_status').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_status').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_status').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_lastname', function() {
         if ($(this).is(":checked")) {
-            $('.sp_lastname').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_lastname').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_lastname').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_lastname').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_lastname').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_lastname').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_firstname', function() {
         if ($(this).is(":checked")) {
-            $('.sp_firstname').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_firstname').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_firstname').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_firstname').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_firstname').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_firstname').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_middlename', function() {
         if ($(this).is(":checked")) {
-            $('.sp_middlename').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_middlename').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_middlename').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_middlename').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_middlename').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_middlename').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_alias', function() {
         if ($(this).is(":checked")) {
-            $('.sp_alias').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_alias').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_alias').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_alias').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_alias').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_alias').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_birthdate', function() {
         if ($(this).is(":checked")) {
-            $('.sp_birthdate').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_birthdate').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_birthdate').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_birthdate').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_birthdate').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_birthdate').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_est_birthdate', function() {
         if ($(this).is(":checked")) {
-            $('.sp_est_birthdate').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_est_birthdate').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_est_birthdate').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_est_birthdate').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_est_birthdate').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_est_birthdate').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_birthplace', function() {
         if ($(this).is(":checked")) {
-            $('.sp_birthplace').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_birthplace').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_birthplace').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_birthplace').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_birthplace').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_birthplace').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_region', function() {
         if ($(this).is(":checked")) {
-            $('.sp_region').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_region').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_region').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_region').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_region').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_region').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_province', function() {
         if ($(this).is(":checked")) {
-            $('.sp_province').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_province').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_province').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_province').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_province').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_province').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_city', function() {
         if ($(this).is(":checked")) {
-            $('.sp_city').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_city').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_city').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_city').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_city').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_city').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_barangay', function() {
         if ($(this).is(":checked")) {
-            $('.sp_barangay').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_barangay').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_barangay').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_barangay').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_barangay').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_barangay').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_street', function() {
         if ($(this).is(":checked")) {
-            $('.sp_street').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_street').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_street').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_street').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_street').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_street').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_p_region', function() {
         if ($(this).is(":checked")) {
-            $('.sp_p_region').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_p_region').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_p_region').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_p_region').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_p_region').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_p_region').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_p_province', function() {
         if ($(this).is(":checked")) {
-            $('.sp_p_province').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_p_province').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_p_province').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_p_province').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_p_province').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_p_province').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_p_city', function() {
         if ($(this).is(":checked")) {
-            $('.sp_p_city').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_p_city').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_p_city').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_p_city').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_p_city').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_p_city').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_p_barangay', function() {
         if ($(this).is(":checked")) {
-            $('.sp_p_barangay').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_p_barangay').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_p_barangay').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_p_barangay').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_p_barangay').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_p_barangay').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_p_street', function() {
         if ($(this).is(":checked")) {
-            $('.sp_p_street').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_p_street').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_p_street').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_p_street').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_p_street').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_p_street').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_sex', function() {
         if ($(this).is(":checked")) {
-            $('.sp_sex').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_sex').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_sex').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_sex').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_sex').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_sex').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_civil_status', function() {
         if ($(this).is(":checked")) {
-            $('.sp_civil_status').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_civil_status').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_civil_status').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_civil_status').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_civil_status').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_civil_status').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_nationality', function() {
         if ($(this).is(":checked")) {
-            $('.sp_nationality').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_nationality').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_nationality').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_nationality').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_nationality').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_nationality').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_ethnic_group', function() {
         if ($(this).is(":checked")) {
-            $('.sp_ethnic_group').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_ethnic_group').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_ethnic_group').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_ethnic_group').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_ethnic_group').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_ethnic_group').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_religion', function() {
         if ($(this).is(":checked")) {
-            $('.sp_religion').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_religion').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_religion').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_religion').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_religion').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_religion').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_educational_attainment', function() {
         if ($(this).is(":checked")) {
-            $('.sp_educational_attainment').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_educational_attainment').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_educational_attainment').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_educational_attainment').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_educational_attainment').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_educational_attainment').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_occupation', function() {
         if ($(this).is(":checked")) {
-            $('.sp_occupation').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_occupation').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_occupation').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_occupation').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_occupation').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_occupation').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_classification', function() {
         if ($(this).is(":checked")) {
-            $('.sp_classification').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_classification').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_classification').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_classification').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_classification').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_classification').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_category', function() {
         if ($(this).is(":checked")) {
-            $('.sp_category').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_category').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_category').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_category').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_category').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_category').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_whereabouts', function() {
         if ($(this).is(":checked")) {
-            $('.sp_whereabouts').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_whereabouts').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_whereabouts').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_whereabouts').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_whereabouts').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_whereabouts').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_remarks', function() {
         if ($(this).is(":checked")) {
-            $('.sp_remarks').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") + 1;
-            $('#SP_suspect').prop("colspan", $iop2);
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_remarks').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_remarks').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
+                    $('#SP_suspect').attr('hidden', false);
+                    $('.sp_remarks').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_suspect').prop("colspan") + 1;
+                    $('#SP_suspect').prop("colspan", $iop2);
+                    $('.sp_remarks').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_remarks').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_suspect').prop("colspan") - 1;
-            $('#SP_suspect').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_suspect').prop("colspan") == 1) {
+                $('#SP_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#SP_suspect').prop("colspan") - 1;
+                $('#SP_suspect').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_seized_from', function() {
         if ($(this).is(":checked")) {
-            $('.sp_seized_from').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_item_seized').prop("colspan") + 1;
-            $('#SP_item_seized').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_item_seized').prop("colspan") == 1 && $('#SP_item_seized').is(":hidden") == true) {
+                    $('#SP_item_seized').attr('hidden', false);
+                    $('.sp_seized_from').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_item_seized').prop("colspan") + 1;
+                    $('#SP_item_seized').prop("colspan", $iop2);
+                    $('.sp_seized_from').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_item_seized').prop("colspan") == 1 && $('#SP_item_seized').is(":hidden") == true) {
+                    $('#SP_item_seized').attr('hidden', false);
+                    $('.sp_seized_from').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_item_seized').prop("colspan") + 1;
+                    $('#SP_item_seized').prop("colspan", $iop2);
+                    $('.sp_seized_from').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_seized_from').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_item_seized').prop("colspan") - 1;
-            $('#SP_item_seized').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_item_seized').prop("colspan") == 1) {
+                $('#SP_item_seized').attr('hidden', true);
+            } else {
+                $iop = $('#SP_item_seized').prop("colspan") - 1;
+                $('#SP_item_seized').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_drug', function() {
         if ($(this).is(":checked")) {
-            $('.sp_drug').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_item_seized').prop("colspan") + 1;
-            $('#SP_item_seized').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_item_seized').prop("colspan") == 1 && $('#SP_item_seized').is(":hidden") == true) {
+                    $('#SP_item_seized').attr('hidden', false);
+                    $('.sp_drug').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_item_seized').prop("colspan") + 1;
+                    $('#SP_item_seized').prop("colspan", $iop2);
+                    $('.sp_drug').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_item_seized').prop("colspan") == 1 && $('#SP_item_seized').is(":hidden") == true) {
+                    $('#SP_item_seized').attr('hidden', false);
+                    $('.sp_drug').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_item_seized').prop("colspan") + 1;
+                    $('#SP_item_seized').prop("colspan", $iop2);
+                    $('.sp_drug').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_drug').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_item_seized').prop("colspan") - 1;
-            $('#SP_item_seized').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_item_seized').prop("colspan") == 1) {
+                $('#SP_item_seized').attr('hidden', true);
+            } else {
+                $iop = $('#SP_item_seized').prop("colspan") - 1;
+                $('#SP_item_seized').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_evidence', function() {
         if ($(this).is(":checked")) {
-            $('.sp_evidence').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_item_seized').prop("colspan") + 1;
-            $('#SP_item_seized').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_item_seized').prop("colspan") == 1 && $('#SP_item_seized').is(":hidden") == true) {
+                    $('#SP_item_seized').attr('hidden', false);
+                    $('.sp_evidence').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_item_seized').prop("colspan") + 1;
+                    $('#SP_item_seized').prop("colspan", $iop2);
+                    $('.sp_evidence').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_item_seized').prop("colspan") == 1 && $('#SP_item_seized').is(":hidden") == true) {
+                    $('#SP_item_seized').attr('hidden', false);
+                    $('.sp_evidence').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_item_seized').prop("colspan") + 1;
+                    $('#SP_item_seized').prop("colspan", $iop2);
+                    $('.sp_evidence').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_evidence').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_item_seized').prop("colspan") - 1;
-            $('#SP_item_seized').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_item_seized').prop("colspan") == 1) {
+                $('#SP_item_seized').attr('hidden', true);
+            } else {
+                $iop = $('#SP_item_seized').prop("colspan") - 1;
+                $('#SP_item_seized').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_quantity', function() {
         if ($(this).is(":checked")) {
-            $('.sp_quantity').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_item_seized').prop("colspan") + 1;
-            $('#SP_item_seized').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_item_seized').prop("colspan") == 1 && $('#SP_item_seized').is(":hidden") == true) {
+                    $('#SP_item_seized').attr('hidden', false);
+                    $('.sp_quantity').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_item_seized').prop("colspan") + 1;
+                    $('#SP_item_seized').prop("colspan", $iop2);
+                    $('.sp_quantity').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_item_seized').prop("colspan") == 1 && $('#SP_item_seized').is(":hidden") == true) {
+                    $('#SP_item_seized').attr('hidden', false);
+                    $('.sp_quantity').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_item_seized').prop("colspan") + 1;
+                    $('#SP_item_seized').prop("colspan", $iop2);
+                    $('.sp_quantity').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_quantity').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_item_seized').prop("colspan") - 1;
-            $('#SP_item_seized').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_item_seized').prop("colspan") == 1) {
+                $('#SP_item_seized').attr('hidden', true);
+            } else {
+                $iop = $('#SP_item_seized').prop("colspan") - 1;
+                $('#SP_item_seized').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_unit', function() {
         if ($(this).is(":checked")) {
-            $('.sp_unit').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_item_seized').prop("colspan") + 1;
-            $('#SP_item_seized').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_item_seized').prop("colspan") == 1 && $('#SP_item_seized').is(":hidden") == true) {
+                    $('#SP_item_seized').attr('hidden', false);
+                    $('.sp_unit').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_item_seized').prop("colspan") + 1;
+                    $('#SP_item_seized').prop("colspan", $iop2);
+                    $('.sp_unit').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_item_seized').prop("colspan") == 1 && $('#SP_item_seized').is(":hidden") == true) {
+                    $('#SP_item_seized').attr('hidden', false);
+                    $('.sp_unit').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_item_seized').prop("colspan") + 1;
+                    $('#SP_item_seized').prop("colspan", $iop2);
+                    $('.sp_unit').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_unit').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_item_seized').prop("colspan") - 1;
-            $('#SP_item_seized').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_item_seized').prop("colspan") == 1) {
+                $('#SP_item_seized').attr('hidden', true);
+            } else {
+                $iop = $('#SP_item_seized').prop("colspan") - 1;
+                $('#SP_item_seized').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_packaging', function() {
         if ($(this).is(":checked")) {
-            $('.sp_packaging').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_item_seized').prop("colspan") + 1;
-            $('#SP_item_seized').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_item_seized').prop("colspan") == 1 && $('#SP_item_seized').is(":hidden") == true) {
+                    $('#SP_item_seized').attr('hidden', false);
+                    $('.sp_packaging').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_item_seized').prop("colspan") + 1;
+                    $('#SP_item_seized').prop("colspan", $iop2);
+                    $('.sp_packaging').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_item_seized').prop("colspan") == 1 && $('#SP_item_seized').is(":hidden") == true) {
+                    $('#SP_item_seized').attr('hidden', false);
+                    $('.sp_packaging').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_item_seized').prop("colspan") + 1;
+                    $('#SP_item_seized').prop("colspan", $iop2);
+                    $('.sp_packaging').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_packaging').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_item_seized').prop("colspan") - 1;
-            $('#SP_item_seized').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_item_seized').prop("colspan") == 1) {
+                $('#SP_item_seized').attr('hidden', true);
+            } else {
+                $iop = $('#SP_item_seized').prop("colspan") - 1;
+                $('#SP_item_seized').prop("colspan", $iop)
+            }
         }
     });
     $(document).on('click', '#sp_markings', function() {
         if ($(this).is(":checked")) {
-            $('.sp_markings').attr('hidden', false);
-            $iop = $('#SP').prop("colspan") + 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_item_seized').prop("colspan") + 1;
-            $('#SP_item_seized').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1 && $('#SP').is(":hidden") == true) {
+                $('#SP').attr('hidden', false);
+                if ($('#SP_item_seized').prop("colspan") == 1 && $('#SP_item_seized').is(":hidden") == true) {
+                    $('#SP_item_seized').attr('hidden', false);
+                    $('.sp_markings').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_item_seized').prop("colspan") + 1;
+                    $('#SP_item_seized').prop("colspan", $iop2);
+                    $('.sp_markings').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#SP').prop("colspan") + 1;
+                $('#SP').prop("colspan", $iop);
+                if ($('#SP_item_seized').prop("colspan") == 1 && $('#SP_item_seized').is(":hidden") == true) {
+                    $('#SP_item_seized').attr('hidden', false);
+                    $('.sp_markings').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#SP_item_seized').prop("colspan") + 1;
+                    $('#SP_item_seized').prop("colspan", $iop2);
+                    $('.sp_markings').attr('hidden', false);
+
+                }
+            }
         } else {
             $('.sp_markings').attr('hidden', true);
-            $iop = $('#SP').prop("colspan") - 1;
-            $('#SP').prop("colspan", $iop);
-            $iop2 = $('#SP_item_seized').prop("colspan") - 1;
-            $('#SP_item_seized').prop("colspan", $iop2)
+            if ($('#SP').prop("colspan") == 1) {
+                $('#SP').attr('hidden', true);
+            } else {
+                $iop = $('#SP').prop("colspan") - 1;
+                $('#SP').prop("colspan", $iop)
+            }
+
+            if ($('#SP_item_seized').prop("colspan") == 1) {
+                $('#SP_item_seized').attr('hidden', true);
+            } else {
+                $iop = $('#SP_item_seized').prop("colspan") - 1;
+                $('#SP_item_seized').prop("colspan", $iop)
+            }
         }
     });
     // $(document).on('click', '#sp_case_name', function() {
@@ -2413,6 +3504,1436 @@
         } else {
             $('.sp_prepared_by').attr('hidden', true);
             $iop = $('#SP').prop("colspan") - 1;
+        }
+    });
+
+    // Progress Report Menu
+
+    $(document).on('click', '#pr_suspect_name', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_suspect').prop("colspan") == 1 && $('#PR_suspect').is(":hidden") == true) {
+                    $('#PR_suspect').attr('hidden', false);
+                    $('.pr_suspect_name').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_suspect').prop("colspan") + 1;
+                    $('#PR_suspect').prop("colspan", $iop2);
+                    $('.pr_suspect_name').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_suspect').prop("colspan") == 1 && $('#PR_suspect').is(":hidden") == true) {
+                    $('#PR_suspect').attr('hidden', false);
+                    $('.pr_suspect_name').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_suspect').prop("colspan") + 1;
+                    $('#PR_suspect').prop("colspan", $iop2);
+                    $('.pr_suspect_name').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_suspect_name').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_suspect').prop("colspan") == 1) {
+                $('#PR_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#PR_suspect').prop("colspan") - 1;
+                $('#PR_suspect').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_suspect_classification', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_suspect').prop("colspan") == 1 && $('#PR_suspect').is(":hidden") == true) {
+                    $('#PR_suspect').attr('hidden', false);
+                    $('.pr_suspect_classification').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_suspect').prop("colspan") + 1;
+                    $('#PR_suspect').prop("colspan", $iop2);
+                    $('.pr_suspect_classification').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_suspect').prop("colspan") == 1 && $('#PR_suspect').is(":hidden") == true) {
+                    $('#PR_suspect').attr('hidden', false);
+                    $('.pr_suspect_classification').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_suspect').prop("colspan") + 1;
+                    $('#PR_suspect').prop("colspan", $iop2);
+                    $('.pr_suspect_classification').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_suspect_classification').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_suspect').prop("colspan") == 1) {
+                $('#PR_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#PR_suspect').prop("colspan") - 1;
+                $('#PR_suspect').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_suspect_status', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_suspect').prop("colspan") == 1 && $('#PR_suspect').is(":hidden") == true) {
+                    $('#PR_suspect').attr('hidden', false);
+                    $('.pr_suspect_status').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_suspect').prop("colspan") + 1;
+                    $('#PR_suspect').prop("colspan", $iop2);
+                    $('.pr_suspect_status').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_suspect').prop("colspan") == 1 && $('#PR_suspect').is(":hidden") == true) {
+                    $('#PR_suspect').attr('hidden', false);
+                    $('.pr_suspect_status').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_suspect').prop("colspan") + 1;
+                    $('#PR_suspect').prop("colspan", $iop2);
+                    $('.pr_suspect_status').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_suspect_status').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_suspect').prop("colspan") == 1) {
+                $('#PR_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#PR_suspect').prop("colspan") - 1;
+                $('#PR_suspect').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_drug_test_result', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_suspect').prop("colspan") == 1 && $('#PR_suspect').is(":hidden") == true) {
+                    $('#PR_suspect').attr('hidden', false);
+                    $('.pr_drug_test_result').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_suspect').prop("colspan") + 1;
+                    $('#PR_suspect').prop("colspan", $iop2);
+                    $('.pr_drug_test_result').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_suspect').prop("colspan") == 1 && $('#PR_suspect').is(":hidden") == true) {
+                    $('#PR_suspect').attr('hidden', false);
+                    $('.pr_drug_test_result').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_suspect').prop("colspan") + 1;
+                    $('#PR_suspect').prop("colspan", $iop2);
+                    $('.pr_drug_test_result').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_drug_test_result').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_suspect').prop("colspan") == 1) {
+                $('#PR_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#PR_suspect').prop("colspan") - 1;
+                $('#PR_suspect').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_drug_type', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_suspect').prop("colspan") == 1 && $('#PR_suspect').is(":hidden") == true) {
+                    $('#PR_suspect').attr('hidden', false);
+                    $('.pr_drug_type').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_suspect').prop("colspan") + 1;
+                    $('#PR_suspect').prop("colspan", $iop2);
+                    $('.pr_drug_type').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_suspect').prop("colspan") == 1 && $('#PR_suspect').is(":hidden") == true) {
+                    $('#PR_suspect').attr('hidden', false);
+                    $('.pr_drug_type').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_suspect').prop("colspan") + 1;
+                    $('#PR_suspect').prop("colspan", $iop2);
+                    $('.pr_drug_type').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_drug_type').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_suspect').prop("colspan") == 1) {
+                $('#PR_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#PR_suspect').prop("colspan") - 1;
+                $('#PR_suspect').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_remarks', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_suspect').prop("colspan") == 1 && $('#PR_suspect').is(":hidden") == true) {
+                    $('#PR_suspect').attr('hidden', false);
+                    $('.pr_remarks').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_suspect').prop("colspan") + 1;
+                    $('#PR_suspect').prop("colspan", $iop2);
+                    $('.pr_remarks').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_suspect').prop("colspan") == 1 && $('#PR_suspect').is(":hidden") == true) {
+                    $('#PR_suspect').attr('hidden', false);
+                    $('.pr_remarks').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_suspect').prop("colspan") + 1;
+                    $('#PR_suspect').prop("colspan", $iop2);
+                    $('.pr_remarks').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_remarks').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_suspect').prop("colspan") == 1) {
+                $('#PR_suspect').attr('hidden', true);
+            } else {
+                $iop = $('#PR_suspect').prop("colspan") - 1;
+                $('#PR_suspect').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_drug_seized', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_IS').prop("colspan") == 1 && $('#PR_IS').is(":hidden") == true) {
+                    $('#PR_IS').attr('hidden', false);
+                    $('.pr_drug_seized').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_IS').prop("colspan") + 1;
+                    $('#PR_IS').prop("colspan", $iop2);
+                    $('.pr_drug_seized').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_IS').prop("colspan") == 1 && $('#PR_IS').is(":hidden") == true) {
+                    $('#PR_IS').attr('hidden', false);
+                    $('.pr_drug_seized').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_IS').prop("colspan") + 1;
+                    $('#PR_IS').prop("colspan", $iop2);
+                    $('.pr_drug_seized').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_drug_seized').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_IS').prop("colspan") == 1) {
+                $('#PR_IS').attr('hidden', true);
+            } else {
+                $iop = $('#PR_IS').prop("colspan") - 1;
+                $('#PR_IS').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_qty_onsite', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_IS').prop("colspan") == 1 && $('#PR_IS').is(":hidden") == true) {
+                    $('#PR_IS').attr('hidden', false);
+                    $('.pr_qty_onsite').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_IS').prop("colspan") + 1;
+                    $('#PR_IS').prop("colspan", $iop2);
+                    $('.pr_qty_onsite').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_IS').prop("colspan") == 1 && $('#PR_IS').is(":hidden") == true) {
+                    $('#PR_IS').attr('hidden', false);
+                    $('.pr_qty_onsite').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_IS').prop("colspan") + 1;
+                    $('#PR_IS').prop("colspan", $iop2);
+                    $('.pr_qty_onsite').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_qty_onsite').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_IS').prop("colspan") == 1) {
+                $('#PR_IS').attr('hidden', true);
+            } else {
+                $iop = $('#PR_IS').prop("colspan") - 1;
+                $('#PR_IS').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_actual_qty', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_IS').prop("colspan") == 1 && $('#PR_IS').is(":hidden") == true) {
+                    $('#PR_IS').attr('hidden', false);
+                    $('.pr_actual_qty').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_IS').prop("colspan") + 1;
+                    $('#PR_IS').prop("colspan", $iop2);
+                    $('.pr_actual_qty').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_IS').prop("colspan") == 1 && $('#PR_IS').is(":hidden") == true) {
+                    $('#PR_IS').attr('hidden', false);
+                    $('.pr_actual_qty').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_IS').prop("colspan") + 1;
+                    $('#PR_IS').prop("colspan", $iop2);
+                    $('.pr_actual_qty').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_actual_qty').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_IS').prop("colspan") == 1) {
+                $('#PR_IS').attr('hidden', true);
+            } else {
+                $iop = $('#PR_IS').prop("colspan") - 1;
+                $('#PR_IS').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_unit', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_IS').prop("colspan") == 1 && $('#PR_IS').is(":hidden") == true) {
+                    $('#PR_IS').attr('hidden', false);
+                    $('.pr_unit').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_IS').prop("colspan") + 1;
+                    $('#PR_IS').prop("colspan", $iop2);
+                    $('.pr_unit').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_IS').prop("colspan") == 1 && $('#PR_IS').is(":hidden") == true) {
+                    $('#PR_IS').attr('hidden', false);
+                    $('.pr_unit').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_IS').prop("colspan") + 1;
+                    $('#PR_IS').prop("colspan", $iop2);
+                    $('.pr_unit').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_unit').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_IS').prop("colspan") == 1) {
+                $('#PR_IS').attr('hidden', true);
+            } else {
+                $iop = $('#PR_IS').prop("colspan") - 1;
+                $('#PR_IS').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_id_drug_test_result', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_IS').prop("colspan") == 1 && $('#PR_IS').is(":hidden") == true) {
+                    $('#PR_IS').attr('hidden', false);
+                    $('.pr_id_drug_test_result').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_IS').prop("colspan") + 1;
+                    $('#PR_IS').prop("colspan", $iop2);
+                    $('.pr_id_drug_test_result').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_IS').prop("colspan") == 1 && $('#PR_IS').is(":hidden") == true) {
+                    $('#PR_IS').attr('hidden', false);
+                    $('.pr_id_drug_test_result').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_IS').prop("colspan") + 1;
+                    $('#PR_IS').prop("colspan", $iop2);
+                    $('.pr_id_drug_test_result').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_id_drug_test_result').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_IS').prop("colspan") == 1) {
+                $('#PR_IS').attr('hidden', true);
+            } else {
+                $iop = $('#PR_IS').prop("colspan") - 1;
+                $('#PR_IS').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_id_cr_number', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_IS').prop("colspan") == 1 && $('#PR_IS').is(":hidden") == true) {
+                    $('#PR_IS').attr('hidden', false);
+                    $('.pr_id_cr_number').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_IS').prop("colspan") + 1;
+                    $('#PR_IS').prop("colspan", $iop2);
+                    $('.pr_id_cr_number').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_IS').prop("colspan") == 1 && $('#PR_IS').is(":hidden") == true) {
+                    $('#PR_IS').attr('hidden', false);
+                    $('.pr_id_cr_number').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_IS').prop("colspan") + 1;
+                    $('#PR_IS').prop("colspan", $iop2);
+                    $('.pr_id_cr_number').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_id_cr_number').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_IS').prop("colspan") == 1) {
+                $('#PR_IS').attr('hidden', true);
+            } else {
+                $iop = $('#PR_IS').prop("colspan") - 1;
+                $('#PR_IS').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_id_laboratory', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_IS').prop("colspan") == 1 && $('#PR_IS').is(":hidden") == true) {
+                    $('#PR_IS').attr('hidden', false);
+                    $('.pr_id_laboratory').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_IS').prop("colspan") + 1;
+                    $('#PR_IS').prop("colspan", $iop2);
+                    $('.pr_id_laboratory').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_IS').prop("colspan") == 1 && $('#PR_IS').is(":hidden") == true) {
+                    $('#PR_IS').attr('hidden', false);
+                    $('.pr_id_laboratory').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_IS').prop("colspan") + 1;
+                    $('#PR_IS').prop("colspan", $iop2);
+                    $('.pr_id_laboratory').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_id_laboratory').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_IS').prop("colspan") == 1) {
+                $('#PR_IS').attr('hidden', true);
+            } else {
+                $iop = $('#PR_IS').prop("colspan") - 1;
+                $('#PR_IS').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_cf_suspect_name', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_CASE').prop("colspan") == 1 && $('#PR_CASE').is(":hidden") == true) {
+                    $('#PR_CASE').attr('hidden', false);
+                    $('.pr_cf_suspect_name').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_CASE').prop("colspan") + 1;
+                    $('#PR_CASE').prop("colspan", $iop2);
+                    $('.pr_cf_suspect_name').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_CASE').prop("colspan") == 1 && $('#PR_CASE').is(":hidden") == true) {
+                    $('#PR_CASE').attr('hidden', false);
+                    $('.pr_cf_suspect_name').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_CASE').prop("colspan") + 1;
+                    $('#PR_CASE').prop("colspan", $iop2);
+                    $('.pr_cf_suspect_name').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_cf_suspect_name').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_CASE').prop("colspan") == 1) {
+                $('#PR_CASE').attr('hidden', true);
+            } else {
+                $iop = $('#PR_CASE').prop("colspan") - 1;
+                $('#PR_CASE').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_cf_case', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_CASE').prop("colspan") == 1 && $('#PR_CASE').is(":hidden") == true) {
+                    $('#PR_CASE').attr('hidden', false);
+                    $('.pr_cf_case').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_CASE').prop("colspan") + 1;
+                    $('#PR_CASE').prop("colspan", $iop2);
+                    $('.pr_cf_case').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_CASE').prop("colspan") == 1 && $('#PR_CASE').is(":hidden") == true) {
+                    $('#PR_CASE').attr('hidden', false);
+                    $('.pr_cf_case').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_CASE').prop("colspan") + 1;
+                    $('#PR_CASE').prop("colspan", $iop2);
+                    $('.pr_cf_case').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_cf_case').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_CASE').prop("colspan") == 1) {
+                $('#PR_CASE').attr('hidden', true);
+            } else {
+                $iop = $('#PR_CASE').prop("colspan") - 1;
+                $('#PR_CASE').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_cf_docket_number', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_CASE').prop("colspan") == 1 && $('#PR_CASE').is(":hidden") == true) {
+                    $('#PR_CASE').attr('hidden', false);
+                    $('.pr_cf_docket_number').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_CASE').prop("colspan") + 1;
+                    $('#PR_CASE').prop("colspan", $iop2);
+                    $('.pr_cf_docket_number').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_CASE').prop("colspan") == 1 && $('#PR_CASE').is(":hidden") == true) {
+                    $('#PR_CASE').attr('hidden', false);
+                    $('.pr_cf_docket_number').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_CASE').prop("colspan") + 1;
+                    $('#PR_CASE').prop("colspan", $iop2);
+                    $('.pr_cf_docket_number').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_cf_docket_number').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_CASE').prop("colspan") == 1) {
+                $('#PR_CASE').attr('hidden', true);
+            } else {
+                $iop = $('#PR_CASE').prop("colspan") - 1;
+                $('#PR_CASE').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_cf_status', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_CASE').prop("colspan") == 1 && $('#PR_CASE').is(":hidden") == true) {
+                    $('#PR_CASE').attr('hidden', false);
+                    $('.pr_cf_status').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_CASE').prop("colspan") + 1;
+                    $('#PR_CASE').prop("colspan", $iop2);
+                    $('.pr_cf_status').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_CASE').prop("colspan") == 1 && $('#PR_CASE').is(":hidden") == true) {
+                    $('#PR_CASE').attr('hidden', false);
+                    $('.pr_cf_status').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_CASE').prop("colspan") + 1;
+                    $('#PR_CASE').prop("colspan", $iop2);
+                    $('.pr_cf_status').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_cf_status').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_CASE').prop("colspan") == 1) {
+                $('#PR_CASE').attr('hidden', true);
+            } else {
+                $iop = $('#PR_CASE').prop("colspan") - 1;
+                $('#PR_CASE').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_inquest_status', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_INQUEST').prop("colspan") == 1 && $('#PR_INQUEST').is(":hidden") == true) {
+                    $('#PR_INQUEST').attr('hidden', false);
+                    $('.pr_inquest_status').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_INQUEST').prop("colspan") + 1;
+                    $('#PR_INQUEST').prop("colspan", $iop2);
+                    $('.pr_inquest_status').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_INQUEST').prop("colspan") == 1 && $('#PR_INQUEST').is(":hidden") == true) {
+                    $('#PR_INQUEST').attr('hidden', false);
+                    $('.pr_inquest_status').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_INQUEST').prop("colspan") + 1;
+                    $('#PR_INQUEST').prop("colspan", $iop2);
+                    $('.pr_inquest_status').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_inquest_status').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_INQUEST').prop("colspan") == 1) {
+                $('#PR_INQUEST').attr('hidden', true);
+            } else {
+                $iop = $('#PR_INQUEST').prop("colspan") - 1;
+                $('#PR_INQUEST').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_inquest_nps', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_INQUEST').prop("colspan") == 1 && $('#PR_INQUEST').is(":hidden") == true) {
+                    $('#PR_INQUEST').attr('hidden', false);
+                    $('.pr_inquest_nps').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_INQUEST').prop("colspan") + 1;
+                    $('#PR_INQUEST').prop("colspan", $iop2);
+                    $('.pr_inquest_nps').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_INQUEST').prop("colspan") == 1 && $('#PR_INQUEST').is(":hidden") == true) {
+                    $('#PR_INQUEST').attr('hidden', false);
+                    $('.pr_inquest_nps').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_INQUEST').prop("colspan") + 1;
+                    $('#PR_INQUEST').prop("colspan", $iop2);
+                    $('.pr_inquest_nps').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_inquest_nps').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_INQUEST').prop("colspan") == 1) {
+                $('#PR_INQUEST').attr('hidden', true);
+            } else {
+                $iop = $('#PR_INQUEST').prop("colspan") - 1;
+                $('#PR_INQUEST').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_inquest_date', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_INQUEST').prop("colspan") == 1 && $('#PR_INQUEST').is(":hidden") == true) {
+                    $('#PR_INQUEST').attr('hidden', false);
+                    $('.pr_inquest_date').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_INQUEST').prop("colspan") + 1;
+                    $('#PR_INQUEST').prop("colspan", $iop2);
+                    $('.pr_inquest_date').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_INQUEST').prop("colspan") == 1 && $('#PR_INQUEST').is(":hidden") == true) {
+                    $('#PR_INQUEST').attr('hidden', false);
+                    $('.pr_inquest_date').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_INQUEST').prop("colspan") + 1;
+                    $('#PR_INQUEST').prop("colspan", $iop2);
+                    $('.pr_inquest_date').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_inquest_date').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_INQUEST').prop("colspan") == 1) {
+                $('#PR_INQUEST').attr('hidden', true);
+            } else {
+                $iop = $('#PR_INQUEST').prop("colspan") - 1;
+                $('#PR_INQUEST').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_inquest_prosecutor', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_INQUEST').prop("colspan") == 1 && $('#PR_INQUEST').is(":hidden") == true) {
+                    $('#PR_INQUEST').attr('hidden', false);
+                    $('.pr_inquest_prosecutor').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_INQUEST').prop("colspan") + 1;
+                    $('#PR_INQUEST').prop("colspan", $iop2);
+                    $('.pr_inquest_prosecutor').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_INQUEST').prop("colspan") == 1 && $('#PR_INQUEST').is(":hidden") == true) {
+                    $('#PR_INQUEST').attr('hidden', false);
+                    $('.pr_inquest_prosecutor').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_INQUEST').prop("colspan") + 1;
+                    $('#PR_INQUEST').prop("colspan", $iop2);
+                    $('.pr_inquest_prosecutor').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_inquest_prosecutor').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_INQUEST').prop("colspan") == 1) {
+                $('#PR_INQUEST').attr('hidden', true);
+            } else {
+                $iop = $('#PR_INQUEST').prop("colspan") - 1;
+                $('#PR_INQUEST').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_inquest_office', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_INQUEST').prop("colspan") == 1 && $('#PR_INQUEST').is(":hidden") == true) {
+                    $('#PR_INQUEST').attr('hidden', false);
+                    $('.pr_inquest_office').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_INQUEST').prop("colspan") + 1;
+                    $('#PR_INQUEST').prop("colspan", $iop2);
+                    $('.pr_inquest_office').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_INQUEST').prop("colspan") == 1 && $('#PR_INQUEST').is(":hidden") == true) {
+                    $('#PR_INQUEST').attr('hidden', false);
+                    $('.pr_inquest_office').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_INQUEST').prop("colspan") + 1;
+                    $('#PR_INQUEST').prop("colspan", $iop2);
+                    $('.pr_inquest_office').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_inquest_office').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_INQUEST').prop("colspan") == 1) {
+                $('#PR_INQUEST').attr('hidden', true);
+            } else {
+                $iop = $('#PR_INQUEST').prop("colspan") - 1;
+                $('#PR_INQUEST').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_prelim_status', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_PRELIM').prop("colspan") == 1 && $('#PR_PRELIM').is(":hidden") == true) {
+                    $('#PR_PRELIM').attr('hidden', false);
+                    $('.pr_prelim_status').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_PRELIM').prop("colspan") + 1;
+                    $('#PR_PRELIM').prop("colspan", $iop2);
+                    $('.pr_prelim_status').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_PRELIM').prop("colspan") == 1 && $('#PR_PRELIM').is(":hidden") == true) {
+                    $('#PR_PRELIM').attr('hidden', false);
+                    $('.pr_prelim_status').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_PRELIM').prop("colspan") + 1;
+                    $('#PR_PRELIM').prop("colspan", $iop2);
+                    $('.pr_prelim_status').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_prelim_status').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_PRELIM').prop("colspan") == 1) {
+                $('#PR_PRELIM').attr('hidden', true);
+            } else {
+                $iop = $('#PR_PRELIM').prop("colspan") - 1;
+                $('#PR_PRELIM').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_prelim_date', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_PRELIM').prop("colspan") == 1 && $('#PR_PRELIM').is(":hidden") == true) {
+                    $('#PR_PRELIM').attr('hidden', false);
+                    $('.pr_prelim_date').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_PRELIM').prop("colspan") + 1;
+                    $('#PR_PRELIM').prop("colspan", $iop2);
+                    $('.pr_prelim_date').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_PRELIM').prop("colspan") == 1 && $('#PR_PRELIM').is(":hidden") == true) {
+                    $('#PR_PRELIM').attr('hidden', false);
+                    $('.pr_prelim_date').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_PRELIM').prop("colspan") + 1;
+                    $('#PR_PRELIM').prop("colspan", $iop2);
+                    $('.pr_prelim_date').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_prelim_date').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_PRELIM').prop("colspan") == 1) {
+                $('#PR_PRELIM').attr('hidden', true);
+            } else {
+                $iop = $('#PR_PRELIM').prop("colspan") - 1;
+                $('#PR_PRELIM').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_prelim_nps', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_PRELIM').prop("colspan") == 1 && $('#PR_PRELIM').is(":hidden") == true) {
+                    $('#PR_PRELIM').attr('hidden', false);
+                    $('.pr_prelim_nps').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_PRELIM').prop("colspan") + 1;
+                    $('#PR_PRELIM').prop("colspan", $iop2);
+                    $('.pr_prelim_nps').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_PRELIM').prop("colspan") == 1 && $('#PR_PRELIM').is(":hidden") == true) {
+                    $('#PR_PRELIM').attr('hidden', false);
+                    $('.pr_prelim_nps').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_PRELIM').prop("colspan") + 1;
+                    $('#PR_PRELIM').prop("colspan", $iop2);
+                    $('.pr_prelim_nps').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_prelim_nps').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_PRELIM').prop("colspan") == 1) {
+                $('#PR_PRELIM').attr('hidden', true);
+            } else {
+                $iop = $('#PR_PRELIM').prop("colspan") - 1;
+                $('#PR_PRELIM').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_prelim_prosecutor', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_PRELIM').prop("colspan") == 1 && $('#PR_PRELIM').is(":hidden") == true) {
+                    $('#PR_PRELIM').attr('hidden', false);
+                    $('.pr_prelim_prosecutor').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_PRELIM').prop("colspan") + 1;
+                    $('#PR_PRELIM').prop("colspan", $iop2);
+                    $('.pr_prelim_prosecutor').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_PRELIM').prop("colspan") == 1 && $('#PR_PRELIM').is(":hidden") == true) {
+                    $('#PR_PRELIM').attr('hidden', false);
+                    $('.pr_prelim_prosecutor').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_PRELIM').prop("colspan") + 1;
+                    $('#PR_PRELIM').prop("colspan", $iop2);
+                    $('.pr_prelim_prosecutor').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_prelim_prosecutor').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_PRELIM').prop("colspan") == 1) {
+                $('#PR_PRELIM').attr('hidden', true);
+            } else {
+                $iop = $('#PR_PRELIM').prop("colspan") - 1;
+                $('#PR_PRELIM').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#pr_prelim_office', function() {
+        if ($(this).is(":checked")) {
+            if ($('#PR').prop("colspan") == 1 && $('#PR').is(":hidden") == true) {
+                $('#PR').attr('hidden', false);
+                if ($('#PR_PRELIM').prop("colspan") == 1 && $('#PR_PRELIM').is(":hidden") == true) {
+                    $('#PR_PRELIM').attr('hidden', false);
+                    $('.pr_prelim_office').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_PRELIM').prop("colspan") + 1;
+                    $('#PR_PRELIM').prop("colspan", $iop2);
+                    $('.pr_prelim_office').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#PR').prop("colspan") + 1;
+                $('#PR').prop("colspan", $iop);
+                if ($('#PR_PRELIM').prop("colspan") == 1 && $('#PR_PRELIM').is(":hidden") == true) {
+                    $('#PR_PRELIM').attr('hidden', false);
+                    $('.pr_prelim_office').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#PR_PRELIM').prop("colspan") + 1;
+                    $('#PR_PRELIM').prop("colspan", $iop2);
+                    $('.pr_prelim_office').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.pr_prelim_office').attr('hidden', true);
+            if ($('#PR').prop("colspan") == 1) {
+                $('#PR').attr('hidden', true);
+            } else {
+                $iop = $('#PR').prop("colspan") - 1;
+                $('#PR').prop("colspan", $iop)
+            }
+
+            if ($('#PR_PRELIM').prop("colspan") == 1) {
+                $('#PR_PRELIM').attr('hidden', true);
+            } else {
+                $iop = $('#PR_PRELIM').prop("colspan") - 1;
+                $('#PR_PRELIM').prop("colspan", $iop)
+            }
+        }
+    });
+
+    // Drug Verification Menu
+
+    $(document).on('click', '#dv_suspect_name', function() {
+        if ($(this).is(":checked")) {
+            if ($('#DV').prop("colspan") == 1 && $('#DV').is(":hidden") == true) {
+                $('#DV').attr('hidden', false);
+                if ($('#DV_HIO').prop("colspan") == 1 && $('#DV_HIO').is(":hidden") == true) {
+                    $('#DV_HIO').attr('hidden', false);
+                    $('.dv_suspect_name').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#DV_HIO').prop("colspan") + 1;
+                    $('#DV_HIO').prop("colspan", $iop2);
+                    $('.dv_suspect_name').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#DV').prop("colspan") + 1;
+                $('#DV').prop("colspan", $iop);
+                if ($('#DV_HIO').prop("colspan") == 1 && $('#DV_HIO').is(":hidden") == true) {
+                    $('#DV_HIO').attr('hidden', false);
+                    $('.dv_suspect_name').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#DV_HIO').prop("colspan") + 1;
+                    $('#DV_HIO').prop("colspan", $iop2);
+                    $('.dv_suspect_name').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.dv_suspect_name').attr('hidden', true);
+            if ($('#DV').prop("colspan") == 1) {
+                $('#DV').attr('hidden', true);
+            } else {
+                $iop = $('#DV').prop("colspan") - 1;
+                $('#DV').prop("colspan", $iop)
+            }
+
+            if ($('#DV_HIO').prop("colspan") == 1) {
+                $('#DV_HIO').attr('hidden', true);
+            } else {
+                $iop = $('#DV_HIO').prop("colspan") - 1;
+                $('#DV_HIO').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#dv_listed', function() {
+        if ($(this).is(":checked")) {
+            if ($('#DV').prop("colspan") == 1 && $('#DV').is(":hidden") == true) {
+                $('#DV').attr('hidden', false);
+                if ($('#DV_HIO').prop("colspan") == 1 && $('#DV_HIO').is(":hidden") == true) {
+                    $('#DV_HIO').attr('hidden', false);
+                    $('.dv_listed').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#DV_HIO').prop("colspan") + 1;
+                    $('#DV_HIO').prop("colspan", $iop2);
+                    $('.dv_listed').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#DV').prop("colspan") + 1;
+                $('#DV').prop("colspan", $iop);
+                if ($('#DV_HIO').prop("colspan") == 1 && $('#DV_HIO').is(":hidden") == true) {
+                    $('#DV_HIO').attr('hidden', false);
+                    $('.dv_listed').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#DV_HIO').prop("colspan") + 1;
+                    $('#DV_HIO').prop("colspan", $iop2);
+                    $('.dv_listed').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.dv_listed').attr('hidden', true);
+            if ($('#DV').prop("colspan") == 1) {
+                $('#DV').attr('hidden', true);
+            } else {
+                $iop = $('#DV').prop("colspan") - 1;
+                $('#DV').prop("colspan", $iop)
+            }
+
+            if ($('#DV_HIO').prop("colspan") == 1) {
+                $('#DV_HIO').attr('hidden', true);
+            } else {
+                $iop = $('#DV_HIO').prop("colspan") - 1;
+                $('#DV_HIO').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#dv_ndis', function() {
+        if ($(this).is(":checked")) {
+            if ($('#DV').prop("colspan") == 1 && $('#DV').is(":hidden") == true) {
+                $('#DV').attr('hidden', false);
+                if ($('#DV_HIO').prop("colspan") == 1 && $('#DV_HIO').is(":hidden") == true) {
+                    $('#DV_HIO').attr('hidden', false);
+                    $('.dv_ndis').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#DV_HIO').prop("colspan") + 1;
+                    $('#DV_HIO').prop("colspan", $iop2);
+                    $('.dv_ndis').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#DV').prop("colspan") + 1;
+                $('#DV').prop("colspan", $iop);
+                if ($('#DV_HIO').prop("colspan") == 1 && $('#DV_HIO').is(":hidden") == true) {
+                    $('#DV_HIO').attr('hidden', false);
+                    $('.dv_ndis').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#DV_HIO').prop("colspan") + 1;
+                    $('#DV_HIO').prop("colspan", $iop2);
+                    $('.dv_ndis').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.dv_ndis').attr('hidden', true);
+            if ($('#DV').prop("colspan") == 1) {
+                $('#DV').attr('hidden', true);
+            } else {
+                $iop = $('#DV').prop("colspan") - 1;
+                $('#DV').prop("colspan", $iop)
+            }
+
+            if ($('#DV_HIO').prop("colspan") == 1) {
+                $('#DV_HIO').attr('hidden', true);
+            } else {
+                $iop = $('#DV_HIO').prop("colspan") - 1;
+                $('#DV_HIO').prop("colspan", $iop)
+            }
+        }
+    });
+
+    $(document).on('click', '#dv_remarks', function() {
+        if ($(this).is(":checked")) {
+            if ($('#DV').prop("colspan") == 1 && $('#DV').is(":hidden") == true) {
+                $('#DV').attr('hidden', false);
+                if ($('#DV_HIO').prop("colspan") == 1 && $('#DV_HIO').is(":hidden") == true) {
+                    $('#DV_HIO').attr('hidden', false);
+                    $('.dv_remarks').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#DV_HIO').prop("colspan") + 1;
+                    $('#DV_HIO').prop("colspan", $iop2);
+                    $('.dv_remarks').attr('hidden', false);
+
+                }
+            } else {
+                $iop = $('#DV').prop("colspan") + 1;
+                $('#DV').prop("colspan", $iop);
+                if ($('#DV_HIO').prop("colspan") == 1 && $('#DV_HIO').is(":hidden") == true) {
+                    $('#DV_HIO').attr('hidden', false);
+                    $('.dv_remarks').attr('hidden', false);
+
+                } else {
+                    $iop2 = $('#DV_HIO').prop("colspan") + 1;
+                    $('#DV_HIO').prop("colspan", $iop2);
+                    $('.dv_remarks').attr('hidden', false);
+
+                }
+            }
+        } else {
+            $('.dv_remarks').attr('hidden', true);
+            if ($('#DV').prop("colspan") == 1) {
+                $('#DV').attr('hidden', true);
+            } else {
+                $iop = $('#DV').prop("colspan") - 1;
+                $('#DV').prop("colspan", $iop)
+            }
+
+            if ($('#DV_HIO').prop("colspan") == 1) {
+                $('#DV_HIO').attr('hidden', true);
+            } else {
+                $iop = $('#DV_HIO').prop("colspan") - 1;
+                $('#DV_HIO').prop("colspan", $iop)
+            }
         }
     });
 </script>
