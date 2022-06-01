@@ -48,7 +48,7 @@
                     <select id="operating_unit_id" name="operating_unit_id" class="form-control @error('operating_unit') is-invalid @enderror">
                         <option value='' disabled selected>Select Option</option>
                         @foreach($operating_unit as $ou)
-                        <option value="{{ $ou->id }}">{{ $ou->name }}</option>
+                        <option value="{{ $ou->id }}">{{ $ou->description }}</option>
                         @endforeach
                     </select>
                 </div>

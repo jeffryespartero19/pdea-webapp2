@@ -120,7 +120,7 @@
                             <select id="operating_unit_id" name="operating_unit_id" class="form-control @error('operating unit') is-invalid @enderror" required>
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach($operating_unit as $ou)
-                                <option value="{{ $ou->id }}">{{ $ou->name }}</option>
+                                <option value="{{ $ou->id }}">{{ $ou->description }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -148,7 +148,7 @@
                             <select name="support_unit_id[]" class="form-control @error('operation type') is-invalid @enderror support_unit_id">
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach($operating_unit as $ou)
-                                <option value="{{ $ou->id }}">{{ $ou->name }}</option>
+                                <option value="{{ $ou->id }}">{{ $ou->description }}</option>
                                 @endforeach
                             </select>
                             <a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>

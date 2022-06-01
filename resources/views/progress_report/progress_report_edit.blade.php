@@ -75,7 +75,7 @@
                             <label for="">Operating Unit</label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="operating_unit" type="text" class="form-control" style="pointer-events: none; background-color : #e9ecef; " value="{{$operating_unit[0]->name}}">
+                            <input id="operating_unit" type="text" class="form-control" style="pointer-events: none; background-color : #e9ecef; " value="{{$operating_unit[0]->description}}">
                         </div>
                     </div>
                     <div class="form-group col-4" style="margin: 0px;">

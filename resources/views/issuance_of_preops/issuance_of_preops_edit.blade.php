@@ -120,7 +120,7 @@
                                 >
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach($operating_unit as $ou)
-                                <option value="{{ $ou->id }}" {{ $ou->id == $issuance_of_preops[0]->operating_unit_id ? 'selected' : '' }}>{{ $ou->name }}</option>
+                                <option value="{{ $ou->id }}" {{ $ou->id == $issuance_of_preops[0]->operating_unit_id ? 'selected' : '' }}>{{ $ou->description }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -160,7 +160,7 @@
                                 >
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach($operating_unit as $ous)
-                                <option value="{{ $ous->id }}" {{ $ous->id == $psu->support_unit_id ? 'selected' : '' }}>{{ $ous->name }}</option>
+                                <option value="{{ $ous->id }}" {{ $ous->id == $psu->support_unit_id ? 'selected' : '' }}>{{ $ous->description }}</option>
                                 @endforeach
                             </select>
                             <a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
@@ -174,7 +174,7 @@
                             <select name="support_unit_id[]" class="form-control support_unit_id">
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach($operating_unit as $ou)
-                                <option value="{{ $ou->id }}">{{ $ou->name }}</option>
+                                <option value="{{ $ou->id }}">{{ $ou->description }}</option>
                                 @endforeach
                             </select>
                             <a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>

@@ -53,7 +53,7 @@ class IssuanceOfPreopsController extends Controller
         }
 
         $region = DB::table('region')->orderby('region_sort', 'asc')->get();
-        $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
+        $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('description', 'asc')->get();
         $operation_type = DB::table('operation_type')->where('status', true)->where('operation_classification_id', 2)->orderby('name', 'asc')->get();
 
 

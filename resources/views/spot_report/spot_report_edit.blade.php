@@ -244,7 +244,7 @@
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach ($operating_unit as $ou)
                                 <option value="{{ $ou->id }}" {{ $ou->id == $spot_report_header[0]->operating_unit_id ? 'selected' : '' }}>
-                                    {{ $ou->name }}
+                                    {{ $ou->description }}
                                 </option>
                                 @endforeach
                             </select>
@@ -266,7 +266,7 @@
                                     <option value='' disabled selected>Select Option</option>
                                     @foreach ($operating_unit as $su)
                                     <option value="{{ $su->id }}" {{ $su->id == $psu->support_unit_id ? 'selected' : '' }}>
-                                        {{ $su->name }}
+                                        {{ $su->description }}
                                     </option>
                                     @endforeach
                                 </select>
@@ -1980,7 +1980,7 @@
 
         html = '<div class="input-group mb-3 su_options">';
         html += '<select name="support_unit_id[]" class="form-control" required>';
-        html += '<option value="" disabled selected>Select Option</option>@foreach($operating_unit as $su)<option value="{{ $su->id }}">{{ $su->name }}</option>@endforeach';
+        html += '<option value="" disabled selected>Select Option</option>@foreach($operating_unit as $su)<option value="{{ $su->id }}">{{ $su->description }}</option>@endforeach';
         html += '</select>';
         html += '<a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
         html += '</div>';
