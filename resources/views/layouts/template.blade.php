@@ -260,487 +260,540 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "user_list" && $accessmenu->status == true)
                                 <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="user_list" href="{{ route('list') }}" class="nav-link" onclick="setactive('cpm','user_list')">
+                                    <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Users List</p>
+                                        <p>
+                                            Operation Details
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
                                     </a>
+                                    <ul class="nav nav-treeview">
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "operation_category" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="operation_category_list_setup" href="{{ route('operation_category_list') }}" class="nav-link" onclick="setactive('cpm','operation_category_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Operation Category</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "operation_classification" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="operation_classification_list_setup" href="{{ route('operation_classification_list') }}" class="nav-link" onclick="setactive('cpm','operation_classification_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Operation Classification</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "operation_type" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="operation_type_list_setup" href="{{ route('operation_type_list') }}" class="nav-link" onclick="setactive('cpm','operation_type_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Operation Type</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "operating_unit" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="operating_unit_list_setup" href="{{ route('operating_unit_list') }}" class="nav-link" onclick="setactive('cpm','operating_unit_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Operating Unit Setup</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "officer_position" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="officer_position_list_setup" href="{{ route('officer_position_list') }}" class="nav-link" onclick="setactive('cpm','officer_position_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Officer Position</p>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "user_activities" && $accessmenu->status == true)
                                 <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="user_activities" href="{{ route('audits') }}" class="nav-link" onclick="setactive('cpm','user_activities')">
-                                        <i class=" far fa-circle nav-icon"></i>
-                                        <p>User Activities</p>
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>
+                                            Other Information
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
                                     </a>
+                                    <ul class="nav nav-treeview">
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "approved_by" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="approved_by_list_setup" href="{{ route('approved_by_list') }}" class="nav-link" onclick="setactive('cpm','approved_by_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Approved By</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "case_list_setup" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="case_list_setup" href="{{ route('case_list') }}" class="nav-link" onclick="setactive('cpm','case_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Case List Setup</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "jail_facility" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="jail_facility_list_setup" href="{{ route('jail_facility_list') }}" class="nav-link" onclick="setactive('cpm','jail_facility_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Jail Facility Setup</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "laboratory_facility" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="laboratory_facility_list_setup" href="{{ route('laboratory_facility_list') }}" class="nav-link" onclick="setactive('cpm','laboratory_facility_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Laboratory Facility Setup</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "negative_reason" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="negative_reason_list_setup" href="{{ route('negative_reason_list') }}" class="nav-link" onclick="setactive('cpm','negative_reason_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Negative Reason Setup</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "position_setup" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="position_setup" href="{{ route('position_list') }}" class="nav-link" onclick="setactive('cpm','position_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Rank Position Setup</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "regional_office" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="regional_office_list_setup" href="{{ route('regional_office_list') }}" class="nav-link" onclick="setactive('cpm','regional_office_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Regional Office</p>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "civil_status" && $accessmenu->status == true)
                                 <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="civil_status" href="{{ route('civil_status') }}" class="nav-link" onclick="setactive('cpm','civil_status')">
+                                    <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Civil Status Setup</p>
+                                        <p>
+                                            Drug
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
                                     </a>
+                                    <ul class="nav nav-treeview">
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "drug_type" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="drug_type_list_setup" href="{{ route('drug_type_list') }}" class="nav-link" onclick="setactive('cpm','drug_type_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Drug Type Setup</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "evidence" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="evidence_list_setup" href="{{ route('evidence_list') }}" class="nav-link" onclick="setactive('cpm','evidence_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Evidence Setup</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "evidence_type" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="evidence_type_list_setup" href="{{ route('evidence_type_list') }}" class="nav-link" onclick="setactive('cpm','evidence_type_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Evidence Type Setup</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "packaging" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="packaging_list_setup" href="{{ route('packaging_list') }}" class="nav-link" onclick="setactive('cpm','packaging_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Packaging Setup</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "unit_measurement" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="unit_measurement_list_setup" href="{{ route('unit_measurement_list') }}" class="nav-link" onclick="setactive('cpm','unit_measurement_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Unit Of Measurement</p>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "religion_setup" && $accessmenu->status == true)
                                 <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="religion_setup" href="{{ route('religions') }}" class="nav-link" onclick="setactive('cpm','religion_setup')">
+                                    <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Religion Setup</p>
+                                        <p>
+                                            <!-- Suspect -->
+                                            Suspect
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
                                     </a>
+                                    <ul class="nav nav-treeview">
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "civil_status" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="civil_status" href="{{ route('civil_status') }}" class="nav-link" onclick="setactive('cpm','civil_status')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Civil Status Setup</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "educational_attainment" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="educational_attainment_list_setup" href="{{ route('educational_attainment_list') }}" class="nav-link" onclick="setactive('cpm','educational_attainment_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Educational Attainment</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "ethnic_group" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="ethnic_group_list_setup" href="{{ route('ethnic_group_list') }}" class="nav-link" onclick="setactive('cpm','ethnic_group_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Ethinic Group Setup</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "group_affiliation" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="group_affiliation_list_setup" href="{{ route('group_affiliation_list') }}" class="nav-link" onclick="setactive('cpm','group_affiliation_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Group Affiliation</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "nationality" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="nationality_list_setup" href="{{ route('nationality_list') }}" class="nav-link" onclick="setactive('cpm','nationality_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Nationality</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "occupation" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="occupation_list_setup" href="{{ route('occupation_list') }}" class="nav-link" onclick="setactive('cpm','occupation_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Occupation Setup</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "religion_setup" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="religion_setup" href="{{ route('religions') }}" class="nav-link" onclick="setactive('cpm','religion_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Religion Setup</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "suspect_category" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="suspect_category_list_setup" href="{{ route('suspect_category_list') }}" class="nav-link" onclick="setactive('cpm','suspect_category_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Suspect Category</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "suspect_classification" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="suspect_classification_list_setup" href="{{ route('suspect_classification_list') }}" class="nav-link" onclick="setactive('cpm','suspect_classification_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Suspect Classification</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "identifier" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="identifier_list_setup" href="{{ route('identifier_list') }}" class="nav-link" onclick="setactive('cpm','identifier_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Suspect Identifier</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "suspect_information" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="suspect_information_list_setup" href="{{ route('suspect_information_list') }}" class="nav-link" onclick="setactive('cpm','suspect_information_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Suspect Information</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "suspect_status" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="suspect_status_list" href="{{ route('suspect_status_list') }}" class="nav-link" onclick="setactive('cpm','suspect_status_list')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Suspect Status</p>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "user_level_setup" && $accessmenu->status == true)
                                 <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="user_level_setup" href="{{ route('user_level_list') }}" class="nav-link" onclick="setactive('cpm','user_level_setup')">
+                                    <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>User Level Setup</p>
+                                        <p>
+                                            User
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
                                     </a>
+                                    <ul class="nav nav-treeview">
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "user_activities" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="user_activities" href="{{ route('audits') }}" class="nav-link" onclick="setactive('cpm','user_activities')">
+                                                <i class=" far fa-dot-circle nav-icon"></i>
+                                                <p>User Activities</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "user_level_setup" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="user_level_setup" href="{{ route('user_level_list') }}" class="nav-link" onclick="setactive('cpm','user_level_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>User Level Setup</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "user_list" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="user_list" href="{{ route('list') }}" class="nav-link" onclick="setactive('cpm','user_list')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Users List</p>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "position_setup" && $accessmenu->status == true)
                                 <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="position_setup" href="{{ route('position_list') }}" class="nav-link" onclick="setactive('cpm','position_setup')">
+                                    <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Rank Position Setup</p>
+                                        <p>
+                                            UACS
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
                                     </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "case_list_setup" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="case_list_setup" href="{{ route('case_list') }}" class="nav-link" onclick="setactive('cpm','case_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Case List Setup</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "suspect_classification" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="suspect_classification_list_setup" href="{{ route('suspect_classification_list') }}" class="nav-link" onclick="setactive('cpm','suspect_classification_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Suspect Classification</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "suspect_category" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="suspect_category_list_setup" href="{{ route('suspect_category_list') }}" class="nav-link" onclick="setactive('cpm','suspect_category_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Suspect Category</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "drug_type" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="drug_type_list_setup" href="{{ route('drug_type_list') }}" class="nav-link" onclick="setactive('cpm','drug_type_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Drug Type Setup</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "negative_reason" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="negative_reason_list_setup" href="{{ route('negative_reason_list') }}" class="nav-link" onclick="setactive('cpm','negative_reason_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Negative Reason Setup</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "region" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="region_list_setup" href="{{ route('region_list') }}" class="nav-link" onclick="setactive('cpm','region_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Region Setup</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "province" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="province_list_setup" href="{{ route('province_list') }}" class="nav-link" onclick="setactive('cpm','province_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Province Setup</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "city" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="city_list_setup" href="{{ route('city_list') }}" class="nav-link" onclick="setactive('cpm','city_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>City Setup</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "barangay" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="barangay_list_setup" href="{{ route('barangay_list') }}" class="nav-link" onclick="setactive('cpm','barangay_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Barangay Setup</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "operating_unit" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="operating_unit_list_setup" href="{{ route('operating_unit_list') }}" class="nav-link" onclick="setactive('cpm','operating_unit_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Operating Unit Setup</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                <!-- @if(rtrim($accessmenu->menu_key) == "support_unit" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="support_unit_list_setup" href="{{ route('support_unit_list') }}" class="nav-link" onclick="setactive('cpm','support_unit_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Support Unit Setup</p>
-                                    </a>
-                                </li> -->
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "educational_attainment" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="educational_attainment_list_setup" href="{{ route('educational_attainment_list') }}" class="nav-link" onclick="setactive('cpm','educational_attainment_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Educational Attainment</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "ethnic_group" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="ethnic_group_list_setup" href="{{ route('ethnic_group_list') }}" class="nav-link" onclick="setactive('cpm','ethnic_group_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Ethinic Group Setup</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "occupation" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="occupation_list_setup" href="{{ route('occupation_list') }}" class="nav-link" onclick="setactive('cpm','occupation_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Occupation Setup</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "jail_facility" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="jail_facility_list_setup" href="{{ route('jail_facility_list') }}" class="nav-link" onclick="setactive('cpm','jail_facility_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Jail Facility Setup</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "laboratory_facility" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="laboratory_facility_list_setup" href="{{ route('laboratory_facility_list') }}" class="nav-link" onclick="setactive('cpm','laboratory_facility_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Laboratory Facility Setup</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "evidence_type" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="evidence_type_list_setup" href="{{ route('evidence_type_list') }}" class="nav-link" onclick="setactive('cpm','evidence_type_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Evidence Type Setup</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "evidence" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="evidence_list_setup" href="{{ route('evidence_list') }}" class="nav-link" onclick="setactive('cpm','evidence_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Evidence Setup</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "packaging" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="packaging_list_setup" href="{{ route('packaging_list') }}" class="nav-link" onclick="setactive('cpm','packaging_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Packaging Setup</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "unit_measurement" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="unit_measurement_list_setup" href="{{ route('unit_measurement_list') }}" class="nav-link" onclick="setactive('cpm','unit_measurement_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Unit Of Measurement</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "regional_office" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="regional_office_list_setup" href="{{ route('regional_office_list') }}" class="nav-link" onclick="setactive('cpm','regional_office_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Regional Office</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "nationality" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="nationality_list_setup" href="{{ route('nationality_list') }}" class="nav-link" onclick="setactive('cpm','nationality_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Nationality</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "operation_classification" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="operation_classification_list_setup" href="{{ route('operation_classification_list') }}" class="nav-link" onclick="setactive('cpm','operation_classification_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Operation Classification</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "operation_category" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="operation_category_list_setup" href="{{ route('operation_category_list') }}" class="nav-link" onclick="setactive('cpm','operation_category_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Operation Category</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "operation_type" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="operation_type_list_setup" href="{{ route('operation_type_list') }}" class="nav-link" onclick="setactive('cpm','operation_type_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Operation Type</p>
-                                    </a>
-                                </li>
-                               
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "identifier" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="identifier_list_setup" href="{{ route('identifier_list') }}" class="nav-link" onclick="setactive('cpm','identifier_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Suspect Identifier</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "group_affiliation" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="group_affiliation_list_setup" href="{{ route('group_affiliation_list') }}" class="nav-link" onclick="setactive('cpm','group_affiliation_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Group Affiliation</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "officer_position" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="officer_position_list_setup" href="{{ route('officer_position_list') }}" class="nav-link" onclick="setactive('cpm','officer_position_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Officer Position</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "approved_by" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="approved_by_list_setup" href="{{ route('approved_by_list') }}" class="nav-link" onclick="setactive('cpm','approved_by_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Approved By</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "suspect_status" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="suspect_status_list" href="{{ route('suspect_status_list') }}" class="nav-link" onclick="setactive('cpm','suspect_status_list')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Suspect Status</p>
-                                    </a>
-                                </li>
-                                @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "suspect_information" && $accessmenu->status == true)
-                                <li class="nav-item">
-                                    @break
-                                    @else
-                                <li class="nav-item" hidden>
-                                    @endif
-                                    @endforeach
-                                    <a id="suspect_information_list_setup" href="{{ route('suspect_information_list') }}" class="nav-link" onclick="setactive('cpm','suspect_information_list_setup')">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Suspect Information</p>
-                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "region" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="region_list_setup" href="{{ route('region_list') }}" class="nav-link" onclick="setactive('cpm','region_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Region Setup</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "province" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="province_list_setup" href="{{ route('province_list') }}" class="nav-link" onclick="setactive('cpm','province_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Province Setup</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "city" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="city_list_setup" href="{{ route('city_list') }}" class="nav-link" onclick="setactive('cpm','city_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>City Setup</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "barangay" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="barangay_list_setup" href="{{ route('barangay_list') }}" class="nav-link" onclick="setactive('cpm','barangay_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Barangay Setup</p>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>

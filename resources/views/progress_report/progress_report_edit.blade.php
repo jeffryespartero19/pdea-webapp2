@@ -154,7 +154,7 @@
                                             <div class="card table-responsive p-0">
                                                 <table id="suspect" class="table table-hover text-nowrap">
                                                     <thead>
-                                                    <tr>
+                                                        <tr>
                                                             <th colspan="12" style="background-color: lightgreen; text-align:center">Operational Details</th>
                                                             <th colspan="12" style="background-color: pink; text-align:center">Personal Background</th>
                                                             <th colspan="7" style="background-color: lightyellow; text-align:center">Other Information</th>
