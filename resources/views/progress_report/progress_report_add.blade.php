@@ -158,6 +158,11 @@
                                                 <table id="suspect" class="table table-hover text-nowrap">
                                                     <thead>
                                                         <tr>
+                                                            <th colspan="12" style="background-color: lightgreen; text-align:center">Operational Details</th>
+                                                            <th colspan="12" style="background-color: pink; text-align:center">Personal Background</th>
+                                                            <th colspan="7" style="background-color: lightyellow; text-align:center">Other Information</th>
+                                                        </tr>
+                                                        <tr>
                                                             <th style="color: gray;">Suspect Number</th>
                                                             <th style="color: gray;">Last Name</th>
                                                             <th style="color: gray;">First Name</th>
