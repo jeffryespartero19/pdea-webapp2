@@ -66,12 +66,22 @@ class ProgressReportController extends Controller
         $region = DB::table('region')->orderby('region_sort', 'asc')->get();
         $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
         $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
-        $spot_report_header = DB::table('spot_report_header as a')
-            ->leftjoin('regional_office as b', 'a.region_c', '=', 'b.region_c')
-            ->where('a.status', true)
-            ->where('a.report_status', 0)
-            ->where('b.id', Auth::user()->regional_office_id)
-            ->orderby('a.id', 'asc')->get();
+
+        if (Auth::user()->user_level_id == 2) {
+            $spot_report_header = DB::table('spot_report_header as a')
+                ->leftjoin('regional_office as b', 'a.region_c', '=', 'b.region_c')
+                ->where('a.status', true)
+                ->where('a.report_status', 0)
+                ->orderby('a.id', 'desc')->get();
+        } else {
+            $spot_report_header = DB::table('spot_report_header as a')
+                ->leftjoin('regional_office as b', 'a.region_c', '=', 'b.region_c')
+                ->where('a.status', true)
+                ->where('a.report_status', 0)
+                ->where('b.id', Auth::user()->regional_office_id)
+                ->orderby('a.id', 'desc')->get();
+        }
+
         $civil_status = DB::table('civil_status')->where('active', true)->orderby('name', 'asc')->get();
         $religion = DB::table('religions')->where('active', true)->orderby('name', 'asc')->get();
         $education = DB::table('Educational_attainment')->where('status', true)->orderby('name', 'asc')->get();
