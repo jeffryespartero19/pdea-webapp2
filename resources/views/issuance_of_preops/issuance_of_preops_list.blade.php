@@ -22,7 +22,7 @@
 <!-- Main content -->
 <section class="content">
     <!-- Default box -->
-    <div class="card card-info">
+    <div class="card card-success">
         <div class="card-header">
             <h3 class="card-title">Filter</h3>
         </div>
@@ -90,13 +90,14 @@
     </div>
     <!-- /.card -->
 
-    <div class="card card-info">
+    <div class="card card-success">
 
 
         <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped table-hover">
+            <table id="example2" class="table table-bordered table-striped table-hover">
                 <thead>
                     <tr>
+                        <th hidden>ID</th>
                         <th>Pre-Ops Number</th>
                         <th>Operating Unit</th>
                         <th>Operation Type</th>
@@ -108,6 +109,7 @@
                 <tbody id="preops_list">
                     @foreach($data as $preops_header)
                     <tr>
+                        <td hidden>{{ $preops_header->id }}</td>
                         <td>{{ $preops_header->preops_number }}</td>
                         <td>{{ $preops_header->operating_unit }}</td>
                         <td>{{ $preops_header->operation_type }}</td>
@@ -186,9 +188,9 @@
             operation_type_id = 0;
         }
 
-        var table = $('#example1').DataTable();
+        var table = $('#example2').DataTable();
 
-        
+
 
         $.ajax({
             type: "GET",
@@ -257,6 +259,21 @@
     });
     $(function() {
         $('#issuance_of_preops').addClass('active');
+    });
+
+    // Table Sort Data
+    $(document).ready(function() {
+        $(function() {
+            $("#example2").DataTable({
+                "responsive": false,
+                order: [
+                    [0, 'desc']
+                ],
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
+        });
     });
 </script>
 

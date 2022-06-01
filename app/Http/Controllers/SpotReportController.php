@@ -77,7 +77,7 @@ class SpotReportController extends Controller
                 })
                 ->where('status', true)
                 ->where('with_aor', 0)
-                ->orderby('id', 'asc')
+                ->orderby('id', 'desc')
                 ->get();
             $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
         } else {
@@ -89,7 +89,7 @@ class SpotReportController extends Controller
                 ->where('a.status', true)
                 ->where('a.with_aor', 0)
                 ->where('b.id', Auth::user()->regional_office_id)
-                ->orderby('a.id', 'asc')
+                ->orderby('a.id', 'desc')
                 ->get();
             $operating_unit = DB::table('operating_unit')->where('status', true)->where('region_c', Auth::user()->region_c)->orderby('name', 'asc')->get();
         }

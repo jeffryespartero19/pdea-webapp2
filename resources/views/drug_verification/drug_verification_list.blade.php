@@ -22,9 +22,9 @@
 <!-- Main content -->
 <section class="content">
     <!-- Default box -->
-    <div class="card card-info">
+    <div class="card card-success">
         <div class="card-body">
-            <div class="card card-info">
+            <div class="card card-success">
                 <div class="card-header">
                     <h3 class="card-title">High Impact Operation</h3>
                 </div>

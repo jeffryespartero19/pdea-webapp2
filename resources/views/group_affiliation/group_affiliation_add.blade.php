@@ -39,7 +39,7 @@
     </div>
     @endif
     <!-- Default box -->
-    <div class="card card-info">
+    <div class="card card-success">
         <div class="card-header">
             <h3 class="card-title">Add Group Affiliation Information</h3>
         </div>

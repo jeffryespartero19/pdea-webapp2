@@ -22,7 +22,7 @@
 <!-- Main content -->
 <section class="content">
     <!-- Default box -->
-    <div class="card card-info">
+    <div class="card card-success">
         <div class="ml-4 mt-4" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
             @else
             hidden

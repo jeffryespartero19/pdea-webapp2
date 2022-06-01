@@ -22,7 +22,7 @@
 <!-- Main content -->
 <section class="content">
     <!-- Default box -->
-    <div class="card card-info">
+    <div class="card card-success">
         <div class="card-body">
             <div class="card">
                 <div class="card-body">

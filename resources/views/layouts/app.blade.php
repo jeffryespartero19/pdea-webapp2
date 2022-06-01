@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,12 +20,13 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
+
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-success shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    EPORMIS
+                    <h3 style="font-family: 'Times New Roman', Times, serif; font-weight:bolder; color:white">EPORMIS</h3>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -40,32 +42,31 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
+                        <li class="nav-item">
+                            <a class="nav-link" style="font-family: 'Times New Roman', Times, serif; font-weight:bolder; color:white; font-size:larger" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" style="font-family: 'Times New Roman', Times, serif; font-weight:bolder; color:white; font-size:larger" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
+                        @endif
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
                         @endguest
                     </ul>
                 </div>
@@ -73,8 +74,15 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div style="background-image: url('../../dist/img/pdea_logo.jpg'); background-repeat:no-repeat; background-size:700px; height:93vh; width:100%; background-position: center; background-color:white; position: fixed;z-index: -9999; opacity: 0.2;">
+
+            </div>
+            <center>
+                @yield('content')
+            </center>
+
         </main>
     </div>
 </body>
+
 </html>

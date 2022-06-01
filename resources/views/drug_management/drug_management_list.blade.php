@@ -40,7 +40,7 @@
 <!-- Main content -->
 <section class="content">
     <!-- Default box -->
-    <div class="card card-info">
+    <div class="card card-success">
         <div class="card-body">
             <div class="card table-responsive" style="padding: 20px;">
                 <table id="example1" class="table table-bordered table-striped table-hover" style="width: max-content;">

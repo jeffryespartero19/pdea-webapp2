@@ -73,7 +73,7 @@ class AfterOperationReportController extends Controller
                 ->where('status', true)
                 ->where('with_aor', 0)
                 ->where('with_sr', 0)
-                ->orderby('id', 'asc')->get();
+                ->orderby('id', 'desc')->get();
         } else {
             $preops = DB::table('preops_header as a')
                 ->leftjoin('regional_office as b', 'a.ro_code', '=', 'b.ro_code')
@@ -81,7 +81,7 @@ class AfterOperationReportController extends Controller
                 ->where('b.id', Auth::user()->regional_office_id)
                 ->where('a.with_aor', 0)
                 ->where('a.with_sr', 0)
-                ->orderby('a.id', 'asc')->get();
+                ->orderby('a.id', 'desc')->get();
         }
 
 

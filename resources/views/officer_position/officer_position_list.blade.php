@@ -22,7 +22,7 @@
 <!-- Main content -->
 <section class="content">
     <!-- Default box -->
-    <div class="card card-info">
+    <div class="card card-success">
         <div class="ml-4 mt-4">
             <a href="{{ route('officer_position_add') }}" class="btn btn-info">Add Officer Position</a>
         </div>

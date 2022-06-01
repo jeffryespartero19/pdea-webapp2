@@ -22,7 +22,7 @@
 <!-- Main content -->
 <section class="content">
     <!-- Default box -->
-    <div class="card card-info">
+    <div class="card card-success">
         <div class="card-header">
             <h3 class="card-title">Filter</h3>
         </div>
@@ -82,7 +82,7 @@
     </div>
     <!-- /.card -->
 
-    <div class="card card-info">
+    <div class="card card-success">
 
         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped table-hover">

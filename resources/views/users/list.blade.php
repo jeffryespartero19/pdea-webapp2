@@ -38,7 +38,7 @@
     </div>
     @endif
     <!-- Default box -->
-    <div class="card card-info">
+    <div class="card card-success">
 
         <div class="card-body">
             <button type="button" style="float: right; width:150px" class="btn btn-info" data-toggle="modal" data-target="#modal-lg">

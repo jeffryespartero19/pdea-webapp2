@@ -22,7 +22,7 @@
 <!-- Main content -->
 <section class="content">
     <!-- Default box -->
-    <div class="card card-info">
+    <div class="card card-success">
         <div class="card-header">
             <h3 class="card-title">Filter</h3>
         </div>
@@ -90,12 +90,13 @@
     </div>
     <!-- /.card -->
 
-    <div class="card card-info">
+    <div class="card card-success">
 
         <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped table-hover">
+            <table id="example2" class="table table-bordered table-striped table-hover">
                 <thead>
                     <tr>
+                        <th hidden>ID</th>
                         <th>Spot Report Number</th>
                         <th>Operating Unit</th>
                         <th>Operation Type</th>
@@ -108,6 +109,7 @@
                 <tbody id="spot_report_list">
                     @foreach($data as $spot_report)
                     <tr>
+                        <td hidden>{{ $spot_report->id }}</td>
                         <td>{{ $spot_report->spot_report_number }}</td>
                         <td>{{ $spot_report->operating_unit }}</td>
                         <td>{{ $spot_report->operation_type }}</td>
@@ -184,8 +186,8 @@
         if (operation_type_id == '' || operation_type_id == null) {
             operation_type_id = 0;
         }
-        
-        var table = $('#example1').DataTable();
+
+        var table = $('#example2').DataTable();
 
         $.ajax({
             type: "GET",
@@ -252,6 +254,21 @@
     });
     $(function() {
         $('#spot_report').addClass('active');
+    });
+
+    // Table Sort Data
+    $(document).ready(function() {
+        $(function() {
+            $("#example2").DataTable({
+                "responsive": false,
+                order: [
+                    [0, 'desc']
+                ],
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
+        });
     });
 </script>
 

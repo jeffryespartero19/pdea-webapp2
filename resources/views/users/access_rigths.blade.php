@@ -29,7 +29,7 @@
     </div>
     @endif
     <!-- Default box -->
-    <div class="card card-info">
+    <div class="card card-success">
         <div class="card-header">
             <h3 class="card-title">User Access Rights Informations</h3>
         </div>

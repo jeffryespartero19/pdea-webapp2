@@ -10,7 +10,7 @@
 
     <title>EPORMIS</title>
 
-    <link rel="shortcut icon" href="../../dist/img/logo.png" />
+    <link rel="shortcut icon" href="../../dist/img/pdea_logo.jpg" />
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -108,10 +108,10 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <aside class="main-sidebar sidebar-dark-success elevation-4" style="background-color: darkgreen;">
             <!-- Brand Logo -->
             <a href="{{ route('home') }}" class="brand-link" onclick="removeCokie();">
-                <img src="data:image/jpeg;base64,{{ $company[0]->logo ?? '' }}" onerror=this.src="../../dist/img/logo.png" alt="Logo" class="brand-image img-circle elevation-6" style="opacity: .8">
+                <img src="../../dist/img/pdea_logo.jpg" onerror=this.src="../../dist/img/pdea_logo.jpg" alt="Logo" class="brand-image img-circle elevation-6" style="opacity: .8">
                 <span class="brand-text font-weight-light">EPORMIS</span>
             </a>
 

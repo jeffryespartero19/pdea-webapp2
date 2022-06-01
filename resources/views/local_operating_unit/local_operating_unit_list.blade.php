@@ -22,7 +22,7 @@
 <!-- Main content -->
 <section class="content">
     <!-- Default box -->
-    <div class="card card-info">
+    <div class="card card-success">
         <div class="ml-4 mt-4">
             <a href="{{ route('local_operating_unit_add') }}" class="btn btn-info">Add Local Operating Unit</a>
         </div>

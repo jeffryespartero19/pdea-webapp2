@@ -22,7 +22,7 @@
 <!-- Main content -->
 <section class="content">
     <!-- Default box -->
-    <div class="card card-info">
+    <div class="card card-success">
         <div class="ml-4 mt-4">
             <a href="{{ route('suspect_classification_add') }}" class="btn btn-info">Add Suspect Classification</a>
         </div>

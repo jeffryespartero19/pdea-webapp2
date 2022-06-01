@@ -39,7 +39,7 @@
     </div>
     @endif
     <!-- Default box -->
-    <div class="card card-info">
+    <div class="card card-success">
         <div class="card-header">
             <h3 class="card-title">Edit Operation Type Information</h3>
         </div>
@@ -91,11 +91,11 @@
                 </div>
                 <div class="custom-control custom-checkbox mb-2">
                     <input name="show_preops" class="custom-control-input" type="checkbox" id="show_preops" {{ $operation_type[0]->show_preops == true ? 'checked' : ''}}>
-                    <label for="show_preops" class="custom-control-label">Is Test-Buy</label>
+                    <label for="show_preops" class="custom-control-label">Show in Pre-ops</label>
                 </div>
                 <div class="custom-control custom-checkbox mb-2">
                     <input name="show_spot_report" class="custom-control-input" type="checkbox" id="show_spot_report" {{ $operation_type[0]->show_spot_report == true ? 'checked' : ''}}>
-                    <label for="show_spot_report" class="custom-control-label">Is Test-Buy</label>
+                    <label for="show_spot_report" class="custom-control-label">Show in Spot Report</label>
                 </div>
                 <div class="custom-control custom-checkbox mb-2">
                     <input name="status" class="custom-control-input" type="checkbox" id="customCheckbox9" {{ $operation_type[0]->status == true ? 'checked' : ''}}>

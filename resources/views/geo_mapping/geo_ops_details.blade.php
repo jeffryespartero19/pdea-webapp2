@@ -41,7 +41,7 @@
 <!-- Main content -->
 <section class="content">
     <!-- Default box -->
-    <div class="card card-info">
+    <div class="card card-success">
         <div class="card-body opsTable"> 
             <div class="col-sm-12" style="display: flex">
                 <div class="col-sm-2"><h3> Ongoing Operations</h3></div>
@@ -154,7 +154,7 @@
     <!-- /.card -->
 
     <!-- Default box -->
-    <div class="card card-info">
+    <div class="card card-success">
         <div class="card-body opsTable"> 
             <div class="col-sm-12" style="display: flex">
                 <div class="col-sm-2"><h3> Pending Operations</h3></div>
