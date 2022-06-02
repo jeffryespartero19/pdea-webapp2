@@ -515,7 +515,7 @@
                     }
                 });
             } else {
-                $('.province_c').addClass('disabled_field');
+                
 
                 $('.province_c option[value=' + province_c + ']').attr('selected', 'selected');
             }
@@ -844,7 +844,7 @@
                 });
             } else {
                 $('.province_c').empty();
-                $('.province_c').addClass('disabled_field');
+                
 
                 $.ajax({
                     type: "GET",
