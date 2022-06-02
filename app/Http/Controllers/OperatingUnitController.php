@@ -37,7 +37,8 @@ class OperatingUnitController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|unique:operating_unit',
+            'name' => 'required|string',
+            'description' => 'required|string',
             'region_c' => 'required',
         ]);
 
@@ -80,6 +81,7 @@ class OperatingUnitController extends Controller
     {
         $request->validate([
             'name' => 'required|string|min:3',
+            'description' => 'required|string|min:3',
             'region_c' => 'required',
         ]);
 
