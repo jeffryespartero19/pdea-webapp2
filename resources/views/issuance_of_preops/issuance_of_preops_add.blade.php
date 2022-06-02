@@ -270,7 +270,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="province_c[]" class="form-control province_c change_control cc3 disabled_field" style="width: 300px;">
+                                                                <select name="province_c[]" class="form-control province_c change_control cc3" style="width: 300px;">
                                                                     <option value='0' selected>None
                                                                     </option>
                                                                 </select>
@@ -813,7 +813,7 @@
             var province_c = $(this).val();
             var ro_code = $('.ro_code').val();
 
-            if (province_c == '0000') {
+            if (province_c == 0000) {
                 $('.province_c').removeClass('disabled_field');
                 $(".province_c").empty();
                 $(".city_c").empty();
