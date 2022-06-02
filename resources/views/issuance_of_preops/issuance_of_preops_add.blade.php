@@ -458,7 +458,7 @@
             html +=
                 '<td><select required name="area_region_c[]" }}" class="form-control region_c disabled_field"><option value="0" selected>None</option>@foreach ($region as $rg)<option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} - {{ $rg->region_m }}</option>@endforeach</select></td>';
             html +=
-                '<td><select name="province_c[]" class="form-control province_c disabled_field prc_1"><option value="0" selected>None</option>@foreach ($province as $pr)<option value="{{ $pr->province_c }}">{{ $pr->province_m }}</option>@endforeach</select></td>';
+                '<td><select name="province_c[]" class="form-control province_c prc_1"><option value="0" selected>None</option>@foreach ($province as $pr)<option value="{{ $pr->province_c }}">{{ $pr->province_m }}</option>@endforeach</select></td>';
             html +=
                 '<td><select name="city_c[]" class="form-control city_c" style="width: 300px;"><option value="0" selected>None</option></select></td>';
             html +=
