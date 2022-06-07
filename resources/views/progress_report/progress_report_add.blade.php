@@ -891,7 +891,7 @@
                             '<td hidden><input type="text" name="spot_report_evidence_id[]" style="pointer-events: none; background-color : #e9ecef; width: 00px;" class="form-control" value="' + element["spot_report_evidence_id"] + '"></td>' +
                             '<td><input type="text" style="pointer-events: none; background-color : #e9ecef; width: 300px;" class="form-control" value="' + element["lastname"] + ', ' + element["firstname"] + ' ' + element["middlename"] + '-- Alias: ' + element["alias"] + '"></td>' +
                             '<td><input type="text" name="evidence" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["evidence"] + '"></td>' +
-                            '<td><input type="number" name="qty_onsite[]" style="width: 200px;" class="form-control" step="0.0001" value="0.0000" placeholder="0.0000"></td>' +
+                            '<td><input type="number" name="qty_onsite[]" style="width: 200px;" class="form-control disabled_field" step="0.0001" value="' + element["quantity"] + '" placeholder="0.0000"></td>' +
                             '<td><input type="number" name="actual_qty[]" style="width: 200px;" class="form-control" step="0.0001" value="0.0000" placeholder="0.0000"></td>' +
                             '<td><input type="text" name="unit_measurement[]" style="width: 200px;" class="form-control disabled_field" value="' + element["unit_measurement"] + '"></td>' +
                             '<td><select name="e_drug_test_result[]" class="form-control e_drug_test_result" style="width: 200px;"><option value="positive">Positive</option><option value="negative">Negative</option></select></td>' +

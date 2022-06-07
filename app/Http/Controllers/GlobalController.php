@@ -268,6 +268,7 @@ class GlobalController extends Controller
                 'b.alias',
                 'c.name as evidence',
                 'd.name as unit_measurement',
+                'a.quantity'
             )
             ->where(['a.spot_report_number' => $spot_report_number])
             ->where(['a.drug' => 'drug'])

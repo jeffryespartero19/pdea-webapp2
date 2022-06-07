@@ -303,7 +303,7 @@ class IssuanceOfPreopsController extends Controller
                 ->get();
         }
         $support_unit = DB::table('support_unit')->where('status', true)->orderby('name', 'asc')->get();
-        $operation_type = DB::table('operation_type')->where('operation_classification_id', 2)->where('status', true)->where('show_preops', true)->orderby('name', 'asc')->get();
+        $operation_type = DB::table('operation_type')->where('status', true)->where('show_preops', true)->orderby('name', 'asc')->get();
         $nationality = DB::table('nationality')->where('status', true)->orderby('name', 'asc')->get();
         $area = DB::table('preops_area as a')
             ->join('preops_header as b', 'a.preops_number', '=', 'b.preops_number')

@@ -48,7 +48,7 @@
                 @csrf
                 <div class="row">
                     <div class="col-12">
-                        <a href="{{ url('progress_report/pdf/'.$spot_report_header[0]->id) }}" class="btn btn-warning" style="float: right;">Print Report</a>
+                        <a href="{{ url('progress_report/pdf/'.$spot_report_header[0]->id) }}" target="_blank" class="btn btn-warning" style="float: right;">Print Report</a>
                     </div>
                     <div class="form-group col-4" style="margin: 0px;">
                         <div>
@@ -394,7 +394,7 @@
                                                             <td hidden><input type="text" name="spot_report_evidence_id[]" class="form-control" value="{{$srv->id}}"></td>
                                                             <td><input type="text" name="" style="width: 300px; pointer-events:none; background-color : #e9ecef; " class="form-control" value="{{$srv->lastname}}, {{$srv->firstname}} {{$srv->middlename}} -- Alias: {{$srv->alias}}"></td>
                                                             <td><input type="text" name="" style="width: 200px; pointer-events:none; background-color : #e9ecef; " class="form-control" value="{{$srv->evidence}}"></td>
-                                                            <td><input type="text" name="qty_onsite[]" style="width: 200px;" class="form-control" value="{{$srv->qty_onsite}}"></td>
+                                                            <td><input type="text" name="qty_onsite[]" style="width: 200px; pointer-events:none; background-color : #e9ecef; " class="form-control" value="{{$srv->quantity}}"></td>
                                                             <td><input type="text" name="actual_qty[]" style="width: 200px;" class="form-control" value="{{$srv->actual_qty}}"></td>
                                                             <td><input type="text" name="unit_measurement[]" style="width: 200px;" class="form-control disabled_field" value="{{$srv->unit_measurement}}"></td>
                                                             <td><select name="e_drug_test_result[]" class="form-control e_drug_test_result" style="width: 200px;">

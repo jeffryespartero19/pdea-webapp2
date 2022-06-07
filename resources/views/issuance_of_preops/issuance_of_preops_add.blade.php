@@ -270,7 +270,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="province_c[]" class="form-control province_c change_control cc3 disabled_field" style="width: 300px;">
+                                                                <select name="province_c[]" class="form-control province_c" style="width: 300px;">
                                                                     <option value='0' selected>None
                                                                     </option>
                                                                 </select>

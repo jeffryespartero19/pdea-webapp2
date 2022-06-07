@@ -318,6 +318,7 @@ class ProgressReportController extends Controller
                 'a.chemist_report_number',
                 'a.drug_test_result',
                 'a.laboratory_facility_id',
+                'a.quantity'
             )
             ->where('a.spot_report_number', $spot_report_header[0]->spot_report_number)
             ->where('a.drug', 'drug')
