@@ -399,7 +399,7 @@ class GlobalController extends Controller
     {
         $data = DB::table('operating_unit as a')
             ->join('regional_office as b', 'a.region_c', '=', 'b.region_c')
-            ->select('a.name', 'a.id')
+            ->select('a.name', 'a.id', 'a.description')
             ->where(['b.ro_code' => $ro_code])
             ->get();
 

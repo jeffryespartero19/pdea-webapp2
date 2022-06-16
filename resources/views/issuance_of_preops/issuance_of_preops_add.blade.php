@@ -1085,7 +1085,7 @@
                     var option = " <option value='" +
                         element["id"] +
                         "'>" +
-                        element["name"] +
+                        element["description"] +
                         "</option>";
                     $("#operating_unit_id").append(option);
                     $(".support_unit_id").append(option);
