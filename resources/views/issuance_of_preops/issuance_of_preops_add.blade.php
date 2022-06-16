@@ -270,7 +270,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="province_c[]" class="form-control province_c" style="width: 300px;">
+                                                                <select name="province_c[]" class="form-control province_c change_control cc3" style="width: 300px;">
                                                                     <option value='0' selected>None
                                                                     </option>
                                                                 </select>
@@ -458,7 +458,7 @@
             html +=
                 '<td><select required name="area_region_c[]" }}" class="form-control region_c disabled_field"><option value="0" selected>None</option>@foreach ($region as $rg)<option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} - {{ $rg->region_m }}</option>@endforeach</select></td>';
             html +=
-                '<td><select name="province_c[]" class="form-control province_c disabled_field prc_1"><option value="0" selected>None</option>@foreach ($province as $pr)<option value="{{ $pr->province_c }}">{{ $pr->province_m }}</option>@endforeach</select></td>';
+                '<td><select name="province_c[]" class="form-control province_c prc_1"><option value="0" selected>None</option>@foreach ($province as $pr)<option value="{{ $pr->province_c }}">{{ $pr->province_m }}</option>@endforeach</select></td>';
             html +=
                 '<td><select name="city_c[]" class="form-control city_c" style="width: 300px;"><option value="0" selected>None</option></select></td>';
             html +=
@@ -515,7 +515,7 @@
                     }
                 });
             } else {
-                $('.province_c').addClass('disabled_field');
+                
 
                 $('.province_c option[value=' + province_c + ']').attr('selected', 'selected');
             }
@@ -813,7 +813,7 @@
             var province_c = $(this).val();
             var ro_code = $('.ro_code').val();
 
-            if (province_c == '0000') {
+            if (province_c == 0000) {
                 $('.province_c').removeClass('disabled_field');
                 $(".province_c").empty();
                 $(".city_c").empty();
@@ -844,7 +844,7 @@
                 });
             } else {
                 $('.province_c').empty();
-                $('.province_c').addClass('disabled_field');
+                
 
                 $.ajax({
                     type: "GET",
