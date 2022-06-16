@@ -52,6 +52,7 @@
                         <div>
                             <label for="">Region<code> *</code></label>
                         </div>
+                        <input type="text" hidden value="{{Auth::user()->user_level_id}}" id="userlvlid">
                         <div class="input-group mb-3">
                             @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                             <select name="ro_code" class="form-control ro_code" required>
@@ -144,15 +145,18 @@
                             <label for="">Support Unit</label>
                             <a id="SPadd" href="#" style="float: right;"><i class="fas fa-plus pr-2"></i></a>
                         </div>
-                        <div class="input-group mb-3 su_options">
-                            <select name="support_unit_id[]" class="form-control @error('operation type') is-invalid @enderror support_unit_id">
-                                <option value='' disabled selected>Select Option</option>
-                                @foreach($operating_unit as $ou)
-                                <option value="{{ $ou->id }}">{{ $ou->description }}</option>
-                                @endforeach
-                            </select>
-                            <a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>
+                        <div class="SUdetails">
+                            <div class="input-group mb-3 su_options">
+                                <select name="support_unit_id[]" class="form-control @error('operation type') is-invalid @enderror support_unit_id">
+                                    <option value='' disabled selected>Select Option</option>
+                                    @foreach($operating_unit as $ou)
+                                    <option value="{{ $ou->id }}">{{ $ou->description }}</option>
+                                    @endforeach
+                                </select>
+                                <a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>
+                            </div>
                         </div>
+
                     </div>
                 </div>
                 <hr>
@@ -270,7 +274,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="province_c[]" class="form-control province_c change_control cc3" style="width: 300px;">
+                                                                <select name="province_c[]" class="form-control province_c" style="width: 300px;">
                                                                     <option value='0' selected>None
                                                                     </option>
                                                                 </select>
@@ -458,7 +462,7 @@
             html +=
                 '<td><select required name="area_region_c[]" }}" class="form-control region_c disabled_field"><option value="0" selected>None</option>@foreach ($region as $rg)<option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} - {{ $rg->region_m }}</option>@endforeach</select></td>';
             html +=
-                '<td><select name="province_c[]" class="form-control province_c prc_1"><option value="0" selected>None</option>@foreach ($province as $pr)<option value="{{ $pr->province_c }}">{{ $pr->province_m }}</option>@endforeach</select></td>';
+                '<td><select name="province_c[]" class="form-control province_c disabled_field prc_1"><option value="0" selected>None</option>@foreach ($province as $pr)<option value="{{ $pr->province_c }}">{{ $pr->province_m }}</option>@endforeach</select></td>';
             html +=
                 '<td><select name="city_c[]" class="form-control city_c" style="width: 300px;"><option value="0" selected>None</option></select></td>';
             html +=
@@ -515,7 +519,7 @@
                     }
                 });
             } else {
-                
+                $('.province_c').addClass('disabled_field');
 
                 $('.province_c option[value=' + province_c + ']').attr('selected', 'selected');
             }
@@ -813,7 +817,7 @@
             var province_c = $(this).val();
             var ro_code = $('.ro_code').val();
 
-            if (province_c == 0000) {
+            if (province_c == '0000') {
                 $('.province_c').removeClass('disabled_field');
                 $(".province_c").empty();
                 $(".city_c").empty();
@@ -844,7 +848,7 @@
                 });
             } else {
                 $('.province_c').empty();
-                
+                $('.province_c').addClass('disabled_field');
 
                 $.ajax({
                     type: "GET",
@@ -1055,43 +1059,58 @@
     $('#sp_list').on("click", "#SPadd", function() {
         var ro_code = $('.ro_code').val();
 
-        $.ajax({
-            type: "GET",
-            url: "/get_operating_unit/" + ro_code,
-            fail: function() {
-                alert("request failed");
-            },
-            success: function(data) {
+        $userlvlid = $('#userlvlid').val();
+        if ($userlvlid == 2) {
+            $.ajax({
+                type: "GET",
+                url: "/get_operating_unit/" + ro_code,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
 
-                var data = JSON.parse(data);
-                // alert(data);
+                    var data = JSON.parse(data);
+                    // alert(data);
 
-                html = '<div class="input-group mb-3 su_options">';
-                html += '<select name="support_unit_id[]" class="form-control support_unit_id">';
-                html += '</select>';
-                html += '<a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
-                html += '</div>';
+                    html = '<div class="input-group mb-3 su_options">';
+                    html += '<select name="support_unit_id[]" class="form-control support_unit_id">';
+                    html += '</select>';
+                    html += '<a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
+                    html += '</div>';
 
-                $('#sp_list').append(html);
+                    $('#sp_list').append(html);
 
-                $("#operating_unit_id").empty();
-                $(".support_unit_id").empty();
+                    // $("#operating_unit_id").empty();
+                    $(".support_unit_id").empty();
 
-                var option1 = " <option value='0' disabled selected>Select Option</option>";
-                $("#operating_unit_id").append(option1);
-                $(".support_unit_id").append(option1);
+                    var option1 = " <option value='0' disabled selected>Select Option</option>";
+                    // $("#operating_unit_id").append(option1);
+                    $(".support_unit_id").append(option1);
 
-                data.forEach(element => {
-                    var option = " <option value='" +
-                        element["id"] +
-                        "'>" +
-                        element["description"] +
-                        "</option>";
-                    $("#operating_unit_id").append(option);
-                    $(".support_unit_id").append(option);
-                });
-            }
-        });
+                    data.forEach(element => {
+                        var option = " <option value='" +
+                            element["id"] +
+                            "'>" +
+                            element["description"] +
+                            "</option>";
+                        // $("#operating_unit_id").append(option);
+                        $(".support_unit_id").append(option);
+                    });
+                }
+            });
+        } else {
+
+            html = '<div class="input-group mb-3 su_options">';
+            html += '<select name="support_unit_id[]" class="form-control" required>';
+            html += '<option value="" disabled selected>Select Option</option>@foreach($operating_unit as $su)<option value="{{ $su->id }}">{{ $su->description }}</option>@endforeach';
+            html += '</select>';
+            html += '<a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
+            html += '</div>';
+
+            $('.SUdetails').append(html);
+        }
+
+
 
     });
 
