@@ -102,9 +102,11 @@ class DrugVerificationController extends Controller
             ->get();
 
         $data1 = $data->merge($data2);
+        $suspect_category = DB::table('suspect_category')->where('status', true)->orderby('name', 'asc')->get();
+        $suspect_sub_category = DB::table('suspect_sub_category')->where('status', true)->orderby('name', 'asc')->get();
 
 
-        return view('drug_verification.drug_verification_list', compact('data1'));
+        return view('drug_verification.drug_verification_list', compact('data1', 'suspect_category', 'suspect_sub_category'));
     }
 
     public function store(Request $request)
@@ -119,6 +121,15 @@ class DrugVerificationController extends Controller
             );
 
             DB::table('drug_management')->where('id', $request->dv_id)->update($form_data);
+
+            $form_data2 = array(
+                'suspect_category_id' => $request->suspect_category_id,
+                'suspect_sub_category_id' => $request->suspect_sub_category_id,
+            );
+
+            DB::table('spot_report_suspect')->where('id', $request->suspect_id)->update($form_data2);
+
+            
 
             //Save audit trail
             $data_audit = array(
@@ -142,6 +153,13 @@ class DrugVerificationController extends Controller
             );
 
             DB::table('drug_management')->insert($form_data);
+
+            $form_data2 = array(
+                'suspect_category_id' => $request->suspect_category_id,
+                'suspect_sub_category_id' => $request->suspect_sub_category_id,
+            );
+
+            DB::table('spot_report_suspect')->where('id', $request->suspect_id)->update($form_data2);
 
             //Save audit trail
             $data_audit = array(

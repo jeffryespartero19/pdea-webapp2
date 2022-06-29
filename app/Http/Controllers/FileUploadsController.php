@@ -21,6 +21,9 @@ class FileUploadsController extends Controller
 
     public function index()
     {
+
+        if (Auth::user()->user_level_id == 2) {
+            
         $file_uploads = DB::table('file_upload_list as a')
         ->leftjoin('issuance_of_preops_files as b', 'a.preops_file_id', '=', 'b.id')
         ->leftjoin('after_operation_files as c', 'a.after_operation_file_id', '=', 'c.id')

@@ -120,6 +120,40 @@
                     </div>
                     <div class="form-group" style="margin: 0px;">
                         <div>
+                            <label for="">Suspect Category</label>
+                        </div>
+                        <div class="input-group mb-3">
+                            <select name="suspect_category_id" class="form-control suspect_category_id" style="width: 200px;">
+                                <option value='' selected>Select Option
+                                </option>
+                                @foreach ($suspect_category as $sc)
+                                <option value="{{ $sc->id }}">
+                                    {{ $sc->name }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="form-group" style="margin: 0px;">
+                        <div>
+                            <label for="">Suspect Sub-category</label>
+                        </div>
+                        <div class="input-group mb-3">
+                            <select id="suspect_sub_category_id" name="suspect_sub_category_id" class="form-control" style="width: 200px;">
+                                <option value='' selected>Select Option
+                                </option>
+                                @foreach ($suspect_sub_category as $ssc)
+                                <option value="{{ $ssc->id }}">
+                                    {{ $ssc->name }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="form-group" style="margin: 0px;">
+                        <div>
                             <label for="">Listed</label>
                         </div>
                         <div class="input-group mb-3">
@@ -147,6 +181,7 @@
                             <textarea name="remarks" id="remarks" class="form-control" rows="5"></textarea>
                         </div>
                     </div>
+
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
@@ -185,6 +220,8 @@
                         $("#name").val(s_name);
                         $("#ndis_id").val(element['ndis_id']);
                         $("#remarks").text(element['remarks']);
+                        $('#suspect_category_id option[value=' + element['suspect_category_id'] + ']').attr('selected', 'selected');
+                        $('#suspect_sub_category_id option[value=' + element['suspect_sub_category_id'] + ']').attr('selected', 'selected');
                         $('#listed option[value=' + element['listed'] + ']').attr('selected', 'selected');
                     });
                 } else {
@@ -199,6 +236,37 @@
     $('#modal-lg').on('hidden.bs.modal', function() {
         $(this).find("input,textarea,select").val('').end();
 
+    });
+
+
+    //Populate Suspect Category
+    $(document).on("change", ".suspect_category_id", function() {
+        var suspect_category_id = $(this).val();
+        var $row = $(this).closest(".suspect_details");
+
+        $.ajax({
+            type: "GET",
+            url: "/get_suspect_sub_category/" + suspect_category_id,
+            fail: function() {
+                alert("request failed");
+            },
+            success: function(data) {
+                var data = JSON.parse(data);
+                $('#suspect_sub_category_id').empty();
+                var option1 =
+                    " <option value='' selected>Select Option</option>";
+                $('#suspect_sub_category_id').append(option1);
+
+                data.forEach(element => {
+                    var option = " <option value='" +
+                        element["id"] +
+                        "'>" +
+                        element["name"] +
+                        "</option>";
+                    $('#suspect_sub_category_id').append(option);
+                });
+            }
+        });
     });
 </script>
 

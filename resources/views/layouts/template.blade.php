@@ -629,6 +629,19 @@
                                             </a>
                                         </li>
                                         @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "suspect_sub_category" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="suspect_sub_category_list_setup" href="{{ route('suspect_sub_category_list') }}" class="nav-link" onclick="setactive('cpm','suspect_sub_category_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Suspect Sub-Category</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
                                         @if(rtrim($accessmenu->menu_key) == "suspect_classification" && $accessmenu->status == true)
                                         <li class="nav-item">
                                             @break

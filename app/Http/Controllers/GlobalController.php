@@ -328,7 +328,7 @@ class GlobalController extends Controller
     {
         $data = DB::table('drug_management as a')
             ->join('spot_report_suspect as b', 'a.suspect_id', '=', 'b.id')
-            ->select('a.id', 'a.suspect_id', 'b.lastname', 'b.firstname', 'b.middlename', 'a.listed', 'a.ndis_id', 'a.remarks')
+            ->select('a.id', 'a.suspect_id', 'b.lastname', 'b.firstname', 'b.middlename', 'a.listed', 'a.ndis_id', 'a.remarks', 'b.suspect_category_id', 'b.suspect_sub_category_id')
             ->where('a.suspect_id', $suspect_id)
             ->get();
 
@@ -390,6 +390,15 @@ class GlobalController extends Controller
     {
         $data = DB::table('suspect_category')
             ->where(['suspect_classification_id' => $suspect_classification_id])
+            ->get();
+
+        return json_encode($data);
+    }
+
+     public function get_suspect_sub_category($suspect_category_id)
+    {
+        $data = DB::table('suspect_sub_category')
+            ->where(['suspect_category_id' => $suspect_category_id])
             ->get();
 
         return json_encode($data);

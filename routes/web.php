@@ -230,6 +230,12 @@ Route::group(['middleware' => ['auth', 'cp_acess']], function () {
     Route::get('suspect_category_edit/{id}', 'SuspectCategoryController@edit')->name('suspect_category_edit');
     Route::post('suspect_category_add', 'SuspectCategoryController@store');
     Route::patch('suspect_category_edit/{id}', 'SuspectCategoryController@update');
+    // Suspect SubCategory Setup
+    Route::get('suspect_sub_category_list', 'SuspectSubCategoryController@index')->name('suspect_sub_category_list');
+    Route::get('suspect_sub_category_add', 'SuspectSubCategoryController@add')->name('suspect_sub_category_add');
+    Route::get('suspect_sub_category_edit/{id}', 'SuspectSubCategoryController@edit')->name('suspect_sub_category_edit');
+    Route::post('suspect_sub_category_add', 'SuspectSubCategoryController@store');
+    Route::patch('suspect_sub_category_edit/{id}', 'SuspectSubCategoryController@update');
     // Officer Position Setup
     Route::get('officer_position_list', 'OfficerPositionController@index')->name('officer_position_list');
     Route::get('officer_position_add', 'OfficerPositionController@add')->name('officer_position_add');
@@ -342,6 +348,7 @@ Route::get('/get_suspect_category/{suspect_classification_id}', 'GlobalControlle
 Route::get('/get_operating_unit/{ro_code}', 'GlobalController@get_operating_unit');
 Route::get('/get_approved_by/{ro_code}', 'GlobalController@get_approved_by');
 Route::get('/get_operation_category/{operation_classification_id}', 'GlobalController@get_operation_category');
+Route::get('/get_suspect_sub_category/{suspect_category_id}', 'GlobalController@get_suspect_sub_category');
 
 // Report Generation
 Route::get('report_generation_list', 'ReportGenerationController@index')->name('report_generation_list');
