@@ -45,7 +45,7 @@
         </div>
         <div class="card-body">
             <input id="user_level_id" type="text" value="{{Auth::user()->user_level_id}}" hidden>
-            <form action="/issuance_of_preops_edit/{{ $issuance_of_preops[0]->id }}" role="form" method="post" enctype="multipart/form-data">
+            <form action="/issuance_of_preops_edit/{{ $issuance_of_preops[0]->id }}" role="form" method="post" enctype="multipart/form-data" id="preops_form">
                 @csrf
 
                 <div class="row">
@@ -1141,6 +1141,10 @@
             // Only want to do it once
             return false;
         });
+    });
+
+    $("#preops_form").on("submit", function() {
+        $(this).find(":submit").prop("disabled", true);
     });
 
     $('.form-control').keyup(function() {

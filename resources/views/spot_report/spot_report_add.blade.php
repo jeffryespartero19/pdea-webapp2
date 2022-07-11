@@ -46,7 +46,7 @@
             <h3 class="card-title">Add Spot Report</h3>
         </div>
         <div class="card-body">
-            <form action="/spot_report_add" role="form" method="post" enctype="multipart/form-data" enctype="multipart/form-data">
+            <form action="/spot_report_add" role="form" method="post" enctype="multipart/form-data" enctype="multipart/form-data" id="spot_report_form">
                 @csrf
                 <div class="row">
                     <input id="prc_date" type="text" hidden value="{{$date}}">
@@ -1769,6 +1769,11 @@
         }
 
 
+    });
+
+    // Prevent Multiple Click of Save Button
+    $("#spot_report_form").on("submit", function() {
+        $(this).find(":submit").prop("disabled", true);
     });
 </script>
 

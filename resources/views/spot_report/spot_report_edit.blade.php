@@ -44,7 +44,7 @@
             <h3 class="card-title">Edit Spot Report</h3>
         </div>
         <div class="card-body">
-            <form action="/spot_report_edit/{{ $spot_report_header[0]->id }}" role="form" method="post" enctype="multipart/form-data">
+            <form action="/spot_report_edit/{{ $spot_report_header[0]->id }}" role="form" method="post" enctype="multipart/form-data" id="spot_report_form">
                 @csrf
                 <div class="row">
                     <div class="col-12">
@@ -2028,6 +2028,11 @@
     });
     $(function() {
         $('#spot_report').addClass('active');
+    });
+
+     // Prevent Multiple Click of Save Button
+     $("#spot_report_form").on("submit", function() {
+        $(this).find(":submit").prop("disabled", true);
     });
 </script>
 
