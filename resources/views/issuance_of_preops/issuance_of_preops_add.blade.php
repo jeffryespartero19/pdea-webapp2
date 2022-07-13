@@ -252,7 +252,7 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr class="area_details">
-                                                            <td><input type="text" name="area[]" class="form-control change_control cc1" placeholder="Area" style="width: 200px;"></td>
+                                                            <td><input type="text" name="area[]" class="form-control change_control cc1" placeholder="Area" style="width: 200px;" required></td>
                                                             <td>
                                                                 <select name="area_region_c[]" class="form-control region_c change_control cc2 disabled_field area_region_c" style="width: 300px;">
                                                                     <option value='0' selected>None
@@ -458,7 +458,7 @@
             $(".province_c").removeClass('prc_1');
 
             html = '<tr class="area_details" id="faqs-row' + aop_row + '">';
-            html += '<td><input type="text" name="area[]" class="form-control" placeholder="Area"  style="width: 200px;"></td>';
+            html += '<td><input type="text" name="area[]" class="form-control" placeholder="Area"  style="width: 200px;" required></td>';
             html +=
                 '<td><select required name="area_region_c[]" }}" class="form-control region_c disabled_field"><option value="0" selected>None</option>@foreach ($region as $rg)<option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} - {{ $rg->region_m }}</option>@endforeach</select></td>';
             html +=
