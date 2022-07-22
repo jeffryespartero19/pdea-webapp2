@@ -99,7 +99,7 @@ class GlobalController extends Controller
         $data = DB::table('preops_header as a')
             ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
             ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-            ->select('a.id', 'a.preops_number', 'a.operating_unit_id', 'operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.ro_code', 'a.status');
+            ->select('a.id', 'a.preops_number', 'a.operating_unit_id', 'operation_type_id', 'b.description as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.ro_code', 'a.status');
 
         if ($ro_code != 0) {
             $data->where(['a.ro_code' => $ro_code]);

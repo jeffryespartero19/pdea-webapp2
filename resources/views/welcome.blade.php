@@ -21,7 +21,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
-<body>
+<body style="background-image: url('../../dist/img/bgwelcome.jpg'); background-repeat:no-repeat; background-size:cover">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-success shadow-sm">
             <div class="container">
@@ -73,84 +73,93 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            <div style="background-image: url('../../dist/img/pdea_logo.jpg'); background-repeat:no-repeat; background-size:700px; height:93vh; width:100%; background-position: center; background-color:white; position: fixed;z-index: -9999; opacity: 0.2;">
+        <main class="py">
+            <div class="">
 
             </div>
 
-                <div class="container" style="padding-top: 200px;z-index: 9999; width:100%;">
-                    <div class="row justify-content-center">
-                        <div class="col-md-7">
-                            <div class="card">
-                                <div class="card-header bg-success">{{ __('Login') }}</div>
+            <div class="container" style="padding-top: 200px;z-index: 9999; width:100%;">
+                <div class="row justify-content-center">
 
-                                <div class="card-body">
-                                    <form method="POST" action="{{ route('login') }}">
-                                        @csrf
+                    <div class="col-md-5">
+                        <div class="card" style="height: 350px;">
+                            <div class="card-header bg-success" style="text-align: left; padding:2px 20px; font-family:'Times New Roman', Times, serif">
+                                <h3 style="color: white; font-size: 50px; margin:0px">PORMIS</h3>
+                            </div>
+                            <div class="card-body">
+                                <form method="POST" action="{{ route('login') }}">
+                                    @csrf
 
-                                        <div class="form-group row">
-                                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                                @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
+                                    <div class="form-group">
+                                        <div class="form-group"><label>Email</label>
+                                            <input type="email" id="email" name="email" placeholder="Enter email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                            @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
+                                    </div>
 
-                                        <div class="form-group row">
-                                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                                @error('password')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
+                                    <div class="form-group">
+                                        <div class="form-group"><label>Password</label>
+                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                            @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-sm btn-primary float-right m-t-n-xs" type="submit"><strong>Log in</strong></button>
 
-                                        <div class="form-group row">
-                                            <div class="col-md-6 offset-md-4">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                        <label> <input type="checkbox" class="i-checks" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}> Remember me </label>
+                                    </div>
+                                    <div style="text-align: center;"> 
+                                        @if (Route::has('password.request'))
+                                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                                            {{ __('Forgot Your Password?') }}
+                                        </a>
+                                        @endif
+                                    </div>
 
-                                                    <label class="form-check-label" for="remember">
-                                                        {{ __('Remember Me') }}
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="form-group row mb-0">
-                                            <div class="col-md-8 offset-md-4">
-                                                <button type="submit" class="btn btn-primary">
-                                                    {{ __('Login') }}
-                                                </button>
 
-                                                @if (Route::has('password.request'))
-                                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                                    {{ __('Forgot Your Password?') }}
-                                                </a>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card" style="height: 350px;">
+                            <div class="card-header bg-success" style="text-align: center; padding:2px; font-family:'Times New Roman', Times, serif">
+                                <h3 style="color: white; font-size: 50px; margin:0px">PDEA</h3>
+                            </div>
+                            <div class="card-body" style="text-align: center;">
+                                <img style="height: 200px; width:200px;" src="../../dist/img/pdea_logo.jpg">
                             </div>
                         </div>
                     </div>
                 </div>
- 
+            </div>
+
 
         </main>
     </div>
+
+    <style>
+        .loginBG {
+            background-image: url('../../dist/img/bgwelcome.jpg');
+            background-repeat: no-repeat;
+            height: 100%;
+            width: 100%;
+            background-position: center;
+            background-color: white;
+            position: fixed;
+            z-index: -9999;
+            padding-top: 1000px;
+        }
+    </style>
 </body>
 
 </html>

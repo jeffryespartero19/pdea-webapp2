@@ -113,7 +113,7 @@
                             <label for="">Operating Unit<code> *</code></label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="operating_unit_id" name="operating_unit_id" class="form-control @error('operating unit') is-invalid @enderror" required @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                            <select id="operating_unit_id" name="operating_unit_id" class="form-control @error('operating unit') is-invalid @enderror operating_unit_id" required @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                 @else
                                 disabled
                                 @endif
@@ -1066,6 +1066,9 @@
     $('#sp_list').on("click", "#SPadd", function() {
         var ro_code = $('.ro_code').val();
 
+        var operating_unit_id = $('.operating_unit_id').val();
+        $(".support_unit_id option").show()
+
         $.ajax({
             type: "GET",
             url: "/get_operating_unit/" + ro_code,
@@ -1093,13 +1096,15 @@
                 $(".support_unit_id").append(option1);
 
                 data.forEach(element => {
-                    var option = " <option value='" +
-                        element["id"] +
-                        "'>" +
-                        element["name"] +
-                        "</option>";
-                    $("#operating_unit_id").append(option);
-                    $(".support_unit_id").append(option);
+                    if (element["id"] != operating_unit_id) {
+                        var option = " <option value='" +
+                            element["id"] +
+                            "'>" +
+                            element["description"] +
+                            "</option>";
+                        $("#operating_unit_id").append(option);
+                        $(".support_unit_id").append(option);
+                    }
                 });
             }
         });
@@ -1107,6 +1112,14 @@
 
     $(document).on('click', '.su_remove', function() {
         $(this).closest(".su_options").remove();
+    });
+
+    // Remove Selected Operating Unit to Support Unit List
+    $(document).on("change", ".operating_unit_id", function() {
+        var operating_unit_id = $(this).val();
+
+        $(".support_unit_id option").prop('hidden', false);
+        $(".support_unit_id option[value='" + operating_unit_id + "']").prop('hidden', true);
     });
 </script>
 

@@ -1393,10 +1393,19 @@ class SpotReportController extends Controller
         DB::table('spot_report_header')->where('id', $id)->update($pos_data);
 
         $spot_report = $this->get_spot_report($id);
-        $regional_office = DB::table('regional_office as a')
-            ->join('preops_header as b', 'a.ro_code', '=', 'b.ro_code')
-            ->select('a.name', 'a.address', 'a.contact_number', 'report_header')
-            ->where('b.preops_number', $spot_report[0]->preops_number)->get();
+
+        if ($spot_report[0]->preops_number == 1) {
+            $regional_office = DB::table('regional_office as a')
+                ->join('spot_report_header as b', 'a.region_c', '=', 'b.region_c')
+                ->select('a.name', 'a.address', 'a.contact_number', 'a.report_header')
+                ->where('b.region_c', $spot_report[0]->region_c)->get();
+        } else {
+            $regional_office = DB::table('regional_office as a')
+                ->join('preops_header as b', 'a.ro_code', '=', 'b.ro_code')
+                ->select('a.name', 'a.address', 'a.contact_number', 'a.report_header')
+                ->where('b.preops_number', $spot_report[0]->preops_number)->get();
+        }
+
         $region = DB::table('region')->where('region_c', $spot_report[0]->region_c)->get();
         $province = DB::table('province')->where('province_c', $spot_report[0]->province_c)->get();
         $city = DB::table('city')->where('city_c', $spot_report[0]->city_c)->get();

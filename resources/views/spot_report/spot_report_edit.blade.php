@@ -385,8 +385,8 @@
                                                             <th style="color: gray;">Suspect Category</th>
                                                             <th style="color: gray;">Whereabouts</th>
                                                             <th style="color: gray;">Remarks</th>
-                                                            <th style="color: gray;">Listed</th>
-                                                            <th style="color: gray;">Listed By</th>
+                                                            <th style="color: gray;">Verified</th>
+                                                            <th style="color: gray;">Verified By</th>
                                                             <th style="color: gray;">Action</th>
                                                         </tr>
                                                     </thead>

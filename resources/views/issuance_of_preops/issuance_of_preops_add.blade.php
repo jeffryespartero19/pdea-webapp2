@@ -118,7 +118,7 @@
                             <label for="">Operating Unit<code> *</code></label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="operating_unit_id" name="operating_unit_id" class="form-control @error('operating unit') is-invalid @enderror" required>
+                            <select id="operating_unit_id" name="operating_unit_id" class="form-control @error('operating unit') is-invalid @enderror operating_unit_id" required>
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach($operating_unit as $ou)
                                 <option value="{{ $ou->id }}">{{ $ou->description }}</option>
@@ -252,7 +252,7 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr class="area_details">
-                                                            <td><input type="text" name="area[]" class="form-control change_control cc1" placeholder="Area" style="width: 200px;" required></td>
+                                                            <td><input type="text" name="area[]" class="form-control change_control cc1" placeholder="Area" style="width: 200px;"></td>
                                                             <td>
                                                                 <select name="area_region_c[]" class="form-control region_c change_control cc2 disabled_field area_region_c" style="width: 300px;">
                                                                     <option value='0' selected>None
@@ -458,7 +458,7 @@
             $(".province_c").removeClass('prc_1');
 
             html = '<tr class="area_details" id="faqs-row' + aop_row + '">';
-            html += '<td><input type="text" name="area[]" class="form-control" placeholder="Area"  style="width: 200px;" required></td>';
+            html += '<td><input type="text" name="area[]" class="form-control" placeholder="Area"  style="width: 200px;"></td>';
             html +=
                 '<td><select required name="area_region_c[]" }}" class="form-control region_c disabled_field"><option value="0" selected>None</option>@foreach ($region as $rg)<option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} - {{ $rg->region_m }}</option>@endforeach</select></td>';
             html +=
@@ -1035,35 +1035,20 @@
         }
     });
 
-    // $(document).on("change", "#province_c", function() {
+    // Remove Selected Operating Unit to Support Unit List
+    $(document).on("change", ".operating_unit_id", function() {
+        var operating_unit_id = $(this).val();
 
-    //     $ro_code = $('.ro_code').val();
-    //     $province_c = $('#province_c').val();
-    //     $prc_date = $('#prc_date').val();
-    //     $prc_id = $('#prc_id').val();
-
-    //     $.ajax({
-    //         type: "GET",
-    //         url: "/get_preops_header_count/" + $ro_code + "/" + $province_c,
-    //         fail: function() {
-    //             alert("request failed");
-    //         },
-    //         success: function(preops_id) {
-    //             var preops_id = JSON.parse(preops_id);
-
-    //             $Preops_number = $ro_code + '-' + $province_c + '-' + $prc_date + '-' + preops_id;
-
-    //             $('.PRNumber').val($Preops_number);
-    //             $('.HPRNumber').empty();
-
-    //         }
-    //     });
-    // });
-
+        $(".support_unit_id option").prop('hidden', false);
+        $(".support_unit_id option[value='" + operating_unit_id + "']").prop('hidden', true);
+    });
 
     // Add Support Unit
     $('#sp_list').on("click", "#SPadd", function() {
         var ro_code = $('.ro_code').val();
+
+        var operating_unit_id = $('.operating_unit_id').val();
+        $(".support_unit_id option").show()
 
         $userlvlid = $('#userlvlid').val();
         if ($userlvlid == 2) {
@@ -1094,27 +1079,37 @@
                     $(".support_unit_id").append(option1);
 
                     data.forEach(element => {
-                        var option = " <option value='" +
-                            element["id"] +
-                            "'>" +
-                            element["description"] +
-                            "</option>";
-                        // $("#operating_unit_id").append(option);
-                        $(".support_unit_id").append(option);
+                        if (element["id"] != operating_unit_id) {
+                            var option = " <option value='" +
+                                element["id"] +
+                                "'>" +
+                                element["description"] +
+                                "</option>";
+                            // $("#operating_unit_id").append(option);
+                            $(".support_unit_id").append(option);
+                        }
+
                     });
+
+
                 }
             });
         } else {
 
             html = '<div class="input-group mb-3 su_options">';
-            html += '<select name="support_unit_id[]" class="form-control" required>';
+            html += '<select name="support_unit_id[]" class="form-control support_unit_id" required >';
             html += '<option value="" disabled selected>Select Option</option>@foreach($operating_unit as $su)<option value="{{ $su->id }}">{{ $su->description }}</option>@endforeach';
             html += '</select>';
             html += '<a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
             html += '</div>';
 
             $('.SUdetails').append(html);
+
+            $(".support_unit_id option[value='" + operating_unit_id + "']").prop('hidden', true);
+
         }
+
+
 
 
 

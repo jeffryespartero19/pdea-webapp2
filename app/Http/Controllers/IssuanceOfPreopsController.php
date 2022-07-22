@@ -42,7 +42,7 @@ class IssuanceOfPreopsController extends Controller
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
                 ->join('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
-                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity')
+                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.description as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity')
                 ->where('d.id', Auth::user()->regional_office_id)
                 ->orderby('a.id', 'desc')
                 ->get();
@@ -208,6 +208,21 @@ class IssuanceOfPreopsController extends Controller
 
                 $ops_area_data = [
                     'area' => $data['area'][$i],
+                    'preops_number' => $preops_number,
+                    'region_c' => $data['area_region_c'][$i],
+                    'province_c' => $data['province_c'][$i],
+                    'city_c' => $data['city_c'][$i],
+                    'barangay_c' => $data['barangay_c'][$i],
+                    'ops_status' => false,
+                ];
+
+                DB::table('preops_area')->updateOrInsert(['id' => $id], $ops_area_data);
+            } else {
+                $id = 0 + DB::table('preops_area')->max('id');
+                $id += 1;
+
+                $ops_area_data = [
+                    'area' => 'N/A',
                     'preops_number' => $preops_number,
                     'region_c' => $data['area_region_c'][$i],
                     'province_c' => $data['province_c'][$i],
@@ -703,7 +718,7 @@ class IssuanceOfPreopsController extends Controller
                     <tr style="border: 1px solid;">
                         <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Region</th>
                         <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Province</th>
-                        <th style="border:solid; border-width: thin; padding:0 12px;" align="left">City</th>
+                        <th style="border:solid; border-width: thin; padding:0 12px;" align="left">City/Municipality</th>
                         <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Barangay</th>
                         <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Area</th>
                     </tr>';
