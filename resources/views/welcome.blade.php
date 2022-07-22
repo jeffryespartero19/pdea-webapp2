@@ -99,12 +99,12 @@
                                 <h3 style="color: white; font-size: 50px; margin:0px">PORMIS</h3>
                             </div>
                             <div class="card-body">
-                                <form method="POST" action="{{ route('login') }}">
+                                <form id="LGF" method="POST" action="{{ route('login') }}">
                                     @csrf
 
                                     <div class="form-group">
                                         <div class="form-group"><label>Email</label>
-                                            <input type="email" id="email" name="email" placeholder="Enter email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                            <input type="email" id="email" name="email" placeholder="Enter email" class="form-control @error('email') is-invalid @enderror fillin" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                             @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -115,7 +115,7 @@
 
                                     <div class="form-group">
                                         <div class="form-group"><label>Password</label>
-                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror fillin" name="password" required autocomplete="current-password">
                                             @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -124,15 +124,18 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class="form-group"><label>Log In As</label>
-                                            <select name="user_log_type" class="form-control user_log_type" required>
+                                        <div class="form-group"><label>Log In As</label><span id="on_duty" hidden style="float: right; color:red" for="">Someone's already on Duty</span>
+                                            <select id="user_log_type" name="user_log_type" class="form-control user_log_type" required>
                                                 <option value="" disabled selected>Select Option</option>
+                                                <option value='1'>Duty</option>
+                                                <option value='2'>Encoder</option>
 
                                             </select>
                                         </div>
+
                                     </div>
                                     <div>
-                                        <button class="btn btn-sm btn-primary float-right m-t-n-xs LoginBTN" type="submit"><strong>Log in</strong></button>
+                                        <button class="btn btn-sm btn-primary float-right m-t-n-xs LoginBTN" type="button"><strong>Log in</strong></button>
 
                                         <label> <input type="checkbox" class="i-checks" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}> Remember me </label>
                                     </div>
@@ -178,7 +181,9 @@
 
 
     <script>
-        $('.user_log_type').hover(function() {
+        $('.LoginBTN').click(function() {
+
+            var user_log_type = $('#user_log_type').val();
 
             $.ajax({
                 type: "GET",
@@ -189,15 +194,16 @@
                 success: function(data) {
                     var data = JSON.parse(data);
 
-                    $(".user_log_type").empty();
-
-                    if (data == 1) {
-                        var option = " <option value='' disabled selected>Select Option</option><option value='2'>Encoder</option>";
-                        $(".user_log_type").append(option);
+                    if (user_log_type == 1) {
+                        if (data == 1) {
+                            $("#on_duty").attr('hidden', false);
+                        } else {
+                            $('#LGF').submit();
+                        }
                     } else {
-                        var option = " <option value='' disabled selected>Select Option</option><option value='1'>Duty</option><option value='2'>Encoder</option>";
-                        $(".user_log_type").append(option);
+                        $('#LGF').submit();
                     }
+
 
                 }
             });
