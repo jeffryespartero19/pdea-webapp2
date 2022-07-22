@@ -248,12 +248,15 @@ Route::group(['middleware' => ['auth', 'cp_acess']], function () {
     Route::get('approved_by_edit/{id}', 'ApprovedByController@edit')->name('approved_by_edit');
     Route::post('approved_by_add', 'ApprovedByController@store');
     Route::patch('approved_by_edit/{id}', 'ApprovedByController@update');
+
+    Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 });
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', 'WelcomeController@index')->name('welcome');
 
 Auth::routes(['verify' => true]);
 
@@ -349,6 +352,7 @@ Route::get('/get_operating_unit/{ro_code}', 'GlobalController@get_operating_unit
 Route::get('/get_approved_by/{ro_code}', 'GlobalController@get_approved_by');
 Route::get('/get_operation_category/{operation_classification_id}', 'GlobalController@get_operation_category');
 Route::get('/get_suspect_sub_category/{suspect_category_id}', 'GlobalController@get_suspect_sub_category');
+Route::get('/get_user_log', 'GlobalController@get_user_log');
 
 // Report Generation
 Route::get('report_generation_list', 'ReportGenerationController@index')->name('report_generation_list');

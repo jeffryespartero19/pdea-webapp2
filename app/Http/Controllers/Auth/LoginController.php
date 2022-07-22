@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use DB;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -36,5 +40,40 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    protected function authenticated(Request $request)
+    {
+        $data = request()->all();
+        $this_user = DB::table('users')->where('email', $data['email'])->get();
+        $all_users = DB::table('users')->get();
+
+        foreach ($all_users as $au) {
+            DB::table('users')->where('is_logged_in', '<', 1)->update(
+                array(
+                    'is_logged_in' => 0,
+                )
+            );
+        }
+
+        DB::table('users')->where('email', $data['email'])->update(
+            array(
+                'is_logged_in' => $data['user_log_type'],
+            )
+        );
+    }
+
+    public function logout(Request $request)
+    {
+        $id = Auth::user()->id;
+
+        DB::table('users')->where('id', $id)->update(
+            array(
+                'is_logged_in' => 0,
+            )
+        );
+
+        Auth::logout();
+        return redirect('/');
     }
 }

@@ -42,6 +42,15 @@ class GlobalController extends Controller
         return ($userX);
     }
 
+    public function get_user_log(Request $request)
+    {
+       
+        $users = DB::table('users')->where('is_logged_in', 1)->get();
+        $on_duty=count($users);
+
+        return ($on_duty);
+    }
+
     public function getUser($user_id)
     {
         $data = DB::table('users')->where('id', $user_id)->get();

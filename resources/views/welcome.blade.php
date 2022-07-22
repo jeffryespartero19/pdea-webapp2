@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -10,18 +10,30 @@
 
     <title>EPORMIS</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <link rel="shortcut icon" href="../../dist/img/pdea_logo.jpg" />
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+    <!-- Sweet Alert -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <!-- Other styles -->
+    <link rel="stylesheet" href="{{ asset('css/c_gl.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/fontawesome.min.css') }}">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        .hide {
+            display: none;
+        }
+    </style>
+
 </head>
 
 <body style="background-image: url('../../dist/img/bgwelcome.jpg'); background-repeat:no-repeat; background-size:cover">
+    <!-- Site wrapper -->
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-success shadow-sm">
             <div class="container">
@@ -78,11 +90,11 @@
 
             </div>
 
-            <div class="container" style="padding-top: 200px;z-index: 9999; width:100%;">
+            <div class="container" style="padding-top: 100px;z-index: 9999; width:100%;">
                 <div class="row justify-content-center">
 
                     <div class="col-md-5">
-                        <div class="card" style="height: 350px;">
+                        <div class="card" style="height: 450px;">
                             <div class="card-header bg-success" style="text-align: left; padding:2px 20px; font-family:'Times New Roman', Times, serif">
                                 <h3 style="color: white; font-size: 50px; margin:0px">PORMIS</h3>
                             </div>
@@ -111,12 +123,20 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <div class="form-group"><label>Log In As</label>
+                                            <select name="user_log_type" class="form-control user_log_type" required>
+                                                <option value="" disabled selected>Select Option</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div>
-                                        <button class="btn btn-sm btn-primary float-right m-t-n-xs" type="submit"><strong>Log in</strong></button>
+                                        <button class="btn btn-sm btn-primary float-right m-t-n-xs LoginBTN" type="submit"><strong>Log in</strong></button>
 
                                         <label> <input type="checkbox" class="i-checks" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}> Remember me </label>
                                     </div>
-                                    <div style="text-align: center;"> 
+                                    <div style="text-align: center;">
                                         @if (Route::has('password.request'))
                                         <a class="btn btn-link" href="{{ route('password.request') }}">
                                             {{ __('Forgot Your Password?') }}
@@ -131,12 +151,12 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card" style="height: 350px;">
+                        <div class="card" style="height: 450px;">
                             <div class="card-header bg-success" style="text-align: center; padding:2px; font-family:'Times New Roman', Times, serif">
                                 <h3 style="color: white; font-size: 50px; margin:0px">PDEA</h3>
                             </div>
-                            <div class="card-body" style="text-align: center;">
-                                <img style="height: 200px; width:200px;" src="../../dist/img/pdea_logo.jpg">
+                            <div class="card-body" style="text-align: center; padding-top:50px">
+                                <img style="height: 250px; width:250px;" src="../../dist/img/pdea_logo.jpg">
                             </div>
                         </div>
                     </div>
@@ -146,6 +166,43 @@
 
         </main>
     </div>
+    <!-- ./wrapper -->
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+
+
+    <script>
+        $('.user_log_type').hover(function() {
+
+            $.ajax({
+                type: "GET",
+                url: "/get_user_log/",
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    $(".user_log_type").empty();
+
+                    if (data == 1) {
+                        var option = " <option value='' disabled selected>Select Option</option><option value='2'>Encoder</option>";
+                        $(".user_log_type").append(option);
+                    } else {
+                        var option = " <option value='' disabled selected>Select Option</option><option value='1'>Duty</option><option value='2'>Encoder</option>";
+                        $(".user_log_type").append(option);
+                    }
+
+                }
+            });
+        });
+    </script>
 
     <style>
         .loginBG {

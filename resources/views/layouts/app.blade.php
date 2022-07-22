@@ -10,18 +10,24 @@
 
     <title>EPORMIS</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <link rel="shortcut icon" href="../../dist/img/pdea_logo.jpg" />
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+    <!-- Sweet Alert -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <!-- Other styles -->
+    <link rel="stylesheet" href="{{ asset('css/c_gl.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/fontawesome.min.css') }}">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
-<body>
+<body style="background-image: url('../../dist/img/bgwelcome.jpg'); background-repeat:no-repeat; background-size:cover">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-success shadow-sm">
             <div class="container">
@@ -74,15 +80,31 @@
         </nav>
 
         <main class="py-4">
-            <div style="background-image: url('../../dist/img/pdea_logo.jpg'); background-repeat:no-repeat; background-size:700px; height:93vh; width:100%; background-position: center; background-color:white; position: fixed;z-index: -9999; opacity: 0.2;">
+            <div style="padding-top: 100px;z-index: 9999; width:100%;">>
+                <center>
+                    @yield('content')
+                </center>
 
             </div>
-            <center>
-                @yield('content')
-            </center>
+
 
         </main>
     </div>
+
+    <style>
+        .loginBG {
+            background-image: url('../../dist/img/bgwelcome.jpg');
+            background-repeat: no-repeat;
+            height: 100%;
+            width: 100%;
+            background-position: center;
+            background-color: white;
+            position: fixed;
+            z-index: -9999;
+            padding-top: 1000px;
+        }
+    </style>
+
 </body>
 
 </html>
