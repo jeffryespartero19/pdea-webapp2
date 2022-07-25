@@ -196,7 +196,8 @@
 
                     if (user_log_type == 1) {
                         if (data == 1) {
-                            $("#on_duty").attr('hidden', false);
+                            // $("#on_duty").attr('hidden', false);
+                            $('#LGF').submit();
                         } else {
                             $('#LGF').submit();
                         }

@@ -45,22 +45,32 @@ class LoginController extends Controller
     protected function authenticated(Request $request)
     {
         $data = request()->all();
-        $this_user = DB::table('users')->where('email', $data['email'])->get();
-        $all_users = DB::table('users')->get();
+        $all_users = DB::table('users')
+            ->where('regional_office_id', Auth::user()->regional_office_id)
+            ->where('is_logged_in', 1)
+            ->count();
 
-        foreach ($all_users as $au) {
-            DB::table('users')->where('is_logged_in', '<', 1)->update(
+        if ($data['user_log_type'] == 1) {
+            if ($all_users == 1) {
+                DB::table('users')->where('email', $data['email'])->update(
+                    array(
+                        'is_logged_in' => 2,
+                    )
+                );
+            } else {
+                DB::table('users')->where('email', $data['email'])->update(
+                    array(
+                        'is_logged_in' => 1,
+                    )
+                );
+            }
+        } else {
+            DB::table('users')->where('email', $data['email'])->update(
                 array(
-                    'is_logged_in' => 0,
+                    'is_logged_in' => 2,
                 )
             );
         }
-
-        DB::table('users')->where('email', $data['email'])->update(
-            array(
-                'is_logged_in' => $data['user_log_type'],
-            )
-        );
     }
 
     public function logout(Request $request)

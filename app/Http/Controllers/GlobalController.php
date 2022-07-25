@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class GlobalController extends Controller
 {
@@ -44,9 +45,22 @@ class GlobalController extends Controller
 
     public function get_user_log(Request $request)
     {
-       
+        $time = Carbon::now()->addMinutes(-20)->format('Y-m-d H:i:s');
+
+        $all_users = DB::table('users')->get();
+
+        foreach ($all_users as $au) {
+            DB::table('users')
+                ->where('lastActive', '<', $time)
+                ->update(
+                    array(
+                        'is_logged_in' => 0,
+                    )
+                );
+        }
+
         $users = DB::table('users')->where('is_logged_in', 1)->get();
-        $on_duty=count($users);
+        $on_duty = count($users);
 
         return ($on_duty);
     }
@@ -120,10 +134,10 @@ class GlobalController extends Controller
             $data->where(['a.operation_type_id' => $operation_type_id]);
         }
         if ($operation_date != 0) {
-            $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))") , '>=', $operation_date);
+            $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '>=', $operation_date);
         }
         if ($operation_date_to != 0) {
-            $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))") , '<=', $operation_date_to);
+            $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '<=', $operation_date_to);
         }
 
         $data = $data->get();
@@ -189,10 +203,10 @@ class GlobalController extends Controller
             $data->where(['a.operation_type_id' => $operation_type_id]);
         }
         if ($operation_date != 0) {
-            $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))") , '>=', $operation_date);
+            $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '>=', $operation_date);
         }
         if ($operation_date_to != 0) {
-            $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))") , '<=', $operation_date_to);
+            $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '<=', $operation_date_to);
         }
         $data = $data->get();
 
@@ -404,7 +418,7 @@ class GlobalController extends Controller
         return json_encode($data);
     }
 
-     public function get_suspect_sub_category($suspect_category_id)
+    public function get_suspect_sub_category($suspect_category_id)
     {
         $data = DB::table('suspect_sub_category')
             ->where(['suspect_category_id' => $suspect_category_id])
@@ -442,7 +456,3 @@ class GlobalController extends Controller
         return json_encode($data);
     }
 }
-
-
-
-

@@ -55,7 +55,7 @@
                             <label for="">Pre-ops No.<code> *</code></label>
                         </div>
                         <div class="input-group mb-3">
-                            <select name="preops_number" class="form-control @error('region') is-invalid @enderror" style="pointer-events: none; background-color : #e9ecef;">
+                            <select id="preops_number" name="preops_number" class="form-control @error('region') is-invalid @enderror" style="pointer-events: none; background-color : #e9ecef;">
                                 <option value='' disabled selected>Select Option</option>
                                 <option value='1' {{ 1 == $spot_report_header[0]->preops_number ? 'selected' : '' }}>Uncoordinated</option>
                                 @foreach ($preops_header as $ph)
@@ -1978,8 +1978,16 @@
     // Add Support Unit
     $('#sp_list').on("click", "#SPadd", function() {
 
+        var preops_number = $('#preops_number').val();
+
         html = '<div class="input-group mb-3 su_options">';
-        html += '<select name="support_unit_id[]" class="form-control" required>';
+
+        if (preops_number == 1) {
+            html += '<select name="support_unit_id[]" class="form-control" >';
+        } else {
+            html += '<select name="support_unit_id[]" class="form-control" required>';
+        }
+
         html += '<option value="" disabled selected>Select Option</option>@foreach($operating_unit as $su)<option value="{{ $su->id }}">{{ $su->description }}</option>@endforeach';
         html += '</select>';
         html += '<a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
@@ -2030,8 +2038,8 @@
         $('#spot_report').addClass('active');
     });
 
-     // Prevent Multiple Click of Save Button
-     $("#spot_report_form").on("submit", function() {
+    // Prevent Multiple Click of Save Button
+    $("#spot_report_form").on("submit", function() {
         $(this).find(":submit").prop("disabled", true);
     });
 </script>

@@ -194,7 +194,7 @@
                         </div>
                         <div class="SUdetails">
                             <div id="SUOptions" class="input-group mb-3 ">
-                                <select id="support_unit_id" name="support_unit_id[]" class="form-control @error('region') is-invalid @enderror disabled_field" required>
+                                <select id="support_unit_id" name="support_unit_id[]" class="form-control @error('region') is-invalid @enderror disabled_field support_unit_id" required>
                                     <option value='' disabled selected>Select Option</option>
                                     @foreach ($operating_unit as $su)
                                     <option value="{{ $su->id }}">{{ $su->description }}</option>
@@ -1065,12 +1065,13 @@
             // $("#operation_datetime").removeClass("disabled_field");
             $("#operating_unit_id").removeClass("disabled_field");
             $("#support_unit_id").removeClass("disabled_field");
+            $("#support_unit_id").prop("required", false);
             $('.SUdetails').empty();
             $("#SPadd").attr("hidden", false);
             $('#SUOptions').empty();
 
             html = '<div class="input-group mb-3 su_options">';
-            html += '<select name="support_unit_id[]" class="form-control" required>';
+            html += '<select name="support_unit_id[]" class="form-control support_unit_id">';
             html += '<option value="" disabled selected>Select Option</option>@foreach($support_unit as $su)<option value="{{ $su->id }}">{{ $su->name }}</option>@endforeach';
             html += '</select>';
             html += '<a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
@@ -1089,6 +1090,7 @@
             // $("#operation_datetime").addClass("disabled_field");
             $("#operating_unit_id").addClass("disabled_field");
             $("#support_unit_id").addClass("disabled_field");
+            $("#support_unit_id").prop("required", true);
 
 
             // Display Preops Header Info
@@ -1559,19 +1561,19 @@
         });
 
         // Add Case
-        $('#case').on("click", ".Cadd", function() {
-            var ro_code = $('.ro_code').val();
+        // $('#case').on("click", ".Cadd", function() {
+        //     var ro_code = $('.ro_code').val();
 
-            html = '<div class="input-group mb-3 su_options">';
-            html += '<select name="support_unit_id[]" class="form-control">';
-            html += '<option value="" disabled selected>Select Option</option>@foreach($support_unit as $su)<option value="{{ $su->id }}">{{ $su->name }}</option>@endforeach';
-            html += '</select>';
-            html += '<a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
-            html += '</div>';
+        //     html = '<div class="input-group mb-3 su_options">';
+        //     html += '<select name="support_unit_id[]" class="form-control">';
+        //     html += '<option value="" disabled selected>Select Option</option>@foreach($support_unit as $su)<option value="{{ $su->id }}">{{ $su->name }}</option>@endforeach';
+        //     html += '</select>';
+        //     html += '<a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
+        //     html += '</div>';
 
-            $('#sp_list').append(html);
+        //     $('#sp_list').append(html);
 
-        });
+        // });
 
         $(document).on('click', '.su_remove', function() {
             $(this).closest(".su_options").remove();
@@ -1687,8 +1689,16 @@
     // Add Support Unit
     $('#sp_list').on("click", "#SPadd", function() {
 
+        var preops_number = $('#preops_number').val();
+
         html = '<div class="input-group mb-3 su_options">';
-        html += '<select name="support_unit_id[]" class="form-control" required>';
+
+        if (preops_number == 1) {
+            html += '<select name="support_unit_id[]" class="form-control" >';
+        } else {
+            html += '<select name="support_unit_id[]" class="form-control" required>';
+        }
+
         html += '<option value="" disabled selected>Select Option</option>@foreach($operating_unit as $su)<option value="{{ $su->id }}">{{ $su->description }}</option>@endforeach';
         html += '</select>';
         html += '<a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
