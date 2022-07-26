@@ -98,6 +98,7 @@
                     <tr>
                         <th hidden>ID</th>
                         <th>Spot Report Number</th>
+                        <th>Pre-Ops Number</th>
                         <th>Operating Unit</th>
                         <th>Operation Type</th>
                         <th>Operation Date</th>
@@ -111,6 +112,7 @@
                     <tr>
                         <td hidden>{{ $spot_report->id }}</td>
                         <td>{{ $spot_report->spot_report_number }}</td>
+                        <td>@if($spot_report->preops_number == 1) Uncoordinated @else {{ $spot_report->preops_number }} @endif</td>
                         <td>{{ $spot_report->operating_unit }}</td>
                         <td>{{ $spot_report->operation_type }}</td>
                         <td>{{ $spot_report->operation_datetime }}</td>
