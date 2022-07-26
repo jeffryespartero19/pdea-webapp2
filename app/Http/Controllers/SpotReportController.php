@@ -67,6 +67,7 @@ class SpotReportController extends Controller
         $barangay = DB::table('barangay')->orderby('barangay_m', 'asc')->get();
 
         $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
+        $hio_type = DB::table('hio_type')->where('status', true)->orderby('name', 'asc')->get();
         $operation_type_spot_report = DB::table('operation_type')->where('status', true)->where('show_spot_report', true)->orderby('name', 'asc')->get();
 
 
@@ -140,7 +141,7 @@ class SpotReportController extends Controller
         $suspect_number += 1;
         $suspect_number = sprintf("%04s", $suspect_number);
 
-        return view('spot_report.spot_report_add', compact('report_header', 'packaging', 'sregion', 'suspect_category', 'suspect_number', 'roc_regional_office', 'date', 'spot_report_number', 'unit_measurement', 'evidence_type', 'suspect_classification', 'province', 'city', 'barangay', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'case', 'operation_type', 'operating_unit', 'region', 'preops_header', 'suspect_information', 'suspect_status', 'support_unit', 'regional_user', 'operation_type_spot_report'));
+        return view('spot_report.spot_report_add', compact('report_header', 'packaging', 'sregion', 'suspect_category', 'suspect_number', 'roc_regional_office', 'date', 'spot_report_number', 'unit_measurement', 'evidence_type', 'suspect_classification', 'province', 'city', 'barangay', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'case', 'operation_type', 'operating_unit', 'region', 'preops_header', 'suspect_information', 'suspect_status', 'support_unit', 'regional_user', 'operation_type_spot_report', 'hio_type'));
     }
 
     public function store(Request $request)
@@ -185,6 +186,7 @@ class SpotReportController extends Controller
             'operation_lvl' => $request->has('operation_lvl') ? true : false,
             'reference_number' => $request->reference_number,
             'created_at' => Carbon::now(),
+            'hio_type_id' => $request->hio_type_id,
         );
 
         $sr_id = DB::table('spot_report_header')->insertGetId($form_data);
@@ -597,6 +599,7 @@ class SpotReportController extends Controller
                 'd.name as uname',
                 'a.est_birthdate',
                 'a.whereabouts',
+                
             )
             ->where('b.id', $id)->get();
         $spot_report_evidence = DB::table('spot_report_evidence as a')
@@ -657,8 +660,9 @@ class SpotReportController extends Controller
             ->where('id', $spot_report_header[0]->operation_type_id)
             ->get();
         $report_header = DB::table('spot_report_header')->orderby('report_header', 'asc')->get();
+        $hio_type = DB::table('hio_type')->where('status', true)->orderby('name', 'asc')->get();
 
-        return view('spot_report.spot_report_edit', compact('report_header', 'packaging', 'suspect_category', 'is_warrant', 'unit_measurement', 'evidence', 'suspect_classification', 'preops_support_unit', 'support_unit', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'spot_report_suspect', 'spot_report_evidence', 'spot_report_case', 'spot_report_team', 'spot_report_summary', 'spot_report_header', 'region', 'province', 'city', 'barangay', 'operating_unit', 'operation_type', 'preops_header', 'suspect_information', 'case', 'suspect_status', 'spot_report_files', 'regional_user'));
+        return view('spot_report.spot_report_edit', compact('report_header', 'packaging', 'suspect_category', 'is_warrant', 'unit_measurement', 'evidence', 'suspect_classification', 'preops_support_unit', 'support_unit', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'spot_report_suspect', 'spot_report_evidence', 'spot_report_case', 'spot_report_team', 'spot_report_summary', 'spot_report_header', 'region', 'province', 'city', 'barangay', 'operating_unit', 'operation_type', 'preops_header', 'suspect_information', 'case', 'suspect_status', 'spot_report_files', 'regional_user', 'hio_type'));
     }
 
     public function update(Request $request, $id)
@@ -692,6 +696,7 @@ class SpotReportController extends Controller
                 'operation_lvl' => $request->has('operation_lvl') ? true : false,
                 'reference_number' => $request->reference_number,
                 'updated_at' => Carbon::now(),
+                'hio_type_id' => $request->hio_type_id,
             );
 
 

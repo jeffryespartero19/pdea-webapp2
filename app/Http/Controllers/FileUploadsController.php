@@ -37,27 +37,26 @@ class FileUploadsController extends Controller
                 ->leftjoin('regional_office as h1', 'c2.region_c', '=', 'h1.region_c')
                 ->leftjoin('regional_office as h2', 'f.region_c', '=', 'h2.region_c')
                 ->leftjoin('regional_office as h3', 'g.region_c', '=', 'h3.region_c')
-                ->where(function($query) {
+                ->where(function ($query) {
                     $query->where('h.id', Auth::user()->regional_office_id)
                         ->orWhere('h1.id', Auth::user()->regional_office_id)
                         ->orWhere('h2.id', Auth::user()->regional_office_id)
                         ->orWhere('h3.id', Auth::user()->regional_office_id);
-                    })
+                })
                 ->select('a.filename', 'a.transaction_type', 'b.preops_number as i_preops_number', 'c.preops_number as a_preops_number', 'd.spot_report_number as s_spot_report_number', 'e.spot_report_number as p_spot_report_number')
                 ->get();
 
             return view('file_uploads.file_uploads_list', compact('file_uploads'));
         } else {
             $file_uploads = DB::table('file_upload_list as a')
-            ->leftjoin('issuance_of_preops_files as b', 'a.preops_file_id', '=', 'b.id')
-            ->leftjoin('after_operation_files as c', 'a.after_operation_file_id', '=', 'c.id')
-            ->leftjoin('spot_report_files as d', 'a.spot_report_file_id', '=', 'd.id')
-            ->leftjoin('progress_report_files as e', 'a.progress_report_file_id', '=', 'e.id')
-            ->select('a.filename', 'a.transaction_type', 'b.preops_number as i_preops_number', 'c.preops_number as a_preops_number', 'd.spot_report_number as s_spot_report_number', 'e.spot_report_number as p_spot_report_number')
-            ->get();
+                ->leftjoin('issuance_of_preops_files as b', 'a.preops_file_id', '=', 'b.id')
+                ->leftjoin('after_operation_files as c', 'a.after_operation_file_id', '=', 'c.id')
+                ->leftjoin('spot_report_files as d', 'a.spot_report_file_id', '=', 'd.id')
+                ->leftjoin('progress_report_files as e', 'a.progress_report_file_id', '=', 'e.id')
+                ->select('a.filename', 'a.transaction_type', 'b.preops_number as i_preops_number', 'c.preops_number as a_preops_number', 'd.spot_report_number as s_spot_report_number', 'e.spot_report_number as p_spot_report_number')
+                ->get();
 
-        return view('file_uploads.file_uploads_list', compact('file_uploads'));
-            
+            return view('file_uploads.file_uploads_list', compact('file_uploads'));
         }
     }
 }

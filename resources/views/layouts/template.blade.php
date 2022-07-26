@@ -137,7 +137,7 @@
                                 </p>
                             </a>
                         </li>
-                        <li id="coc" class="nav-item" {{ Auth::user()->with_coc_access ? '' : 'hidden' }}>
+                        <li id="coc" class="nav-item" {{ Auth::user()->with_coc_access ? '' : 'hidden' }} >
                             <a href="#" class="nav-link" id="coc_link">
                                 <i class="nav-icon fas fa-clone"></i>
                                 <p>
@@ -332,6 +332,19 @@
                                             <a id="officer_position_list_setup" href="{{ route('officer_position_list') }}" class="nav-link" onclick="setactive('cpm','officer_position_list_setup')">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Officer Position</p>
+                                            </a>
+                                        </li>
+                                        @foreach($access_menu as $accessmenu)
+                                        @if(rtrim($accessmenu->menu_key) == "hio_type" && $accessmenu->status == true)
+                                        <li class="nav-item">
+                                            @break
+                                            @else
+                                        <li class="nav-item" hidden>
+                                            @endif
+                                            @endforeach
+                                            <a id="hio_type_list_setup" href="{{ route('hio_type_list') }}" class="nav-link" onclick="setactive('cpm','hio_type_list_setup')">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>HIO Type</p>
                                             </a>
                                         </li>
                                     </ul>

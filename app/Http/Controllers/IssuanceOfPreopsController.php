@@ -32,7 +32,8 @@ class IssuanceOfPreopsController extends Controller
             $data = DB::table('preops_header as a')
                 ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity')
+                ->join('spot_report_header as d', 'a.preops_number', '=', 'd.preops_number')
+                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'd.report_status', 'a.with_aor', 'a.with_sr')
                 ->orderby('a.id', 'desc')
                 ->get();
 
@@ -42,7 +43,9 @@ class IssuanceOfPreopsController extends Controller
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
                 ->join('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
-                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.description as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity')
+                ->join('spot_report_header as d', 'a.preops_number', '=', 'd.preops_number')
+                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.description as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'd.report_status', 'a.with_aor', 'a.with_sr')
+                ->orderby('a.id', 'desc')
                 ->where('d.id', Auth::user()->regional_office_id)
                 ->orderby('a.id', 'desc')
                 ->get();

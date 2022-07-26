@@ -248,6 +248,12 @@ Route::group(['middleware' => ['auth', 'cp_acess']], function () {
     Route::get('approved_by_edit/{id}', 'ApprovedByController@edit')->name('approved_by_edit');
     Route::post('approved_by_add', 'ApprovedByController@store');
     Route::patch('approved_by_edit/{id}', 'ApprovedByController@update');
+    // HIO Type Setup
+    Route::get('hio_type_list', 'HIOController@index')->name('hio_type_list');
+    Route::get('hio_type_add', 'HIOController@add')->name('hio_type_add');
+    Route::get('hio_type_edit/{id}', 'HIOController@edit')->name('hio_type_edit');
+    Route::post('hio_type_add', 'HIOController@store');
+    Route::patch('hio_type_edit/{id}', 'HIOController@update');
 
     Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 });

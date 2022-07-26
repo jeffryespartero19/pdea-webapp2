@@ -117,14 +117,24 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group col-12" style="margin: 0px; padding:20px 10px">
-                        <div class="custom-control custom-checkbox mb-2">
-                            <input name="operation_lvl" class="custom-control-input" type="checkbox" id="customCheckbox9" {{ $spot_report_header[0]->operation_lvl == true ? 'checked' : '' }} @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
-                            @else
-                            disabled
-                            @endif
-                            >
-                            <label for="customCheckbox9" class="custom-control-label">High Impact Operation</label>
+                    <div class="form-group col-12 row" style="margin: 0px; padding:20px 10px">
+                        <div class="col-4">
+                            <div class="custom-control custom-checkbox mb-2">
+                                <input id="operation_lvl" name="operation_lvl" class="custom-control-input" type="checkbox" {{ $spot_report_header[0]->operation_lvl == true ? 'checked' : '' }} @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                @else
+                                disabled
+                                @endif
+                                >
+                                <label for="operation_lvl" class="custom-control-label">High Impact Operation</label>
+
+                                <select id="hio_type_id" name="hio_type_id" class="form-control @error('region') is-invalid @enderror "  {{ $spot_report_header[0]->operation_lvl == true ? '' : 'disabled' }}>
+                                    <option value='' disabled selected>Select Option</option>
+                                    @foreach ($hio_type as $hio)
+                                    <option value="{{ $hio->id }}" {{ $hio->id == $spot_report_header[0]->hio_type_id ? 'selected' : '' }}>{{ $hio->name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
 
@@ -2041,6 +2051,16 @@
     // Prevent Multiple Click of Save Button
     $("#spot_report_form").on("submit", function() {
         $(this).find(":submit").prop("disabled", true);
+    });
+
+    // HIO tick
+    $('#operation_lvl').change(function() {
+        if (this.checked) {
+            $("#hio_type_id").prop('disabled', false)
+        } else {
+            $("#hio_type_id").prop('disabled', true)
+        }
+
     });
 </script>
 
