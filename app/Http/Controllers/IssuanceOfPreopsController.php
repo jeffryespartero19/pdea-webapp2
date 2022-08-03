@@ -44,7 +44,7 @@ class IssuanceOfPreopsController extends Controller
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
                 ->join('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
                 ->join('spot_report_header as e', 'a.preops_number', '=', 'e.preops_number')
-                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.description as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'd.report_status', 'a.with_aor', 'a.with_sr')
+                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.description as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'e.report_status', 'a.with_aor', 'a.with_sr')
                 ->orderby('a.id', 'desc')
                 ->where('d.id', Auth::user()->regional_office_id)
                 ->orderby('a.id', 'desc')
