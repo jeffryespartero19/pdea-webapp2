@@ -93,9 +93,30 @@ class ProgressReportController extends Controller
         $suspect_classification = DB::table('suspect_classification')->where('status', true)->orderby('id', 'asc')->get();
         $laboratory_facility = DB::table('laboratory_facility')->where('status', true)->orderby('id', 'asc')->get();
         $drug_type = DB::table('drug_type')->where('status', true)->orderby('id', 'asc')->get();
+        $identifier = DB::table('identifier')->where('status', true)->orderby('name', 'asc')->get();
+        $suspect_category = DB::table('suspect_category')->where('status', true)->orderby('id', 'asc')->get();
+        $suspect_sub_category = DB::table('suspect_sub_category')->where('status', true)->orderby('id', 'asc')->get();
 
-
-        return view('progress_report.progress_report_add', compact('laboratory_facility', 'drug_type', 'suspect_classification', 'region', 'operating_unit', 'spot_report_header', 'operation_type', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'suspect_status', 'regional_user'));
+        return view('progress_report.progress_report_add', compact(
+            'laboratory_facility',
+            'drug_type',
+            'suspect_classification',
+            'region',
+            'operating_unit',
+            'spot_report_header',
+            'operation_type',
+            'civil_status',
+            'religion',
+            'education',
+            'ethnic_group',
+            'nationality',
+            'occupation',
+            'suspect_status',
+            'regional_user',
+            'identifier',
+            'suspect_category',
+            'suspect_sub_category'
+        ));
     }
 
     public function store(Request $request)

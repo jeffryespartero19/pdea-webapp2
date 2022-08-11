@@ -115,6 +115,7 @@ class SpotReportController extends Controller
         $roc_regional_office = DB::table('regional_office')->where('id', Auth::user()->regional_office_id)->get();
         $region = DB::table('region')->where('status', true)->orderby('region_sort', 'asc')->get();
         $province = DB::table('province')->orderby('province_m', 'asc')->get();
+        $identifier = DB::table('identifier')->where('status', true)->orderby('name', 'asc')->get();
 
         if (Auth::user()->user_level_id == 1) {
             $sregion = DB::table('region')->where('region_c', $roc_regional_office[0]->region_c)->orderby('region_sort', 'asc')->get();
@@ -141,7 +142,40 @@ class SpotReportController extends Controller
         $suspect_number += 1;
         $suspect_number = sprintf("%04s", $suspect_number);
 
-        return view('spot_report.spot_report_add', compact('report_header', 'packaging', 'sregion', 'suspect_category', 'suspect_number', 'roc_regional_office', 'date', 'spot_report_number', 'unit_measurement', 'evidence_type', 'suspect_classification', 'province', 'city', 'barangay', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'case', 'operation_type', 'operating_unit', 'region', 'preops_header', 'suspect_information', 'suspect_status', 'support_unit', 'regional_user', 'operation_type_spot_report', 'hio_type'));
+        return view('spot_report.spot_report_add', compact(
+            'report_header',
+            'packaging',
+            'sregion',
+            'suspect_category',
+            'suspect_number',
+            'roc_regional_office',
+            'date',
+            'spot_report_number',
+            'unit_measurement',
+            'evidence_type',
+            'suspect_classification',
+            'province',
+            'city',
+            'barangay',
+            'civil_status',
+            'religion',
+            'education',
+            'ethnic_group',
+            'nationality',
+            'occupation',
+            'case',
+            'operation_type',
+            'operating_unit',
+            'region',
+            'preops_header',
+            'suspect_information',
+            'suspect_status',
+            'support_unit',
+            'regional_user',
+            'operation_type_spot_report',
+            'hio_type',
+            'identifier'
+        ));
     }
 
     public function store(Request $request)
@@ -260,6 +294,7 @@ class SpotReportController extends Controller
                         'educational_attainment_id' => $data['educational_attainment_id'][$i],
                         'ethnic_group_id' => $data['ethnic_group_id'][$i],
                         'occupation_id' => $data['occupation_id'][$i],
+                        'identifier_id' => $data['identifier_id'][$i],
                         'region_c' => $data['present_region_c'][$i],
                         'province_c' => $data['present_province_c'][$i],
                         'city_c' => $data['present_city_c'][$i],
@@ -273,6 +308,7 @@ class SpotReportController extends Controller
                         'suspect_status_id' => $data['suspect_status_id'][$i],
                         'suspect_classification_id' => $data['suspect_classification_id'][$i],
                         'suspect_category_id' => $data['suspect_category_id'][$i],
+                        'suspect_sub_category_id' => $data['suspect_sub_category_id'][$i],
                         'remarks' => $data['remarks'][$i],
                         'status' => true,
                         'created_at' => Carbon::now()->format('Y-m-d'),
@@ -295,6 +331,7 @@ class SpotReportController extends Controller
                         'educational_attainment_id' => $data['educational_attainment_id'][$i],
                         'ethnic_group_id' => $data['ethnic_group_id'][$i],
                         'occupation_id' => $data['occupation_id'][$i],
+                        'identifier_id' => $data['identifier_id'][$i],
                         'operation_region' => $request->region_c,
                         'region_c' => $data['present_region_c'][$i],
                         'province_c' => $data['present_province_c'][$i],
@@ -346,6 +383,7 @@ class SpotReportController extends Controller
                             'educational_attainment_id' => $data['educational_attainment_id'][$i],
                             'ethnic_group_id' => $data['ethnic_group_id'][$i],
                             'occupation_id' => $data['occupation_id'][$i],
+                            'identifier_id' => $data['identifier_id'][$i],
                             'region_c' => $data['present_region_c'][$i],
                             'province_c' => $data['present_province_c'][$i],
                             'city_c' => $data['present_city_c'][$i],
@@ -359,6 +397,7 @@ class SpotReportController extends Controller
                             'suspect_status_id' => $data['suspect_status_id'][$i],
                             'suspect_classification_id' => $data['suspect_classification_id'][$i],
                             'suspect_category_id' => $data['suspect_category_id'][$i],
+                            'suspect_sub_category_id' => $data['suspect_sub_category_id'][$i],
                             'remarks' => $data['remarks'][$i],
                             'status' => true,
                             'created_at' => Carbon::now()->format('Y-m-d'),
@@ -381,6 +420,7 @@ class SpotReportController extends Controller
                             'educational_attainment_id' => $data['educational_attainment_id'][$i],
                             'ethnic_group_id' => $data['ethnic_group_id'][$i],
                             'occupation_id' => $data['occupation_id'][$i],
+                            'identifier_id' => $data['identifier_id'][$i],
                             'operation_region' => $request->region_c,
                             'region_c' => $data['present_region_c'][$i],
                             'province_c' => $data['present_province_c'][$i],
@@ -579,6 +619,7 @@ class SpotReportController extends Controller
                 'a.educational_attainment_id',
                 'a.ethnic_group_id',
                 'a.occupation_id',
+                'a.identifier_id',
                 'a.region_c',
                 'a.province_c',
                 'a.city_c',
@@ -593,13 +634,14 @@ class SpotReportController extends Controller
                 'a.suspect_status_id',
                 'a.remarks',
                 'a.suspect_category_id',
+                'a.suspect_sub_category_id',
                 'c.listed',
                 'c.user_id',
                 'e.name as ulvl',
                 'd.name as uname',
                 'a.est_birthdate',
                 'a.whereabouts',
-                
+
             )
             ->where('b.id', $id)->get();
         $spot_report_evidence = DB::table('spot_report_evidence as a')
@@ -661,8 +703,47 @@ class SpotReportController extends Controller
             ->get();
         $report_header = DB::table('spot_report_header')->orderby('report_header', 'asc')->get();
         $hio_type = DB::table('hio_type')->where('status', true)->orderby('name', 'asc')->get();
+        $identifier = DB::table('identifier')->where('status', true)->orderby('name', 'asc')->get();
+        $suspect_sub_category = DB::table('suspect_sub_category')->where('status', true)->orderby('name', 'asc')->get();
 
-        return view('spot_report.spot_report_edit', compact('report_header', 'packaging', 'suspect_category', 'is_warrant', 'unit_measurement', 'evidence', 'suspect_classification', 'preops_support_unit', 'support_unit', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'spot_report_suspect', 'spot_report_evidence', 'spot_report_case', 'spot_report_team', 'spot_report_summary', 'spot_report_header', 'region', 'province', 'city', 'barangay', 'operating_unit', 'operation_type', 'preops_header', 'suspect_information', 'case', 'suspect_status', 'spot_report_files', 'regional_user', 'hio_type'));
+        return view('spot_report.spot_report_edit', compact(
+            'report_header',
+            'packaging',
+            'suspect_category',
+            'is_warrant',
+            'unit_measurement',
+            'evidence',
+            'suspect_classification',
+            'preops_support_unit',
+            'support_unit',
+            'civil_status',
+            'religion',
+            'education',
+            'ethnic_group',
+            'nationality',
+            'occupation',
+            'spot_report_suspect',
+            'spot_report_evidence',
+            'spot_report_case',
+            'spot_report_team',
+            'spot_report_summary',
+            'spot_report_header',
+            'region',
+            'province',
+            'city',
+            'barangay',
+            'operating_unit',
+            'operation_type',
+            'preops_header',
+            'suspect_information',
+            'case',
+            'suspect_status',
+            'spot_report_files',
+            'regional_user',
+            'hio_type',
+            'identifier',
+            'suspect_sub_category'
+        ));
     }
 
     public function update(Request $request, $id)
@@ -768,6 +849,7 @@ class SpotReportController extends Controller
                                 'educational_attainment_id' => $data['educational_attainment_id'][$i],
                                 'ethnic_group_id' => $data['ethnic_group_id'][$i],
                                 'occupation_id' => $data['occupation_id'][$i],
+                                'identifier_id' => $data['identifier_id'][$i],
                                 'region_c' => $data['present_region_c'][$i],
                                 'province_c' => $data['present_province_c'][$i],
                                 'city_c' => $data['present_city_c'][$i],
@@ -781,6 +863,7 @@ class SpotReportController extends Controller
                                 'suspect_status_id' => $data['suspect_status_id'][$i],
                                 'suspect_classification_id' => $data['suspect_classification_id'][$i],
                                 'suspect_category_id' => $data['suspect_category_id'][$i],
+                                'suspect_sub_category_id' => $data['suspect_sub_category_id'][$i],
                                 'remarks' => $data['remarks'][$i],
                                 'status' => true,
                                 'created_at' => Carbon::now()->format('Y-m-d'),
@@ -842,6 +925,7 @@ class SpotReportController extends Controller
                                 'educational_attainment_id' => $data['educational_attainment_id'][$i],
                                 'ethnic_group_id' => $data['ethnic_group_id'][$i],
                                 'occupation_id' => $data['occupation_id'][$i],
+                                'identifier_id' => $data['identifier_id'][$i],
                                 'region_c' => $data['present_region_c'][$i],
                                 'province_c' => $data['present_province_c'][$i],
                                 'city_c' => $data['present_city_c'][$i],
@@ -855,6 +939,7 @@ class SpotReportController extends Controller
                                 'suspect_status_id' => $data['suspect_status_id'][$i],
                                 'suspect_classification_id' => $data['suspect_classification_id'][$i],
                                 'suspect_category_id' => $data['suspect_category_id'][$i],
+                                'suspect_sub_category_id' => $data['suspect_sub_category_id'][$i],
                                 'remarks' => $data['remarks'][$i],
                                 'status' => true,
                                 'updated_at' => Carbon::now()->format('Y-m-d'),
@@ -877,7 +962,7 @@ class SpotReportController extends Controller
                                 'religion_id' => $data['religion_id'][$i],
                                 'educational_attainment_id' => $data['educational_attainment_id'][$i],
                                 'ethnic_group_id' => $data['ethnic_group_id'][$i],
-                                'occupation_id' => $data['occupation_id'][$i],
+                                'identifier' => $data['identifier'][$i],
                                 'operation_region' => $request->region_c,
                                 'region_c' => $data['present_region_c'][$i],
                                 'province_c' => $data['present_province_c'][$i],
@@ -932,6 +1017,7 @@ class SpotReportController extends Controller
                                     'educational_attainment_id' => $data['educational_attainment_id'][$i],
                                     'ethnic_group_id' => $data['ethnic_group_id'][$i],
                                     'occupation_id' => $data['occupation_id'][$i],
+                                    'identifier_id' => $data['identifier_id'][$i],
                                     'region_c' => $data['present_region_c'][$i],
                                     'province_c' => $data['present_province_c'][$i],
                                     'city_c' => $data['present_city_c'][$i],
@@ -945,6 +1031,7 @@ class SpotReportController extends Controller
                                     'suspect_status_id' => $data['suspect_status_id'][$i],
                                     'suspect_classification_id' => $data['suspect_classification_id'][$i],
                                     'suspect_category_id' => $data['suspect_category_id'][$i],
+                                    'suspect_sub_category_id' => $data['suspect_sub_category_id'][$i],
                                     'remarks' => $data['remarks'][$i],
                                     'status' => true,
                                     'created_at' => Carbon::now()->format('Y-m-d'),
@@ -1006,6 +1093,7 @@ class SpotReportController extends Controller
                                     'educational_attainment_id' => $data['educational_attainment_id'][$i],
                                     'ethnic_group_id' => $data['ethnic_group_id'][$i],
                                     'occupation_id' => $data['occupation_id'][$i],
+                                    'identifier_id' => $data['identifier_id'][$i],
                                     'region_c' => $data['present_region_c'][$i],
                                     'province_c' => $data['present_province_c'][$i],
                                     'city_c' => $data['present_city_c'][$i],
@@ -1019,6 +1107,7 @@ class SpotReportController extends Controller
                                     'suspect_status_id' => $data['suspect_status_id'][$i],
                                     'suspect_classification_id' => $data['suspect_classification_id'][$i],
                                     'suspect_category_id' => $data['suspect_category_id'][$i],
+                                    'suspect_sub_category_id' => $data['suspect_sub_category_id'][$i],
                                     'remarks' => $data['remarks'][$i],
                                     'status' => true,
                                     'updated_at' => Carbon::now()->format('Y-m-d'),

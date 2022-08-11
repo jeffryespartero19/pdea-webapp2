@@ -235,6 +235,9 @@ class GlobalController extends Controller
             ->leftjoin('drug_management as r', 'a.id', '=', 'r.suspect_id')
             ->leftjoin('users as s', 's.id', '=', 'r.user_id')
             ->leftjoin('tbluserlevel as t', 's.user_level_id', '=', 't.id')
+            ->leftjoin('suspect_category as u', 'a.suspect_category_id', '=', 'u.id')
+            ->leftjoin('suspect_sub_category as v', 'a.suspect_sub_category', '=', 'v.id')
+            ->leftjoin('suspect_status as w', 'a.suspect_status_id', '=', 'w.id')
 
             ->select(
                 'a.suspect_number',
@@ -243,6 +246,7 @@ class GlobalController extends Controller
                 'a.middlename',
                 'a.alias',
                 'a.birthdate',
+                'a.est_birthdate',
                 'a.birthplace',
                 'b.region_m',
                 'c.region_m as permanent_region_m',
@@ -267,6 +271,9 @@ class GlobalController extends Controller
                 't.name as ulvl',
                 's.name as uname',
                 'r.listed',
+                'u.name as suspect_category',
+                'v.name as suspect_sub_category',
+                'w.name as suspect_status',
 
             )
             ->where(['a.spot_report_number' => $spot_report_number])

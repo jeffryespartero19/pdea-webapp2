@@ -147,7 +147,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 @foreach($access_menu as $accessmenu)
-                                @if(rtrim($accessmenu->menu_key) == "issuance_of_preops" && $accessmenu->status == true)
+                                @if(rtrim($accessmenu->menu_key) == "issuance_of_preops" && $accessmenu->status == true || Auth::user()->is_logged_in == 2)
                                 <li class="nav-item">
                                     @break
                                     @else

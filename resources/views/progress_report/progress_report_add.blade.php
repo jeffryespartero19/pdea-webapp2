@@ -158,17 +158,19 @@
                                                 <table id="suspect" class="table table-hover text-nowrap">
                                                     <thead>
                                                         <tr>
-                                                            <th colspan="12" style="background-color: lightgreen; text-align:center">Operational Details</th>
+                                                            <th colspan="14" style="background-color: lightgreen; text-align:center">Operational Details</th>
                                                             <th colspan="12" style="background-color: pink; text-align:center">Personal Background</th>
-                                                            <th colspan="7" style="background-color: lightyellow; text-align:center">Other Information</th>
+                                                            <th colspan="10" style="background-color: lightyellow; text-align:center">Other Information</th>
                                                         </tr>
                                                         <tr>
                                                             <th style="color: gray;">Suspect Number</th>
+                                                            <th style="color: gray;">Status</th>
                                                             <th style="color: gray;">Last Name</th>
                                                             <th style="color: gray;">First Name</th>
                                                             <th style="color: gray;">Middle Name</th>
                                                             <th style="color: gray;">Alias</th>
                                                             <th style="color: gray;">Birthdate</th>
+                                                            <th style="color: gray;">Estimated Birthdate</th>
                                                             <th style="color: gray;">Birth Place</th>
                                                             <th style="color: gray;">Region</th>
                                                             <th style="color: gray;">Province</th>
@@ -187,7 +189,10 @@
                                                             <th style="color: gray;">Religion</th>
                                                             <th style="color: gray;">Educational Attainment</th>
                                                             <th style="color: gray;">Occupation</th>
+                                                            <th style="color: gray;">Suspect Identifier</th>
                                                             <th style="color: gray;">Suspect Classification</th>
+                                                            <th style="color: gray;">Suspect Category</th>
+                                                            <th style="color: gray;">Suspect Sub Category</th>
                                                             <th style="color: gray;">Suspect Status</th>
                                                             <th style="color: gray;">Drug Test Result</th>
                                                             <th style="color: gray;">Drug Type</th>
@@ -200,11 +205,13 @@
                                                     <tbody id="suspect_details">
                                                         <tr>
                                                             <td><input type="text" name="suspect_number[]" style="width: 200px;" class="form-control"></td>
+                                                            <td><input type="text" name="status[]" style="width: 200px;" class="form-control"></td>
                                                             <td><input type="text" name="lastname[]" style="width: 200px;" class="form-control"></td>
                                                             <td><input type="text" name="firstname" style="width: 200px;" class="form-control"></td>
                                                             <td><input type="text" name="middlename[]" style="width: 200px;" class="form-control"></td>
                                                             <td><input type="text" name="alias[]" style="width: 200px;" class="form-control"></td>
                                                             <td><input type="text" name="birthdate" style="width: 200px;" class="form-control"></td>
+                                                            <td><input type="text" name="estimated_birthdate[]" style="width: 200px;" class="form-control"></td>
                                                             <td><input type="text" name="birthplace" style="width: 200px;" class="form-control"></td>
                                                             <td>
                                                                 <select name="present_region_c[]" class="form-control present_region_c" style="width: 200px;">
@@ -301,6 +308,7 @@
                                                                     @endforeach
                                                                 </select>
                                                             </td>
+
                                                             <td>
                                                                 <select name="occupation_id[]" class="form-control" style="width: 200px;">
                                                                     <option value='' disabled selected>Select Option</option>
@@ -310,10 +318,34 @@
                                                                 </select>
                                                             </td>
                                                             <td>
+                                                                <select name="identifier_id[]" class="form-control" style="width: 200px;">
+                                                                    <option value='' disabled selected>Select Option</option>
+                                                                    @foreach($identifier as $identifier)
+                                                                    <option value="{{ $identifier->id }}">{{ $identifier->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
+                                                            <td>
                                                                 <select name="suspect_classification_id[]" class="form-control" style="width: 200px;">
                                                                     <option value='' disabled selected>Select Option</option>
                                                                     @foreach($suspect_classification as $scc)
                                                                     <option value="{{ $scc->id }}">{{ $scc->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <select name="suspect_category_id[]" class="form-control" style="width: 200px;">
+                                                                    <option value='' disabled selected>Select Option</option>
+                                                                    @foreach($suspect_category as $scat)
+                                                                    <option value="{{ $scat->id }}">{{ $scat->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <select name="suspect_sub_category_id[]" class="form-control" style="width: 200px;">
+                                                                    <option value='' disabled selected>Select Option</option>
+                                                                    @foreach($suspect_sub_category as $sscat)
+                                                                    <option value="{{ $sscat->id }}">{{ $sscat->name }}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </td>
@@ -791,14 +823,22 @@
                     data.forEach(element => {
                         $listed = parseInt(element["listed"]);
 
+                        if(element["birthdate"] == 1) {
+                            $est_birthdate ='Yes';
+                        } else {
+                            $est_birthdate ='No';
+                        }
+
                         var details =
                             '<tr>' +
                             '<td><input type="text" name="suspect_number[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["suspect_number"] + '"></td>' +
+                            '<td><input type="text" name="status[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["suspect_status"] + '"></td>' +
                             '<td><input type="text" name="lastname[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["lastname"] + '"></td>' +
                             '<td><input type="text" name="firstname[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["firstname"] + '"></td>' +
                             '<td><input type="text" name="middlename[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["middlename"] + '"></td>' +
                             '<td><input type="text" name="alias[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["alias"] + '"></td>' +
                             '<td><input type="text" name="birthdate[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["birthdate"] + '"></td>' +
+                            '<td><input type="text" name="birthdate[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + $est_birthdate + '"></td>' +
                             '<td><input type="text" name="birthplace[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["birthplace"] + '"></td>' +
                             '<td><input type="text" name="region[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["region_m"] + '"></td>' +
                             '<td><input type="text" name="province[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["province_m"] + '"></td>' +
@@ -817,7 +857,10 @@
                             '<td><input type="text" name="religion[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["religion"] + '"></td>' +
                             '<td><input type="text" name="educational_attainment[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["birthplace"] + '"></td>' +
                             '<td><input type="text" name="occupation[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["occupation"] + '"></td>' +
+                            '<td><input type="text" name="identifier_id[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["identifier"] + '"></td>' +
                             '<td><input type="text" name="suspect_classification[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["suspect_classification"] + '"></td>' +
+                            '<td><input type="text" name="suspect_category[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["suspect_category"] + '"></td>' +
+                            '<td><input type="text" name="suspect_sub_category[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["suspect_sub_category"] + '"></td>' +
                             '<td><input type="text" name="suspect_status[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["suspect_status"] + '"></td>' +
                             '<td><select name="drug_test_result[]" class="form-control" style="width: 200px;"><option value="negative">Negative</option><option value="positive">Positive</option></select></td></td>' +
                             '<td><select name="drug_type_id[]" class="form-control" style="width: 200px;"><option value="0" selected>None</option>@foreach($drug_type as $dt)<option value="{{ $dt->id }}">{{ $dt->name }}</option>@endforeach</select></td>' +
@@ -858,7 +901,10 @@
                         '<td><input type="text" name="religion[]" style="width: 200px;" class="form-control"></td>' +
                         '<td><input type="text" name="educational_attainment[]" style="width: 200px;" class="form-control"></td>' +
                         '<td><input type="text" name="occupation[]" style="width: 200px;" class="form-control"></td>' +
+                        '<td><input type="text" name="identifier_id[]" style="width: 200px;" class="form-control"></td>' +
                         '<td><input type="text" name="suspect_classification[]" style="width: 200px;" class="form-control"></td>' +
+                        '<td><input type="text" name="suspect_category[]" style="width: 200px;" class="form-control"></td>' +
+                        '<td><input type="text" name="suspect_sub_category[]" style="width: 200px;" class="form-control"></td>' +
                         '<td><input type="text" name="suspect_status[]" style="width: 200px;" class="form-control"></td>' +
                         '<td><input type="text" name="drug_test_result[]" style="width: 200px;" class="form-control"></td>' +
                         '<td><input type="text" name="drug_type_id[]" style="width: 200px;" class="form-control"></td>' +
@@ -960,6 +1006,8 @@
             }
         });
     });
+
+
 
 
     $("#status_type").on("change", function() {

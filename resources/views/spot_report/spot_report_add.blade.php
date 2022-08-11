@@ -276,7 +276,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th colspan="14" style="background-color: lightgreen; text-align:center">Operational Details</th>
-                                                            <th colspan="12" style="background-color: pink; text-align:center">Personal Background</th>
+                                                            <th colspan="13" style="background-color: pink; text-align:center">Personal Background</th>
                                                             <th colspan="6" style="background-color: lightyellow; text-align:center">Other Information</th>
                                                         </tr>
                                                         <tr>
@@ -306,8 +306,10 @@
                                                             <th style="color: gray;">Religion</th>
                                                             <th style="color: gray;">Educational Attainment</th>
                                                             <th style="color: gray;">Occupation</th>
+                                                            <th style="color: gray;">Suspect Identifier</th>
                                                             <th style="color: gray;">Suspect Classification</th>
                                                             <th style="color: gray;">Suspect Category</th>
+                                                            <th style="color: gray;">Suspect Sub Category</th>
                                                             <th style="color: gray;">Whereabouts</th>
                                                             <th style="color: gray;">Remarks</th>
                                                             <th style="color: gray;">Action</th>
@@ -476,6 +478,17 @@
                                                                 </select>
                                                             </td>
                                                             <td>
+                                                                <select name="identifier_id[]" class="form-control" style="width: 200px;">
+                                                                    <option value='' selected>Select Option
+                                                                    </option>
+                                                                    @foreach ($identifier as $identifiers)
+                                                                    <option value="{{ $identifiers->id }}">
+                                                                        {{ $identifiers->name }}
+                                                                    </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
+                                                            <td>
                                                                 <select name="suspect_classification_id[]" class="form-control suspect_classification_id" style="width: 200px;">
                                                                     <option value='' selected>Select Option
                                                                     </option>
@@ -487,7 +500,13 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="suspect_category_id[]" class="form-control" style="width: 200px;">
+                                                                <select name="suspect_category_id[]" class="form-control suspect_category_id" style="width: 200px;">
+                                                                    <option value='' selected>Select Option
+                                                                    </option>
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <select name="suspect_sub_category_id[]" class="form-control" style="width: 200px;">
                                                                     <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
@@ -940,7 +959,9 @@
             html +=
                 '<td><select name="suspect_classification_id[]" class="form-control suspect_classification_id" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($suspect_classification as $sclass)<option value="{{ $sclass->id }}">{{ $sclass->name }}</option>@endforeach</select></td>';
             html +=
-                '<td><select name="suspect_category_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
+                '<td><select name="suspect_category_id[]" class="form-control suspect_category_id" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
+            html +=
+                '<td><select name="suspect_sub_category_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
             html +=
                 '<td><input type="text" name="whereabouts[]" style="width: 200px;" class="form-control"></td>';
             html +=
@@ -1671,10 +1692,10 @@
                 success: function(data) {
                     var data = JSON.parse(data);
 
-                    $($row.find("td:eq(27) select")).empty();
+                    $($row.find("td:eq(28) select")).empty();
                     var option1 =
                         " <option value='' selected>Select Option</option>";
-                    $($row.find("td:eq(27) select")).append(option1);
+                    $($row.find("td:eq(28) select")).append(option1);
 
                     data.forEach(element => {
                         var option = " <option value='" +
@@ -1682,7 +1703,37 @@
                             "'>" +
                             element["name"] +
                             "</option>";
-                        $($row.find("td:eq(27) select")).append(option);
+                        $($row.find("td:eq(28) select")).append(option);
+                    });
+                }
+            });
+        });
+
+        $(document).on("change", ".suspect_category_id", function() {
+            var suspect_category_id = $(this).val();
+            var $row = $(this).closest(".suspect_details");
+
+            $.ajax({
+                type: "GET",
+                url: "/get_suspect_sub_category/" + suspect_category_id,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    $($row.find("td:eq(29) select")).empty();
+                    var option1 =
+                        " <option value='' selected>Select Option</option>";
+                    $($row.find("td:eq(29) select")).append(option1);
+
+                    data.forEach(element => {
+                        var option = " <option value='" +
+                            element["id"] +
+                            "'>" +
+                            element["name"] +
+                            "</option>";
+                        $($row.find("td:eq(29) select")).append(option);
                     });
                 }
             });
