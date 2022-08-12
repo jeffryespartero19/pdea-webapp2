@@ -77,6 +77,8 @@ class DrugVerificationController extends Controller
             ->leftjoin('suspect_classification as l', 'a.suspect_classification_id', '=', 'l.id')
             ->leftjoin('suspect_category as m', 'a.suspect_category_id', '=', 'm.id')
             ->leftjoin('suspect_status as n', 'a.suspect_status_id', '=', 'n.id')
+            ->leftjoin('identifier as o', 'a.identifier_id', '=', 'o.id')
+            ->leftjoin('suspect_sub_category as p', 'a.suspect_sub_category_id', '=', 'p.id')
 
             ->select(
                 'a.id',
@@ -99,6 +101,8 @@ class DrugVerificationController extends Controller
                 'm.name as suspect_category',
                 'n.name as status',
                 'b.street',
+                'o.name as identifier',
+                'p.name as suspect_sub_category',
             )
             ->where('b.operation_lvl', 0)
             ->where('m.hvt', 1)
