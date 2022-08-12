@@ -236,7 +236,7 @@ class GlobalController extends Controller
             ->leftjoin('users as s', 's.id', '=', 'r.user_id')
             ->leftjoin('tbluserlevel as t', 's.user_level_id', '=', 't.id')
             ->leftjoin('suspect_category as u', 'a.suspect_category_id', '=', 'u.id')
-            ->leftjoin('suspect_sub_category as v', 'a.suspect_sub_category', '=', 'v.id')
+            ->leftjoin('suspect_sub_category as v', 'a.suspect_sub_category_id', '=', 'v.id')
             ->leftjoin('suspect_status as w', 'a.suspect_status_id', '=', 'w.id')
 
             ->select(
@@ -282,6 +282,7 @@ class GlobalController extends Controller
 
         return json_encode($data);
     }
+    
 
     public function get_spot_report_evidence_drug($spot_report_number)
     {

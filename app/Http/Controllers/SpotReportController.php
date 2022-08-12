@@ -886,6 +886,7 @@ class SpotReportController extends Controller
                                 'educational_attainment_id' => $data['educational_attainment_id'][$i],
                                 'ethnic_group_id' => $data['ethnic_group_id'][$i],
                                 'occupation_id' => $data['occupation_id'][$i],
+                                'identifier_id' => $data['identifier_id'][$i],
                                 'operation_region' => $request->region_c,
                                 'region_c' => $data['present_region_c'][$i],
                                 'province_c' => $data['present_province_c'][$i],
@@ -962,7 +963,8 @@ class SpotReportController extends Controller
                                 'religion_id' => $data['religion_id'][$i],
                                 'educational_attainment_id' => $data['educational_attainment_id'][$i],
                                 'ethnic_group_id' => $data['ethnic_group_id'][$i],
-                                'identifier' => $data['identifier'][$i],
+                                'occupation_id' => $data['occupation_id'][$i],
+                                'identifier_id' => $data['identifier_id'][$i],
                                 'operation_region' => $request->region_c,
                                 'region_c' => $data['present_region_c'][$i],
                                 'province_c' => $data['present_province_c'][$i],
@@ -1131,6 +1133,7 @@ class SpotReportController extends Controller
                                     'educational_attainment_id' => $data['educational_attainment_id'][$i],
                                     'ethnic_group_id' => $data['ethnic_group_id'][$i],
                                     'occupation_id' => $data['occupation_id'][$i],
+                                    'identifier_id' => $data['identifier_id'][$i],
                                     'operation_region' => $request->region_c,
                                     'region_c' => $data['present_region_c'][$i],
                                     'province_c' => $data['present_province_c'][$i],
@@ -1203,14 +1206,26 @@ class SpotReportController extends Controller
                                 $alias = $sdata[3];
                                 $birthdate = $sdata[4];
 
-                                $suspect_data = DB::table('spot_report_suspect')
-                                    ->where('lastname', $lastname)
-                                    ->where('firstname', $firstname)
-                                    ->where('middlename', $middlename)
-                                    ->where('alias', $alias)
-                                    ->where('birthdate', $birthdate)
-                                    ->select('suspect_number')
-                                    ->get();
+                                $query = DB::table('spot_report_suspect')
+                                    ->select('suspect_number');
+
+                                if ($lastname != null) {
+                                    $query->where('lastname', $lastname);
+                                }
+                                if ($firstname != null) {
+                                    $query->where('firstname', $firstname);
+                                }
+                                if ($middlename != null) {
+                                    $query->where('middlename', $middlename);
+                                }
+                                if ($alias != null) {
+                                    $query->where('alias', $alias);
+                                }
+                                if ($birthdate != null) {
+                                    $query->where('birthdate', $birthdate);
+                                }
+
+                                $suspect_data = $query->get();
 
                                 $suspect_number1 = $suspect_data[0]->suspect_number;
                             }
@@ -1228,15 +1243,28 @@ class SpotReportController extends Controller
                                 $alias = $sdata[3];
                                 $birthdate = $sdata[4];
 
-                                $suspect_data = DB::table('suspect_information')
-                                    ->where('lastname', $lastname)
-                                    ->where('firstname', $firstname)
-                                    ->where('middlename', $middlename)
-                                    ->where('alias', $alias)
-                                    ->where('birthdate', $birthdate)
-                                    ->select('suspect_number')
-                                    ->get();
-                                $suspect_number = $suspect_data[0]->suspect_number;
+                                $query = DB::table('spot_report_suspect')
+                                    ->select('suspect_number');
+
+                                if ($lastname != null) {
+                                    $query->where('lastname', $lastname);
+                                }
+                                if ($firstname != null) {
+                                    $query->where('firstname', $firstname);
+                                }
+                                if ($middlename != null) {
+                                    $query->where('middlename', $middlename);
+                                }
+                                if ($alias != null) {
+                                    $query->where('alias', $alias);
+                                }
+                                if ($birthdate != null) {
+                                    $query->where('birthdate', $birthdate);
+                                }
+
+                                $suspect_data = $query->get();
+
+                                $suspect_number1 = $suspect_data[0]->suspect_number;
                             }
                         }
 
@@ -1307,14 +1335,26 @@ class SpotReportController extends Controller
                                 $alias = $sdata[3];
                                 $birthdate = $sdata[4];
 
-                                $suspect_data = DB::table('spot_report_suspect')
-                                    ->where('lastname', $lastname)
-                                    ->where('firstname', $firstname)
-                                    ->where('middlename', $middlename)
-                                    ->where('alias', $alias)
-                                    ->where('birthdate', $birthdate)
-                                    ->select('suspect_number')
-                                    ->get();
+                                $query = DB::table('spot_report_suspect')
+                                    ->select('suspect_number');
+
+                                if ($lastname != null) {
+                                    $query->where('lastname', $lastname);
+                                }
+                                if ($firstname != null) {
+                                    $query->where('firstname', $firstname);
+                                }
+                                if ($middlename != null) {
+                                    $query->where('middlename', $middlename);
+                                }
+                                if ($alias != null) {
+                                    $query->where('alias', $alias);
+                                }
+                                if ($birthdate != null) {
+                                    $query->where('birthdate', $birthdate);
+                                }
+
+                                $suspect_data = $query->get();
 
                                 $suspect_number1 = $suspect_data[0]->suspect_number;
                             }
@@ -1332,15 +1372,28 @@ class SpotReportController extends Controller
                                 $alias = $sdata[3];
                                 $birthdate = $sdata[4];
 
-                                $suspect_data = DB::table('suspect_information')
-                                    ->where('lastname', $lastname)
-                                    ->where('firstname', $firstname)
-                                    ->where('middlename', $middlename)
-                                    ->where('alias', $alias)
-                                    ->where('birthdate', $birthdate)
-                                    ->select('suspect_number')
-                                    ->get();
-                                $suspect_number = $suspect_data[0]->suspect_number;
+                                $query = DB::table('spot_report_suspect')
+                                    ->select('suspect_number');
+
+                                if ($lastname != null) {
+                                    $query->where('lastname', $lastname);
+                                }
+                                if ($firstname != null) {
+                                    $query->where('firstname', $firstname);
+                                }
+                                if ($middlename != null) {
+                                    $query->where('middlename', $middlename);
+                                }
+                                if ($alias != null) {
+                                    $query->where('alias', $alias);
+                                }
+                                if ($birthdate != null) {
+                                    $query->where('birthdate', $birthdate);
+                                }
+
+                                $suspect_data = $query->get();
+
+                                $suspect_number1 = $suspect_data[0]->suspect_number;
                             }
                         }
 
