@@ -263,7 +263,7 @@
                     <div id="sp_list" class="form-group col-4 " style="margin: 0px;">
                         <div>
                             <label for="">Supporting Unit</label>
-                            <a id="SPadd" href="#" style="float: right;"><i class="fas fa-plus pr-2"></i></a>
+                            <a id="SPadd" href="" style="float: right;"><i class="fas fa-plus pr-2"></i></a>
                         </div>
                         <div class="SUdetails">
                             @foreach ($preops_support_unit as $psu)

@@ -1576,9 +1576,9 @@ class SpotReportController extends Controller
             ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
             ->where('b.id', $id)->get();
         $support_unit = DB::table('spot_report_support_unit as a')
-            ->leftjoin('support_unit as b', 'a.support_unit_id', '=', 'b.id')
+            ->leftjoin('operating_unit as b', 'a.support_unit_id', '=', 'b.id')
             ->where('a.spot_report_number', $spot_report[0]->spot_report_number)
-            ->select('b.name')
+            ->select('b.description')
             ->get();
 
 
@@ -1640,29 +1640,28 @@ class SpotReportController extends Controller
                 <br>
                 <br>
                 <span style="margin-right:23px; margin-left:33px">Pre-Ops Number:</span><span style="font-weight:bold">' . $spot_report[0]->preops_number . '</span>
-                <span style="margin-right:8px; margin-left:33px">Date/Time of OPN:</span><span style="font-weight:bold">' . Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->operation_datetime)->format('d F Y H:i:s') . '</span>
-                <br>
-                <span style="margin-right:35px; margin-left:33px">Operating Unit:</span><span style="font-weight:bold">' . $operating_unit[0]->name . '</span>
+                <span style="float:right"><span>Date/Time of OPN:</span><span style="font-weight:bold">' . Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->operation_datetime)->format('d F Y H:i:s') . '</span></span>
                 <br>
                 <span style="margin-right:14px; margin-left:33px">Type of Operation:</span><span style="font-weight:bold">' . $operation_type[0]->name . '</span>
                 <br>
-                <span style="margin-right:49px; margin-left:33px">Support Unit:</span><span style="font-weight:bold">';
+                <span style="margin-right:35px; margin-left:33px">Operating Unit:</span><span style="font-weight:bold">' . $operating_unit[0]->name . '</span>
+                <span style="float:right"><span>Support Unit:</span><span style="font-weight:bold">';
 
         $count = 0;
         foreach ($support_unit as $su) {
             $count++;
             if ($count == 1) {
-                $output .= $su->name;
+                $output .= $su->description;
             } else {
-                $output .= ', ' . $su->name;
+                $output .= ', ' . $su->description;
             }
         }
-        $output .= '</span>
+        $output .= '</span></span>
                 
                 <br>
                 <br>
-                <span style="margin-right:14px; margin-left:33px">Area of Operation:</span>
-                <p style="margin-right:14px; margin-left:33px; margin-top: 5px;"><u>' . $barangay[0]->barangay_m . ', ' . $city[0]->city_m . '</u></p>
+                <span style="margin-right:14px; margin-left:33px">Area of Operation: <span style="margin-right:14px; margin-left:33px; margin-top: 5px;"><u>' . $barangay[0]->barangay_m . ', ' . $city[0]->city_m . '</u></span></span>
+                <br>
                 <span style="margin-right:74px; margin-left:33px">Remarks:</span><span>' . $spot_report[0]->remarks . '</span>
                 <br>
                 <br>
