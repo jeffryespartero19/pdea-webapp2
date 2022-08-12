@@ -193,7 +193,6 @@
                                                             <th style="color: gray;">Suspect Classification</th>
                                                             <th style="color: gray;">Suspect Category</th>
                                                             <th style="color: gray;">Suspect Sub Category</th>
-                                                            <th style="color: gray;">Suspect Status</th>
                                                             <th style="color: gray;">Drug Test Result</th>
                                                             <th style="color: gray;">Drug Type</th>
                                                             <th style="color: gray;">Remarks</th>
@@ -823,51 +822,225 @@
                     data.forEach(element => {
                         $listed = parseInt(element["listed"]);
 
-                        if(element["birthdate"] == 1) {
-                            $est_birthdate ='Yes';
+                        if (element["est_birthdate"] == 1) {
+                            $est_birthdate = 'Yes';
                         } else {
-                            $est_birthdate ='No';
+                            $est_birthdate = 'No';
                         }
+
 
                         var details =
                             '<tr>' +
                             '<td><input type="text" name="suspect_number[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["suspect_number"] + '"></td>' +
                             '<td><input type="text" name="status[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["suspect_status"] + '"></td>' +
-                            '<td><input type="text" name="lastname[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["lastname"] + '"></td>' +
-                            '<td><input type="text" name="firstname[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["firstname"] + '"></td>' +
-                            '<td><input type="text" name="middlename[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["middlename"] + '"></td>' +
-                            '<td><input type="text" name="alias[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["alias"] + '"></td>' +
-                            '<td><input type="text" name="birthdate[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["birthdate"] + '"></td>' +
-                            '<td><input type="text" name="birthdate[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + $est_birthdate + '"></td>' +
-                            '<td><input type="text" name="birthplace[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["birthplace"] + '"></td>' +
-                            '<td><input type="text" name="region[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["region_m"] + '"></td>' +
-                            '<td><input type="text" name="province[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["province_m"] + '"></td>' +
-                            '<td><input type="text" name="city[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["city_m"] + '"></td>' +
-                            '<td><input type="text" name="barangay[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["barangay_m"] + '"></td>' +
-                            '<td><input type="text" name="street[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["street"] + '"></td>' +
-                            '<td><input type="text" name="permanent_region[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["permanent_region_m"] + '"></td>' +
-                            '<td><input type="text" name="permanent_province[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["permanent_province_m"] + '"></td>' +
-                            '<td><input type="text" name="permanent_city[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["permanent_city_m"] + '"></td>' +
-                            '<td><input type="text" name="permanent_barangay[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["permanent_barangay_m"] + '"></td>' +
-                            '<td><input type="text" name="permanent_street[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["permanent_street"] + '"></td>' +
-                            '<td><input type="text" name="gender[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["gender"] + '"></td>' +
-                            '<td><input type="text" name="civil_status[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["civil_status"] + '"></td>' +
-                            '<td><input type="text" name="nationality[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["nationality"] + '"></td>' +
-                            '<td><input type="text" name="ethnic_group[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["ethnic_group"] + '"></td>' +
-                            '<td><input type="text" name="religion[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["religion"] + '"></td>' +
-                            '<td><input type="text" name="educational_attainment[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["birthplace"] + '"></td>' +
-                            '<td><input type="text" name="occupation[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["occupation"] + '"></td>' +
-                            '<td><input type="text" name="identifier_id[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["identifier"] + '"></td>' +
-                            '<td><input type="text" name="suspect_classification[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["suspect_classification"] + '"></td>' +
-                            '<td><input type="text" name="suspect_category[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["suspect_category"] + '"></td>' +
-                            '<td><input type="text" name="suspect_sub_category[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["suspect_sub_category"] + '"></td>' +
-                            '<td><input type="text" name="suspect_status[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["suspect_status"] + '"></td>' +
+                            '<td><input type="text" name="lastname[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["lastname"] != null) {
+                            details += 'value="' + element["lastname"] + '"></td>';
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="firstname[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["firstname"] != null) {
+                            details += 'value="' + element["firstname"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="middlename[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["middlename"] != null) {
+                            details += 'value="' + element["middlename"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="alias[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["alias"] != null) {
+                            details += 'value="' + element["alias"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="birthdate[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["birthdate"] != null) {
+                            details += 'value="' + element["birthdate"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="est_birthdate[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + $est_birthdate + '"></td>' +
+                            '<td><input type="text" name="birthplace[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["birthplace"] != null) {
+                            details += 'value="' + element["birthplace"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="region[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["region"] != null) {
+                            details += 'value="' + element["region"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="province[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["province"] != null) {
+                            details += 'value="' + element["province"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="city[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["city"] != null) {
+                            details += 'value="' + element["city"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="barangay[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["barangay"] != null) {
+                            details += 'value="' + element["barangay"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="street[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["street"] != null) {
+                            details += 'value="' + element["street"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="permanent_region[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["permanent_region"] != null) {
+                            details += 'value="' + element["permanent_region"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="permanent_province[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["permanent_province"] != null) {
+                            details += 'value="' + element["permanent_province"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="permanent_city[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["permanent_city"] != null) {
+                            details += 'value="' + element["permanent_city"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="permanent_barangay[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["permanent_barangay"] != null) {
+                            details += 'value="' + element["permanent_barangay"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="permanent_street[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["permanent_street"] != null) {
+                            details += 'value="' + element["permanent_street"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="gender[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["gender"] != null) {
+                            details += 'value="' + element["gender"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="civil_status[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["civil_status"] != null) {
+                            details += 'value="' + element["civil_status"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="nationality[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["nationality"] != null) {
+                            details += 'value="' + element["nationality"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="ethnic_group[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["ethnic_group"] != null) {
+                            details += 'value="' + element["ethnic_group"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="religion[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["religion"] != null) {
+                            details += 'value="' + element["religion"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="educational_attainment[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["educational_attainment"] != null) {
+                            details += 'value="' + element["educational_attainment"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="occupation[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["occupation"] != null) {
+                            details += 'value="' + element["occupation"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="identifier_id[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["identifier"] != null) {
+                            details += 'value="' + element["identifier"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="suspect_classification[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["suspect_classification"] != null) {
+                            details += 'value="' + element["suspect_classification"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="suspect_category[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["suspect_category"] != null) {
+                            details += 'value="' + element["suspect_category"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                            '<td><input type="text" name="suspect_sub_category[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["suspect_sub_category"] != null) {
+                            details += 'value="' + element["suspect_sub_category"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
                             '<td><select name="drug_test_result[]" class="form-control" style="width: 200px;"><option value="negative">Negative</option><option value="positive">Positive</option></select></td></td>' +
                             '<td><select name="drug_type_id[]" class="form-control" style="width: 200px;"><option value="0" selected>None</option>@foreach($drug_type as $dt)<option value="{{ $dt->id }}">{{ $dt->name }}</option>@endforeach</select></td>' +
-                            '<td><input type="text" name="remarks[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["remarks"] + '"></td>' +
+                            '<td><input type="text" name="remarks[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["remarks"] != null) {
+                            details += 'value="' + element["remarks"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
                             '<td style="text-align: center; padding: 10px"><input class="listed' + element["suspect_number"] + '" type="checkbox" style="pointer-events:none;" {{ 1 == ' + element["listed"] + ' ? "checked" : "" }}></td>' +
-                            '<td><input type="text" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control" value="' + element["uname"] + ' - ' + element["ulvl"] + '"></td>' +
-                            '</tr>';
+                            '<td><input type="text" name="remarks[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
+                        if (element["remarks"] != null) {
+                            details += 'value="' + element["uname"] + ' - ' + element["ulvl"];
+                        } else {
+                            details += 'value="';
+                        }
+                        details += '"></td>' +
+                        '</tr>';
                         $("#suspect_details").append(details);
 
                         if (element["listed"] == 1) {
