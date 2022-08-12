@@ -368,8 +368,8 @@ class GlobalController extends Controller
     public function getPreopsSupportUnit($preops_number)
     {
         $data = DB::table('preops_support_unit as a')
-            ->join('support_unit as b', 'a.support_unit_id', '=', 'b.id')
-            ->select('b.id', 'b.name')
+            ->join('operating_unit as b', 'a.support_unit_id', '=', 'b.id')
+            ->select('b.id', 'b.description')
             ->where(['preops_number' => $preops_number])
             ->get();
 

@@ -201,7 +201,7 @@
                     <div id="sp_list" class="form-group col-4 " style="margin: 0px;">
                         <div>
                             <label for="">Supporting Unit</label>
-                            <a id="SPadd" href="#" style="float: right;"><i class="fas fa-plus pr-2"></i></a>
+                            <a id="SPadd" style="float: right; pointer-events: none;"><i class="fas fa-plus pr-2"></i></a>
                         </div>
                         <div class="SUdetails">
                             <div id="SUOptions" class="input-group mb-3 ">
@@ -1100,13 +1100,14 @@
             $("#support_unit_id").prop("required", false);
             $('.SUdetails').empty();
             $("#SPadd").attr("hidden", false);
+            $("#SPadd").css("pointer-events", '');
             $('#SUOptions').empty();
 
             html = '<div class="input-group mb-3 su_options">';
             html += '<select name="support_unit_id[]" class="form-control support_unit_id">';
-            html += '<option value="" disabled selected>Select Option</option>@foreach($support_unit as $su)<option value="{{ $su->id }}">{{ $su->name }}</option>@endforeach';
+            html += '<option value="" disabled selected>Select Option</option>@foreach($operating_unit as $op)<option value="{{ $op->id }}">{{ $op->description }}</option>@endforeach';
             html += '</select>';
-            html += '<a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
+            html += '<a class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
             html += '</div>';
 
             $('.SUdetails').append(html);
@@ -1123,6 +1124,7 @@
             $("#operating_unit_id").addClass("disabled_field");
             $("#support_unit_id").addClass("disabled_field");
             $("#support_unit_id").prop("required", true);
+            $("#SPadd").css("pointer-events", 'none');
 
 
             // Display Preops Header Info
@@ -1222,7 +1224,7 @@
 
                                     data.forEach(element => {
                                         var option = "<div class='input-group mb-3 '><select id='support_unit_id' name='support_unit_id[]' class='form-control' style='pointer-events: none; background-color : #e9ecef;' required>" +
-                                            "<option value='" + element["id"] + "' selected> " + element["name"] + "</option></div>";
+                                            "<option value='" + element["id"] + "' selected> " + element["description"] + "</option></div>";
                                         $(".SUdetails").append(option);
                                     });
                                 }
@@ -1763,7 +1765,7 @@
 
         html += '<option value="" disabled selected>Select Option</option>@foreach($operating_unit as $su)<option value="{{ $su->id }}">{{ $su->description }}</option>@endforeach';
         html += '</select>';
-        html += '<a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
+        html += '<a class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
         html += '</div>';
 
         $('.SUdetails').append(html);
