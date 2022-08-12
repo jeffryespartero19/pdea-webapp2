@@ -1619,6 +1619,10 @@ class SpotReportController extends Controller
                     text-align: center;
                     line-height: 35px;
                 }
+
+                .arial {
+                    font-family: Arial, Helvetica, sans-serif;
+                  }
             </style>
         </head>
         <body>
@@ -1632,28 +1636,28 @@ class SpotReportController extends Controller
                 <img src="./files/uploads/report_header/' . $regional_office[0]->report_header . '" onerror=this.src="./files/uploads/report_header/newhead.jpg" class="col-3" style="width:100%;">
                 <br>
                 <br>
-                <div style="text-align:center;"><h2>' . $spot_report[0]->spot_report_number . '</h2></div>
-                <div style="border:solid;" align="center"><span style="font-size:20px">SPOT REPORT</span></div>
+                <div style="text-align:center;"><h2 class="arial">' . $spot_report[0]->spot_report_number . '</h2></div>
+                <div style="border:solid;" align="center"><span class="arial" style="font-size:20px">SPOT REPORT</span></div>
                 <br>
                 <table width="100%" style="border-collapse: collapse; border: 0px;">
                 <tr style="border:none;">
-                <td colspan="2" style="border: none; padding:0;" width="100%"><span style="margin-right:39px; margin-left:33px">Date Reported:</span><span>' . Carbon::createFromFormat('Y-m-d', $spot_report[0]->reported_date)->format('F d,Y') . '</span></td>
+                <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:39px; margin-left:33px">Date Reported:</span><span>' . Carbon::createFromFormat('Y-m-d', $spot_report[0]->reported_date)->format('F d,Y') . '</span></td>
                 </tr>
                 <tr style="border:none;">
-                <td colspan="2" style="border: none; padding:0;" width="100%"><span style="margin-right:23px; margin-left:33px;">Reporting Office:</span><span style="font-weight:bold">' . $regional_office[0]->name . '</span></td>
+                <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:28px; margin-left:33px;">Reporting Office:</span><span class="arial" style="font-weight:bold">' . $regional_office[0]->name . '</span></td>
                 </tr>
                 <tr style="border:none;">
-                <td style="border: none; padding:0;" width="50%"><span style="margin-right:23px; margin-left:33px">Pre-Ops Number:</span><span style="font-weight:bold">' . $spot_report[0]->preops_number . '</span></td>
-                <td style="border: none; padding-left:20px;" width="50%"><span>Date/Time of OPN:</span><span style="font-weight:bold">' . Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->operation_datetime)->format('d F Y H:i:s') . '</span></td>
-                </tr>
-                </tr>
-                <tr style="border:none;">
-                <td colspan="2" style="border: none; padding:0;" width="100%"><span style="margin-right:14px; margin-left:33px">Type of Operation:</span><span style="font-weight:bold">' . $operation_type[0]->name . '</span></td>
+                <td style="border: none; padding:0;" width="50%"><span class="arial" style="font-size:15px; margin-right:23px; margin-left:33px">Pre-Ops Number:</span><span class="arial" style="font-weight:bold">' . $spot_report[0]->preops_number . '</span></td>
+                <td style="border: none; padding-left:20px;" width="50%"><span  style="margin-right:10px;">Date/Time of OPN:</span><span class="arial" style="font-weight:bold">' . Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->operation_datetime)->format('d F Y H:i:s') . '</span></td>
                 </tr>
                 </tr>
                 <tr style="border:none;">
-                <td style="border: none; padding:0;" width="50%"><span style="margin-right:35px; margin-left:33px">Operating Unit:</span><span style="font-weight:bold">' . $operating_unit[0]->name . '</span></td>
-                <td style="border: none; padding-left:20px;" width="50%"><span>Support Unit:</span><span style="font-weight:bold">';
+                <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:17px; margin-left:33px">Type of Operation:</span><span class="arial" style="font-weight:bold">' . $operation_type[0]->name . '</span></td>
+                </tr>
+                </tr>
+                <tr style="border:none;">
+                <td style="border: none; padding:0;" width="50%"><span class="arial" style="font-size:15px; margin-right:39px; margin-left:33px">Operating Unit:</span><span class="arial" style="font-weight:bold">' . $operating_unit[0]->name . '</span></td>
+                <td style="border: none; padding-left:20px;" width="50%"><span style="margin-right:10px;">Support Unit:</span><span class="arial" style="font-weight:bold; ">';
 
 
         $count = 0;
@@ -1670,28 +1674,28 @@ class SpotReportController extends Controller
         </tr>
         </tr>
                 <tr style="border:none;">
-                <td colspan="2" style="border: none; padding:0;" width="100%"><span style="margin-right:16px; margin-left:33px;">Area of Operation:</span><span style="font-weight:bold"><u>' . $barangay[0]->barangay_m . ', ' . $city[0]->city_m . '</u></span></td>
+                <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:17px; margin-left:33px;">Area of Operation:</span><span class="arial" style="font-weight:bold"><u>' . $barangay[0]->barangay_m . ', ' . $city[0]->city_m . '</u></span></td>
                 </tr>
                 <tr style="border:none;">
-                <td colspan="2" style="border: none; padding:0;" width="100%"><span style="margin-right:74px; margin-left:33px">Remarks:</span><span>' . $spot_report[0]->remarks . '</span></td>
+                <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:74px; margin-left:33px">Remarks:</span><span>' . $spot_report[0]->remarks . '</span></td>
                 </tr>
         </table>
 
                 <br>
                 <table width="100%" style="border-collapse: collapse; border: 0px;">
                 <tr style="border: 1px solid;">
-                    <th style="border: none; padding:0 12px;" width="25%" align="left">Qty</th>
-                    <th style="border: none; padding:0 12px;" width="25%" align="left">Evidence</th>
-                    <th style="border: none; padding:0 12px;" width="50%" align="left">Packaging</th>
+                    <th class="arial" style="border: none; padding:0 12px;" width="25%" align="left">Qty</th>
+                    <th class="arial" style="border: none; padding:0 12px;" width="25%" align="left">Evidence</th>
+                    <th class="arial" style="border: none; padding:0 12px;" width="50%" align="left">Packaging</th>
                 </tr>';
 
         // Evidence
         foreach ($evidence as $ar) {
             $output .= '
                 <tr>
-                    <td style="border: none; padding:0 12px;" width="25%" align="left">' . $ar->quantity . ' ' . $ar->unit_measurement . '</td>
-                    <td style="border: none; padding:0 12px;" width="25%">' . $ar->evidence_type . ' - ' . $ar->evidence . '</td>
-                    <td style="border: none; padding:0 12px;" width="50%">' . $ar->packaging . '</td>
+                    <td class="arial" style="border: none; padding:0 12px;" width="25%" align="left">' . $ar->quantity . ' ' . $ar->unit_measurement . '</td>
+                    <td class="arial" style="border: none; padding:0 12px;" width="25%">' . $ar->evidence_type . ' - ' . $ar->evidence . '</td>
+                    <td class="arial" style="border: none; padding:0 12px;" width="50%">' . $ar->packaging . '</td>
                 </tr>';
         }
         $output .= '</table>';
@@ -1700,16 +1704,16 @@ class SpotReportController extends Controller
                 <br>
                 <table width="100%" style="border-collapse: collapse; border: 0px;">
                     <tr style="border: 1px solid;">
-                        <th style="border: none; padding:0 12px;" width="50%" align="left">Case(s) Filed</th>
-                        <th style="border: none; padding:0 12px;" width="50%" align="left">Name of Suspect</th>
+                        <th class="arial" style="border: none; padding:0 12px;" width="50%" align="left">Case(s) Filed</th>
+                        <th class="arial" style="border: none; padding:0 12px;" width="50%" align="left">Name of Suspect</th>
                     </tr>';
 
         // Case
         foreach ($case as $cs) {
             $output .= '
                     <tr>
-                        <td style="border: none; padding:0 12px;" width="50%">' . $cs->case . '</td>
-                        <td style="border: none; padding:0 12px;" width="50%">' . $cs->lastname . ', ' . $cs->firstname . ' ' . $cs->middlename . '</td>
+                        <td class="arial" style="border: none; padding:0 12px;" width="50%">' . $cs->case . '</td>
+                        <td class="arial" style="border: none; padding:0 12px;" width="50%">' . $cs->lastname . ', ' . $cs->firstname . ' ' . $cs->middlename . '</td>
                     </tr>';
         }
         $output .= '</table>';
@@ -1718,20 +1722,20 @@ class SpotReportController extends Controller
                 <br>
                 <table width="100%" style="border-collapse: collapse; border: 0px;">
                     <tr style="border: 1px solid; border-bottom:none">
-                        <th style="border: none; padding:0 12px;" width="50%" align="left">Operating Team</th>
-                        <th style="border: none; padding:0 12px;" width="50%" align="left"></th>
+                        <th class="arial" style="border: none; padding:0 12px;" width="50%" align="left">Operating Team</th>
+                        <th class="arial" style="border: none; padding:0 12px;" width="50%" align="left"></th>
                     </tr>
                     <tr style="border: 1px solid; border-top:none">
-                        <th style="border: none; padding:0 12px;" width="50%" align="left">Name</th>
-                        <th style="border: none; padding:0 12px;" width="50%" align="left">Position/Department</th>
+                        <th class="arial" style="border: none; padding:0 12px;" width="50%" align="left">Name</th>
+                        <th class="arial" style="border: none; padding:0 12px;" width="50%" align="left">Position/Department</th>
                     </tr>';
 
         // Team
         foreach ($team as $tm) {
             $output .= '
                     <tr>
-                        <td style="border: none; padding:0 12px;" width="50%">' . $tm->officer_name . '</td>
-                        <td style="border: none; padding:0 12px;" width="50%">' . $tm->officer_position . '</td>
+                        <td class="arial" style="border: none; padding:0 12px;" width="50%">' . $tm->officer_name . '</td>
+                        <td class="arial" style="border: none; padding:0 12px;" width="50%">' . $tm->officer_position . '</td>
                     </tr>';
         }
         $output .= '</table>';
@@ -1740,11 +1744,11 @@ class SpotReportController extends Controller
                 <br>
                 <table width="100%" style="border-collapse: collapse; border: 0px;">
                     <tr style="border: 1px solid;">
-                        <th style="border: none; padding:0 12px;" width="50%" align="left">Summary</th>
+                        <th class="arial" style="border: none; padding:0 12px;" width="50%" align="left">Summary</th>
                     </tr>
                 </table>
-                <span style="margin-right:23px; margin-left:13px;">' . $spot_report[0]->summary . '</span>
-                <h4 align="center">*** end of report ***</h4>';
+                <span class="arial" style="margin-right:23px; margin-left:13px;">' . $spot_report[0]->summary . '</span>
+                <h4 class="arial" align="center">*** end of report ***</h4>';
 
         $output .= '
                 <footer>
