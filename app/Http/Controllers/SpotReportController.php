@@ -1561,9 +1561,10 @@ class SpotReportController extends Controller
         $operation_type = DB::table('operation_type')->where('id', $spot_report[0]->operation_type_id)->get();
         $evidence = DB::table('spot_report_evidence as a')
             ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
-            ->join('evidence as c', 'a.evidence_id', '=', 'c.id')
-            ->join('unit_measurement as d', 'a.unit', '=', 'd.id')
-            ->select('c.name as evidence_type', 'd.name as unit_measurement', 'a.evidence', 'a.quantity')
+            ->leftjoin('evidence as c', 'a.evidence_id', '=', 'c.id')
+            ->leftjoin('unit_measurement as d', 'a.unit', '=', 'd.id')
+            ->leftjoin('packaging as e', 'a.packaging_id', '=', 'd.id')
+            ->select('c.name as evidence_type', 'd.name as unit_measurement', 'a.evidence', 'a.quantity', 'e.name as packaging')
             ->where('b.id', $id)->get();
 
         $case = DB::table('spot_report_case as a')
@@ -1690,7 +1691,7 @@ class SpotReportController extends Controller
                 <tr>
                     <td style="border: none; padding:0 12px;" width="25%" align="left">' . $ar->quantity . ' ' . $ar->unit_measurement . '</td>
                     <td style="border: none; padding:0 12px;" width="25%">' . $ar->evidence_type . ' - ' . $ar->evidence . '</td>
-                    <td style="border: none; padding:0 12px;" width="50%">Sample</td>
+                    <td style="border: none; padding:0 12px;" width="50%">' . $ar->packaging . '</td>
                 </tr>';
         }
         $output .= '</table>';
