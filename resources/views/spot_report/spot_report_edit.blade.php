@@ -444,41 +444,35 @@
                                                             </td>
                                                             <td>
                                                                 <select name="present_province_c[]" class="form-control present_province_c" style="width: 200px;">
-                                                                    <option value='' selected>Select Option</option>
-                                                                    @foreach ($province as $pr)
-                                                                    @if($pr->province_c == $srs->province_c)
-                                                                    <option value="{{ $pr->province_c }}" {{ $pr->province_c == $srs->province_c ? 'selected' : '' }}>
-                                                                        {{ $pr->province_m }}
+                                                                    @if($srs->province_c != null)
+                                                                    <option value="{{ $srs->province_c }}">
+                                                                        {{ $srs->province_name }}
                                                                     </option>
                                                                     @else
+                                                                    <option value='' selected>Select Option</option>
                                                                     @endif
-                                                                    @endforeach
                                                                 </select>
                                                             </td>
                                                             <td>
                                                                 <select name="present_city_c[]" class="form-control present_city_c" style="width: 200px;">
-                                                                    <option value='' selected>Select Option</option>
-                                                                    @foreach ($city as $ct)
-                                                                    @if($ct->city_c == $srs->city_c)
-                                                                    <option value="{{ $ct->city_c }}" {{ $ct->city_c == $srs->city_c ? 'selected' : '' }}>
-                                                                        {{ $ct->city_m }}
+                                                                    @if($srs->city_c != null)
+                                                                    <option value="{{ $srs->city_c }}">
+                                                                        {{ $srs->city_name }}
                                                                     </option>
                                                                     @else
+                                                                    <option value='' selected>Select Option</option>
                                                                     @endif
-                                                                    @endforeach
                                                                 </select>
                                                             </td>
                                                             <td>
                                                                 <select name="present_barangay_c[]" class="form-control present_barangay_c" style="width: 200px;">
-                                                                    <option value='' selected>Select Option</option>
-                                                                    @foreach ($barangay as $br)
-                                                                    @if($br->barangay_c == $srs->barangay_c)
-                                                                    <option value="{{ $br->barangay_c }}" {{ $br->barangay_c == $srs->barangay_c ? 'selected' : '' }}>
-                                                                        {{ $br->barangay_m }}
+                                                                    @if($srs->barangay_c != null)
+                                                                    <option value="{{ $srs->barangay_c }}">
+                                                                        {{ $srs->barangay_name }}
                                                                     </option>
                                                                     @else
+                                                                    <option value='' selected>Select Option</option>
                                                                     @endif
-                                                                    @endforeach
                                                                 </select>
                                                             </td>
                                                             <td><input type="text" name="present_street[]" style="width: 200px;" class="form-control" value="{{ $srs->street }}"></td>
@@ -495,41 +489,35 @@
                                                             </td>
                                                             <td>
                                                                 <select name="permanent_province_c[]" class="form-control permanent_province_c" style="width: 200px;">
-                                                                    <option value='' selected>Select Option</option>
-                                                                    @foreach ($province as $ppr)
-                                                                    @if($ppr->province_c == $srs->permanent_province_c)
-                                                                    <option value="{{ $ppr->province_c }}" {{ $ppr->province_c == $srs->permanent_province_c ? 'selected' : '' }}>
-                                                                        {{ $ppr->province_m }}
+                                                                    @if($srs->permanent_province_c != null)
+                                                                    <option value="{{ $srs->permanent_province_c }}">
+                                                                        {{ $srs->permanent_province_name }}
                                                                     </option>
                                                                     @else
+                                                                    <option value='' selected>Select Option</option>
                                                                     @endif
-                                                                    @endforeach
                                                                 </select>
                                                             </td>
                                                             <td>
                                                                 <select name="permanent_city_c[]" class="form-control permanent_city_c" style="width: 200px;">
-                                                                    <option value='' selected>Select Option</option>
-                                                                    @foreach ($city as $pct)
-                                                                    @if($pct->city_c == $srs->permanent_city_c)
-                                                                    <option value="{{ $pct->city_c }}" {{ $pct->city_c == $srs->permanent_city_c ? 'selected' : '' }}>
-                                                                        {{ $pct->city_m }}
+                                                                    @if($srs->permanent_city_c != null)
+                                                                    <option value="{{ $srs->permanent_city_c }}">
+                                                                        {{ $srs->permanent_city_name }}
                                                                     </option>
                                                                     @else
+                                                                    <option value='' selected>Select Option</option>
                                                                     @endif
-                                                                    @endforeach
                                                                 </select>
                                                             </td>
                                                             <td>
                                                                 <select name="permanent_barangay_c[]" class="form-control permanent_barangay_c" style="width: 200px;">
-                                                                    <option value='' selected>Select Option</option>
-                                                                    @foreach ($barangay as $pbr)
-                                                                    @if($pbr->barangay_c == $srs->permanent_barangay_c)
-                                                                    <option value="{{ $pbr->barangay_c }}" {{ $pbr->barangay_c == $srs->permanent_barangay_c ? 'selected' : '' }}>
-                                                                        {{ $pbr->barangay_m }}
+                                                                @if($srs->permanent_barangay_c != null)
+                                                                    <option value="{{ $srs->permanent_barangay_c }}">
+                                                                        {{ $srs->permanent_barangay_name }}
                                                                     </option>
                                                                     @else
+                                                                    <option value='' selected>Select Option</option>
                                                                     @endif
-                                                                    @endforeach
                                                                 </select>
                                                             </td>
                                                             <td><input type="text" name="permanent_street[]" style="width: 200px;" class="form-control" value="{{ $srs->permanent_street }}"></td>

@@ -462,14 +462,27 @@ class SpotReportController extends Controller
                         $alias = $sdata[3];
                         $birthdate = $sdata[4];
 
-                        $suspect_data = DB::table('suspect_information')
-                            ->where('lastname', $lastname)
-                            ->where('firstname', $firstname)
-                            ->where('middlename', $middlename)
-                            ->where('alias', $alias)
-                            ->where('birthdate', $birthdate)
-                            ->select('suspect_number')
-                            ->get();
+                        $query = DB::table('spot_report_suspect')
+                            ->select('suspect_number');
+
+                        if ($lastname != null) {
+                            $query->where('lastname', $lastname);
+                        }
+                        if ($firstname != null) {
+                            $query->where('firstname', $firstname);
+                        }
+                        if ($middlename != null) {
+                            $query->where('middlename', $middlename);
+                        }
+                        if ($alias != null) {
+                            $query->where('alias', $alias);
+                        }
+                        if ($birthdate != null) {
+                            $query->where('birthdate', $birthdate);
+                        }
+
+                        $suspect_data = $query->get();
+
                         $suspect_number = $suspect_data[0]->suspect_number;
 
                         // dd($suspect_number);
@@ -532,14 +545,27 @@ class SpotReportController extends Controller
                         $alias = $sdata[3];
                         $birthdate = $sdata[4];
 
-                        $suspect_data = DB::table('spot_report_suspect')
-                            ->where('lastname', $lastname)
-                            ->where('firstname', $firstname)
-                            ->where('middlename', $middlename)
-                            ->where('alias', $alias)
-                            ->where('birthdate', $birthdate)
-                            ->select('suspect_number')
-                            ->get();
+                        $query = DB::table('spot_report_suspect')
+                            ->select('suspect_number');
+
+                        if ($lastname != null) {
+                            $query->where('lastname', $lastname);
+                        }
+                        if ($firstname != null) {
+                            $query->where('firstname', $firstname);
+                        }
+                        if ($middlename != null) {
+                            $query->where('middlename', $middlename);
+                        }
+                        if ($alias != null) {
+                            $query->where('alias', $alias);
+                        }
+                        if ($birthdate != null) {
+                            $query->where('birthdate', $birthdate);
+                        }
+
+                        $suspect_data = $query->get();
+
                         $suspect_number = $suspect_data[0]->suspect_number;
                     } else {
                         $suspect_number = 0;
@@ -602,6 +628,12 @@ class SpotReportController extends Controller
             ->leftjoin('drug_management as c', 'a.id', '=', 'c.suspect_id')
             ->leftjoin('users as d', 'd.id', '=', 'c.user_id')
             ->leftjoin('tbluserlevel as e', 'd.user_level_id', '=', 'e.id')
+            ->leftjoin('province as f', 'a.province_c', '=', 'f.province_c')
+            ->leftjoin('city as g', 'a.city_c', '=', 'g.city_c')
+            ->leftjoin('barangay as h', 'a.barangay_c', '=', 'h.barangay_c')
+            ->leftjoin('province as i', 'a.permanent_province_c', '=', 'i.province_c')
+            ->leftjoin('city as j', 'a.permanent_city_c', '=', 'j.city_c')
+            ->leftjoin('barangay as k', 'a.permanent_barangay_c', '=', 'k.barangay_c')
             ->select(
                 'a.id',
                 'a.suspect_number',
@@ -641,6 +673,12 @@ class SpotReportController extends Controller
                 'd.name as uname',
                 'a.est_birthdate',
                 'a.whereabouts',
+                'f.province_m as province_name',
+                'g.city_m as city_name',
+                'h.barangay_m as barangay_name',
+                'i.province_m as permanent_province_name',
+                'j.city_m as permanent_city_name',
+                'k.barangay_m as permanent_barangay_name',
 
             )
             ->where('b.id', $id)->get();
@@ -662,9 +700,9 @@ class SpotReportController extends Controller
             ->where('b.id', $id)->get();
 
         $region = DB::table('region')->where('status', true)->orderby('region_sort', 'asc')->get();
-        $province = DB::table('province')->orderby('province_m', 'asc')->get();
-        $city = DB::table('city')->orderby('city_m', 'asc')->get();
-        $barangay = DB::table('barangay')->orderby('barangay_m', 'asc')->get();
+        $province = DB::table('province')->where('region_c', $spot_report_header[0]->region_c)->orderby('province_m', 'asc')->get();
+        $city = DB::table('city')->where('province_c', $spot_report_header[0]->province_c)->orderby('city_m', 'asc')->get();
+        $barangay = DB::table('barangay')->where('city_c', $spot_report_header[0]->city_c)->orderby('barangay_m', 'asc')->get();
         // $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
         if (Auth::user()->user_level_id == 2) {
             $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();

@@ -311,12 +311,15 @@ class ProgressReportController extends Controller
                 'a.occupation_id',
                 'a.suspect_status_id',
                 'a.suspect_classification_id',
+                'a.suspect_category_id',
+                'a.suspect_sub_category_id',
                 'a.remarks',
                 't.name as ulvl',
                 's.name as uname',
                 'r.listed',
                 'a.drug_test_result',
                 'a.drug_type_id',
+                'a.identifier_id',
 
 
             )
@@ -363,9 +366,37 @@ class ProgressReportController extends Controller
 
         $progress_report_files = DB::table('progress_report_files')->where('spot_report_number', $spot_report_header[0]->spot_report_number)->get();
         $regional_user = DB::table('users')->where('user_level_id', 3)->get();
+        $identifier = DB::table('identifier')->where('status', true)->orderby('name', 'asc')->get();
+        $suspect_category = DB::table('suspect_category')->where('status', true)->orderby('name', 'asc')->get();
+        $suspect_sub_category = DB::table('suspect_sub_category')->where('status', true)->orderby('name', 'asc')->get();
 
-
-        return view('progress_report.progress_report_edit', compact('laboratory_facility', 'drug_type', 'suspect_classification', 'spot_report_suspect', 'spot_report_evidence', 'spot_report_case', 'region', 'province', 'city', 'barangay', 'operating_unit', 'spot_report_header', 'operation_type', 'civil_status', 'religion', 'education', 'ethnic_group', 'nationality', 'occupation', 'suspect_status', 'progress_report_files', 'regional_user'));
+        return view('progress_report.progress_report_edit', compact(
+            'laboratory_facility',
+            'drug_type',
+            'suspect_classification',
+            'spot_report_suspect',
+            'spot_report_evidence',
+            'spot_report_case',
+            'region',
+            'province',
+            'city',
+            'barangay',
+            'operating_unit',
+            'spot_report_header',
+            'operation_type',
+            'civil_status',
+            'religion',
+            'education',
+            'ethnic_group',
+            'nationality',
+            'occupation',
+            'suspect_status',
+            'progress_report_files',
+            'regional_user',
+            'identifier',
+            'suspect_category',
+            'suspect_sub_category'
+        ));
     }
 
     public function update(Request $request, $id)

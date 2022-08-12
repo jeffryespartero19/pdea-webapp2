@@ -238,6 +238,7 @@ class GlobalController extends Controller
             ->leftjoin('suspect_category as u', 'a.suspect_category_id', '=', 'u.id')
             ->leftjoin('suspect_sub_category as v', 'a.suspect_sub_category_id', '=', 'v.id')
             ->leftjoin('suspect_status as w', 'a.suspect_status_id', '=', 'w.id')
+            ->leftjoin('identifier as x', 'a.identifier_id', '=', 'x.id')
 
             ->select(
                 'a.suspect_number',
@@ -274,6 +275,7 @@ class GlobalController extends Controller
                 'u.name as suspect_category',
                 'v.name as suspect_sub_category',
                 'w.name as suspect_status',
+                'x.name as identifier',
 
             )
             ->where(['a.spot_report_number' => $spot_report_number])

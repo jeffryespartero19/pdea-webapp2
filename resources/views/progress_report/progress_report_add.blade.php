@@ -1040,7 +1040,7 @@
                             details += 'value="';
                         }
                         details += '"></td>' +
-                        '</tr>';
+                            '</tr>';
                         $("#suspect_details").append(details);
 
                         if (element["listed"] == 1) {

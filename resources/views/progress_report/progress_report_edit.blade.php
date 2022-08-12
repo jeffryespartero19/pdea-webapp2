@@ -157,7 +157,7 @@
                                                         <tr>
                                                             <th colspan="12" style="background-color: lightgreen; text-align:center">Operational Details</th>
                                                             <th colspan="12" style="background-color: pink; text-align:center">Personal Background</th>
-                                                            <th colspan="7" style="background-color: lightyellow; text-align:center">Other Information</th>
+                                                            <th colspan="10" style="background-color: lightyellow; text-align:center">Other Information</th>
                                                         </tr>
                                                         <tr>
                                                             <th style="color: gray;">Suspect Number</th>
@@ -184,7 +184,10 @@
                                                             <th style="color: gray;">Religion</th>
                                                             <th style="color: gray;">Educational Attainment</th>
                                                             <th style="color: gray;">Occupation</th>
+                                                            <th style="color: gray;">Suspect Identifier</th>
                                                             <th style="color: gray;">Suspect Classification</th>
+                                                            <th style="color: gray;">Suspect Category</th>
+                                                            <th style="color: gray;">Suspect Sub Category</th>
                                                             <th style="color: gray;">Suspect Status</th>
                                                             <th style="color: gray;">Drug Test Result</th>
                                                             <th style="color: gray;">Drug Type</th>
@@ -327,10 +330,34 @@
                                                                 </select>
                                                             </td>
                                                             <td>
+                                                                <select name="identifier_id[]" class="form-control" style="width: 200px; pointer-events:none; background-color : #e9ecef; ">
+                                                                    <option value='' disabled selected>Select Option</option>
+                                                                    @foreach($identifier as $identify)
+                                                                    <option value="{{ $identify->id }}" {{ $cs->id == $srs->identifier_id ? 'selected' : '' }}>{{ $identify->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
+                                                            <td>
                                                                 <select name="suspect_classification_id[]" class="form-control" style="width: 200px; pointer-events:none; background-color : #e9ecef; ">
                                                                     <option value='' disabled selected>Select Option</option>
                                                                     @foreach($suspect_classification as $sc)
                                                                     <option value="{{ $sc->id }}" {{ $sc->id == $srs->suspect_classification_id ? 'selected' : '' }}>{{ $sc->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <select name="suspect_category_id[]" class="form-control" style="width: 200px; pointer-events:none; background-color : #e9ecef; ">
+                                                                    <option value='' disabled selected>Select Option</option>
+                                                                    @foreach($suspect_category as $sccat)
+                                                                    <option value="{{ $sccat->id }}" {{ $sccat->id == $srs->suspect_category_id ? 'selected' : '' }}>{{ $sccat->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <select name="suspect_sub_category_id[]" class="form-control" style="width: 200px; pointer-events:none; background-color : #e9ecef; ">
+                                                                    <option value='' disabled selected>Select Option</option>
+                                                                    @foreach($suspect_sub_category as $sscat)
+                                                                    <option value="{{ $sscat->id }}" {{ $sscat->id == $srs->suspect_sub_category_id ? 'selected' : '' }}>{{ $sscat->name }}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </td>
