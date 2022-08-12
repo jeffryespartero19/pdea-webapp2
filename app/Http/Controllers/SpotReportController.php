@@ -1634,18 +1634,26 @@ class SpotReportController extends Controller
                 <div style="text-align:center;"><h2>' . $spot_report[0]->spot_report_number . '</h2></div>
                 <div style="border:solid;" align="center"><span style="font-size:20px">SPOT REPORT</span></div>
                 <br>
-                <span style="margin-right:39px; margin-left:33px">Date Reported:</span><span>' . Carbon::createFromFormat('Y-m-d', $spot_report[0]->reported_date)->format('F d,Y') . '</span>
-                <br>
-                <span style="margin-right:23px; margin-left:33px;">Reporting Office:</span><span style="font-weight:bold">' . $regional_office[0]->name . '</span>
-                <br>
-                <br>
-                <span style="margin-right:23px; margin-left:33px">Pre-Ops Number:</span><span style="font-weight:bold">' . $spot_report[0]->preops_number . '</span>
-                <span style="float:right"><span>Date/Time of OPN:</span><span style="font-weight:bold">' . Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->operation_datetime)->format('d F Y H:i:s') . '</span></span>
-                <br>
-                <span style="margin-right:14px; margin-left:33px">Type of Operation:</span><span style="font-weight:bold">' . $operation_type[0]->name . '</span>
-                <br>
-                <span style="margin-right:35px; margin-left:33px">Operating Unit:</span><span style="font-weight:bold">' . $operating_unit[0]->name . '</span>
-                <span style="float:right"><span>Support Unit:</span><span style="font-weight:bold">';
+                <table width="100%" style="border-collapse: collapse; border: 0px;">
+                <tr style="border:none;">
+                <td colspan="2" style="border: none; padding:0;" width="100%"><span style="margin-right:39px; margin-left:33px">Date Reported:</span><span>' . Carbon::createFromFormat('Y-m-d', $spot_report[0]->reported_date)->format('F d,Y') . '</span></td>
+                </tr>
+                <tr style="border:none;">
+                <td colspan="2" style="border: none; padding:0;" width="100%"><span style="margin-right:23px; margin-left:33px;">Reporting Office:</span><span style="font-weight:bold">' . $regional_office[0]->name . '</span></td>
+                </tr>
+                <tr style="border:none;">
+                <td style="border: none; padding:0;" width="50%"><span style="margin-right:23px; margin-left:33px">Pre-Ops Number:</span><span style="font-weight:bold">' . $spot_report[0]->preops_number . '</span></td>
+                <td style="border: none; padding-left:20px;" width="50%"><span>Date/Time of OPN:</span><span style="font-weight:bold">' . Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->operation_datetime)->format('d F Y H:i:s') . '</span></td>
+                </tr>
+                </tr>
+                <tr style="border:none;">
+                <td colspan="2" style="border: none; padding:0;" width="100%"><span style="margin-right:14px; margin-left:33px">Type of Operation:</span><span style="font-weight:bold">' . $operation_type[0]->name . '</span></td>
+                </tr>
+                </tr>
+                <tr style="border:none;">
+                <td style="border: none; padding:0;" width="50%"><span style="margin-right:35px; margin-left:33px">Operating Unit:</span><span style="font-weight:bold">' . $operating_unit[0]->name . '</span></td>
+                <td style="border: none; padding-left:20px;" width="50%"><span>Support Unit:</span><span style="font-weight:bold">';
+
 
         $count = 0;
         foreach ($support_unit as $su) {
@@ -1656,14 +1664,18 @@ class SpotReportController extends Controller
                 $output .= ', ' . $su->description;
             }
         }
-        $output .= '</span></span>
-                
-                <br>
-                <br>
-                <span style="margin-right:14px; margin-left:33px">Area of Operation: <span style="margin-right:14px; margin-left:33px; margin-top: 5px;"><u>' . $barangay[0]->barangay_m . ', ' . $city[0]->city_m . '</u></span></span>
-                <br>
-                <span style="margin-right:74px; margin-left:33px">Remarks:</span><span>' . $spot_report[0]->remarks . '</span>
-                <br>
+        $output .= '</span>
+        </td>
+        </tr>
+        </tr>
+                <tr style="border:none;">
+                <td colspan="2" style="border: none; padding:0;" width="100%"><span style="margin-right:16px; margin-left:33px;">Area of Operation:</span><span style="font-weight:bold"><u>' . $barangay[0]->barangay_m . ', ' . $city[0]->city_m . '</u></span></td>
+                </tr>
+                <tr style="border:none;">
+                <td colspan="2" style="border: none; padding:0;" width="100%"><span style="margin-right:74px; margin-left:33px">Remarks:</span><span>' . $spot_report[0]->remarks . '</span></td>
+                </tr>
+        </table>
+
                 <br>
                 <table width="100%" style="border-collapse: collapse; border: 0px;">
                 <tr style="border: 1px solid;">
