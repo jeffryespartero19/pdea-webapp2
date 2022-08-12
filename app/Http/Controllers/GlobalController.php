@@ -277,7 +277,6 @@ class GlobalController extends Controller
 
             )
             ->where(['a.spot_report_number' => $spot_report_number])
-            ->where(['a.suspect_status_id' => 1])
             ->get();
 
         return json_encode($data);
@@ -303,7 +302,6 @@ class GlobalController extends Controller
             )
             ->where(['a.spot_report_number' => $spot_report_number])
             ->where(['a.drug' => 'drug'])
-            ->where(['b.suspect_status_id' => 1])
             ->get();
 
         return json_encode($data);
@@ -324,7 +322,6 @@ class GlobalController extends Controller
                 'c.description',
             )
             ->where(['a.spot_report_number' => $spot_report_number])
-            ->where(['b.suspect_status_id' => 1])
             ->get();
 
         return json_encode($data);

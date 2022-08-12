@@ -41,8 +41,10 @@
                                 <th>OPN Unit</th>
                                 <th>Date of OPN</th>
                                 <th>Suspect</th>
+                                <th>Identifier</th>
                                 <th>Suspect Classification</th>
                                 <th>Suspect Category</th>
+                                <th>Suspect Sub Category</th>
                                 <th>Listed</th>
                                 <th>NDIS</th>
                                 <th>Remarks</th>
@@ -62,8 +64,10 @@
                                 <td style="width: 150px;">{{$dt->operating_unit}}</td>
                                 <td style="width: 150px;">{{$dt->operation_datetime}}</td>
                                 <td class="s_name" style="width: 150px;">{{$dt->lastname}}, {{$dt->firstname}} {{$dt->middlename}}</td>
+                                <td style="width: 150px;">{{$dt->identifier}}</td>
                                 <td style="width: 150px;">{{$dt->suspect_classification}}</td>
                                 <td style="width: 150px;">{{$dt->suspect_category}}</td>
+                                <td style="width: 150px;">{{$dt->suspect_sub_category}}</td>
                                 <td>@if($dt->listed == 1)
                                     Yes
                                     @else

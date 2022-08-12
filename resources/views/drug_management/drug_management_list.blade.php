@@ -47,7 +47,7 @@
                     <thead>
                         <tr>
                             <th hidden>Suspect ID</th>
-                            <th colspan="2">Pre-Ops #</th>
+                            <th>Pre-Ops #</th>
                             <th>Spot Report #</th>
                             <th>Region</th>
                             <th>Area Of Operation</th>
