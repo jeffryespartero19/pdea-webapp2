@@ -96,6 +96,7 @@ class ProgressReportController extends Controller
         $identifier = DB::table('identifier')->where('status', true)->orderby('name', 'asc')->get();
         $suspect_category = DB::table('suspect_category')->where('status', true)->orderby('id', 'asc')->get();
         $suspect_sub_category = DB::table('suspect_sub_category')->where('status', true)->orderby('id', 'asc')->get();
+        $case = DB::table('case_list')->where('status', true)->orderby('description', 'asc')->get();
 
         return view('progress_report.progress_report_add', compact(
             'laboratory_facility',
@@ -115,7 +116,8 @@ class ProgressReportController extends Controller
             'regional_user',
             'identifier',
             'suspect_category',
-            'suspect_sub_category'
+            'suspect_sub_category',
+            'case'
         ));
     }
 
@@ -229,8 +231,22 @@ class ProgressReportController extends Controller
             $spot_case = [];
 
             for ($i = 0; $i < count($data['spot_report_case_id']); $i++) {
-                if ($data['spot_report_case_id'][$i] != NULL && $data['suspect_number_case'][$i] != NULL) {
+                if ($data['spot_report_case_id'][$i] == '0' && $data['suspect_number_case'][$i] == '0') {
 
+                    $id = 0;
+
+                    if ($data['suspect_no'][$i] != null) {
+                        $spot_case = [
+                            'spot_report_number' => $request->spot_report_number,
+                            'suspect_number' => $data['suspect_no'][$i],
+                            'case_id' => $data['case_id'][$i],
+                            'docket_number' => $data['docket_number'][$i],
+                            'case_status' => $data['c_case_status'][$i],
+                        ];
+
+                        DB::table('spot_report_case')->Insert($spot_case);
+                    }
+                } elseif ($data['spot_report_case_id'][$i] != NULL && $data['suspect_number_case'][$i] != NULL && $data['spot_report_case_id'][$i] != 0 && $data['suspect_number_case'][$i] != 0) {
                     $id = $data['spot_report_case_id'][$i];
 
                     $spot_case = [
@@ -369,6 +385,7 @@ class ProgressReportController extends Controller
         $identifier = DB::table('identifier')->where('status', true)->orderby('name', 'asc')->get();
         $suspect_category = DB::table('suspect_category')->where('status', true)->orderby('name', 'asc')->get();
         $suspect_sub_category = DB::table('suspect_sub_category')->where('status', true)->orderby('name', 'asc')->get();
+        $case = DB::table('case_list')->where('status', true)->orderby('description', 'asc')->get();
 
         return view('progress_report.progress_report_edit', compact(
             'laboratory_facility',
@@ -395,7 +412,8 @@ class ProgressReportController extends Controller
             'regional_user',
             'identifier',
             'suspect_category',
-            'suspect_sub_category'
+            'suspect_sub_category',
+            'case'
         ));
     }
 
@@ -477,8 +495,22 @@ class ProgressReportController extends Controller
                 $spot_case = [];
 
                 for ($i = 0; $i < count($data['spot_report_case_id']); $i++) {
-                    if ($data['spot_report_case_id'][$i] != NULL && $data['suspect_number_case'][$i] != NULL) {
+                    if ($data['spot_report_case_id'][$i] == '0' && $data['suspect_number_case'][$i] == '0') {
 
+                        $id = 0;
+
+                        if ($data['suspect_no'][$i] != null) {
+                            $spot_case = [
+                                'spot_report_number' => $request->spot_report_number,
+                                'suspect_number' => $data['suspect_no'][$i],
+                                'case_id' => $data['case_id'][$i],
+                                'docket_number' => $data['docket_number'][$i],
+                                'case_status' => $data['c_case_status'][$i],
+                            ];
+
+                            DB::table('spot_report_case')->Insert($spot_case);
+                        }
+                    } elseif ($data['spot_report_case_id'][$i] != NULL && $data['suspect_number_case'][$i] != NULL && $data['spot_report_case_id'][$i] != 0 && $data['suspect_number_case'][$i] != 0) {
                         $id = $data['spot_report_case_id'][$i];
 
                         $spot_case = [

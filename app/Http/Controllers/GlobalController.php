@@ -241,6 +241,7 @@ class GlobalController extends Controller
             ->leftjoin('identifier as x', 'a.identifier_id', '=', 'x.id')
 
             ->select(
+                'a.id',
                 'a.suspect_number',
                 'a.lastname',
                 'a.firstname',

@@ -30,9 +30,9 @@ class IssuanceOfPreopsController extends Controller
     {
         if (Auth::user()->user_level_id == 2) {
             $data = DB::table('preops_header as a')
-                ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
-                ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                ->join('spot_report_header as d', 'a.preops_number', '=', 'd.preops_number')
+                ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+                ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+                ->leftjoin('spot_report_header as d', 'a.preops_number', '=', 'd.preops_number')
                 ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'd.report_status', 'a.with_aor', 'a.with_sr')
                 ->orderby('a.id', 'desc')
                 ->get();
@@ -42,8 +42,8 @@ class IssuanceOfPreopsController extends Controller
             $data = DB::table('preops_header as a')
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                ->join('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
-                ->join('spot_report_header as e', 'a.preops_number', '=', 'e.preops_number')
+                ->leftjoin('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
+                ->leftjoin('spot_report_header as e', 'a.preops_number', '=', 'e.preops_number')
                 ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.description as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'e.report_status', 'a.with_aor', 'a.with_sr')
                 ->orderby('a.id', 'desc')
                 ->where('d.id', Auth::user()->regional_office_id)
@@ -728,13 +728,16 @@ class IssuanceOfPreopsController extends Controller
 
         // Area
         foreach ($area as $ar) {
+            if($ar->area == 'N/A') {
+                $areas = null;
+            }
             $output .= '
                     <tr>
                         <td style="border:solid; border-width: thin; padding:0 12px;">' . $ar->region_m . '</td>
                         <td style="border:solid; border-width: thin; padding:0 12px;">' . $ar->province_m . '</td>
                         <td style="border:solid; border-width: thin; padding:0 12px;">' . $ar->city_m . '</td>
                         <td style="border:solid; border-width: thin; padding:0 12px;">' . $ar->barangay_m . '</td>
-                        <td style="border:solid; border-width: thin; padding:0 12px;">' . $ar->area . '</td>
+                        <td style="border:solid; border-width: thin; padding:0 12px;">' . $areas . '</td>
                     </tr>';
         }
         $output .= '</table>';

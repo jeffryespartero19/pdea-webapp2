@@ -127,7 +127,7 @@
                             <label for="">Suspect Category</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select name="suspect_category_id" class="form-control suspect_category_id" style="width: 200px;">
+                            <select id="suspect_category_id" name="suspect_category_id" class="form-control suspect_category_id" style="width: 200px;">
                                 <option value='' selected>Select Option
                                 </option>
                                 @foreach ($suspect_category as $sc)

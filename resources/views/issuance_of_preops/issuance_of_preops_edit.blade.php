@@ -711,7 +711,7 @@
 
             html = '<tr class="area_details" id="faqs-row' + aop_row + '">';
             html += '<td hidden><input type="number" name="area_id[]" class="form-control"></td>';
-            html += '<td><input required type="text" name="area[]" class="form-control" placeholder="Area"  style="width: 200px;"></td>';
+            html += '<td><input required type="text" name="area[]" class="form-control" placeholder="Area" value="N/A" style="width: 200px;"></td>';
             html +=
                 '<td><select required name="area_region_c[]" style="width: 300px;" class="form-control region_c"><option value="0" selected>None</option>@foreach ($region as $rg)<option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} - {{ $rg->region_m }}</option>@endforeach</select></td>';
             html +=

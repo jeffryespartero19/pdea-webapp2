@@ -358,7 +358,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="drug_test_result[]" class="form-control" style="width: 200px;">
-                                                                    <option value='positive' selected>Positive</option>
+                                                                    <option value='positive'>Positive</option>
                                                                     <option value='negative' selected>Negative</option>
                                                                 </select>
                                                             </td>
@@ -396,7 +396,7 @@
                                                             <th style="color: gray;">Qty. Onsite</th>
                                                             <th style="color: gray;">Actual Qty.</th>
                                                             <th style="color: gray;">Unit Measurement</th>
-                                                            <th style="color: gray;">Drug Test Result</th>
+                                                            <th style="color: gray;">Lab Result</th>
                                                             <th style="color: gray;">Chemistry Report Number</th>
                                                             <th style="color: gray;">Laboratory Facility</th>
                                                         </tr>
@@ -437,17 +437,17 @@
                                                     </thead>
                                                     <tbody id="case_details">
                                                         <tr>
-                                                            <td hidden><input type="text" class="form-control"></td>
-                                                            <td hidden><input type="text" class="form-control"></td>
-                                                            <td><input type="text" class="form-control"></td>
-                                                            <td><input type="text" class="form-control"></td>
-                                                            <td><input type="text" class="form-control"></td>
-                                                            <td><input type="text" class="form-control"></td>
+                                                            <td hidden><input type="text" name="spot_report_case_id[]" class="form-control"></td>
+                                                            <td hidden><input type="text"  name="suspect_number_case[]" class="form-control"></td>
+                                                            <td><input type="text" name="suspect_no[]" class="form-control"></td>
+                                                            <td><input type="text" name="case_id[]" class="form-control"></td>
+                                                            <td><input type="text" name="docket_number[]" class="form-control"></td>
+                                                            <td><input type="text" name="c_case_status" class="form-control"></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <!-- <div class="text-center"><button type="button" onclick="addCase();" class="badge badge-success"><i class="fa fa-plus"></i> ADD NEW</button></div> -->
+                                            <div class="text-center"><button type="button" onclick="addCase();" class="badge badge-success"><i class="fa fa-plus"></i> ADD NEW</button></div>
 
                                         </div>
                                     </div>
@@ -747,15 +747,46 @@
     var case_row = 0;
 
     function addCase() {
-        html = '<tr id="case-row' + case_row + '">';
-        html += '<td><input type="text" class="form-control"></td>';
-        html += '<td><input type="text" class="form-control"></td>';
-        html += '<td><input type="text" class="form-control"></td>';
-        html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#case-row' + case_row + '\').remove();"><i class="fa fa-trash"></i> Delete</button></td>';
 
-        html += '</tr>';
+        var spot_report_number = $('#spot_report_number').val();
+        var class_count = case_row;
 
-        $('#case tbody').append(html);
+        var details =
+            '<tr>' +
+            '<td hidden><input type="text" name="spot_report_case_id[]" style="pointer-events: none; background-color : #e9ecef; width: 00px;" class="form-control" value="0"></td>' +
+            '<td hidden><input type="text" name="suspect_number_case[]" style="pointer-events: none; background-color : #e9ecef; width: 00px;" class="form-control" value="0"></td>' +
+            '<td><select name="suspect_no[]" class="form-control caserow' + case_row + '"><option value="0" selected>Select Option</option></select></td>' +
+            '<td><select name="case_id[]" class="form-control"><option value="" disabled selected>Select Option</option>@foreach($case as $cs)<option value="{{ $cs->id }}">{{ $cs->description }}</option>@endforeach</select></td>' +
+            '<td><input name="docket_number[]" type="text" class="form-control"></td>' +
+            '<td><input name="c_case_status[]" type="text" class="form-control"></td>' +
+            '</tr>';
+        $("#case_details").append(details);
+
+        $.ajax({
+            type: "GET",
+            url: "/get_spot_report_suspect/" + spot_report_number,
+            fail: function() {
+                alert("request failed");
+            },
+            success: function(data) {
+                var data = JSON.parse(data);
+                var classname = ".caserow" + class_count;
+                // alert(class_count);
+                if (data.length > 0) {
+                    data.forEach(element => {
+                        var option = "<option value='" +
+                            element["suspect_number"] +
+                            "'>" +
+                            element["lastname"] + ", " + element["firstname"] + " " + element["middlename"] +
+                            "</option>";
+                        $(".caserow" + class_count).append(option);
+                    });
+                } else {
+                    var option1 = " <option value='' selected>Select Option</option>";
+                    $(".caserow" + class_count).append(option1);
+                }
+            }
+        });
 
         case_row++;
     }
@@ -1023,7 +1054,7 @@
                             details += 'value="';
                         }
                         details += '"></td>' +
-                            '<td><select name="drug_test_result[]" class="form-control" style="width: 200px;"><option value="negative">Negative</option><option value="positive">Positive</option></select></td></td>' +
+                            '<td><select name="drug_test_result[]" class="form-control" style="width: 200px;"><option value="negative" selected>Negative</option><option value="positive">Positive</option></select></td></td>' +
                             '<td><select name="drug_type_id[]" class="form-control" style="width: 200px;"><option value="0" selected>None</option>@foreach($drug_type as $dt)<option value="{{ $dt->id }}">{{ $dt->name }}</option>@endforeach</select></td>' +
                             '<td><input type="text" name="remarks[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
                         if (element["remarks"] != null) {
@@ -1156,8 +1187,8 @@
                             '<tr>' +
                             '<td hidden><input type="text" name="spot_report_case_id[]" style="pointer-events: none; background-color : #e9ecef; width: 00px;" class="form-control" value="' + element["spot_report_case_id"] + '"></td>' +
                             '<td hidden><input type="text" name="suspect_number_case[]" style="pointer-events: none; background-color : #e9ecef; width: 00px;" class="form-control" value="' + element["suspect_number"] + '"></td>' +
-                            '<td><input type="text" style="pointer-events: none; background-color : #e9ecef;" class="form-control" value="' + element["lastname"] + ', ' + element["firstname"] + ' ' + element["middlename"] + '-- Alias: ' + element["alias"] + '"></td>' +
-                            '<td><input type="text" style="pointer-events: none; background-color : #e9ecef;" class="form-control" value="' + element["description"] + '"></td>' +
+                            '<td><input type="text" name="suspect_no[]" style="pointer-events: none; background-color : #e9ecef;" class="form-control" value="' + element["lastname"] + ', ' + element["firstname"] + ' ' + element["middlename"] + '-- Alias: ' + element["alias"] + '"></td>' +
+                            '<td><input type="text" name="case_id[]" style="pointer-events: none; background-color : #e9ecef;" class="form-control" value="' + element["description"] + '"></td>' +
                             '<td><input type="text" name="docket_number[]" class="form-control" value=""></td>' +
                             '<td><input type="text" name="c_case_status[]" class="form-control" value=""></td>' +
                             '</tr>';
