@@ -730,6 +730,8 @@ class IssuanceOfPreopsController extends Controller
         foreach ($area as $ar) {
             if($ar->area == 'N/A') {
                 $areas = null;
+            } else {
+                $areas = $ar->area;
             }
             $output .= '
                     <tr>
