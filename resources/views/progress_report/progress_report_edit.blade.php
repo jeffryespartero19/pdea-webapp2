@@ -833,8 +833,8 @@
             '<tr>' +
             '<td hidden><input type="text" name="spot_report_case_id[]" style="pointer-events: none; background-color : #e9ecef; width: 00px;" class="form-control" value="0"></td>' +
             '<td hidden><input type="text" name="suspect_number_case[]" style="pointer-events: none; background-color : #e9ecef; width: 00px;" class="form-control" value="0"></td>' +
-            '<td><select name="suspect_no[]" class="form-control caserow' + case_row + '"><option value="0">Select Option</option></select></td>' +
-            '<td><select name="case_id[]" class="form-control"><option value="" disabled selected>Select Option</option>@foreach($case as $cs)<option value="{{ $cs->id }}">{{ $cs->description }}</option>@endforeach</select></td>' +
+            '<td><select name="suspect_no[]" class="form-control caserow' + case_row + '"><option value="">Select Option</option></select></td>' +
+            '<td><select name="case_id[]" class="form-control"><option value="" selected>Select Option</option>@foreach($case as $cs)<option value="{{ $cs->id }}">{{ $cs->description }}</option>@endforeach</select></td>' +
             '<td><input name="docket_number[]" type="text" class="form-control"></td>' +
             '<td><input name="c_case_status[]" type="text" class="form-control"></td>' +
             '</tr>';

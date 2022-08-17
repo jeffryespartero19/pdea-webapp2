@@ -21,6 +21,24 @@
 
 <!-- Main content -->
 <section class="content">
+    @if($errors->any())
+    @foreach ($errors->all() as $error)
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h5><i class="icon fas fa-ban"></i> Error!</h5>
+        {{ $error }}
+    </div>
+    @endforeach
+    @endif
+
+    @if(session()->has('success'))
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h5><i class="icon fas fa-check"></i> Success!</h5>
+        {{ session()->get('success') }}
+        <input hidden id="print_id" type="text" value="{{session('preops_id_c')}}">
+    </div>
+    @endif
     <!-- Default box -->
     <div class="card card-success">
         <div class="card-body">
@@ -124,11 +142,28 @@
                     </div>
                     <div class="form-group" style="margin: 0px;">
                         <div>
+                            <label for="">Suspect Classification</label>
+                        </div>
+                        <div class="input-group mb-3">
+                            <select id="suspect_classification_id" name="suspect_classification_id" class="form-control suspect_classification_id" style="width: 200px;">
+                                <option value='0' selected>Select Option
+                                </option>
+                                @foreach ($suspect_classification as $scl)
+                                <option value="{{ $scl->id }}">
+                                    {{ $scl->name }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="form-group" style="margin: 0px;">
+                        <div>
                             <label for="">Suspect Category</label>
                         </div>
                         <div class="input-group mb-3">
                             <select id="suspect_category_id" name="suspect_category_id" class="form-control suspect_category_id" style="width: 200px;">
-                                <option value='' selected>Select Option
+                                <option value='0' selected>Select Option
                                 </option>
                                 @foreach ($suspect_category as $sc)
                                 <option value="{{ $sc->id }}">
@@ -145,7 +180,7 @@
                         </div>
                         <div class="input-group mb-3">
                             <select id="suspect_sub_category_id" name="suspect_sub_category_id" class="form-control" style="width: 200px;">
-                                <option value='' selected>Select Option
+                                <option value='0' selected>Select Option
                                 </option>
                                 @foreach ($suspect_sub_category as $ssc)
                                 <option value="{{ $ssc->id }}">
@@ -158,11 +193,28 @@
                     </div>
                     <div class="form-group" style="margin: 0px;">
                         <div>
+                            <label for="">Identifier</label>
+                        </div>
+                        <div class="input-group mb-3">
+                            <select id="identifier_id" name="identifier_id" class="form-control identifier_id" style="width: 200px;">
+                                <option value='0' selected>Select Option
+                                </option>
+                                @foreach ($identifier as $idn)
+                                <option value="{{ $idn->id }}">
+                                    {{ $idn->name }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="form-group" style="margin: 0px;">
+                        <div>
                             <label for="">Listed</label>
                         </div>
                         <div class="input-group mb-3">
                             <select id="listed" name="listed" class="form-control" required>
-                                <option value='' disabled selected>Select Option</option>
+                                <option value='0' selected>Select Option</option>
                                 <option value="1">Yes</option>
                                 <option value="2">No</option>
                             </select>
@@ -208,6 +260,7 @@
 
         var suspect_id = $(this).closest(".suspect_info").find('.suspect_id').val();
         var s_name = $(this).closest(".suspect_info").find('.s_name').text();
+
         $.ajax({
             type: "GET",
             url: "/get_drug_management/" + suspect_id,
@@ -219,16 +272,45 @@
 
                 if (data.length != 0) {
                     data.forEach(element => {
+                        // alert('meron');
                         $("#dv_id").val(element['id']);
                         $("#suspect_id").val(suspect_id);
                         $("#name").val(s_name);
                         $("#ndis_id").val(element['ndis_id']);
                         $("#remarks").text(element['remarks']);
-                        $('#suspect_category_id option[value=' + element['suspect_category_id'] + ']').attr('selected', 'selected');
-                        $('#suspect_sub_category_id option[value=' + element['suspect_sub_category_id'] + ']').attr('selected', 'selected');
-                        $('#listed option[value=' + element['listed'] + ']').attr('selected', 'selected');
+                        if (element['suspect_classification_id'] == null || element['suspect_classification_id'] == 0) {
+                            $('#suspect_classification_id').val(0);
+                        } else {
+                            $('#suspect_classification_id').val(element['suspect_classification_id']);
+                        }
+                        if (element['suspect_category_id'] == null || element['suspect_category_id'] == 0) {
+                            $('#suspect_category_id').val(0);
+                        } else {
+                            $('#suspect_category_id').val(element['suspect_category_id']);
+                        }
+                        if (element['suspect_sub_category_id'] == null || element['suspect_sub_category_id'] == 0) {
+                            $('#suspect_sub_category_id').val(0);
+                        } else {
+                            $('#suspect_sub_category_id').val(element['suspect_sub_category_id']);
+                        }
+                        if (element['listed'] == null || element['listed'] == 0) {
+                            $('#listed').val(0);
+                        } else {
+                            $('#listed').val(element['listed']);
+                        }
+                        if (element['identifier_id'] == null || element['identifier_id'] == 0) {
+                            $('#identifier_id').val(0);
+                        } else {
+                            $('#identifier_id').val(element['identifier_id']);
+                        }
+                        // $('#suspect_classification_id option[value=' + element['suspect_classification_id'] + ']').attr('selected', 'selected');
+                        // $('#suspect_category_id option[value=' + element['suspect_category_id'] + ']').attr('selected', 'selected');
+                        // $('#suspect_sub_category_id option[value=' + element['suspect_sub_category_id'] + ']').attr('selected', 'selected');
+                        // $('#listed option[value=' + element['listed'] + ']').attr('selected', 'selected');
+                        // $('#identifier_id option[value=' + element['identifier_id'] + ']').attr('selected', 'selected');
                     });
                 } else {
+                    // alert('wala');
                     $("#suspect_id").val(suspect_id);
                     $("#name").val(s_name);
                 }
@@ -237,10 +319,6 @@
     });
 
 
-    $('#modal-lg').on('hidden.bs.modal', function() {
-        $(this).find("input,textarea,select").val('').end();
-
-    });
 
 
     //Populate Suspect Category

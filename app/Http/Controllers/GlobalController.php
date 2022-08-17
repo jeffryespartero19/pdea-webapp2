@@ -358,8 +358,8 @@ class GlobalController extends Controller
     public function getDrugManagement($suspect_id)
     {
         $data = DB::table('drug_management as a')
-            ->join('spot_report_suspect as b', 'a.suspect_id', '=', 'b.id')
-            ->select('a.id', 'a.suspect_id', 'b.lastname', 'b.firstname', 'b.middlename', 'a.listed', 'a.ndis_id', 'a.remarks', 'b.suspect_category_id', 'b.suspect_sub_category_id')
+            ->leftjoin('spot_report_suspect as b', 'a.suspect_id', '=', 'b.id')
+            ->select('a.id', 'a.suspect_id', 'b.lastname', 'b.firstname', 'b.middlename', 'a.listed', 'a.ndis_id', 'a.remarks', 'b.suspect_category_id', 'b.suspect_sub_category_id', 'b.suspect_classification_id', 'b.identifier_id')
             ->where('a.suspect_id', $suspect_id)
             ->get();
 

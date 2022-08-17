@@ -235,7 +235,7 @@ class ProgressReportController extends Controller
 
                     $id = 0;
 
-                    if ($data['suspect_no'][$i] != null) {
+                    if ($data['suspect_no'][$i] != null && $data['case_id'][$i] != null) {
                         $spot_case = [
                             'spot_report_number' => $request->spot_report_number,
                             'suspect_number' => $data['suspect_no'][$i],
@@ -499,7 +499,7 @@ class ProgressReportController extends Controller
 
                         $id = 0;
 
-                        if ($data['suspect_no'][$i] != null) {
+                        if ($data['suspect_no'][$i] != null && $data['case_id'][$i] != null) {
                             $spot_case = [
                                 'spot_report_number' => $request->spot_report_number,
                                 'suspect_number' => $data['suspect_no'][$i],
