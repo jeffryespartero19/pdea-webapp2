@@ -957,6 +957,8 @@
             html +=
                 '<td><select name="occupation_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($occupation as $occ)<option value="{{ $occ->id }}">{{ $occ->name }}</option>@endforeach</select></td>';
             html +=
+                '<td><select name="identifier_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($identifier as $identifiers)<option value="{{ $identifiers->id }}">{{ $identifiers->name }}</option>@endforeach</select></td>';
+            html +=
                 '<td><select name="suspect_classification_id[]" class="form-control suspect_classification_id" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($suspect_classification as $sclass)<option value="{{ $sclass->id }}">{{ $sclass->name }}</option>@endforeach</select></td>';
             html +=
                 '<td><select name="suspect_category_id[]" class="form-control suspect_category_id" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
