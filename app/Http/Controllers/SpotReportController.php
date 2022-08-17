@@ -1581,12 +1581,12 @@ class SpotReportController extends Controller
 
         if ($spot_report[0]->preops_number == 1) {
             $regional_office = DB::table('regional_office as a')
-                ->join('spot_report_header as b', 'a.region_c', '=', 'b.region_c')
+                ->leftjoin('spot_report_header as b', 'a.region_c', '=', 'b.region_c')
                 ->select('a.name', 'a.address', 'a.contact_number', 'a.report_header')
                 ->where('b.region_c', $spot_report[0]->region_c)->get();
         } else {
             $regional_office = DB::table('regional_office as a')
-                ->join('preops_header as b', 'a.ro_code', '=', 'b.ro_code')
+                ->leftjoin('preops_header as b', 'a.ro_code', '=', 'b.ro_code')
                 ->select('a.name', 'a.address', 'a.contact_number', 'a.report_header')
                 ->where('b.preops_number', $spot_report[0]->preops_number)->get();
         }
@@ -1598,21 +1598,21 @@ class SpotReportController extends Controller
         $operating_unit = DB::table('operating_unit')->where('id', $spot_report[0]->operating_unit_id)->get();
         $operation_type = DB::table('operation_type')->where('id', $spot_report[0]->operation_type_id)->get();
         $evidence = DB::table('spot_report_evidence as a')
-            ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
+            ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
             ->leftjoin('evidence as c', 'a.evidence_id', '=', 'c.id')
             ->leftjoin('unit_measurement as d', 'a.unit', '=', 'd.id')
-            ->leftjoin('packaging as e', 'a.packaging_id', '=', 'd.id')
+            ->leftjoin('packaging as e', 'a.packaging_id', '=', 'e.id')
             ->select('c.name as evidence_type', 'd.name as unit_measurement', 'a.evidence', 'a.quantity', 'e.name as packaging')
             ->where('b.id', $id)->get();
 
         $case = DB::table('spot_report_case as a')
-            ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
-            ->join('case_list as c', 'a.case_id', '=', 'c.id')
-            ->join('spot_report_suspect as d', 'a.suspect_number', '=', 'd.suspect_number')
+            ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
+            ->leftjoin('case_list as c', 'a.case_id', '=', 'c.id')
+            ->leftjoin('spot_report_suspect as d', 'a.suspect_number', '=', 'd.suspect_number')
             ->select('c.description as case', 'd.lastname', 'd.firstname', 'd.middlename')
             ->where('b.id', $id)->get();
         $team = DB::table('spot_report_team as a')
-            ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
+            ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
             ->where('b.id', $id)->get();
         $support_unit = DB::table('spot_report_support_unit as a')
             ->leftjoin('operating_unit as b', 'a.support_unit_id', '=', 'b.id')
