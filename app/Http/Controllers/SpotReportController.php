@@ -1759,12 +1759,8 @@ class SpotReportController extends Controller
         $output .= '
                 <br>
                 <table width="100%" style="border-collapse: collapse; border: 0px;">
-                    <tr style="border: 1px solid; border-bottom:none">
-                        <th class="arial" style="border: none; padding:0 12px;" width="50%" align="left">Operating Team</th>
-                        <th class="arial" style="border: none; padding:0 12px;" width="50%" align="left"></th>
-                    </tr>
-                    <tr style="border: 1px solid; border-top:none">
-                        <th class="arial" style="border: none; padding:0 12px;" width="50%" align="left">Name</th>
+                    <tr style="border: 1px solid;">
+                        <th class="arial" style="border: none; padding:0 12px;" width="50%" align="left">Operating Team Name</th>
                         <th class="arial" style="border: none; padding:0 12px;" width="50%" align="left">Position/Department</th>
                     </tr>';
 
