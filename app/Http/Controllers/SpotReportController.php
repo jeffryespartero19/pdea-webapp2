@@ -1712,7 +1712,7 @@ class SpotReportController extends Controller
         </tr>
         </tr>
                 <tr style="border:none;">
-                <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:17px; margin-left:33px;">Area of Operation:</span><span class="arial" style="font-weight:bold"><u>' . $barangay[0]->barangay_m . ', ' . $city[0]->city_m . '</u></span></td>
+                <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:17px; margin-left:33px;">Area of Operation:</span><span class="arial" style="font-weight:bold">' . $barangay[0]->barangay_m . ', ' . $city[0]->city_m . '</span></td>
                 </tr>
                 <tr style="border:none;">
                 <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:74px; margin-left:33px">Remarks:</span><span>' . $spot_report[0]->remarks . '</span></td>
