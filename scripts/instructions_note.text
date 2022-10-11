@@ -1,6 +1,6 @@
-check the example_env_for_migration file 
- - it is the env exxample for the connecting laravel to 2 databases 
- - DB keys with ('_OLD') suffix are for the old db connection 
+check the example_env_for_migration file
+ - it is the env exxample for the connecting laravel to 2 databases
+ - DB keys with ('_OLD') suffix are for the old db connection
  - you must add  the keys with ('_OLD') suffix so that the script can work
  - DB_DATABASE_OLD - is the name for the old db that is in the server where you will run the scripts
 
@@ -8,15 +8,23 @@ I already configured config\database.php to read the Keys for old db connection
 
 * run the migrate command for laravel to add the column that we use for migration purposes ( php artisan migrate)
 
-To run the scripts you can do it by running the command 
+To run the scripts you can do it by running the command
 
  php artisan tinker < scripts/{script_name}
 
  {script_name} = name of script (ex. db003.php)
 
- example command 
+ example command
  php artisan tinker < scripts\db003.php
 
 before running db016.php script you need to run first the scripts
  - db019.php - laboratory facility (maintenance)
  - db021.php - packaging (maintenance)
+
+ before running db024.php script you need to run first the scripts
+ - db025.php - civil_status (maintenance)
+ - db026.php - nationality (maintenance)
+ - db027.php - ethnic_group (maintenance)
+ - db028.php - religion (maintenance)
+ - db029.php - educational attainment (maintenance)
+ - db030.php - occupation (maintenance)
