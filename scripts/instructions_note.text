@@ -20,3 +20,7 @@ To run the scripts you can do it by running the command
 before running db016.php script you need to run first the scripts
  - db019.php - laboratory facility (maintenance)
  - db021.php - packaging (maintenance)
+
+before running db017.php script you need to run first the scripts
+ - db017_for_unit_of_measurement.php - evidence (maintenance) just the um_c10 column for units of measurement migratation
+ - db018.php - evidence category (maintenance)
