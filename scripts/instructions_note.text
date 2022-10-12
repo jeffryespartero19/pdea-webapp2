@@ -28,3 +28,4 @@ before running db016.php script you need to run first the scripts
  - db028.php - religion (maintenance)
  - db029.php - educational attainment (maintenance)
  - db030.php - occupation (maintenance)
+ - if the birth date from old db is 0000-00-00 i set it on new db to 1990-01-01 because it did not accept 0000-00-00 as date
