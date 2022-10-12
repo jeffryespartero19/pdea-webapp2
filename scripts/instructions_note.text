@@ -21,6 +21,9 @@ before running db016.php script you need to run first the scripts
  - db019.php - laboratory facility (maintenance)
  - db021.php - packaging (maintenance)
 
+before running db022.php script you need to run first the scripts
+ - db023.php - case (maintenance)
+
  before running db024.php script you need to run first the scripts
  - db025.php - civil_status (maintenance)
  - db026.php - nationality (maintenance)
@@ -29,3 +32,12 @@ before running db016.php script you need to run first the scripts
  - db029.php - educational attainment (maintenance)
  - db030.php - occupation (maintenance)
  - if the birth date from old db is 0000-00-00 i set it on new db to 1990-01-01 because it did not accept 0000-00-00 as date
+
+
+before running db020.php script you need to run first the scripts
+ - db024.php -suspect information
+ - db043.php - drug_types
+
+before running db035.php script you need to run first the scripts
+ - db012.php -operating_unit
+ - db032.php - operation_type

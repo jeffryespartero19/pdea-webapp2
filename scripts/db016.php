@@ -22,8 +22,8 @@ function migrateDb(){
                 "lab_test_result" => $spot_report_evidence->erslt_c1,
                 "chemist_report_number" => $spot_report_evidence->chrep_c40,
                 "markings" => $spot_report_evidence->mark_c40,
-                "packaging_id" => $spot_report_evidence->pactyp_c5 ? $packaging->id : null,
-                "laboratory_facility_id" => $spot_report_evidence->labfac_c10 ? $laboratory_facility->id : 0 ,
+                "packaging_id" => $packaging ? $packaging->id : null,
+                "laboratory_facility_id" => $laboratory_facility ? $laboratory_facility->id : 0 ,
                 // default only for migration
                 'created_at' => date('Y-m-d'),
             ]);
