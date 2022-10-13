@@ -10,7 +10,7 @@ function migrateDb(){
 
             if(DB::table('laboratory_facility')->where('name',$laboratory_facility->ldsc_c40)->exists()) continue;
 
-            $laboratory_facility = DB::table('laboratory_facility')->insert([
+            $migrate = DB::table('laboratory_facility')->insert([
                 'name' => $laboratory_facility->ldsc_c40,
                 'laboratory_facility_code' => $laboratory_facility->labfac,
                 // default only for migration

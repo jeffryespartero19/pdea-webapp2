@@ -16,8 +16,8 @@ function migrateDb(){
             $evidence_ = DB::table('evidence')->insert([
                 'name' => $evidence->ecod_c10,
                 'description' => $evidence->edsc_c40,
-                'unit_measurement_id' => $unit_measurement->id,
-                'evidence_type_id' => $evidence_type->id,
+                'unit_measurement_id' => $unit_measurement ? $unit_measurement->id : 0,
+                'evidence_type_id' => $evidence_type ? $evidence_type->id : 0,
                 // default only for migration
                 'created_at' => date('Y-m-d'),
             ]);

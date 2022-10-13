@@ -10,21 +10,14 @@ function migrateDb(){
 
             $drug_type = DB::table('drug_type')->where('name',$spot_report_suspect->tod_c10)->first();
 
-            $suspect_info = DB::table('suspect_information')->where('suspect_information_code',$spot_report_suspect->sus_c10)->update([
-                'drug_group' => $spot_report_suspect->grp_c40,
-                'suspect_classification_id' => $spot_report_suspect->class_c2,
-                'group_affiliation_id' => $spot_report_suspect->grpaf_c1,
-            ]);
-
-
             $migrate = DB::table('spot_report_suspect')->insert([
-                'spot_report_number' => $spot_report_suspect->spotno_c15,
-                'suspect_number' => $spot_report_suspect->sus_c10,
-                'suspect_classification_id' => $spot_report_suspect->class_c2,
-                'drug_test_result' => $spot_report_suspect->dtr_c1,
-                'drug_type_id' => $spot_report_suspect->tod_c10 ? $drug_type->id : null,
-                'remarks' => substr($spot_report_suspect->rem_m,0,250),
-                'identifier_id' => $spot_report_suspect->cls_c1,
+                'spot_report_number' => $spot_report_suspect->spotno_c15 ?? null,
+                'suspect_number' => $spot_report_suspect->sus_c10 ?? '00000',
+                'suspect_classification_id' => $spot_report_suspect->class_c2 ?? null,
+                'drug_test_result' => $spot_report_suspect->dtr_c1 ?? null,
+                'drug_type_id' => $drug_type ? $drug_type->id : null,
+                'remarks' => substr($spot_report_suspect->rem_m,0,250) ?? null,
+                'identifier_id' => $spot_report_suspect->cls_c1 ?? null,
                 'gender' => $suspect_info->gender ?? 'NA',
                 // default only for migration
                 'created_at' => date('Y-m-d'),

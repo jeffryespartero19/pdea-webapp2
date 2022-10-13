@@ -17,9 +17,16 @@ To run the scripts you can do it by running the command
  example command
  php artisan tinker < scripts\db003.php
 
+
+before running db004.php script you need to run first the scripts
+- db003.php - spot_report_header
+
 before running db016.php script you need to run first the scripts
  - db019.php - laboratory facility (maintenance)
  - db021.php - packaging (maintenance)
+
+before running db017.php script you need to run first the scripts
+ - db017_for_unit_of_measurement.php - specifically get unit of measurements in db017 db
 
 before running db022.php script you need to run first the scripts
  - db023.php - case (maintenance)
@@ -33,8 +40,7 @@ before running db022.php script you need to run first the scripts
  - db030.php - occupation (maintenance)
  - if the birth date from old db is 0000-00-00 i set it on new db to 1990-01-01 because it did not accept 0000-00-00 as date
 
-
-before running db020.php script you need to run first the scripts
+before running db020.php and db020_for_suspect_info.php script you need to run first the scripts
  - db024.php -suspect information
  - db043.php - drug_types
 

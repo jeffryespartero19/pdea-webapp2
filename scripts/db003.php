@@ -1,4 +1,3 @@
-<?php
 
 use Illuminate\Support\Facades\DB;
 require_once __DIR__.'/scripts/progress_printer.php';
@@ -11,7 +10,7 @@ function migrateDb(){
 
             $spot_report_header = DB::table('spot_report_header')->insert([
                 'spot_report_number' => $spot_header->spotno_c15,
-                'preops_number' => $spot_header->preops_c10,
+                'preops_number' => $spot_header->preops_c10 ?? '',
                 'region_c' => $spot_header->rcod_c10,
                 // default only for migration
                 'province_c' => '001',

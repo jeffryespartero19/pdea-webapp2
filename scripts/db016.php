@@ -16,7 +16,7 @@ function migrateDb(){
 
             $spot_report_evidence = DB::table('spot_report_evidence')->insert([
                 "spot_report_number" => $spot_report_evidence->spotno_c15,
-                "suspect_number" => $spot_report_evidence->sus_c10,
+                "suspect_number" => $spot_report_evidence->sus_c10 ?? '',
                 "quantity" => $spot_report_evidence->qty_n,
                 "evidence" => $spot_report_evidence->ecod_c10,
                 "lab_test_result" => $spot_report_evidence->erslt_c1,

@@ -14,7 +14,7 @@ function migrateDb(){
                 'region_c' => $region->rcod_c10,
                 'region_m' => $region->rdesc_c40,
                 'abbreviation' => $region->repd_c40,
-                'status' => $region->ord_n2,
+                'status' => $region->ord_n2 ?? 0,
                 // default only for migration
                 'created_at' => date('Y-m-d'),
             ]);
