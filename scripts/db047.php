@@ -1,25 +1,6 @@
 use Illuminate\Support\Facades\DB;
 require_once __DIR__.'/scripts/progress_printer.php';
 
-// tapos yung transaction_type is ayun na mismo yung ftyp_c2
-// pre-ops -1 
-// after operation - 2
-// spot report - 3 
-// progress report - 4
-
-// DB0047
-// serno_c10  - unique id series
-// fnam_c20 - file name
-// ftyp_c2 - AOR/SR/PR
-// fcon_b - file mismo
-// mser_c20 - pre-ops serial number
-// stat_c1 - status 1- actice 0- inactive
-// ref_c10 - reserved column
-
-// 1. After Operation
-// 2. Spot Report
-// 3. Progress Report
-
 function uploadAfterOperationFile($file_upload) {
 
     if (!file_exists(public_path("/files/uploads/after_operations/"))) {
