@@ -1,3 +1,4 @@
+
 use Illuminate\Support\Facades\DB;
 require_once __DIR__.'/scripts/progress_printer.php';
 
@@ -26,6 +27,11 @@ function uploadAfterOperationFile($file_upload) {
 }
 
 function uploadSpotReportFile($file_upload) {
+
+    if (!file_exists(public_path("/files/uploads/spot_reports/"))) {
+        mkdir(public_path("/files/uploads/spot_reports/"), 0777, true);
+    }
+
     $path = public_path("/files/uploads/spot_reports/");
     $filename = $file_upload->fnam_c20.'.pdf';
 
@@ -45,6 +51,10 @@ function uploadSpotReportFile($file_upload) {
 }
 
 function uploadProgressReportFile($file_upload) {
+    if (!file_exists(public_path("/files/uploads/progress_reports/"))) {
+        mkdir(public_path("/files/uploads/progress_reports/"), 0777, true);
+    }
+    
     $path = public_path("/files/uploads/progress_reports/");
     $filename = $file_upload->fnam_c20.'.pdf';
 
@@ -68,12 +78,15 @@ function migrateDb(){
         foreach($file_uploads as $key => $file_upload) {
             show_status($key + 1,count($file_uploads));
 
-            if($file_upload->ftyp_c2 === "01")
+            if($file_upload->ftyp_c2 === "01") {
                 $file_upload_details = uploadAfterOperationFile($file_upload);
-            else if($file_upload->ftyp_c2 === "02") 
+            }
+            else if($file_upload->ftyp_c2 === "02") {
                 $file_upload_details = uploadSpotReportFile($file_upload);
-            else if($file_upload->ftyp_c2 === "03") 
+            } 
+            else if($file_upload->ftyp_c2 === "03") {
                 $file_upload_details = uploadProgressReportFile($file_upload);
+            } 
 
             $file_upload_details['created_at'] = date('Y-m-d');
                 
