@@ -35,7 +35,7 @@ class IssuanceOfPreopsController extends Controller
                 ->leftjoin('spot_report_header as d', 'a.preops_number', '=', 'd.preops_number')
                 ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'd.report_status', 'a.with_aor', 'a.with_sr')
                 ->orderby('a.id', 'desc')
-                ->get();
+                ->paginate(20);
 
             $regional_office = DB::table('regional_office')->orderby('print_order', 'asc')->get();
         } else {
@@ -48,7 +48,7 @@ class IssuanceOfPreopsController extends Controller
                 ->orderby('a.id', 'desc')
                 ->where('d.id', Auth::user()->regional_office_id)
                 ->orderby('a.id', 'desc')
-                ->get();
+                ->paginate(20);
 
             $regional_office = DB::table('regional_office')
                 ->where('id', Auth::user()->regional_office_id)
@@ -728,7 +728,7 @@ class IssuanceOfPreopsController extends Controller
 
         // Area
         foreach ($area as $ar) {
-            if($ar->area == 'N/A') {
+            if ($ar->area == 'N/A') {
                 $areas = null;
             } else {
                 $areas = $ar->area;
@@ -803,5 +803,74 @@ class IssuanceOfPreopsController extends Controller
         $preops_id = sprintf("%03s", $preops_id);
 
         return json_encode($preops_id);
+    }
+
+    public function search_preops(Request $request)
+    {
+
+        $q = $request->q;
+
+        if (Auth::user()->user_level_id == 2) {
+            if ($q != "") {
+
+                $data = DB::table('preops_header as a')
+                    ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+                    ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+                    ->leftjoin('spot_report_header as d', 'a.preops_number', '=', 'd.preops_number')
+                    ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'd.report_status', 'a.with_aor', 'a.with_sr')
+                    ->where('a.preops_number', 'LIKE', '%' . $q . '%')
+                    ->orderby('a.id', 'desc')
+                    ->paginate(20)
+                    ->setPath('');
+
+                // dd($data);
+
+                $pagination = $data->appends(array(
+                    'q' => $request->q
+                ));
+
+                $regional_office = DB::table('regional_office')->orderby('print_order', 'asc')->get();
+                $region = DB::table('region')->orderby('region_sort', 'asc')->get();
+                $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('description', 'asc')->get();
+                $operation_type = DB::table('operation_type')->where('status', true)->where('operation_classification_id', 2)->orderby('name', 'asc')->get();
+
+                if (count($data) > 0) {
+                    return view('issuance_of_preops.issuance_of_preops_list', compact('data', 'region', 'operating_unit', 'operation_type', 'regional_office'));
+                }
+            }
+        } else {
+            if ($q != "") {
+
+                $data = DB::table('preops_header as a')
+                    ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+                    ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+                    ->leftjoin('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
+                    ->leftjoin('spot_report_header as e', 'a.preops_number', '=', 'e.preops_number')
+                    ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.description as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'e.report_status', 'a.with_aor', 'a.with_sr')
+                    ->where('a.preops_number', 'LIKE', '%' . $q . '%')
+                    ->where('d.id', Auth::user()->regional_office_id)
+                    ->orderby('a.id', 'desc')
+                    ->paginate(20)
+                    ->setPath('');
+
+                // dd($data);
+
+                $pagination = $data->appends(array(
+                    'q' => $request->q
+                ));
+
+                $regional_office = DB::table('regional_office')
+                    ->where('id', Auth::user()->regional_office_id)
+                    ->get();
+                $region = DB::table('region')->orderby('region_sort', 'asc')->get();
+                $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('description', 'asc')->get();
+                $operation_type = DB::table('operation_type')->where('status', true)->where('operation_classification_id', 2)->orderby('name', 'asc')->get();
+                if (count($data) > 0) {
+                    return view('issuance_of_preops.issuance_of_preops_list', compact('data', 'region', 'operating_unit', 'operation_type', 'regional_office'));
+                }
+            }
+        }
+
+        return view('issuance_of_preops.issuance_of_preops_list')->withMessage('No Details found. Try to search again !');
     }
 }

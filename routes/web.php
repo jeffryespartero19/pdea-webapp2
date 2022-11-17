@@ -377,3 +377,8 @@ Route::get('ops_details', 'GeoMappingController@ops_details')->name('ops_details
 Route::get('chat', 'ChatController@index')->name('chat');
 Route::post('ops_update_warning', 'GeoMappingController@ops_update_warning')->name('ops_update_warning');
 Route::post('ops_details_Xport', 'XLController@ops_details_Xport')->name('ops_details_Xport');
+
+Route::get('search_suspect', 'SuspectInformationController@search_suspect');
+Route::get('search_spot_report', 'SpotReportController@search_spot_report');
+Route::get('search_preops', 'IssuanceOfPreopsController@search_preops');
+

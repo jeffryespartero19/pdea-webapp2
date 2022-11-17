@@ -24,7 +24,8 @@ class SuspectInformationController extends Controller
 
     public function index()
     {
-        $data = DB::table('suspect_information')->orderby('id', 'asc')->get();
+        $data = DB::table('suspect_information')->orderby('id', 'asc')
+            ->paginate(20);
 
         return view('suspect_information.suspect_information_list', compact('data'));
 
@@ -270,5 +271,42 @@ class SuspectInformationController extends Controller
         Audit::create($data_audit);
 
         return back()->with('success', 'You have successfully updated suspect information!');
+    }
+
+    public function search_suspect(Request $request)
+    {
+
+        $q = $request->q;
+
+        // dd($q);
+        if ($q != "") {
+            $data = DB::table('suspect_information')
+                ->select(
+                    'suspect_number',
+                    'lastname',
+                    'firstname',
+                    'middlename',
+                    'alias',
+                    'status',
+                    'id'
+                )
+                ->where('lastname', 'LIKE', '%' . $q . '%')
+                ->orWhere('firstname', 'LIKE', '%' . $q . '%')
+                ->orWhere('middlename', 'LIKE', '%' . $q . '%')
+                ->orWhere('alias', 'LIKE', '%' . $q . '%')
+                ->paginate(20)
+                ->setPath('');
+
+            // dd($data);
+
+            $pagination = $data->appends(array(
+                'q' => $request->q
+            ));
+
+            if (count($data) > 0) {
+                return view('suspect_information.suspect_information_list', compact('data'));
+            }
+        }
+        return view('suspect_information.suspect_information_list')->withMessage('No Details found. Try to search again !');
     }
 }

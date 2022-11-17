@@ -93,7 +93,18 @@
     <div class="card card-success">
 
         <div class="card-body">
-            <table id="example2" class="table table-bordered table-striped table-hover">
+            <form action="/search_spot_report" method="GET" role="search" id="SearchForm">
+                {{ csrf_field() }}
+                <div class="input-group">
+                    <input type="text" class="form-control" name="q" placeholder="Search Spot Report"> <span class="input-group-btn">
+                        <button type="button" class="btn btn-default submit_search">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </form>
+            <br>
+            <table id="example_info" class="table table-bordered table-striped table-hover">
                 <thead>
                     <tr>
                         <th hidden>ID</th>
@@ -128,6 +139,7 @@
                 </tbody>
 
             </table>
+            {{ $data->links() }}
         </div>
         <!-- /.card-body -->
 
@@ -219,6 +231,7 @@
                         var details =
                             '<tr>' +
                             '<td>' + element["spot_report_number"] + '</td>' +
+                            '<td>' + element["preops_number"] + '</td>' +
                             '<td>' + element["operating_unit_name"] + '</td>' +
                             '<td>' + element["operation_type_name"] + '</td>' +
                             '<td>' + element["operation_datetime"] + '</td>' +
@@ -271,6 +284,10 @@
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
         });
+    });
+
+    $(".submit_search").on("click", function() {
+        $('#SearchForm').submit();
     });
 </script>
 

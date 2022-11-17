@@ -94,7 +94,18 @@
 
 
         <div class="card-body">
-            <table id="example2" class="table table-bordered table-striped table-hover">
+            <form action="/search_preops" method="GET" role="search" id="SearchForm">
+                {{ csrf_field() }}
+                <div class="input-group">
+                    <input type="text" class="form-control" name="q" placeholder="Search Preops"> <span class="input-group-btn">
+                        <button type="button" class="btn btn-default submit_search">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </form>
+            <br>
+            <table id="example_info" class="table table-bordered table-striped table-hover">
                 <thead>
                     <tr>
                         <th hidden>ID</th>
@@ -135,6 +146,7 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $data->links() }}
         </div>
         <!-- /.card-body -->
 
@@ -282,6 +294,10 @@
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
         });
+    });
+
+    $(".submit_search").on("click", function() {
+        $('#SearchForm').submit();
     });
 </script>
 

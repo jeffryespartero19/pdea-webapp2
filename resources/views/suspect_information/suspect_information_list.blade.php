@@ -26,10 +26,21 @@
         <div class="ml-4 mt-4">
             <a href="{{ route('suspect_information_add') }}" class="btn btn-info">Add Suspect Information</a>
         </div>
+
         <div class="card-body">
             <div class="card">
+                <form action="/search_suspect" method="GET" role="search" id="SearchForm">
+                    {{ csrf_field() }}
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="q" placeholder="Search Suspects"> <span class="input-group-btn">
+                            <button type="button" class="btn btn-default submit_search">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>
                 <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped table-hover">
+                    <table id="example_info" class="table table-bordered table-striped table-hover">
                         <thead>
                             <tr>
                                 <th>No.</th>
@@ -54,6 +65,7 @@
                         </tbody>
 
                     </table>
+                    {{ $data->links() }}
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -69,4 +81,12 @@
 <!-- /.content -->
 
 <!-- Set menu to collapse and active -->
+@endsection
+
+@section('scripts')
+<script>
+    $(".submit_search").on("click", function() {
+        $('#SearchForm').submit();
+    });
+</script>
 @endsection
