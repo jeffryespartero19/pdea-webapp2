@@ -381,4 +381,5 @@ Route::post('ops_details_Xport', 'XLController@ops_details_Xport')->name('ops_de
 Route::get('search_suspect', 'SuspectInformationController@search_suspect');
 Route::get('search_spot_report', 'SpotReportController@search_spot_report');
 Route::get('search_preops', 'IssuanceOfPreopsController@search_preops');
+Route::get('search_files', 'FileUploadsController@search_files');
 
