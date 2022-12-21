@@ -19,44 +19,130 @@ class FileUploadsController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function preops_files_list()
     {
 
         if (Auth::user()->user_level_id == 2) {
 
-            $file_uploads = DB::table('file_upload_list as a')
-                ->leftjoin('issuance_of_preops_files as b', 'a.preops_file_id', '=', 'b.id')
-                ->leftjoin('after_operation_files as c', 'a.after_operation_file_id', '=', 'c.id')
-                ->leftjoin('spot_report_files as d', 'a.spot_report_file_id', '=', 'd.id')
-                ->leftjoin('progress_report_files as e', 'a.progress_report_file_id', '=', 'e.id')
-                ->leftjoin('preops_header as b2', 'b.preops_number', '=', 'b2.preops_number')
-                ->leftjoin('preops_header as c2', 'c.preops_number', '=', 'c2.preops_number')
-                ->leftjoin('spot_report_header as f', 'd.spot_report_number', '=', 'f.spot_report_number')
-                ->leftjoin('spot_report_header as g', 'e.spot_report_number', '=', 'g.spot_report_number')
-                ->leftjoin('regional_office as h', 'b2.region_c', '=', 'h.region_c')
-                ->leftjoin('regional_office as h1', 'c2.region_c', '=', 'h1.region_c')
-                ->leftjoin('regional_office as h2', 'f.region_c', '=', 'h2.region_c')
-                ->leftjoin('regional_office as h3', 'g.region_c', '=', 'h3.region_c')
-                ->select('a.filename', 'a.transaction_type', 'b.preops_number as i_preops_number', 'c.preops_number as a_preops_number', 'd.spot_report_number as s_spot_report_number', 'e.spot_report_number as p_spot_report_number')
-                ->where(function ($query) {
-                    $query->where('h.id', Auth::user()->regional_office_id)
-                        ->orWhere('h1.id', Auth::user()->regional_office_id)
-                        ->orWhere('h2.id', Auth::user()->regional_office_id)
-                        ->orWhere('h3.id', Auth::user()->regional_office_id);
-                })
-                ->paginate(20);
+            $region_c = DB::table('regional_office as a')
+                ->leftjoin('users as b', 'a.id', '=', 'b.regional_office_id')
+                ->select('a.region_c')
+                ->where('b.id', Auth::user()->id)
+                ->get();
 
-            return view('file_uploads.file_uploads_list', compact('file_uploads'));
+            $file_uploads = DB::table('file_upload_list as a')
+                ->leftjoin('issuance_of_preops_files as b1', 'a.preops_file_id', '=', 'b1.id')
+                ->leftjoin('preops_header as b2', 'b1.preops_number', '=', 'b2.preops_number')
+                ->select('a.filename', 'a.transaction_type', 'b1.preops_number as t_number')
+                ->where('b2.region_c', $region_c[0]->region_c)
+                ->where('a.transaction_type', 1)
+                ->paginate(50);
+
+
+            return view('file_uploads.preops_file_uploads_list', compact('file_uploads'));
         } else {
             $file_uploads = DB::table('file_upload_list as a')
                 ->leftjoin('issuance_of_preops_files as b', 'a.preops_file_id', '=', 'b.id')
-                ->leftjoin('after_operation_files as c', 'a.after_operation_file_id', '=', 'c.id')
-                ->leftjoin('spot_report_files as d', 'a.spot_report_file_id', '=', 'd.id')
-                ->leftjoin('progress_report_files as e', 'a.progress_report_file_id', '=', 'e.id')
-                ->select('a.filename', 'a.transaction_type', 'b.preops_number as i_preops_number', 'c.preops_number as a_preops_number', 'd.spot_report_number as s_spot_report_number', 'e.spot_report_number as p_spot_report_number')
+                ->select('a.filename', 'a.transaction_type', 'b.preops_number as t_number')
+                ->where('a.transaction_type', 1)
                 ->paginate(20);
 
-            return view('file_uploads.file_uploads_list', compact('file_uploads'));
+            return view('file_uploads.preops_file_uploads_list', compact('file_uploads'));
+        }
+    }
+
+    public function afteroperation_files_list()
+    {
+
+        if (Auth::user()->user_level_id == 2) {
+
+            $region_c = DB::table('regional_office as a')
+                ->leftjoin('users as b', 'a.id', '=', 'b.regional_office_id')
+                ->select('a.region_c')
+                ->where('b.id', Auth::user()->id)
+                ->get();
+
+            $file_uploads = DB::table('file_upload_list as a')
+                ->leftjoin('after_operation_files as b12', 'a.after_operation_file_id', '=', 'b12.id')
+                ->leftjoin('preops_header as b2', 'b12.preops_number', '=', 'b2.preops_number')
+                ->select('a.filename', 'a.transaction_type', 'b12.preops_number as t_number')
+                ->where('b2.region_c', $region_c[0]->region_c)
+                ->where('a.transaction_type', 2)
+                ->paginate(50);
+
+
+            return view('file_uploads.afteroperation_file_uploads_list', compact('file_uploads'));
+        } else {
+            $file_uploads = DB::table('file_upload_list as a')
+                ->leftjoin('after_operation_files as c', 'a.after_operation_file_id', '=', 'c.id')
+                ->select('a.filename', 'a.transaction_type', 'c.preops_number as t_number')
+                ->where('a.transaction_type', 1)
+                ->paginate(20);
+
+            return view('file_uploads.afteroperation_file_uploads_list', compact('file_uploads'));
+        }
+    }
+
+    public function spotreport_files_list()
+    {
+
+        if (Auth::user()->user_level_id == 2) {
+
+            $region_c = DB::table('regional_office as a')
+                ->leftjoin('users as b', 'a.id', '=', 'b.regional_office_id')
+                ->select('a.region_c')
+                ->where('b.id', Auth::user()->id)
+                ->get();
+
+            $file_uploads = DB::table('file_upload_list as a')
+                ->leftjoin('spot_report_files as b', 'a.spot_report_file_id', '=', 'b.id')
+                ->leftjoin('spot_report_header as c', 'b.spot_report_number', '=', 'c.spot_report_number')
+                ->select('a.filename', 'a.transaction_type', 'b.spot_report_number as t_number')
+                ->where('c.region_c', $region_c[0]->region_c)
+                ->where('a.transaction_type', 3)
+                ->paginate(50);
+
+
+            return view('file_uploads.spotreport_file_uploads_list', compact('file_uploads'));
+        } else {
+            $file_uploads = DB::table('file_upload_list as a')
+                ->leftjoin('spot_report_files as d', 'a.spot_report_file_id', '=', 'd.id')
+                ->select('a.filename', 'a.transaction_type', 'd.spot_report_number as t_number')
+                ->where('a.transaction_type', 3)
+                ->paginate(20);
+
+            return view('file_uploads.spotreport_file_uploads_list', compact('file_uploads'));
+        }
+    }
+
+    public function progressreport_files_list()
+    {
+
+        if (Auth::user()->user_level_id == 2) {
+
+            $region_c = DB::table('regional_office as a')
+                ->leftjoin('users as b', 'a.id', '=', 'b.regional_office_id')
+                ->select('a.region_c')
+                ->where('b.id', Auth::user()->id)
+                ->get();
+
+            $file_uploads = DB::table('file_upload_list as a')
+                ->join('progress_report_files as b', 'a.progress_report_file_id', '=', 'b.id')
+                ->leftjoin('spot_report_header as c', 'b.spot_report_number', '=', 'c.spot_report_number')
+                ->select('a.filename', 'a.transaction_type', 'b.spot_report_number as t_number')
+                ->where('c.region_c', $region_c[0]->region_c)
+                ->where('a.transaction_type', 4)
+                ->paginate(50);
+
+            return view('file_uploads.progressreport_file_uploads_list', compact('file_uploads'));
+        } else {
+            $file_uploads = DB::table('file_upload_list as a')
+                ->leftjoin('progress_report_files as e', 'a.progress_report_file_id', '=', 'e.id')
+                ->select('a.filename', 'a.transaction_type', 'e.spot_report_number as t_number')
+                ->where('a.transaction_type', 4)
+                ->paginate(20);
+
+            return view('file_uploads.progressreport_file_uploads_list', compact('file_uploads'));
         }
     }
 
@@ -74,23 +160,8 @@ class FileUploadsController extends Controller
                     ->leftjoin('after_operation_files as c', 'a.after_operation_file_id', '=', 'c.id')
                     ->leftjoin('spot_report_files as d', 'a.spot_report_file_id', '=', 'd.id')
                     ->leftjoin('progress_report_files as e', 'a.progress_report_file_id', '=', 'e.id')
-                    ->leftjoin('preops_header as b2', 'b.preops_number', '=', 'b2.preops_number')
-                    ->leftjoin('preops_header as c2', 'c.preops_number', '=', 'c2.preops_number')
-                    ->leftjoin('spot_report_header as f', 'd.spot_report_number', '=', 'f.spot_report_number')
-                    ->leftjoin('spot_report_header as g', 'e.spot_report_number', '=', 'g.spot_report_number')
-                    ->leftjoin('regional_office as h', 'b2.region_c', '=', 'h.region_c')
-                    ->leftjoin('regional_office as h1', 'c2.region_c', '=', 'h1.region_c')
-                    ->leftjoin('regional_office as h2', 'f.region_c', '=', 'h2.region_c')
-                    ->leftjoin('regional_office as h3', 'g.region_c', '=', 'h3.region_c')
                     ->select('a.filename', 'a.transaction_type', 'b.preops_number as i_preops_number', 'c.preops_number as a_preops_number', 'd.spot_report_number as s_spot_report_number', 'e.spot_report_number as p_spot_report_number')
-                    ->where(function ($query) {
-                        $query->where('h.id', Auth::user()->regional_office_id)
-                            ->orWhere('h1.id', Auth::user()->regional_office_id)
-                            ->orWhere('h2.id', Auth::user()->regional_office_id)
-                            ->orWhere('h3.id', Auth::user()->regional_office_id);
-                    })
                     ->where('a.filename', 'LIKE', '%' . $q . '%')
-                    ->orWhere('b.preops_number', 'LIKE', '%' . $q . '%')
                     ->orWhere('c.preops_number', 'LIKE', '%' . $q . '%')
                     ->orWhere('d.spot_report_number', 'LIKE', '%' . $q . '%')
                     ->orWhere('e.spot_report_number', 'LIKE', '%' . $q . '%')
@@ -98,7 +169,7 @@ class FileUploadsController extends Controller
                     ->paginate(20)
                     ->setPath('');
 
-                // dd($data);
+                // dd($file_uploads);
 
                 $pagination = $file_uploads->appends(array(
                     'q' => $request->q
@@ -122,12 +193,11 @@ class FileUploadsController extends Controller
                     ->orWhere('c.preops_number', 'LIKE', '%' . $q . '%')
                     ->orWhere('d.spot_report_number', 'LIKE', '%' . $q . '%')
                     ->orWhere('e.spot_report_number', 'LIKE', '%' . $q . '%')
-                    ->where('d.id', Auth::user()->regional_office_id)
                     ->orderby('a.id', 'desc')
                     ->paginate(20)
                     ->setPath('');
 
-                // dd($data);
+                // dd($file_uploads);
 
                 $pagination = $file_uploads->appends(array(
                     'q' => $request->q

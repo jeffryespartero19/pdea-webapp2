@@ -311,7 +311,10 @@ Route::get('progress_report_file_delete/{id}', 'ProgressReportController@fileDel
 Route::get('/progress_report/pdf/{id}', 'ProgressReportController@pdf');
 
 //File Uploads
-Route::get('file_uploads', 'FileUploadsController@index')->name('file_uploads');
+Route::get('preops_files_list', 'FileUploadsController@preops_files_list')->name('preops_files_list');
+Route::get('afteroperation_files_list', 'FileUploadsController@afteroperation_files_list')->name('afteroperation_files_list');
+Route::get('spotreport_files_list', 'FileUploadsController@spotreport_files_list')->name('spotreport_files_list');
+Route::get('progressreport_files_list', 'FileUploadsController@progressreport_files_list')->name('progressreport_files_list');
 
 //Memo
 Route::get('memo_list', 'MemoController@index')->name('memo_list');

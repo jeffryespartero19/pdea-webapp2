@@ -137,7 +137,7 @@
                                 </p>
                             </a>
                         </li>
-                        <li id="coc" class="nav-item" {{ Auth::user()->with_coc_access ? '' : 'hidden' }} >
+                        <li id="coc" class="nav-item" {{ Auth::user()->with_coc_access ? '' : 'hidden' }}>
                             <a href="#" class="nav-link" id="coc_link">
                                 <i class="nav-icon fas fa-clone"></i>
                                 <p>
@@ -228,12 +228,39 @@
                             </a>
                         </li>
                         <li id="file_uploads" class="nav-item" {{ Auth::user()->with_file_upload_access ? '' : 'hidden' }}>
-                            <a href="{{ route('file_uploads') }}" class="nav-link" id="fu_link">
-                                <i class="nav-icon fas fa-file"></i>
+                            <a href="#" class="nav-link" id="sap_link">
+                                <i class="nav-icon fas fa-chart-line"></i>
                                 <p>
                                     File Uploads
+                                    <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a id="preops_files" href="{{ route('preops_files_list') }}" class="nav-link" onclick="setactive('hrp','preops_files')">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Preops</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="afteroperation_files" href="{{ route('afteroperation_files_list') }}" class="nav-link" onclick="setactive('hrp','afteroperation_files')">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>After Operation</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="spotreport_files" href="{{ route('spotreport_files_list') }}" class="nav-link" onclick="setactive('hrp','spotreport_files')">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Spot Report</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="progressreport_files" href="{{ route('progressreport_files_list') }}" class="nav-link" onclick="setactive('hrp','progressreport_files')">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Progress Report</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li id="memo" class="nav-item">
                             <a href="{{ route('memo_list') }}" class="nav-link" id="memo_link">
