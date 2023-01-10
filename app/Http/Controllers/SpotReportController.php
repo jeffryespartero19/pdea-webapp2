@@ -32,7 +32,7 @@ class SpotReportController extends Controller
                 ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.created_at', 'a.preops_number')
                 ->where('a.report_status', 0)
                 ->orderby('spot_report_number', 'asc')
-                ->paginate(20);
+                ->paginate(10);
 
             $region = DB::table('region')->orderby('region_sort', 'asc')->get();
         } else {
@@ -1883,5 +1883,18 @@ class SpotReportController extends Controller
         }
 
         return view('spot_report.spot_report_list')->withMessage('No Details found. Try to search again !');
+    }
+
+    public function search_spot_report_number(Request $request)
+    {
+        $spot_report_number = DB::table('spot_report_header as a')
+            ->leftjoin('regional_office as d', 'a.region_c', '=', 'd.region_c')
+            ->where('a.spot_report_number', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->where('d.id', Auth::user()->regional_office_id)
+            ->get(['a.id as id', 'a.spot_report_number as text']);
+
+        // dd($spot_report_number);
+
+        return ['results' => $spot_report_number];
     }
 }

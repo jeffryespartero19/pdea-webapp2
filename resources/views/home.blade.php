@@ -56,6 +56,8 @@
 @endsection
 
 @section('scripts')
+<!-- ChartJS -->
+<script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
 
 <script>
     $(function() {
@@ -80,8 +82,8 @@
                 data: [active_coc, pending_coc, expired_coc, submitted_report],
                 backgroundColor: ['#00a65a', '#f39c12', '#f56954', '#00c0ef'],
             }],
-            
-            
+
+
         }
         var donutOptions = {
             maintainAspectRatio: false,

@@ -45,11 +45,7 @@
                     <label for="">Operating Unit</label>
                 </div>
                 <div class="input-group mb-3">
-                    <select id="operating_unit_id" name="operating_unit_id" class="form-control @error('region') is-invalid @enderror">
-                        <option value='' disabled selected>Select Option</option>
-                        @foreach($operating_unit as $ou)
-                        <option value="{{ $ou->id }}">{{ $ou->description }}</option>
-                        @endforeach
+                    <select id="operating_unit_id" name="operating_unit_id" class="form-control OPUnitSearch">
                     </select>
                 </div>
             </div>
@@ -139,7 +135,7 @@
                 </tbody>
 
             </table>
-            {{ $data->links() }}
+            <span class="pagination">{{ $data->links() }}</span>
         </div>
         <!-- /.card-body -->
 
@@ -213,14 +209,18 @@
             fail: function() {
                 alert("request failed");
             },
-            success: function(data) {
-                var data = JSON.parse(data);
+            dataType: 'json',
+            success: function(response) {
 
+                // $links = response.links;
+                
+                // $('.pagination').load(response.links);
+                var data2 = response.datas.data;
                 $("#spot_report_list").empty();
 
 
-                if (data.length > 0) {
-                    data.forEach(element => {
+                if (data2.length > 0) {
+                    data2.forEach(element => {
 
                         if (element["status"] == 1) {
                             status = 'Yes';
@@ -288,6 +288,15 @@
 
     $(".submit_search").on("click", function() {
         $('#SearchForm').submit();
+    });
+
+    //Select2 Lazy Loading Spot
+    $(".OPUnitSearch").select2({
+        minimumInputLength: 2,
+        ajax: {
+            url: '/search_operating_unit',
+            dataType: "json",
+        }
     });
 </script>
 

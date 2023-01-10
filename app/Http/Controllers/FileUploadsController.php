@@ -36,7 +36,7 @@ class FileUploadsController extends Controller
                 ->select('a.filename', 'a.transaction_type', 'b1.preops_number as t_number')
                 ->where('b2.region_c', $region_c[0]->region_c)
                 ->where('a.transaction_type', 1)
-                ->paginate(50);
+                ->paginate(10);
 
 
             return view('file_uploads.preops_file_uploads_list', compact('file_uploads'));
@@ -45,7 +45,7 @@ class FileUploadsController extends Controller
                 ->leftjoin('issuance_of_preops_files as b', 'a.preops_file_id', '=', 'b.id')
                 ->select('a.filename', 'a.transaction_type', 'b.preops_number as t_number')
                 ->where('a.transaction_type', 1)
-                ->paginate(20);
+                ->paginate(10);
 
             return view('file_uploads.preops_file_uploads_list', compact('file_uploads'));
         }
@@ -68,7 +68,7 @@ class FileUploadsController extends Controller
                 ->select('a.filename', 'a.transaction_type', 'b12.preops_number as t_number')
                 ->where('b2.region_c', $region_c[0]->region_c)
                 ->where('a.transaction_type', 2)
-                ->paginate(50);
+                ->paginate(10);
 
 
             return view('file_uploads.afteroperation_file_uploads_list', compact('file_uploads'));
@@ -77,7 +77,7 @@ class FileUploadsController extends Controller
                 ->leftjoin('after_operation_files as c', 'a.after_operation_file_id', '=', 'c.id')
                 ->select('a.filename', 'a.transaction_type', 'c.preops_number as t_number')
                 ->where('a.transaction_type', 1)
-                ->paginate(20);
+                ->paginate(10);
 
             return view('file_uploads.afteroperation_file_uploads_list', compact('file_uploads'));
         }
@@ -100,7 +100,7 @@ class FileUploadsController extends Controller
                 ->select('a.filename', 'a.transaction_type', 'b.spot_report_number as t_number')
                 ->where('c.region_c', $region_c[0]->region_c)
                 ->where('a.transaction_type', 3)
-                ->paginate(50);
+                ->paginate(10);
 
 
             return view('file_uploads.spotreport_file_uploads_list', compact('file_uploads'));
@@ -109,7 +109,7 @@ class FileUploadsController extends Controller
                 ->leftjoin('spot_report_files as d', 'a.spot_report_file_id', '=', 'd.id')
                 ->select('a.filename', 'a.transaction_type', 'd.spot_report_number as t_number')
                 ->where('a.transaction_type', 3)
-                ->paginate(20);
+                ->paginate(10);
 
             return view('file_uploads.spotreport_file_uploads_list', compact('file_uploads'));
         }
@@ -132,7 +132,7 @@ class FileUploadsController extends Controller
                 ->select('a.filename', 'a.transaction_type', 'b.spot_report_number as t_number')
                 ->where('c.region_c', $region_c[0]->region_c)
                 ->where('a.transaction_type', 4)
-                ->paginate(50);
+                ->paginate(10);
 
             return view('file_uploads.progressreport_file_uploads_list', compact('file_uploads'));
         } else {
@@ -140,7 +140,7 @@ class FileUploadsController extends Controller
                 ->leftjoin('progress_report_files as e', 'a.progress_report_file_id', '=', 'e.id')
                 ->select('a.filename', 'a.transaction_type', 'e.spot_report_number as t_number')
                 ->where('a.transaction_type', 4)
-                ->paginate(20);
+                ->paginate(10);
 
             return view('file_uploads.progressreport_file_uploads_list', compact('file_uploads'));
         }
@@ -152,31 +152,91 @@ class FileUploadsController extends Controller
         $q = $request->q;
 
         if (Auth::user()->user_level_id == 2) {
+
+            $region_c = DB::table('regional_office as a')
+                ->leftjoin('users as b', 'a.id', '=', 'b.regional_office_id')
+                ->select('a.region_c')
+                ->where('b.id', Auth::user()->id)
+                ->get();
+
             if ($q != "") {
 
+                if ($request->type == 1) {
+                    $file_uploads = DB::table('file_upload_list as a')
+                        ->leftjoin('issuance_of_preops_files as b', 'a.preops_file_id', '=', 'b.id')
+                        ->select('a.filename', 'a.transaction_type', 'b.preops_number as t_number')
+                        ->where('a.filename', 'LIKE', '%' . $q . '%')
+                        ->orWhere('b.preops_number', 'LIKE', '%' . $q . '%')
+                        ->orderby('a.id', 'desc')
+                        ->paginate(20)
+                        ->setPath('');
 
-                $file_uploads = DB::table('file_upload_list as a')
-                    ->leftjoin('issuance_of_preops_files as b', 'a.preops_file_id', '=', 'b.id')
-                    ->leftjoin('after_operation_files as c', 'a.after_operation_file_id', '=', 'c.id')
-                    ->leftjoin('spot_report_files as d', 'a.spot_report_file_id', '=', 'd.id')
-                    ->leftjoin('progress_report_files as e', 'a.progress_report_file_id', '=', 'e.id')
-                    ->select('a.filename', 'a.transaction_type', 'b.preops_number as i_preops_number', 'c.preops_number as a_preops_number', 'd.spot_report_number as s_spot_report_number', 'e.spot_report_number as p_spot_report_number')
-                    ->where('a.filename', 'LIKE', '%' . $q . '%')
-                    ->orWhere('c.preops_number', 'LIKE', '%' . $q . '%')
-                    ->orWhere('d.spot_report_number', 'LIKE', '%' . $q . '%')
-                    ->orWhere('e.spot_report_number', 'LIKE', '%' . $q . '%')
-                    ->orderby('a.id', 'desc')
-                    ->paginate(20)
-                    ->setPath('');
+                    // dd($file_uploads);
 
-                // dd($file_uploads);
+                    $pagination = $file_uploads->appends(array(
+                        'q' => $request->q
+                    ));
 
-                $pagination = $file_uploads->appends(array(
-                    'q' => $request->q
-                ));
+                    if (count($file_uploads) > 0) {
+                        return view('file_uploads.preops_file_upload_list', compact('file_uploads'));
+                    }
+                } else if ($request->type == 2) {
+                    $file_uploads = DB::table('file_upload_list as a')
+                        ->leftjoin('after_operation_files as c', 'a.after_operation_file_id', '=', 'c.id')
+                        ->select('a.filename', 'a.transaction_type', 'c.preops_number as t_number')
+                        ->where('a.filename', 'LIKE', '%' . $q . '%')
+                        ->orWhere('c.preops_number', 'LIKE', '%' . $q . '%')
+                        ->orderby('a.id', 'desc')
+                        ->paginate(20)
+                        ->setPath('');
 
-                if (count($file_uploads) > 0) {
-                    return view('file_uploads.file_uploads_list', compact('file_uploads'));
+                    // dd($file_uploads);
+
+                    $pagination = $file_uploads->appends(array(
+                        'q' => $request->q
+                    ));
+
+                    if (count($file_uploads) > 0) {
+                        return view('file_uploads.afteroperation_file_uploads_list', compact('file_uploads'));
+                    }
+                } else if ($request->type == 3) {
+                    $file_uploads = DB::table('file_upload_list as a')
+                        ->leftjoin('spot_report_files as d', 'a.spot_report_file_id', '=', 'd.id')
+                        ->select('a.filename', 'a.transaction_type', 'd.spot_report_number as t_number')
+                        ->where('a.filename', 'LIKE', '%' . $q . '%')
+                        ->orWhere('d.spot_report_number', 'LIKE', '%' . $q . '%')
+                        ->orderby('a.id', 'desc')
+                        ->paginate(20)
+                        ->setPath('');
+
+                    // dd($file_uploads);
+
+                    $pagination = $file_uploads->appends(array(
+                        'q' => $request->q
+                    ));
+
+                    if (count($file_uploads) > 0) {
+                        return view('file_uploads.spotreport_file_uploads_list', compact('file_uploads'));
+                    }
+                } else if ($request->type == 4) {
+                    $file_uploads = DB::table('file_upload_list as a')
+                        ->leftjoin('progress_report_files as e', 'a.progress_report_file_id', '=', 'e.id')
+                        ->select('a.filename', 'a.transaction_type', 'e.spot_report_number as t_number')
+                        ->where('a.filename', 'LIKE', '%' . $q . '%')
+                        ->orWhere('e.spot_report_number', 'LIKE', '%' . $q . '%')
+                        ->orderby('a.id', 'desc')
+                        ->paginate(20)
+                        ->setPath('');
+
+                    // dd($file_uploads);
+
+                    $pagination = $file_uploads->appends(array(
+                        'q' => $request->q
+                    ));
+
+                    if (count($file_uploads) > 0) {
+                        return view('file_uploads.progressreport_file_uploads_list', compact('file_uploads'));
+                    }
                 }
             }
         } else {

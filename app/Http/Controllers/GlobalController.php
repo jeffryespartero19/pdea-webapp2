@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use Auth;
+use Illuminate\Support\Facades\View;
 
 class GlobalController extends Controller
 {
@@ -119,10 +121,12 @@ class GlobalController extends Controller
 
     public function get_preops_list($ro_code, $operating_unit_id, $operation_type_id, $operation_date, $operation_date_to)
     {
+
         $data = DB::table('preops_header as a')
-            ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
-            ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-            ->select('a.id', 'a.preops_number', 'a.operating_unit_id', 'operation_type_id', 'b.description as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.ro_code', 'a.status');
+            ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+            ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+            ->leftjoin('spot_report_header as d', 'a.preops_number', '=', 'd.preops_number')
+            ->select('a.id', 'a.preops_number', 'a.operating_unit_id', 'a.operation_type_id', 'b.description as operating_unit', 'c.name as operation_type', 'a.operation_datetime', 'a.ro_code', 'a.status', 'a.status', 'a.validity', 'd.report_status', 'a.with_aor', 'a.with_sr');
 
         if ($ro_code != 0) {
             $data->where(['a.ro_code' => $ro_code]);
@@ -140,9 +144,20 @@ class GlobalController extends Controller
             $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '<=', $operation_date_to);
         }
 
-        $data = $data->get();
+        $data = $data->paginate(20);
 
-        return json_encode($data);
+        $response = array(
+            'datas' => $data,
+            'links' => $data->links()->render()
+        );
+
+        // dd($data);
+
+        // return Response::json(View::make('issuance_of_preops.ajax.data', ['data' => $data])->render());
+
+        return json_encode(View::make('issuance_of_preops.ajax.data', ['data' => $data])->render());
+
+        // return view('issuance_of_preops.issuance_of_preops_list', compact('data', 'region', 'operating_unit', 'operation_type', 'regional_office'));
     }
 
     public function get_after_operation_list($ro_code, $operating_unit_id, $operation_type_id, $operation_date)
@@ -189,8 +204,8 @@ class GlobalController extends Controller
     public function get_spot_report_list($region_c, $operating_unit_id, $operation_type_id, $operation_date, $operation_date_to)
     {
         $data = DB::table('spot_report_header as a')
-            ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
-            ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+            ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+            ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
             ->select('a.id', 'a.spot_report_number', 'a.operating_unit_id', 'operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.region_c', 'a.status', 'a.created_at', 'a.preops_number')
             ->where('a.report_status', 0);
         if ($region_c != 0) {
@@ -208,9 +223,17 @@ class GlobalController extends Controller
         if ($operation_date_to != 0) {
             $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '<=', $operation_date_to);
         }
-        $data = $data->get();
 
-        return json_encode($data);
+        $data = $data->paginate(20);
+
+        $response = array(
+            'datas' => $data,
+            'links' => $data->links()->render()
+        );
+
+        // dd($data);
+
+        return json_encode($response);
     }
 
     public function get_spot_report_suspect($spot_report_number)
@@ -284,7 +307,7 @@ class GlobalController extends Controller
 
         return json_encode($data);
     }
-    
+
 
     public function get_spot_report_evidence_drug($spot_report_number)
     {
@@ -441,9 +464,17 @@ class GlobalController extends Controller
             ->join('regional_office as b', 'a.region_c', '=', 'b.region_c')
             ->select('a.name', 'a.id', 'a.description')
             ->where(['b.ro_code' => $ro_code])
-            ->get();
+            ->get(['a.id as id', 'a.description as text']);
 
-        return json_encode($data);
+        // return json_encode($data);
+
+        // $operating_unit = DB::table('support_unit as a')
+        //     ->where('a.name', 'LIKE', '%' . $request->input('term', '') . '%')
+        //     ->get(['a.id as id', 'a.name as text']);
+
+        // dd($operating_unit);
+
+        return ['results' => $data];
     }
 
     public function get_approved_by($ro_code)
@@ -462,5 +493,29 @@ class GlobalController extends Controller
             ->get();
 
         return json_encode($data);
+    }
+
+    public function search_operating_unit(Request $request)
+    {
+        $operating_unit = DB::table('operating_unit as a')
+            ->leftjoin('regional_office as d', 'a.region_c', '=', 'd.region_c')
+            ->where('a.description', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->where('d.id', Auth::user()->regional_office_id)
+            ->get(['a.id as id', 'a.description as text']);
+
+        // dd($operating_unit);
+
+        return ['results' => $operating_unit];
+    }
+
+    public function search_support_unit(Request $request)
+    {
+        $operating_unit = DB::table('support_unit as a')
+            ->where('a.name', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->get(['a.id as id', 'a.name as text']);
+
+        // dd($operating_unit);
+
+        return ['results' => $operating_unit];
     }
 }

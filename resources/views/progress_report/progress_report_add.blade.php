@@ -53,11 +53,8 @@
                             <label for="">Spot Report No.</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select name="spot_report_number" id="spot_report_number" class="form-control select2" required>
-                                <option value='' disabled selected>Select Option</option>
-                                @foreach($spot_report_header as $sh)
-                                <option value="{{ $sh->spot_report_number }}">{{ $sh->spot_report_number }}</option>
-                                @endforeach
+                            <select name="spot_report_number" id="spot_report_number" class="form-control SPOTSearch" required>
+
                             </select>
                         </div>
                     </div>
@@ -438,11 +435,11 @@
                                                     <tbody id="case_details">
                                                         <tr>
                                                             <td hidden><input type="text" name="spot_report_case_id[]" class="form-control"></td>
-                                                            <td hidden><input type="text"  name="suspect_number_case[]" class="form-control"></td>
+                                                            <td hidden><input type="text" name="suspect_number_case[]" class="form-control"></td>
                                                             <td><input type="text" name="suspect_no[]" class="form-control" value=""></td>
-                                                            <td><input type="text" name="case_id[]" class="form-control"  value=""></td>
-                                                            <td><input type="text" name="docket_number[]" class="form-control"  value=""></td>
-                                                            <td><input type="text" name="c_case_status" class="form-control"  value=""></td>
+                                                            <td><input type="text" name="case_id[]" class="form-control" value=""></td>
+                                                            <td><input type="text" name="docket_number[]" class="form-control" value=""></td>
+                                                            <td><input type="text" name="c_case_status" class="form-control" value=""></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -644,6 +641,9 @@
 
 @section('scripts')
 
+<script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
+
 <script>
     $(document).ready(function() {
         //Print Report on Load
@@ -653,6 +653,15 @@
             var url = "progress_report/pdf/" + print_id;
             window.open(url, "_blank");
         }
+
+        //Select2 Lazy Loading Spot
+        $(".SPOTSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_spot_report_number',
+                dataType: "json",
+            }
+        });
     });
 </script>
 

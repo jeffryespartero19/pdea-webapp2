@@ -45,11 +45,11 @@
                     <label for="">Operating Unit</label>
                 </div>
                 <div class="input-group mb-3">
-                    <select id="operating_unit_id" name="operating_unit_id" class="form-control @error('operating_unit') is-invalid @enderror">
-                        <option value='' disabled selected>Select Option</option>
+                    <select id="operating_unit_id" name="operating_unit_id" class="form-control OPUnitSearch">
+                        <!-- <option value='' disabled selected>Select Option</option>
                         @foreach($operating_unit as $ou)
                         <option value="{{ $ou->id }}">{{ $ou->description }}</option>
-                        @endforeach
+                        @endforeach -->
                     </select>
                 </div>
             </div>
@@ -86,6 +86,7 @@
                 <a href="{{ route('issuance_of_preops_add') }}" class="btn btn-info" style="float: right;">ADD Issuance of Pre-Ops</a>
                 <button class="btn btn-danger" onClick="window.location.reload();" style="float: right; margin-right:10px">Reset Filter</button>
             </div>
+            <input type="text" id="datepicker" hidden>
         </div>
     </div>
     <!-- /.card -->
@@ -105,48 +106,9 @@
                 </div>
             </form>
             <br>
-            <table id="example_info" class="table table-bordered table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th hidden>ID</th>
-                        <th>Pre-Ops Number</th>
-                        <th>Operating Unit</th>
-                        <th>Operation Type</th>
-                        <th>Operation Date</th>
-                        <th>Active</th>
-                        <th>Expire COC</th>
-                        <th>With AOR</th>
-                        <th>Spot Only</th>
-                        <th>With Progress</th>
-                        <th>Edit</th>
-                    </tr>
-                </thead>
-                <tbody id="preops_list">
-                    @foreach($data as $preops_header)
-                    <tr>
-                        <td hidden>{{ $preops_header->id }}</td>
-                        <td>{{ $preops_header->preops_number }}</td>
-                        <td>{{ $preops_header->operating_unit }}</td>
-                        <td>{{ $preops_header->operation_type }}</td>
-                        <td>{{ $preops_header->operation_datetime }}</td>
-                        <td>
-                            <?php date_default_timezone_set('Asia/Manila'); ?>
-                            @if($preops_header->validity < date("Y-m-d H:i:s")) No @elseif($preops_header->validity > date("Y-m-d H:i:s") && $preops_header->operation_datetime > date("Y-m-d H:i:s")) Pending
-                                @elseif($preops_header->validity > date("Y-m-d H:i:s") && $preops_header->operation_datetime < date("Y-m-d H:i:s")) Yes @endif </td>
-                        <td>@if($preops_header->validity < date("Y-m-d H:i:s") && $preops_header->with_aor == 0 && $preops_header->with_sr == 0) 1 @else 0 @endif</td>
-                        <td>{{ $preops_header->with_aor }}</td>
-                        <td>{{ $preops_header->with_sr }}</td>
-                        <td>{{ $preops_header->report_status }}</td>
-                        <td>
-                            <center>
-                                <a href="{{ url('issuance_of_preops_edit/'.$preops_header->id) }}" class="btn btn-info">Edit</a>
-                            </center>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            {{ $data->links() }}
+            <div id="tag_container">
+                @include('issuance_of_preops.preops_data')
+            </div>
         </div>
         <!-- /.card-body -->
 
@@ -210,63 +172,75 @@
 
         var table = $('#example2').DataTable();
 
+        var myData = {
+            ro_code: ro_code,
+            operating_unit_id: operating_unit_id,
+            operation_type_id: operation_type_id,
+            operation_date: operation_date,
+            operation_date_to: operation_date_to,
 
+        };
 
         $.ajax({
             type: "GET",
-            url: "/get_preops_list/" + ro_code +
-                "/" + operating_unit_id +
-                "/" + operation_type_id +
-                "/" + operation_date +
-                "/" + operation_date_to,
+            url: "/issuance_of_preops_list/entries",
             fail: function() {
                 alert("request failed");
             },
+            data: myData,
+
             success: function(data) {
-                var data = JSON.parse(data);
+                // console.log(response.datas.data); //get data
+                // console.log(data.links); //get links
+                // $('.pagination').load(data.links);
 
-                $("#preops_list").empty();
+                alert('test');
 
-
-                if (data.length > 0) {
-                    data.forEach(element => {
-
-                        if (element["status"] == 1) {
-                            status = 'Yes';
-                        } else {
-                            status = 'No';
-                        }
-
-                        var details =
-                            '<tr>' +
-                            '<td>' + element["preops_number"] + '</td>' +
-                            '<td>' + element["operating_unit_name"] + '</td>' +
-                            '<td>' + element["operation_type_name"] + '</td>' +
-                            '<td>' + element["operation_datetime"] + '</td>' +
-                            '<td>' + status + '</td>' +
-                            '<td>' +
-                            '<center>' +
-                            '<a href="/issuance_of_preops_edit/' + element["id"] + '" class="btn btn-info">Edit</a>' +
-                            '</center>' +
-                            '</td>' +
-                            '</tr>';
-
-                        $("#preops_list").append(details);
-
-                    });
-
-                }
+                $("#tag_container").empty().html(data);
 
 
 
+                // var data2 = response.datas.data;
+
+                // // alert(data2.length);
+
+                // $("#preops_list").empty();
+
+
+                // if (data2.length > 0) {
+                //     data2.forEach(element => {
+
+                //         if (element["status"] == 1) {
+                //             status = 'Yes';
+                //         } else {
+                //             status = 'No';
+                //         }
+                //         var details =
+                //             '<tr>' +
+                //             '<td>' + element["preops_number"] + '</td>' +
+                //             '<td>' + element["operating_unit_name"] + '</td>' +
+                //             '<td>' + element["operation_type_name"] + '</td>' +
+                //             '<td>' + element["operation_datetime"] + '</td>' +
+                //             '<td>' + status + '</td>' +
+                //             '<td>' + element["validity"] + '</td>' +
+                //             '<td>' + element["with_aor"] + '</td>' +
+                //             '<td>' + element["with_sr"] + '</td>' +
+                //             '<td>' + element["report_status"] + '</td>' +
+                //             '<td>' +
+                //             '<center>' +
+                //             '<a href="/issuance_of_preops_edit/' + element["id"] + '" class="btn btn-info">Edit</a>' +
+                //             '</center>' +
+                //             '</td>' +
+                //             '</tr>';
+                //         $("#preops_list").append(details);
+                //     });
+                // }
             }
         });
 
         table
             .clear()
             .draw();
-
-
     }
 </script>
 
@@ -294,12 +268,24 @@
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
         });
+
     });
 
     $(".submit_search").on("click", function() {
         $('#SearchForm').submit();
     });
+
+    //Select2 Lazy Loading Spot
+    $(".OPUnitSearch").select2({
+        minimumInputLength: 2,
+        ajax: {
+            url: '/search_operating_unit',
+            dataType: "json",
+        }
+    });
+   
 </script>
+
 
 
 @endsection

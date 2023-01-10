@@ -907,8 +907,7 @@
     <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
+
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
@@ -937,8 +936,7 @@
     <script src="{{ asset('plugins/flot/plugins/jquery.flot.resize.js') }}"></script>
     <!-- FLOT PIE PLUGIN - also used to draw donut charts -->
     <script src="{{ asset('plugins/flot/plugins/jquery.flot.pie.js') }}"></script>
-    <!-- ChartJS -->
-    <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
+
 
 
 
@@ -1148,11 +1146,11 @@
     </script>
 
     <!-- Initialize Select2 Elements -->
-    <script>
+    <!-- <script>
         $(function() {
             $('.select2').select2();
         });
-    </script>
+    </script> -->
 
     <!-- Set menu to active -->
     <script>

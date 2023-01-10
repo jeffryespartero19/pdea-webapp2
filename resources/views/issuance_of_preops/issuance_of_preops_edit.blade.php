@@ -699,6 +699,9 @@
 
 @section('scripts')
 
+<script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
+
 <script>
     var aop_row = 0;
 

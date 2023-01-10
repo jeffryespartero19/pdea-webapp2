@@ -49,38 +49,16 @@
                             @foreach($file_uploads as $fu)
                             <tr>
                                 <th>{{ $fu->filename }}</th>
-                                <td>@if($fu->transaction_type == 1)
-                                    Issuance of Preops
-                                    @elseif($fu->transaction_type == 2)
-                                    After Operations
-                                    @elseif($fu->transaction_type == 3)
-                                    Spot Report
-                                    @elseif($fu->transaction_type == 4)
+                                <td>
                                     Progress Report
-                                    @else
-                                    @endif
+
                                 </td>
-                                <td>@if($fu->transaction_type == 1)
-                                    {{$fu->i_preops_number}}
-                                    @elseif($fu->transaction_type == 2)
-                                    {{$fu->a_preops_number}}
-                                    @elseif($fu->transaction_type == 3)
-                                    {{$fu->s_spot_report_number}}
-                                    @elseif($fu->transaction_type == 4)
-                                    {{$fu->p_spot_report_number}}
-                                    @else
-                                    @endif
+                                <td>
+                                    {{$fu->t_number}}
                                 </td>
-                                <td>@if($fu->transaction_type == 1)
-                                    <a href="{{ asset('/files/uploads/issuance_of_preops/' . $fu->filename) }}">View </a>
-                                    @elseif($fu->transaction_type == 2)
-                                    <a href="{{ asset('/files/uploads/after_operations/' . $fu->filename) }}">View </a>
-                                    @elseif($fu->transaction_type == 3)
-                                    <a href="{{ asset('/files/uploads/spot_reports/' . $fu->filename) }}">View </a>
-                                    @elseif($fu->transaction_type == 4)
+                                <td>
                                     <a href="{{ asset('/files/uploads/progress_reports/' . $fu->filename) }}">View </a>
-                                    @else
-                                    @endif
+
                                 </td>
                             </tr>
                             @endforeach

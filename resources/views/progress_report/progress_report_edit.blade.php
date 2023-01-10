@@ -471,7 +471,7 @@
                                                         <tr>
                                                             <td hidden><input type="text" name="spot_report_case_id[]" class="form-control" value="{{$src->spot_report_case_id}}"></td>
                                                             <td hidden><input type="text" name="suspect_number_case[]" class="form-control" value="{{$src->suspect_number}}"></td>
-                                                            <td><input type="text"name="suspect_no[]" style="pointer-events:none; background-color : #e9ecef; " class="form-control" value="{{$src->lastname}}, {{$src->firstname}} {{$src->middlename}} -- Alias: {{$src->alias}}"></td>
+                                                            <td><input type="text" name="suspect_no[]" style="pointer-events:none; background-color : #e9ecef; " class="form-control" value="{{$src->lastname}}, {{$src->firstname}} {{$src->middlename}} -- Alias: {{$src->alias}}"></td>
                                                             <td><input type="text" name="case_id[]" style="pointer-events:none; background-color : #e9ecef; " class="form-control" value="{{$src->description}}"></td>
                                                             <td><input name="docket_number[]" type="text" class="form-control" value="{{$src->docket_number}}"></td>
                                                             <td><input name="c_case_status[]" type="text" class="form-control" value="{{$src->case_status}}"></td>
@@ -693,6 +693,9 @@
 @endsection
 
 @section('scripts')
+
+<script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
 
 <script>
     $(".present_region_c").on("change", function() {

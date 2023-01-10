@@ -778,6 +778,9 @@
 
 @section('scripts')
 
+<script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
+
 <script>
     $("#region_c").on("change", function() {
 

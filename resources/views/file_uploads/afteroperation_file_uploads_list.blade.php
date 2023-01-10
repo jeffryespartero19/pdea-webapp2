@@ -28,7 +28,8 @@
                 <form action="/search_files" method="GET" role="search" id="SearchForm">
                     {{ csrf_field() }}
                     <div class="input-group">
-                        <input type="text" class="form-control" name="q" placeholder="Search Suspects"> <span class="input-group-btn">
+                        <input type="number" value="2" name="type" hidden>
+                        <input type="text" class="form-control" name="q" placeholder="Search Files"> <span class="input-group-btn">
                             <button type="button" class="btn btn-default submit_search">
                                 <i class="fa fa-search"></i>
                             </button>

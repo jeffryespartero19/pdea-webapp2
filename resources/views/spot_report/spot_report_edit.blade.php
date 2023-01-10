@@ -511,7 +511,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="permanent_barangay_c[]" class="form-control permanent_barangay_c" style="width: 200px;">
-                                                                @if($srs->permanent_barangay_c != null)
+                                                                    @if($srs->permanent_barangay_c != null)
                                                                     <option value="{{ $srs->permanent_barangay_c }}">
                                                                         {{ $srs->permanent_barangay_name }}
                                                                     </option>
@@ -1240,6 +1240,9 @@
 @endsection
 
 @section('scripts')
+
+<script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
 
 <script>
     $("#region_c").on("change", function() {
