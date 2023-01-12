@@ -107,7 +107,27 @@
             </form>
             <br>
             <div id="tag_container">
-                @include('issuance_of_preops.preops_data')
+                <table id="example_info" class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th hidden>ID</th>
+                            <th>Pre-Ops Number</th>
+                            <th>Operating Unit</th>
+                            <th>Operation Type</th>
+                            <th>Operation Date</th>
+                            <th>Active</th>
+                            <th>Expire COC</th>
+                            <th>With AOR</th>
+                            <th>Spot Only</th>
+                            <th>With Progress</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody id="preops_list">
+                        @include('issuance_of_preops.preops_data')
+                    </tbody>
+                </table>
+                <input type="hidden" name="hidden_page" id="hidden_page" value="1">
             </div>
         </div>
         <!-- /.card-body -->
@@ -128,135 +148,107 @@
 @section('scripts')
 
 <script>
-    $('#ro_code').change(function() {
-        PreopsFilter();
-    });
-    $('#operating_unit_id').change(function() {
-        PreopsFilter();
-    });
-    $('#operation_type_id').change(function() {
-        PreopsFilter();
-    });
 
-    $('#operation_date').change(function() {
-        PreopsFilter();
-    });
-
-    $('#operation_date_to').change(function() {
-        PreopsFilter();
-    });
-
-    function PreopsFilter() {
-        var ro_code = $('#ro_code').val();
-        var operating_unit_id = $('#operating_unit_id').val();
-        var operation_type_id = $('#operation_type_id').val();
-        var operation_date = $('#operation_date').val();
-        var operation_date_to = $('#operation_date_to').val();
-
-
-        if (ro_code == '' || ro_code == null) {
-            ro_code = 0;
-        }
-        if (operation_date == '' || operation_date == null) {
-            operation_date = 0;
-        }
-        if (operation_date_to == '' || operation_date_to == null) {
-            operation_date_to = 0;
-        }
-        if (operating_unit_id == '' || operating_unit_id == null) {
-            operating_unit_id = 0;
-        }
-        if (operation_type_id == '' || operation_type_id == null) {
-            operation_type_id = 0;
-        }
-
-        var table = $('#example2').DataTable();
-
-        var myData = {
-            ro_code: ro_code,
-            operating_unit_id: operating_unit_id,
-            operation_type_id: operation_type_id,
-            operation_date: operation_date,
-            operation_date_to: operation_date_to,
-
-        };
-
-        $.ajax({
-            type: "GET",
-            url: "/issuance_of_preops_list",
-            fail: function() {
-                alert("request failed");
-            },
-            data: myData,
-
-            success: function(data) {
-                // console.log(response.datas.data); //get data
-                // console.log(data.links); //get links
-                // $('.pagination').load(data.links);
-
-                alert('test');
-
-                $("#tag_container").empty().html(data);
-
-
-
-                // var data2 = response.datas.data;
-
-                // // alert(data2.length);
-
-                // $("#preops_list").empty();
-
-
-                // if (data2.length > 0) {
-                //     data2.forEach(element => {
-
-                //         if (element["status"] == 1) {
-                //             status = 'Yes';
-                //         } else {
-                //             status = 'No';
-                //         }
-                //         var details =
-                //             '<tr>' +
-                //             '<td>' + element["preops_number"] + '</td>' +
-                //             '<td>' + element["operating_unit_name"] + '</td>' +
-                //             '<td>' + element["operation_type_name"] + '</td>' +
-                //             '<td>' + element["operation_datetime"] + '</td>' +
-                //             '<td>' + status + '</td>' +
-                //             '<td>' + element["validity"] + '</td>' +
-                //             '<td>' + element["with_aor"] + '</td>' +
-                //             '<td>' + element["with_sr"] + '</td>' +
-                //             '<td>' + element["report_status"] + '</td>' +
-                //             '<td>' +
-                //             '<center>' +
-                //             '<a href="/issuance_of_preops_edit/' + element["id"] + '" class="btn btn-info">Edit</a>' +
-                //             '</center>' +
-                //             '</td>' +
-                //             '</tr>';
-                //         $("#preops_list").append(details);
-                //     });
-                // }
-            }
-        });
-
-        table
-            .clear()
-            .draw();
-    }
 </script>
 
 <script>
-    $(function() {
-        $('#coc').addClass('menu-open');
-    });
-    $(function() {
-        $('#coc_link').addClass('active');
-    });
-    $(function() {
-        $('#issuance_of_preops').addClass('active');
-    });
-
-    // Table Sort Data
     $(document).ready(function() {
+        function PreopsFilter() {
+            var table = $('#example2').DataTable();
+            var page = $('#hidden_page').val();
+            var ro_code = $('#ro_code').val();
+            var operating_unit_id = $('#operating_unit_id').val();
+            var operation_type_id = $('#operation_type_id').val();
+            var operation_date = $('#operation_date').val();
+            var operation_date_to = $('#operation_date_to').val();
+
+            if (ro_code == '' || ro_code == null) {
+                ro_code = 0;
+            }
+            if (operation_date == '' || operation_date == null) {
+                operation_date = 0;
+            }
+            if (operation_date_to == '' || operation_date_to == null) {
+                operation_date_to = 0;
+            }
+            if (operating_unit_id == '' || operating_unit_id == null) {
+                operating_unit_id = 0;
+            }
+            if (operation_type_id == '' || operation_type_id == null) {
+                operation_type_id = 0;
+            }
+
+            alert('test');
+            $.ajax({
+                url: "/issuance_of_preops_list/fetch_data?page=" + page + "&ro_code=" + ro_code + "&operating_unit_id=" + operating_unit_id + "&operation_type_id=" + operation_type_id + "&operation_date=" + operation_date + "&operation_date_to=" + operation_date_to,
+                success: function(data) {
+                    $('tbody').html('');
+                    $('tbody').html(data);
+                }
+            });
+        }
+
+        $('#ro_code').change(function() {
+            $('#hidden_page').val(1);
+            PreopsFilter();
+        });
+        $('#operating_unit_id').change(function() {
+            $('#hidden_page').val(1);
+            PreopsFilter();
+        });
+        $('#operation_type_id').change(function() {
+            $('#hidden_page').val(1);
+            PreopsFilter();
+        });
+        $('#operation_date').change(function() {
+            $('#hidden_page').val(1);
+            PreopsFilter();
+        });
+        $('#operation_date_to').change(function() {
+            $('#hidden_page').val(1);
+            PreopsFilter();
+        });
+
+        $(document).on('click', ".pagination a", function(event) {
+            event.preventDefault();
+
+            var page = $(this).attr('href').split('page=')[1];
+            $('#hidden_page').val(page);
+            var ro_code = $('#ro_code').val();
+            var operating_unit_id = $('#operating_unit_id').val();
+            var operation_type_id = $('#operation_type_id').val();
+            var operation_date = $('#operation_date').val();
+            var operation_date_to = $('#operation_date_to').val();
+
+            if (ro_code == '' || ro_code == null) {
+                ro_code = 0;
+            }
+            if (operation_date == '' || operation_date == null) {
+                operation_date = 0;
+            }
+            if (operation_date_to == '' || operation_date_to == null) {
+                operation_date_to = 0;
+            }
+            if (operating_unit_id == '' || operating_unit_id == null) {
+                operating_unit_id = 0;
+            }
+            if (operation_type_id == '' || operation_type_id == null) {
+                operation_type_id = 0;
+            }
+            PreopsFilter();
+        });
+
+
+        $(function() {
+            $('#coc').addClass('menu-open');
+        });
+        $(function() {
+            $('#coc_link').addClass('active');
+        });
+        $(function() {
+            $('#issuance_of_preops').addClass('active');
+        });
+
         $(function() {
             $("#example2").DataTable({
                 "responsive": false,
@@ -269,19 +261,18 @@
             }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
         });
 
-    });
+        $(".submit_search").on("click", function() {
+            $('#SearchForm').submit();
+        });
 
-    $(".submit_search").on("click", function() {
-        $('#SearchForm').submit();
-    });
-
-    //Select2 Lazy Loading Spot
-    $(".OPUnitSearch").select2({
-        minimumInputLength: 2,
-        ajax: {
-            url: '/search_operating_unit',
-            dataType: "json",
-        }
+        //Select2 Lazy Loading Spot
+        $(".OPUnitSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_operating_unit',
+                dataType: "json",
+            }
+        });
     });
 </script>
 

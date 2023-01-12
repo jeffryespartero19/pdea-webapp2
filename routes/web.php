@@ -282,7 +282,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // COC Module
 // Issuance of Pre-ops Setup
-Route::get('issuance_of_preops_list', 'IssuanceOfPreopsController@index')->name('issuance_of_preops_list');
+Route::get('/issuance_of_preops_list', 'IssuanceOfPreopsController@index')->name('issuance_of_preops_list');
+Route::get('/issuance_of_preops_list/fetch_data', 'IssuanceOfPreopsController@fetch_data');
 Route::get('issuance_of_preops_add', 'IssuanceOfPreopsController@add')->name('issuance_of_preops_add');
 Route::get('issuance_of_preops_edit/{id}', 'IssuanceOfPreopsController@edit')->name('issuance_of_preops_edit');
 Route::post('issuance_of_preops_add', 'IssuanceOfPreopsController@store');

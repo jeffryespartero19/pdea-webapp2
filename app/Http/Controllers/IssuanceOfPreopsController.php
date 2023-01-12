@@ -94,11 +94,39 @@ class IssuanceOfPreopsController extends Controller
         } else {
             return view('issuance_of_preops.issuance_of_preops_list', compact('data', 'region', 'operating_unit', 'operation_type', 'regional_office'));
         }
+    }
 
+    public function fetch_data(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = DB::table('preops_header as a')
+                ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+                ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+                ->leftjoin('spot_report_header as d', 'a.preops_number', '=', 'd.preops_number')
+                ->select('a.id', 'a.preops_number', 'a.operating_unit_id', 'a.operation_type_id', 'b.description as operating_unit', 'c.name as operation_type', 'a.operation_datetime', 'a.ro_code', 'a.status', 'a.status', 'a.validity', 'd.report_status', 'a.with_aor', 'a.with_sr');
 
+            if ($request->get('ro_code') != 0) {
+                $data->where(['a.ro_code' => $request->get('ro_code')]);
+            }
+            if ($request->get('operating_unit_i') != 0) {
+                $data->where(['a.operating_unit_id' => $request->get('operating_unit_id')]);
+            }
+            if ($request->get('operation_type_id') != 0) {
+                $data->where(['a.operation_type_id' => $request->get('operation_type_id')]);
+            }
+            if ($request->get('operation_date') != 0) {
+                $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '>=', $request->get('operation_date'));
+            }
+            if ($request->get('operation_date_to') != 0) {
+                $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '<=', $request->get('operation_date_to'));
+            }
 
+            $data = $data->paginate(20);
 
-        // return view('issuance_of_preops.issuance_of_preops_list');
+            // dd($data);
+
+            return view('issuance_of_preops.preops_data', compact('data'))->render();
+        }
     }
 
     public function add()
