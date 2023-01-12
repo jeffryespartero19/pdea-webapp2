@@ -264,6 +264,8 @@ Route::group(['middleware' => ['auth', 'cp_acess']], function () {
     Route::get('/search_operating_unit_ro_code', 'GlobalController@search_operating_unit_ro_code')->name('search_operating_unit_ro_code');
     //Search Support Unit
     Route::get('/search_support_unit', 'GlobalController@search_support_unit')->name('search_support_unit');
+     //Search Spot Report Number
+     Route::get('/search_preops_number', 'SpotReportController@search_preops_number')->name('search_preops_number');
 });
 
 

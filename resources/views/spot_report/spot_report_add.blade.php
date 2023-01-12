@@ -55,12 +55,7 @@
                             <label for="">Pre-ops No.</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="preops_number" name="preops_number" class="form-control select2" required>
-                                <option value='' disabled selected>Select Option</option>
-                                <option value='1'>Uncoordinated</option>
-                                @foreach ($preops_header as $ph)
-                                <option value="{{ $ph->preops_number }}">{{ $ph->preops_number }}</option>
-                                @endforeach
+                            <select id="preops_number" name="preops_number" class="form-control PreopsNumberSearch " required>
                             </select>
                         </div>
                     </div>
@@ -1839,7 +1834,17 @@
             url: '/search_operating_unit',
             dataType: "json",
         }
+
     }).prop('disabled', true);
+
+    //Select2 Lazy Loading Spot
+    $(".PreopsNumberSearch").select2({
+        minimumInputLength: 2,
+        ajax: {
+            url: '/search_preops_number',
+            dataType: "json",
+        }
+    });
 </script>
 
 @endsection

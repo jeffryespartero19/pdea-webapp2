@@ -497,13 +497,16 @@ class GlobalController extends Controller
 
     public function search_operating_unit(Request $request)
     {
+
         $operating_unit = DB::table('operating_unit as a')
             ->leftjoin('regional_office as d', 'a.region_c', '=', 'd.region_c')
             ->where('a.description', 'LIKE', '%' . $request->input('term', '') . '%')
             ->where('d.id', Auth::user()->regional_office_id)
             ->get(['a.id as id', 'a.description as text']);
 
-        // dd($operating_unit);
+        $x_num=count($operating_unit);   
+
+        dd($operating_unit);
 
         return ['results' => $operating_unit];
     }
@@ -515,6 +518,8 @@ class GlobalController extends Controller
             ->where('a.description', 'LIKE', '%' . $request->input('term', '') . '%')
             ->where('d.ro_code', $request->ro_code)
             ->get(['a.id as id', 'a.description as text']);
+
+       
 
         // dd($operating_unit);
 

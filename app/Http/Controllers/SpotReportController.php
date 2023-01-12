@@ -1882,4 +1882,17 @@ class SpotReportController extends Controller
 
         return ['results' => $spot_report_number];
     }
+
+    public function search_preops_number(Request $request)
+    {
+        $preops_number = DB::table('preops_header as a')
+            ->leftjoin('regional_office as d', 'a.region_c', '=', 'd.region_c')
+            ->where('a.preops_number', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->where('d.id', Auth::user()->regional_office_id)
+            ->get(['a.id as id', 'a.preops_number as text']);
+
+        // dd($spot_report_number);
+
+        return ['results' => $preops_number];
+    }
 }

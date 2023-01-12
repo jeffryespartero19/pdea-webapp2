@@ -154,7 +154,7 @@
                                 <li class="nav-item" hidden>
                                     @endif
                                     @endforeach
-                                    <a id="issuance_of_preops" href="{{ route('issuance_of_preops_list') }}" class="nav-link" onclick="setactive('hrp','issuance_of_preops')">
+                                    <a id="issuance_of_preops" href="{{ route('issuance_of_preops_list') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Issuance of Pre-Ops</p>
                                     </a>
@@ -167,7 +167,7 @@
                                 <li class="nav-item" hidden>
                                     @endif
                                     @endforeach
-                                    <a id="after_operation_report" href="{{ route('after_operation_report_list') }}" class="nav-link" onclick="setactive('hrp','after_operation_report')">
+                                    <a id="after_operation_report" href="{{ route('after_operation_report_list') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>After Operation Report</p>
                                     </a>
@@ -191,7 +191,7 @@
                                 <li class="nav-item" hidden>
                                     @endif
                                     @endforeach
-                                    <a id="spot_report" href="{{ route('spot_report_list') }}" class="nav-link" onclick="setactive('hrp','spot_report')">
+                                    <a id="spot_report" href="{{ route('spot_report_list') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Spot Report</p>
                                     </a>
@@ -204,7 +204,7 @@
                                 <li class="nav-item" hidden>
                                     @endif
                                     @endforeach
-                                    <a id="progress_report" href="{{ route('progress_report_list') }}" class="nav-link" onclick="setactive('hrp','progress_report')">
+                                    <a id="progress_report" href="{{ route('progress_report_list') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Progress Report</p>
                                     </a>
@@ -237,25 +237,25 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a id="preops_files" href="{{ route('preops_files_list') }}" class="nav-link" onclick="setactive('hrp','preops_files')">
+                                    <a id="preops_files" href="{{ route('preops_files_list') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Preops</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a id="afteroperation_files" href="{{ route('afteroperation_files_list') }}" class="nav-link" onclick="setactive('hrp','afteroperation_files')">
+                                    <a id="afteroperation_files" href="{{ route('afteroperation_files_list') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>After Operation</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a id="spotreport_files" href="{{ route('spotreport_files_list') }}" class="nav-link" onclick="setactive('hrp','spotreport_files')">
+                                    <a id="spotreport_files" href="{{ route('spotreport_files_list') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Spot Report</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a id="progressreport_files" href="{{ route('progressreport_files_list') }}" class="nav-link" onclick="setactive('hrp','progressreport_files')">
+                                    <a id="progressreport_files" href="{{ route('progressreport_files_list') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Progress Report</p>
                                     </a>
@@ -304,7 +304,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="operation_category_list_setup" href="{{ route('operation_category_list') }}" class="nav-link" onclick="setactive('cpm','operation_category_list_setup')">
+                                            <a id="operation_category_list_setup" href="{{ route('operation_category_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Operation Category</p>
                                             </a>
@@ -317,7 +317,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="operation_classification_list_setup" href="{{ route('operation_classification_list') }}" class="nav-link" onclick="setactive('cpm','operation_classification_list_setup')">
+                                            <a id="operation_classification_list_setup" href="{{ route('operation_classification_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Operation Classification</p>
                                             </a>
@@ -330,7 +330,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="operation_type_list_setup" href="{{ route('operation_type_list') }}" class="nav-link" onclick="setactive('cpm','operation_type_list_setup')">
+                                            <a id="operation_type_list_setup" href="{{ route('operation_type_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Operation Type</p>
                                             </a>
@@ -343,7 +343,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="operating_unit_list_setup" href="{{ route('operating_unit_list') }}" class="nav-link" onclick="setactive('cpm','operating_unit_list_setup')">
+                                            <a id="operating_unit_list_setup" href="{{ route('operating_unit_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Operating Unit Setup</p>
                                             </a>
@@ -356,7 +356,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="officer_position_list_setup" href="{{ route('officer_position_list') }}" class="nav-link" onclick="setactive('cpm','officer_position_list_setup')">
+                                            <a id="officer_position_list_setup" href="{{ route('officer_position_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Officer Position</p>
                                             </a>
@@ -369,7 +369,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="hio_type_list_setup" href="{{ route('hio_type_list') }}" class="nav-link" onclick="setactive('cpm','hio_type_list_setup')">
+                                            <a id="hio_type_list_setup" href="{{ route('hio_type_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>HIO Type</p>
                                             </a>
@@ -393,7 +393,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="approved_by_list_setup" href="{{ route('approved_by_list') }}" class="nav-link" onclick="setactive('cpm','approved_by_list_setup')">
+                                            <a id="approved_by_list_setup" href="{{ route('approved_by_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Approved By</p>
                                             </a>
@@ -406,7 +406,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="case_list_setup" href="{{ route('case_list') }}" class="nav-link" onclick="setactive('cpm','case_list_setup')">
+                                            <a id="case_list_setup" href="{{ route('case_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Case List Setup</p>
                                             </a>
@@ -419,7 +419,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="jail_facility_list_setup" href="{{ route('jail_facility_list') }}" class="nav-link" onclick="setactive('cpm','jail_facility_list_setup')">
+                                            <a id="jail_facility_list_setup" href="{{ route('jail_facility_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Jail Facility Setup</p>
                                             </a>
@@ -432,7 +432,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="laboratory_facility_list_setup" href="{{ route('laboratory_facility_list') }}" class="nav-link" onclick="setactive('cpm','laboratory_facility_list_setup')">
+                                            <a id="laboratory_facility_list_setup" href="{{ route('laboratory_facility_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Laboratory Facility Setup</p>
                                             </a>
@@ -445,7 +445,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="negative_reason_list_setup" href="{{ route('negative_reason_list') }}" class="nav-link" onclick="setactive('cpm','negative_reason_list_setup')">
+                                            <a id="negative_reason_list_setup" href="{{ route('negative_reason_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Negative Reason Setup</p>
                                             </a>
@@ -458,7 +458,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="position_setup" href="{{ route('position_list') }}" class="nav-link" onclick="setactive('cpm','position_setup')">
+                                            <a id="position_setup" href="{{ route('position_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Rank Position Setup</p>
                                             </a>
@@ -471,7 +471,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="regional_office_list_setup" href="{{ route('regional_office_list') }}" class="nav-link" onclick="setactive('cpm','regional_office_list_setup')">
+                                            <a id="regional_office_list_setup" href="{{ route('regional_office_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Regional Office</p>
                                             </a>
@@ -495,7 +495,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="drug_type_list_setup" href="{{ route('drug_type_list') }}" class="nav-link" onclick="setactive('cpm','drug_type_list_setup')">
+                                            <a id="drug_type_list_setup" href="{{ route('drug_type_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Drug Type Setup</p>
                                             </a>
@@ -508,7 +508,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="evidence_list_setup" href="{{ route('evidence_list') }}" class="nav-link" onclick="setactive('cpm','evidence_list_setup')">
+                                            <a id="evidence_list_setup" href="{{ route('evidence_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Evidence Setup</p>
                                             </a>
@@ -521,7 +521,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="evidence_type_list_setup" href="{{ route('evidence_type_list') }}" class="nav-link" onclick="setactive('cpm','evidence_type_list_setup')">
+                                            <a id="evidence_type_list_setup" href="{{ route('evidence_type_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Evidence Type Setup</p>
                                             </a>
@@ -534,7 +534,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="packaging_list_setup" href="{{ route('packaging_list') }}" class="nav-link" onclick="setactive('cpm','packaging_list_setup')">
+                                            <a id="packaging_list_setup" href="{{ route('packaging_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Packaging Setup</p>
                                             </a>
@@ -547,7 +547,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="unit_measurement_list_setup" href="{{ route('unit_measurement_list') }}" class="nav-link" onclick="setactive('cpm','unit_measurement_list_setup')">
+                                            <a id="unit_measurement_list_setup" href="{{ route('unit_measurement_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Unit Of Measurement</p>
                                             </a>
@@ -572,7 +572,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="civil_status" href="{{ route('civil_status') }}" class="nav-link" onclick="setactive('cpm','civil_status')">
+                                            <a id="civil_status" href="{{ route('civil_status') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Civil Status Setup</p>
                                             </a>
@@ -585,7 +585,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="educational_attainment_list_setup" href="{{ route('educational_attainment_list') }}" class="nav-link" onclick="setactive('cpm','educational_attainment_list_setup')">
+                                            <a id="educational_attainment_list_setup" href="{{ route('educational_attainment_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Educational Attainment</p>
                                             </a>
@@ -598,7 +598,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="ethnic_group_list_setup" href="{{ route('ethnic_group_list') }}" class="nav-link" onclick="setactive('cpm','ethnic_group_list_setup')">
+                                            <a id="ethnic_group_list_setup" href="{{ route('ethnic_group_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Ethinic Group Setup</p>
                                             </a>
@@ -611,7 +611,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="group_affiliation_list_setup" href="{{ route('group_affiliation_list') }}" class="nav-link" onclick="setactive('cpm','group_affiliation_list_setup')">
+                                            <a id="group_affiliation_list_setup" href="{{ route('group_affiliation_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Group Affiliation</p>
                                             </a>
@@ -624,7 +624,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="nationality_list_setup" href="{{ route('nationality_list') }}" class="nav-link" onclick="setactive('cpm','nationality_list_setup')">
+                                            <a id="nationality_list_setup" href="{{ route('nationality_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Nationality</p>
                                             </a>
@@ -637,7 +637,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="occupation_list_setup" href="{{ route('occupation_list') }}" class="nav-link" onclick="setactive('cpm','occupation_list_setup')">
+                                            <a id="occupation_list_setup" href="{{ route('occupation_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Occupation Setup</p>
                                             </a>
@@ -650,7 +650,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="religion_setup" href="{{ route('religions') }}" class="nav-link" onclick="setactive('cpm','religion_setup')">
+                                            <a id="religion_setup" href="{{ route('religions') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Religion Setup</p>
                                             </a>
@@ -663,7 +663,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="suspect_category_list_setup" href="{{ route('suspect_category_list') }}" class="nav-link" onclick="setactive('cpm','suspect_category_list_setup')">
+                                            <a id="suspect_category_list_setup" href="{{ route('suspect_category_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Suspect Category</p>
                                             </a>
@@ -676,7 +676,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="suspect_sub_category_list_setup" href="{{ route('suspect_sub_category_list') }}" class="nav-link" onclick="setactive('cpm','suspect_sub_category_list_setup')">
+                                            <a id="suspect_sub_category_list_setup" href="{{ route('suspect_sub_category_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Suspect Sub-Category</p>
                                             </a>
@@ -689,7 +689,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="suspect_classification_list_setup" href="{{ route('suspect_classification_list') }}" class="nav-link" onclick="setactive('cpm','suspect_classification_list_setup')">
+                                            <a id="suspect_classification_list_setup" href="{{ route('suspect_classification_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Suspect Classification</p>
                                             </a>
@@ -702,7 +702,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="identifier_list_setup" href="{{ route('identifier_list') }}" class="nav-link" onclick="setactive('cpm','identifier_list_setup')">
+                                            <a id="identifier_list_setup" href="{{ route('identifier_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Suspect Identifier</p>
                                             </a>
@@ -715,7 +715,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="suspect_information_list_setup" href="{{ route('suspect_information_list') }}" class="nav-link" onclick="setactive('cpm','suspect_information_list_setup')">
+                                            <a id="suspect_information_list_setup" href="{{ route('suspect_information_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Suspect Information</p>
                                             </a>
@@ -728,7 +728,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="suspect_status_list" href="{{ route('suspect_status_list') }}" class="nav-link" onclick="setactive('cpm','suspect_status_list')">
+                                            <a id="suspect_status_list" href="{{ route('suspect_status_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Suspect Status</p>
                                             </a>
@@ -752,7 +752,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="user_activities" href="{{ route('audits') }}" class="nav-link" onclick="setactive('cpm','user_activities')">
+                                            <a id="user_activities" href="{{ route('audits') }}" class="nav-link">
                                                 <i class=" far fa-dot-circle nav-icon"></i>
                                                 <p>User Activities</p>
                                             </a>
@@ -765,7 +765,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="user_level_setup" href="{{ route('user_level_list') }}" class="nav-link" onclick="setactive('cpm','user_level_setup')">
+                                            <a id="user_level_setup" href="{{ route('user_level_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>User Level Setup</p>
                                             </a>
@@ -778,7 +778,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="user_list" href="{{ route('list') }}" class="nav-link" onclick="setactive('cpm','user_list')">
+                                            <a id="user_list" href="{{ route('list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Users List</p>
                                             </a>
@@ -802,7 +802,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="region_list_setup" href="{{ route('region_list') }}" class="nav-link" onclick="setactive('cpm','region_list_setup')">
+                                            <a id="region_list_setup" href="{{ route('region_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Region Setup</p>
                                             </a>
@@ -815,7 +815,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="province_list_setup" href="{{ route('province_list') }}" class="nav-link" onclick="setactive('cpm','province_list_setup')">
+                                            <a id="province_list_setup" href="{{ route('province_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Province Setup</p>
                                             </a>
@@ -828,7 +828,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="city_list_setup" href="{{ route('city_list') }}" class="nav-link" onclick="setactive('cpm','city_list_setup')">
+                                            <a id="city_list_setup" href="{{ route('city_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>City Setup</p>
                                             </a>
@@ -841,7 +841,7 @@
                                         <li class="nav-item" hidden>
                                             @endif
                                             @endforeach
-                                            <a id="barangay_list_setup" href="{{ route('barangay_list') }}" class="nav-link" onclick="setactive('cpm','barangay_list_setup')">
+                                            <a id="barangay_list_setup" href="{{ route('barangay_list') }}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>Barangay Setup</p>
                                             </a>
