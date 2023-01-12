@@ -504,10 +504,6 @@ class GlobalController extends Controller
             ->where('d.id', Auth::user()->regional_office_id)
             ->get(['a.id as id', 'a.description as text']);
 
-        $x_num=count($operating_unit);   
-
-        dd($operating_unit);
-
         return ['results' => $operating_unit];
     }
 

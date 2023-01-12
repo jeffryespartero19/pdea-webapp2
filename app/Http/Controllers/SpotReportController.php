@@ -1885,13 +1885,16 @@ class SpotReportController extends Controller
 
     public function search_preops_number(Request $request)
     {
+        $data = DB::table('additional_option')->where('text', 'Uncoordinated')
+            ->select('id', 'text');
+
         $preops_number = DB::table('preops_header as a')
             ->leftjoin('regional_office as d', 'a.region_c', '=', 'd.region_c')
+            ->select('a.id', 'a.preops_number as text')
             ->where('a.preops_number', 'LIKE', '%' . $request->input('term', '') . '%')
             ->where('d.id', Auth::user()->regional_office_id)
-            ->get(['a.id as id', 'a.preops_number as text']);
-
-        // dd($spot_report_number);
+            ->union($data)
+            ->get();
 
         return ['results' => $preops_number];
     }
