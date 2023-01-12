@@ -61,32 +61,23 @@ class SpotReportController extends Controller
 
     public function add()
     {
-        $spot_report_header = DB::table('spot_report_header')->get();
-
-        $city = DB::table('city')->orderby('city_m', 'asc')->get();
-        $barangay = DB::table('barangay')->orderby('barangay_m', 'asc')->get();
 
         $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
         $hio_type = DB::table('hio_type')->where('status', true)->orderby('name', 'asc')->get();
         $operation_type_spot_report = DB::table('operation_type')->where('status', true)->where('show_spot_report', true)->orderby('name', 'asc')->get();
 
-
         if (Auth::user()->user_level_id == 2) {
             $preops_header = DB::table('preops_header')
-                ->whereNotIn('preops_number', function ($query) {
-                    $query->select('preops_number')->from('spot_report_header');
-                })
                 ->where('status', true)
                 ->where('with_aor', 0)
+                ->where('with_sr', 0)
                 ->orderby('id', 'desc')
                 ->get();
             $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
         } else {
             $preops_header = DB::table('preops_header as a')
                 ->leftjoin('regional_office as b', 'a.ro_code', '=', 'b.ro_code')
-                ->whereNotIn('a.preops_number', function ($query) {
-                    $query->select('preops_number')->from('spot_report_header');
-                })
+                ->where('with_sr', 0)
                 ->where('a.status', true)
                 ->where('a.with_aor', 0)
                 ->where('b.id', Auth::user()->regional_office_id)
@@ -95,8 +86,6 @@ class SpotReportController extends Controller
             $operating_unit = DB::table('operating_unit')->where('status', true)->where('region_c', Auth::user()->region_c)->orderby('name', 'asc')->get();
         }
 
-        $report_header = DB::table('spot_report_header')->orderby('report_header', 'asc')->get();
-        $suspect_information = DB::table('suspect_information')->where('status', true)->orderby('lastname', 'asc')->get();
         $case = DB::table('case_list')->where('status', true)->orderby('description', 'asc')->get();
         $civil_status = DB::table('civil_status')->where('active', true)->orderby('name', 'asc')->get();
         $religion = DB::table('religions')->where('active', true)->orderby('name', 'asc')->get();
@@ -114,7 +103,6 @@ class SpotReportController extends Controller
         $packaging = DB::table('packaging')->where('status', true)->orderby('name', 'asc')->get();
         $roc_regional_office = DB::table('regional_office')->where('id', Auth::user()->regional_office_id)->get();
         $region = DB::table('region')->where('status', true)->orderby('region_sort', 'asc')->get();
-        $province = DB::table('province')->orderby('province_m', 'asc')->get();
         $identifier = DB::table('identifier')->where('status', true)->orderby('name', 'asc')->get();
 
         if (Auth::user()->user_level_id == 1) {
@@ -142,8 +130,9 @@ class SpotReportController extends Controller
         $suspect_number += 1;
         $suspect_number = sprintf("%04s", $suspect_number);
 
+        // dd('test');
+
         return view('spot_report.spot_report_add', compact(
-            'report_header',
             'packaging',
             'sregion',
             'suspect_category',
@@ -154,9 +143,6 @@ class SpotReportController extends Controller
             'unit_measurement',
             'evidence_type',
             'suspect_classification',
-            'province',
-            'city',
-            'barangay',
             'civil_status',
             'religion',
             'education',
@@ -168,7 +154,6 @@ class SpotReportController extends Controller
             'operating_unit',
             'region',
             'preops_header',
-            'suspect_information',
             'suspect_status',
             'support_unit',
             'regional_user',

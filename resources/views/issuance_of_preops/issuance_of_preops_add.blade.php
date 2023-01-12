@@ -118,11 +118,7 @@
                             <label for="">Operating Unit<code> *</code></label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="operating_unit_id" name="operating_unit_id" class="form-control @error('operating unit') is-invalid @enderror operating_unit_id" required>
-                                <option value='' disabled selected>Select Option</option>
-                                @foreach($operating_unit as $ou)
-                                <option value="{{ $ou->id }}">{{ $ou->description }}</option>
-                                @endforeach
+                            <select id="operating_unit_id" name="operating_unit_id" class="form-control OPUnitSearch operating_unit_id" required>
                             </select>
                         </div>
 
@@ -143,15 +139,11 @@
                     <div id="sp_list" class="form-group col-6" style="margin: 0px;">
                         <div>
                             <label for="">Support Unit</label>
-                            <a id="SPadd" href="#" style="float: right;"><i class="fas fa-plus pr-2"></i></a>
+                            <a onclick="addrow();" href="#" style="float: right;"><i class="fas fa-plus pr-2"></i></a>
                         </div>
                         <div class="SUdetails">
                             <div class="input-group mb-3 su_options">
-                                <select name="support_unit_id[]" class="form-control @error('operation type') is-invalid @enderror support_unit_id">
-                                    <option value='' disabled selected>Select Option</option>
-                                    @foreach($operating_unit as $ou)
-                                    <option value="{{ $ou->id }}">{{ $ou->description }}</option>
-                                    @endforeach
+                                <select name="support_unit_id[]" class="form-control SUPPUnitSearch support_unit_id">
                                 </select>
                                 <a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>
                             </div>
@@ -731,35 +723,8 @@
                 }
             });
 
-            $.ajax({
-                type: "GET",
-                url: "/get_operating_unit/" + ro_code,
-                fail: function() {
-                    alert("request failed");
-                },
-                success: function(data) {
-
-                    var data = JSON.parse(data);
-                    // alert(data);
-
-                    $("#operating_unit_id").empty();
-                    $(".support_unit_id").empty();
-
-                    var option1 = " <option value='0' disabled selected>Select Option</option>";
-                    $("#operating_unit_id").append(option1);
-                    $(".support_unit_id").append(option1);
-
-                    data.forEach(element => {
-                        var option = " <option value='" +
-                            element["id"] +
-                            "'>" +
-                            element["name"] +
-                            "</option>";
-                        $("#operating_unit_id").append(option);
-                        $(".support_unit_id").append(option);
-                    });
-                }
-            });
+            $(".OPUnitSearch").empty();
+            $(".SUPPUnitSearch").empty();
 
             $.ajax({
                 type: "GET",
@@ -1046,78 +1011,7 @@
         $(".support_unit_id option[value='" + operating_unit_id + "']").prop('hidden', true);
     });
 
-    // Add Support Unit
-    $('#sp_list').on("click", "#SPadd", function() {
-        var ro_code = $('.ro_code').val();
-
-        var operating_unit_id = $('.operating_unit_id').val();
-        $(".support_unit_id option").show()
-
-        $userlvlid = $('#userlvlid').val();
-        if ($userlvlid == 2) {
-            $.ajax({
-                type: "GET",
-                url: "/get_operating_unit/" + ro_code,
-                fail: function() {
-                    alert("request failed");
-                },
-                success: function(data) {
-
-                    var data = JSON.parse(data);
-                    // alert(data);
-
-                    html = '<div class="input-group mb-3 su_options">';
-                    html += '<select name="support_unit_id[]" class="form-control support_unit_id">';
-                    html += '</select>';
-                    html += '<a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
-                    html += '</div>';
-
-                    $('#sp_list').append(html);
-
-                    // $("#operating_unit_id").empty();
-                    $(".support_unit_id").empty();
-
-                    var option1 = " <option value='0' disabled selected>Select Option</option>";
-                    // $("#operating_unit_id").append(option1);
-                    $(".support_unit_id").append(option1);
-
-                    data.forEach(element => {
-                        if (element["id"] != operating_unit_id) {
-                            var option = " <option value='" +
-                                element["id"] +
-                                "'>" +
-                                element["description"] +
-                                "</option>";
-                            // $("#operating_unit_id").append(option);
-                            $(".support_unit_id").append(option);
-                        }
-
-                    });
-
-
-                }
-            });
-        } else {
-
-            html = '<div class="input-group mb-3 su_options">';
-            html += '<select name="support_unit_id[]" class="form-control support_unit_id" required >';
-            html += '<option value="" disabled selected>Select Option</option>@foreach($operating_unit as $su)<option value="{{ $su->id }}">{{ $su->description }}</option>@endforeach';
-            html += '</select>';
-            html += '<a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
-            html += '</div>';
-
-            $('.SUdetails').append(html);
-
-            $(".support_unit_id option[value='" + operating_unit_id + "']").prop('hidden', true);
-
-        }
-
-
-
-
-
-    });
-
+    
     $(document).on('click', '.su_remove', function() {
         $(this).closest(".su_options").remove();
     });
@@ -1185,7 +1079,78 @@
             $(this).css('border-color', 'green');
         }
     });
-    
+
+    $(document).ready(function() {
+        //Select2 Lazy Loading Spot
+        $(".OPUnitSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_operating_unit',
+                dataType: "json",
+            }
+        })
+
+        var ro_code = $('.ro_code').val();
+
+        if (ro_code == null) {
+            $(".SUPPUnitSearch").select2({
+                minimumInputLength: 2,
+                ajax: {
+                    url: '/search_operating_unit',
+                    dataType: "json",
+                }
+            });
+        } else {
+            $(".SUPPUnitSearch").select2({
+                minimumInputLength: 2,
+                ajax: {
+                    url: '/search_operating_unit_ro_code',
+                    dataType: "json",
+                    data: function(params) {
+                        ro_code = $('.ro_code').val() //this is the anotherParm
+                        return {
+                            q: term, // search term
+                            ro_code: ro_code,
+                        };
+                    },
+                }
+            });
+        }
+    });
+
+    function addrow() {
+        var ro_code = $('.ro_code').val();
+        var row = $(".su_options:last");
+        row.find(".SUPPUnitSearch").each(function(index) {
+            $(this).select2('destroy');
+        });
+        var newrow = row.clone();
+        $(".SUdetails").append(newrow);
+
+        if (ro_code == null) {
+            $(".SUPPUnitSearch").select2({
+                minimumInputLength: 2,
+                ajax: {
+                    url: '/search_operating_unit',
+                    dataType: "json",
+                }
+            });
+        } else {
+            $(".SUPPUnitSearch").select2({
+                minimumInputLength: 2,
+                ajax: {
+                    url: '/search_operating_unit_ro_code',
+                    dataType: "json",
+                    data: function(params) {
+                        return {
+                            q: term, // search term
+                            ro_code: ro_code,
+                        };
+                    },
+                }
+            });
+        }
+    }
 </script>
 
 @endsection

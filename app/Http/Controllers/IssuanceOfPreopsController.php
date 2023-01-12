@@ -90,61 +90,14 @@ class IssuanceOfPreopsController extends Controller
             return view('issuance_of_preops.preops_data', compact('data', 'region', 'operating_unit', 'operation_type', 'regional_office'))->render();
 
             // return view('issuance_of_preops.ajax.data', ['data' => $data])->render();
-        }
-        return view('issuance_of_preops.issuance_of_preops_list', compact('data', 'region', 'operating_unit', 'operation_type', 'regional_office'));
-
-
-
-        // return view('issuance_of_preops.issuance_of_preops_list');
-    }
-
-    public function entries(Request $request)
-    {
-
-        $data = DB::table('preops_header as a')
-            ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
-            ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-            ->leftjoin('spot_report_header as d', 'a.preops_number', '=', 'd.preops_number')
-            ->select('a.id', 'a.preops_number', 'a.operating_unit_id', 'a.operation_type_id', 'b.description as operating_unit', 'c.name as operation_type', 'a.operation_datetime', 'a.ro_code', 'a.status', 'a.status', 'a.validity', 'd.report_status', 'a.with_aor', 'a.with_sr');
-
-        
-
-        if ($request->ro_code != 0) {
-            $data->where(['a.ro_code' => $request->ro_code]);
-        }
-        if ($request->operating_unit_id != 0) {
-            $data->where(['a.operating_unit_id' => $request->operating_unit_id]);
-        }
-        if ($request->operation_type_id != 0) {
-            $data->where(['a.operation_type_id' => $request->operation_type_id]);
-        }
-        if ($request->operation_date != 0) {
-            $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '>=', $request->operation_date);
-        }
-        if ($request->operation_date_to != 0) {
-            $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '<=', $request->operation_date_to);
-        }
-
-        $data = $data->paginate(20);
-
-        // dd($data);
-
-        if (Auth::user()->user_level_id == 2) {
-            $regional_office = DB::table('regional_office')->orderby('print_order', 'asc')->get();
+            return view('issuance_of_preops.issuance_of_preops_list', compact('data', 'region', 'operating_unit', 'operation_type', 'regional_office'));
         } else {
-            $regional_office = DB::table('regional_office')
-                ->where('id', Auth::user()->regional_office_id)
-                ->get();
+            return view('issuance_of_preops.issuance_of_preops_list', compact('data', 'region', 'operating_unit', 'operation_type', 'regional_office'));
         }
 
-        $region = DB::table('region')->orderby('region_sort', 'asc')->get();
-        $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('description', 'asc')->get();
-        $operation_type = DB::table('operation_type')->where('status', true)->where('operation_classification_id', 2)->orderby('name', 'asc')->get();
 
-        if ($request->ajax()) {
-            return view('issuance_of_preops.preops_data', compact('data', 'region', 'operating_unit', 'operation_type', 'regional_office'))->render();
-        }
-        return view('issuance_of_preops.issuance_of_preops_list', compact('data', 'region', 'operating_unit', 'operation_type', 'regional_office'))->render();
+
+
         // return view('issuance_of_preops.issuance_of_preops_list');
     }
 
@@ -379,20 +332,17 @@ class IssuanceOfPreopsController extends Controller
     public function edit($id)
     {
         $issuance_of_preops = DB::table('preops_header')->where('id', $id)->get();
+        $operating_unit = DB::table('operating_unit')->where('id', $issuance_of_preops[0]->operating_unit_id)->get();
         $region = DB::table('region')->orderby('region_sort', 'asc')->get();
         $province = DB::table('province as a')
             ->join('regional_office as b', 'a.region_c', '=', 'b.region_c')
             ->where('b.ro_code', $issuance_of_preops[0]->ro_code)
             ->orderby('province_m', 'asc')
             ->get();
-        $city = DB::table('city')->orderby('city_m', 'asc')->get();
-        $barangay = DB::table('barangay')->orderby('barangay_m', 'asc')->get();
         // $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
         if (Auth::user()->user_level_id == 2) {
-            $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
             $approved_by = DB::table('approved_by')->orderby('name', 'asc')->get();
         } else {
-            $operating_unit = DB::table('operating_unit')->where('status', true)->where('region_c', Auth::user()->region_c)->orderby('name', 'asc')->get();
             $approved_by = DB::table('approved_by as a')
                 ->join('regional_office as b', 'a.ro_code', '=', 'b.ro_code')
                 ->select('a.name', 'a.id')
@@ -400,7 +350,6 @@ class IssuanceOfPreopsController extends Controller
                 ->orderby('a.name', 'asc')
                 ->get();
         }
-        $support_unit = DB::table('support_unit')->where('status', true)->orderby('name', 'asc')->get();
         $operation_type = DB::table('operation_type')->where('status', true)->where('show_preops', true)->orderby('name', 'asc')->get();
         $nationality = DB::table('nationality')->where('status', true)->orderby('name', 'asc')->get();
         $area = DB::table('preops_area as a')
@@ -420,9 +369,27 @@ class IssuanceOfPreopsController extends Controller
         $regional_office = DB::table('regional_office')->orderby('print_order', 'asc')->get();
         $regional_user = DB::table('users')->where('user_level_id', 3)->get();
         $issuance_of_preops_files = DB::table('issuance_of_preops_files')->where('preops_number', $issuance_of_preops[0]->preops_number)->get();
-        $preops_support_unit = DB::table('preops_support_unit')->where('preops_number', $issuance_of_preops[0]->preops_number)->get();
+        $preops_support_unit = DB::table('preops_support_unit as a')
+            ->leftjoin('operating_unit as b', 'a.support_unit_id', '=', 'b.id')
+            ->select('b.id', 'b.description')
+            ->where('a.preops_number', $issuance_of_preops[0]->preops_number)->get();
 
-        return view('issuance_of_preops.issuance_of_preops_edit', compact('issuance_of_preops', 'region', 'operating_unit', 'operation_type', 'nationality', 'area', 'team', 'target', 'province', 'city', 'barangay', 'support_unit', 'regional_office', 'regional_user', 'issuance_of_preops_files', 'preops_support_unit', 'approved_by'));
+        return view('issuance_of_preops.issuance_of_preops_edit', compact(
+            'issuance_of_preops',
+            'region',
+            'operation_type',
+            'nationality',
+            'area',
+            'team',
+            'target',
+            'province',
+            'regional_office',
+            'regional_user',
+            'issuance_of_preops_files',
+            'preops_support_unit',
+            'approved_by',
+            'operating_unit'
+        ));
     }
 
     public function update(Request $request, $id)

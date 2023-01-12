@@ -261,6 +261,7 @@ Route::group(['middleware' => ['auth', 'cp_acess']], function () {
     Route::get('/search_spot_report_number', 'SpotReportController@search_spot_report_number')->name('search_spot_report_number');
     //Search Operating Unit
     Route::get('/search_operating_unit', 'GlobalController@search_operating_unit')->name('search_operating_unit');
+    Route::get('/search_operating_unit_ro_code', 'GlobalController@search_operating_unit_ro_code')->name('search_operating_unit_ro_code');
     //Search Support Unit
     Route::get('/search_support_unit', 'GlobalController@search_support_unit')->name('search_support_unit');
 });
@@ -280,7 +281,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 // COC Module
 // Issuance of Pre-ops Setup
 Route::get('issuance_of_preops_list', 'IssuanceOfPreopsController@index')->name('issuance_of_preops_list');
-Route::get('/issuance_of_preops_list/entries', 'IssuanceOfPreopsController@entries')->name('preops.entries');
 Route::get('issuance_of_preops_add', 'IssuanceOfPreopsController@add')->name('issuance_of_preops_add');
 Route::get('issuance_of_preops_edit/{id}', 'IssuanceOfPreopsController@edit')->name('issuance_of_preops_edit');
 Route::post('issuance_of_preops_add', 'IssuanceOfPreopsController@store');

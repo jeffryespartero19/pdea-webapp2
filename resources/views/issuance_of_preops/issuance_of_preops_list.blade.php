@@ -35,7 +35,7 @@
                     <select id="ro_code" name="ro_code" class="form-control @error('region') is-invalid @enderror">
                         <option value='' disabled selected>Select Option</option>
                         @foreach($regional_office as $rg)
-                        <option value="{{ $rg->ro_code }}">{{ $rg->name }}</option>
+                        <option value="{{ $rg->ro_code }}" @isset($ro_code) {{ $rg->ro_code == $ro_code ? 'selected' : '' }} @endisset>{{ $rg->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -183,7 +183,7 @@
 
         $.ajax({
             type: "GET",
-            url: "/issuance_of_preops_list/entries",
+            url: "/issuance_of_preops_list",
             fail: function() {
                 alert("request failed");
             },
@@ -283,7 +283,6 @@
             dataType: "json",
         }
     });
-   
 </script>
 
 

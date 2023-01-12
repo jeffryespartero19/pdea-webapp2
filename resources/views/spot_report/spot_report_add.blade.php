@@ -135,11 +135,7 @@
                             <label for="">Province</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="province_c" name="province_c" class="form-control disabled_field" required>
-                                <option value='' disabled selected>Select Option</option>
-                                @foreach ($province as $pr)
-                                <option value="{{ $pr->province_c }}">{{ $pr->province_m }}</option>
-                                @endforeach
+                            <select id="province_c" name="province_c" class="form-control" required>
                             </select>
                         </div>
                     </div>
@@ -149,10 +145,6 @@
                         </div>
                         <div class="input-group mb-3">
                             <select id="city_c" name="city_c" class="form-control @error('city') is-invalid @enderror" required>
-                                <option value='' disabled selected>Select Option</option>
-                                @foreach ($city as $ct)
-                                <option value="{{ $ct->city_c }}">{{ $ct->city_m }}</option>
-                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -162,7 +154,6 @@
                         </div>
                         <div class="input-group mb-3">
                             <select id="barangay_c" name="barangay_c" class="form-control @error('barangay') is-invalid @enderror" required>
-
                             </select>
                         </div>
                     </div>
@@ -190,11 +181,7 @@
                             <label for="">Operating Unit</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="operating_unit_id" name="operating_unit_id" class="form-control @error('region') is-invalid @enderror disabled_field" required>
-                                <option value='' disabled selected>Select Option</option>
-                                @foreach ($operating_unit as $ou)
-                                <option value="{{ $ou->id }}">{{ $ou->description }}</option>
-                                @endforeach
+                            <select id="operating_unit_id" name="operating_unit_id" class="form-control OPUnitSearch" required>
                             </select>
                         </div>
                     </div>
@@ -205,11 +192,7 @@
                         </div>
                         <div class="SUdetails">
                             <div id="SUOptions" class="input-group mb-3 ">
-                                <select id="support_unit_id" name="support_unit_id[]" class="form-control @error('region') is-invalid @enderror disabled_field support_unit_id" required>
-                                    <option value='' disabled selected>Select Option</option>
-                                    @foreach ($operating_unit as $su)
-                                    <option value="{{ $su->id }}">{{ $su->description }}</option>
-                                    @endforeach
+                                <select id="support_unit_id" name="support_unit_id[]" class="form-control OPUnitSearch" required>
                                 </select>
                             </div>
                         </div>
@@ -680,11 +663,6 @@
                                             </div>
                                             <div class="input-group mb-3">
                                                 <input id="report_header" name="report_header" type="text" class="form-control @error('report header') is-invalid @enderror" list="suggestions">
-                                                <datalist id="suggestions">
-                                                    @foreach ($report_header as $rh)
-                                                    <option value="{{ $rh->report_header }}"></option>
-                                                    @endforeach
-                                                </datalist>
                                             </div>
                                         </div>
                                         <div class="form-group col-12" style="margin: 0px;">
@@ -1100,22 +1078,11 @@
             $("#region_c").removeClass("disabled_field");
             $("#province_c").removeClass("disabled_field");
             // $("#operation_datetime").removeClass("disabled_field");
-            $("#operating_unit_id").removeClass("disabled_field");
-            $("#support_unit_id").removeClass("disabled_field");
+            $("#operating_unit_id").prop("disabled", false);
+            $("#support_unit_id").prop("disabled", false);
             $("#support_unit_id").prop("required", false);
-            $('.SUdetails').empty();
             $("#SPadd").attr("hidden", false);
             $("#SPadd").css("pointer-events", '');
-            $('#SUOptions').empty();
-
-            html = '<div class="input-group mb-3 su_options">';
-            html += '<select name="support_unit_id[]" class="form-control support_unit_id">';
-            html += '<option value="" disabled selected>Select Option</option>@foreach($operating_unit as $op)<option value="{{ $op->id }}">{{ $op->description }}</option>@endforeach';
-            html += '</select>';
-            html += '<a class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
-            html += '</div>';
-
-            $('.SUdetails').append(html);
 
             $('#operation_type_id').empty();
             html2 = '<option value="" disabled selected>Select Option</option>@foreach($operation_type_spot_report as $opsr)<option value="{{ $opsr->id }}">{{ $opsr->name }}</option>@endforeach';
@@ -1864,6 +1831,15 @@
         }
 
     });
+
+    //Select2 Lazy Loading Spot
+    $(".OPUnitSearch").select2({
+        minimumInputLength: 2,
+        ajax: {
+            url: '/search_operating_unit',
+            dataType: "json",
+        }
+    }).prop('disabled', true);
 </script>
 
 @endsection

@@ -113,15 +113,12 @@
                             <label for="">Operating Unit<code> *</code></label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="operating_unit_id" name="operating_unit_id" class="form-control @error('operating unit') is-invalid @enderror operating_unit_id" required @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                            <select id="operating_unit_id" name="operating_unit_id" class="form-control OPUnitSearch operating_unit_id" required @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                 @else
                                 disabled
                                 @endif
                                 >
-                                <option value='' disabled selected>Select Option</option>
-                                @foreach($operating_unit as $ou)
-                                <option value="{{ $ou->id }}" {{ $ou->id == $issuance_of_preops[0]->operating_unit_id ? 'selected' : '' }}>{{ $ou->description }}</option>
-                                @endforeach
+                                <option value="{{ $operating_unit[0]->id }}" selected>{{ $operating_unit[0]->description }}</option>
                             </select>
                         </div>
                     </div>
@@ -153,15 +150,12 @@
                         </div>
                         @forelse($preops_support_unit as $psu)
                         <div class="input-group mb-3 su_options">
-                            <select name="support_unit_id[]" class="form-control support_unit_id" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                            <select name="support_unit_id[]" class="form-control support_unit_id SUPPUnitSearch" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                 @else
                                 disabled
                                 @endif
                                 >
-                                <option value='' disabled selected>Select Option</option>
-                                @foreach($operating_unit as $ous)
-                                <option value="{{ $ous->id }}" {{ $ous->id == $psu->support_unit_id ? 'selected' : '' }}>{{ $ous->description }}</option>
-                                @endforeach
+                                <option value="{{ $psu->id }}" selected>{{ $psu->description }}</option>
                             </select>
                             <a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                 @else
@@ -1191,6 +1185,79 @@
 
         $('#operation_datetime')[0].min = date;
     });
+
+
+    $(document).ready(function() {
+        //Select2 Lazy Loading Spot
+        $(".OPUnitSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_operating_unit',
+                dataType: "json",
+            }
+        })
+
+        var ro_code = $('.ro_code').val();
+
+        if (ro_code == null) {
+            $(".SUPPUnitSearch").select2({
+                minimumInputLength: 2,
+                ajax: {
+                    url: '/search_operating_unit',
+                    dataType: "json",
+                }
+            });
+        } else {
+            $(".SUPPUnitSearch").select2({
+                minimumInputLength: 2,
+                ajax: {
+                    url: '/search_operating_unit_ro_code',
+                    dataType: "json",
+                    data: function(params) {
+                        ro_code = $('.ro_code').val() //this is the anotherParm
+                        return {
+                            q: term, // search term
+                            ro_code: ro_code,
+                        };
+                    },
+                }
+            });
+        }
+    });
+
+    function addrow() {
+        var ro_code = $('.ro_code').val();
+        var row = $(".su_options:last");
+        row.find(".SUPPUnitSearch").each(function(index) {
+            $(this).select2('destroy');
+        });
+        var newrow = row.clone();
+        $(".SUdetails").append(newrow);
+
+        if (ro_code == null) {
+            $(".SUPPUnitSearch").select2({
+                minimumInputLength: 2,
+                ajax: {
+                    url: '/search_operating_unit',
+                    dataType: "json",
+                }
+            });
+        } else {
+            $(".SUPPUnitSearch").select2({
+                minimumInputLength: 2,
+                ajax: {
+                    url: '/search_operating_unit_ro_code',
+                    dataType: "json",
+                    data: function(params) {
+                        return {
+                            q: term, // search term
+                            ro_code: ro_code,
+                        };
+                    },
+                }
+            });
+        }
+    }
 </script>
 
 
