@@ -29,63 +29,72 @@ class SpotReportController extends Controller
             $data = DB::table('spot_report_header as a')
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.created_at', 'a.preops_number')
+                ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status', 'a.created_at', 'a.preops_number')
                 ->where('a.report_status', 0)
                 ->orderby('spot_report_number', 'asc')
                 ->paginate(10);
 
-            $region = DB::table('region')->orderby('region_sort', 'asc')->get();
+            $regional_office = DB::table('regional_office')->orderby('print_order', 'asc')->get();
         } else {
             $data = DB::table('spot_report_header as a')
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
                 ->leftjoin('regional_office as d', 'a.region_c', '=', 'd.region_c')
-                ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.created_at', 'a.preops_number')
+                ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status', 'a.created_at', 'a.preops_number')
                 ->where('a.report_status', 0)
                 ->where('d.id', Auth::user()->regional_office_id)
                 ->orderby('spot_report_number', 'asc')
-                ->paginate(20);
+                ->paginate(10);
 
-            $region = DB::table('region as a')
-                ->join('regional_office as d', 'a.region_c', '=', 'd.region_c')
-                ->where('d.id', Auth::user()->regional_office_id)
+            $regional_office = DB::table('regional_office')
+                ->where('id', Auth::user()->regional_office_id)
                 ->get();
         }
 
+        return view('spot_report.spot_report_list', compact('data', 'regional_office'));
+    }
 
-        $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
-        $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
+    public function fetch_data(Request $request)
+    {
 
-        return view('spot_report.spot_report_list', compact('data', 'region', 'operating_unit', 'operation_type'));
+        if ($request->ajax()) {
+
+            // dd($request->get('operating_unit_id'));
+            $data = DB::table('spot_report_header as a')
+                ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+                ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+                ->select('a.id', 'a.spot_report_number', 'a.operating_unit_id', 'operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.region_c', 'a.status', 'a.created_at', 'a.preops_number')
+                ->where('a.report_status', 0);
+
+            if ($request->get('region_c') != 0) {
+                $data->where(['a.region_c' => $request->get('region_c')]);
+            }
+            if ($request->get('operating_unit_id') != 0) {
+                $data->where(['a.operating_unit_id' => $request->get('operating_unit_id')]);
+            }
+            if ($request->get('operation_type_id') != 0) {
+                $data->where(['a.operation_type_id' => $request->get('operation_type_id')]);
+            }
+            if ($request->get('operation_date') != 0) {
+                $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '>=', $request->get('operation_date'));
+            }
+            if ($request->get('operation_date_to') != 0) {
+                $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '<=', $request->get('operation_date_to'));
+            }
+
+            $data = $data->paginate(10);
+
+            // dd($data);
+
+            return view('spot_report.spot_report_data', compact('data'))->render();
+        }
     }
 
     public function add()
     {
-
         $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
         $hio_type = DB::table('hio_type')->where('status', true)->orderby('name', 'asc')->get();
         $operation_type_spot_report = DB::table('operation_type')->where('status', true)->where('show_spot_report', true)->orderby('name', 'asc')->get();
-
-        if (Auth::user()->user_level_id == 2) {
-            $preops_header = DB::table('preops_header')
-                ->where('status', true)
-                ->where('with_aor', 0)
-                ->where('with_sr', 0)
-                ->orderby('id', 'desc')
-                ->get();
-            $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
-        } else {
-            $preops_header = DB::table('preops_header as a')
-                ->leftjoin('regional_office as b', 'a.ro_code', '=', 'b.ro_code')
-                ->where('with_sr', 0)
-                ->where('a.status', true)
-                ->where('a.with_aor', 0)
-                ->where('b.id', Auth::user()->regional_office_id)
-                ->orderby('a.id', 'desc')
-                ->get();
-            $operating_unit = DB::table('operating_unit')->where('status', true)->where('region_c', Auth::user()->region_c)->orderby('name', 'asc')->get();
-        }
-
         $case = DB::table('case_list')->where('status', true)->orderby('description', 'asc')->get();
         $civil_status = DB::table('civil_status')->where('active', true)->orderby('name', 'asc')->get();
         $religion = DB::table('religions')->where('active', true)->orderby('name', 'asc')->get();
@@ -151,9 +160,7 @@ class SpotReportController extends Controller
             'occupation',
             'case',
             'operation_type',
-            'operating_unit',
             'region',
-            'preops_header',
             'suspect_status',
             'support_unit',
             'regional_user',
@@ -607,7 +614,9 @@ class SpotReportController extends Controller
 
     public function edit($id)
     {
-        $spot_report_header = DB::table('spot_report_header')->where('id', $id)->get();
+        $spot_report_header = DB::table('spot_report_header as a')
+            ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+            ->where('a.id', $id)->get();
         $spot_report_suspect = DB::table('spot_report_suspect as a')
             ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
             ->leftjoin('drug_management as c', 'a.id', '=', 'c.suspect_id')
@@ -688,12 +697,6 @@ class SpotReportController extends Controller
         $province = DB::table('province')->where('region_c', $spot_report_header[0]->region_c)->orderby('province_m', 'asc')->get();
         $city = DB::table('city')->where('province_c', $spot_report_header[0]->province_c)->orderby('city_m', 'asc')->get();
         $barangay = DB::table('barangay')->where('city_c', $spot_report_header[0]->city_c)->orderby('barangay_m', 'asc')->get();
-        // $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
-        if (Auth::user()->user_level_id == 2) {
-            $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
-        } else {
-            $operating_unit = DB::table('operating_unit')->where('status', true)->where('region_c', Auth::user()->region_c)->orderby('name', 'asc')->get();
-        }
         $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
         $preops_header = DB::table('preops_header')->where('status', true)->orderby('id', 'asc')->get();
         $suspect_information = DB::table('spot_report_suspect as a')
@@ -713,7 +716,8 @@ class SpotReportController extends Controller
         $suspect_classification = DB::table('suspect_classification')->where('status', true)->orderby('name', 'asc')->get();
         $suspect_category = DB::table('suspect_category')->where('status', true)->orderby('name', 'asc')->get();
         $support_unit = DB::table('support_unit')->where('status', true)->orderby('name', 'asc')->get();
-        $preops_support_unit = DB::table('spot_report_support_unit')
+        $preops_support_unit = DB::table('spot_report_support_unit as a')
+            ->leftjoin('operating_unit as b', 'a.support_unit_id', '=', 'b.id')
             ->where('spot_report_number', $spot_report_header[0]->spot_report_number)
             ->get();
         $spot_report_files = DB::table('spot_report_files')->where('spot_report_number', $spot_report_header[0]->spot_report_number)->get();
@@ -755,7 +759,6 @@ class SpotReportController extends Controller
             'province',
             'city',
             'barangay',
-            'operating_unit',
             'operation_type',
             'preops_header',
             'suspect_information',
@@ -1811,7 +1814,7 @@ class SpotReportController extends Controller
                 $data = DB::table('spot_report_header as a')
                     ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                     ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                    ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.created_at', 'a.preops_number')
+                    ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status', 'a.created_at', 'a.preops_number')
                     ->where('a.report_status', 0)
                     ->where('a.spot_report_number', 'LIKE', '%' . $q . '%')
                     ->orWhere('a.preops_number', 'LIKE', '%' . $q . '%')
@@ -1825,12 +1828,12 @@ class SpotReportController extends Controller
                     'q' => $request->q
                 ));
 
-                $region = DB::table('region')->orderby('region_sort', 'asc')->get();
+                $regional_office = DB::table('regional_office')->orderby('print_order', 'asc')->get();
                 $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
                 $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
 
                 if (count($data) > 0) {
-                    return view('spot_report.spot_report_list', compact('data', 'region', 'operating_unit', 'operation_type'));
+                    return view('spot_report.spot_report_list', compact('data', 'regional_office'));
                 }
             }
         } else {
@@ -1839,13 +1842,13 @@ class SpotReportController extends Controller
                     ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                     ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
                     ->leftjoin('regional_office as d', 'a.region_c', '=', 'd.region_c')
-                    ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.created_at', 'a.preops_number')
+                    ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status', 'a.created_at', 'a.preops_number')
                     ->where('a.spot_report_number', 'LIKE', '%' . $q . '%')
                     ->orWhere('a.preops_number', 'LIKE', '%' . $q . '%')
                     ->where('a.report_status', 0)
                     ->where('d.id', Auth::user()->regional_office_id)
                     ->orderby('spot_report_number', 'asc')
-                    ->paginate(20)
+                    ->paginate(10)
                     ->setPath('');
 
                 // dd($data);
@@ -1854,20 +1857,17 @@ class SpotReportController extends Controller
                     'q' => $request->q
                 ));
 
-                $region = DB::table('region as a')
-                    ->join('regional_office as d', 'a.region_c', '=', 'd.region_c')
-                    ->where('d.id', Auth::user()->regional_office_id)
+                $regional_office = DB::table('regional_office')
+                    ->where('id', Auth::user()->regional_office_id)
                     ->get();
-                $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
-                $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
 
                 if (count($data) > 0) {
-                    return view('spot_report.spot_report_list', compact('data', 'region', 'operating_unit', 'operation_type'));
+                    return view('spot_report.spot_report_list', compact('data', 'regional_office'));
                 }
             }
         }
 
-        return view('spot_report.spot_report_list')->withMessage('No Details found. Try to search again !');
+        return view('spot_report.spot_report_list', compact('data', 'regional_office'))->withMessage('No Details found. Try to search again !');
     }
 
     public function search_spot_report_number(Request $request)

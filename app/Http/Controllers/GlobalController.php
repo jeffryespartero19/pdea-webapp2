@@ -515,9 +515,15 @@ class GlobalController extends Controller
             ->where('d.ro_code', $request->ro_code)
             ->get(['a.id as id', 'a.description as text']);
 
-       
+        return ['results' => $operating_unit];
+    }
 
-        // dd($operating_unit);
+    public function search_operating_unit_region_c(Request $request)
+    {
+        $operating_unit = DB::table('operating_unit as a')
+            ->where('a.description', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->where('a.region_c', $request->region_c)
+            ->get(['a.id as id', 'a.description as text']);
 
         return ['results' => $operating_unit];
     }
@@ -531,5 +537,13 @@ class GlobalController extends Controller
         // dd($operating_unit);
 
         return ['results' => $operating_unit];
+    }
+
+    public function search_operation_type(Request $request)
+    {
+        $operation_type = DB::table('operation_type as a')
+            ->where('a.name', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->get(['a.id as id', 'a.name as text']);
+        return ['results' => $operation_type];
     }
 }

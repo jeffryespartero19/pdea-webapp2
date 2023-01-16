@@ -251,12 +251,9 @@
                                 disabled
                                 @endif
                                 >
-                                <option value='' disabled selected>Select Option</option>
-                                @foreach ($operating_unit as $ou)
-                                <option value="{{ $ou->id }}" {{ $ou->id == $spot_report_header[0]->operating_unit_id ? 'selected' : '' }}>
-                                    {{ $ou->description }}
+                                <option value="{{ $spot_report_header[0]->operating_unit_id }}" selected>
+                                    {{ $spot_report_header[0]->description }}
                                 </option>
-                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -268,17 +265,14 @@
                         <div class="SUdetails">
                             @foreach ($preops_support_unit as $psu)
                             <div class="input-group mb-3">
-                                <select name="support_unit_id[]" class="form-control @error('region') is-invalid @enderror" required @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                <select name="support_unit_id[]" class="form-control OPUnitSearch" required @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                     @else
                                     disabled
                                     @endif
                                     >
-                                    <option value='' disabled selected>Select Option</option>
-                                    @foreach ($operating_unit as $su)
-                                    <option value="{{ $su->id }}" {{ $su->id == $psu->support_unit_id ? 'selected' : '' }}>
-                                        {{ $su->description }}
+                                    <option value="{{ $psu->support_unit_id }}" selected>
+                                        {{ $psu->description }}
                                     </option>
-                                    @endforeach
                                 </select>
                             </div>
                             @endforeach
@@ -2123,6 +2117,44 @@
             $("#hio_type_id").prop('disabled', true)
         }
 
+    });
+
+    $(document).ready(function() {
+
+        var ro_code = $('.ro_code').val();
+
+        if (ro_code == null) {
+            $(".OPUnitSearch").select2({
+                minimumInputLength: 2,
+                ajax: {
+                    url: '/search_operating_unit',
+                    dataType: "json",
+                }
+            });
+        } else {
+            $(".OPUnitSearch").select2({
+                minimumInputLength: 2,
+                ajax: {
+                    url: '/search_operating_unit_ro_code',
+                    dataType: "json",
+                    data: function(params) {
+                        ro_code = $('.ro_code').val() //this is the anotherParm
+                        return {
+                            q: term, // search term
+                            ro_code: ro_code,
+                        };
+                    },
+                }
+            });
+        }
+
+        $(".PreopsNumberSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_preops_number',
+                dataType: "json",
+            }
+        });
     });
 </script>
 

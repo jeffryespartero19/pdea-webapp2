@@ -183,12 +183,13 @@
                     <div id="sp_list" class="form-group col-4 " style="margin: 0px;">
                         <div>
                             <label for="">Supporting Unit</label>
-                            <a id="SPadd" style="float: right; pointer-events: none;"><i class="fas fa-plus pr-2"></i></a>
+                            <a onclick="addrow();" href="#" style="float: right;"><i class="fas fa-plus pr-2"></i></a>
                         </div>
                         <div class="SUdetails">
-                            <div id="SUOptions" class="input-group mb-3 ">
-                                <select id="support_unit_id" name="support_unit_id[]" class="form-control OPUnitSearch" required>
+                            <div class="input-group mb-3 su_options">
+                                <select name="support_unit_id[]" class="form-control SUPPUnitSearch support_unit_id">
                                 </select>
+                                <a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>
                             </div>
                         </div>
 
@@ -755,129 +756,132 @@
 <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
 
 <script>
-    $("#region_c").on("change", function() {
-
-        var region_c = $(this).val();
-
-        $.ajax({
-            type: "GET",
-            url: "/get_province/" + region_c,
-            fail: function() {
-                alert("request failed");
-            },
-            success: function(data) {
-                var data = JSON.parse(data);
-
-                $("#province_c").empty();
-                $("#city_c").empty();
-                $("#barangay_c").empty();
-
-                var option1 = " <option value='' selected>Select Option</option>";
-                $("#province_c").append(option1);
-
-                data.forEach(element => {
-                    var option = " <option value='" +
-                        element["province_c"] +
-                        "'>" +
-                        element["province_m"] +
-                        "</option>";
-                    $("#province_c").append(option);
-                });
-            }
-        });
-    });
-
-    $("#province_c").on("change", function() {
-
-        var region_c = $(this).val();
-
-        $.ajax({
-            type: "GET",
-            url: "/get_city/" + region_c,
-            fail: function() {
-                alert("request failed");
-            },
-            success: function(data) {
-                var data = JSON.parse(data);
-
-                $("#city_c").empty();
-                $("#barangay_c").empty();
-
-                var option1 = " <option value='' selected>Select Option</option>";
-                $("#city_c").append(option1);
-
-                data.forEach(element => {
-                    var option = " <option value='" +
-                        element["city_c"] +
-                        "'>" +
-                        element["city_m"] +
-                        "</option>";
-                    $("#city_c").append(option);
-                });
-            }
-        });
-    });
-
-    $("#city_c").on("change", function() {
-
-        var city_c = $(this).val();
-
-        $.ajax({
-            type: "GET",
-            url: "/get_barangay/" + city_c,
-            fail: function() {
-                alert("request failed");
-            },
-            success: function(data) {
-                var data = JSON.parse(data);
-
-                $("#barangay_c").empty();
-
-                var option1 = " <option value='' selected>Select Option</option>";
-                $("#barangay_c").append(option1);
-
-                data.forEach(element => {
-                    var option = " <option value='" +
-                        element["barangay_c"] +
-                        "'>" +
-                        element["barangay_m"] +
-                        "</option>";
-                    $("#barangay_c").append(option);
-                });
-            }
-        });
-    });
-
-    $('#spot_report_number').keyup(function() {
-        var spot_report_number = $(this).val();
-
-        $.ajax({
-            type: "GET",
-            url: "/get_spot_report_header/" + spot_report_number,
-            fail: function() {
-                alert("request failed");
-            },
-            success: function(data) {
-                var data = JSON.parse(data);
-
-                if (data.length > 0) {
-                    $("#spot_report_error").attr('hidden', false);
-                    $("#spot_report_number").addClass('error');
-                    $("#saveBTN").attr('disabled', true);
-
-                } else {
-                    $("#spot_report_error").attr('hidden', true);
-                    $("#spot_report_number").removeClass('error');
-                    $("#saveBTN").attr('disabled', false);
-                }
-            }
-        });
-    });
-
-    //Add rows for Suspect List
-    var suspect_row = 0;
-
     $(document).ready(function() {
+        $("#region_c").on("change", function() {
+
+            var region_c = $(this).val();
+
+            $.ajax({
+                type: "GET",
+                url: "/get_province/" + region_c,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    $("#province_c").empty();
+                    $("#city_c").empty();
+                    $("#barangay_c").empty();
+
+                    var option1 = " <option value='' selected>Select Option</option>";
+                    $("#province_c").append(option1);
+
+                    data.forEach(element => {
+                        var option = " <option value='" +
+                            element["province_c"] +
+                            "'>" +
+                            element["province_m"] +
+                            "</option>";
+                        $("#province_c").append(option);
+                    });
+                }
+            });
+
+            $(".OPUnitSearch").empty();
+            $(".SUPPUnitSearch").empty();
+        });
+
+        $("#province_c").on("change", function() {
+
+            var region_c = $(this).val();
+
+            $.ajax({
+                type: "GET",
+                url: "/get_city/" + region_c,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    $("#city_c").empty();
+                    $("#barangay_c").empty();
+
+                    var option1 = " <option value='' selected>Select Option</option>";
+                    $("#city_c").append(option1);
+
+                    data.forEach(element => {
+                        var option = " <option value='" +
+                            element["city_c"] +
+                            "'>" +
+                            element["city_m"] +
+                            "</option>";
+                        $("#city_c").append(option);
+                    });
+                }
+            });
+        });
+
+        $("#city_c").on("change", function() {
+
+            var city_c = $(this).val();
+
+            $.ajax({
+                type: "GET",
+                url: "/get_barangay/" + city_c,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    $("#barangay_c").empty();
+
+                    var option1 = " <option value='' selected>Select Option</option>";
+                    $("#barangay_c").append(option1);
+
+                    data.forEach(element => {
+                        var option = " <option value='" +
+                            element["barangay_c"] +
+                            "'>" +
+                            element["barangay_m"] +
+                            "</option>";
+                        $("#barangay_c").append(option);
+                    });
+                }
+            });
+        });
+
+        $('#spot_report_number').keyup(function() {
+            var spot_report_number = $(this).val();
+
+            $.ajax({
+                type: "GET",
+                url: "/get_spot_report_header/" + spot_report_number,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    if (data.length > 0) {
+                        $("#spot_report_error").attr('hidden', false);
+                        $("#spot_report_number").addClass('error');
+                        $("#saveBTN").attr('disabled', true);
+
+                    } else {
+                        $("#spot_report_error").attr('hidden', true);
+                        $("#spot_report_number").removeClass('error');
+                        $("#saveBTN").attr('disabled', false);
+                    }
+                }
+            });
+        });
+
+        //Add rows for Suspect List
+        var suspect_row = 0;
+
         $(document).on("click", ".addSuspect", function() {
             html = '<tr class="suspect_details" id="suspect_row' + suspect_row + '">';
             html +=
@@ -952,321 +956,6 @@
 
             suspect_row++;
         });
-    });
-
-
-    //Add rows for Item Seized
-    var items_row = 0;
-
-    function addItems() {
-        html = '<tr class="suspect_item_details" id="items-row' + items_row + '">';
-        html +=
-            '<td><select style="width: 300px;" name="suspect_number_item[]" class="form-control @error("suspect name") is-invalid @enderror suspect_number_item"><option value="" selected>Select Option</option></select></td>';
-        html +=
-            '<td><select style="width: 200px;" name="drug[]" class="form-control drugSLCT"><option value="" disabled selected>Select Option</option><option value="drug">Drug</option><option value="non-drug">Non-Drug</option></select></td>';
-        html += '<td><select style="width: 200px;" name="evidence_id[]" class="form-control evidenceSLCT"><option value="" disabled selected>Select Option</option></select></td>';
-        html += '<td><input style="width: 200px;" type="text" name="quantity[]" class="form-control" ></td>';
-        html +=
-            '<td><select style="width: 200px;" name="unit_measurement_id[]" class="form-control disabled_field"><option value="" disabled selected>Select Option</option>@foreach ($unit_measurement as $um)<option value="{{ $um->id }}">{{ $um->name }}</option>@endforeach</select></td>';
-        html += '<td><select style="width: 200px;" name="packaging_id[]" class="form-control"><option value="" selected>Select Option</option>@foreach ($packaging as $pk)<option value="{{ $pk->id }}"> {{ $pk->name }}</option>@endforeach</td>';
-        html += '<td><input style="width: 200px;" type="text" name="markings[]" class="form-control"></td>';
-        html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#items-row' + items_row +
-            '\').remove();"><i class="fa fa-trash"></i> Delete</button></td>';
-
-        html += '</tr>';
-
-        $('#items tbody').append(html);
-
-        items_row++;
-
-        var table = $("#suspect_informations");
-
-        $(".suspect_number_item").find('option').not(':selected').remove();
-        $(".suspect_number_item").find(':selected').addClass('disabled_field');
-
-        table.find('tr').each(function(i) {
-            var $tds = $(this).find('td input');
-            var lastname = $tds.eq(1).val();
-            var firstname = $tds.eq(2).val();
-            var middlename = $tds.eq(3).val();
-            var alias = $tds.eq(4).val();
-            var birthdate = $tds.eq(5).val();
-
-            if (lastname != null || firstname != null || middlename != null || alias != null) {
-                $(".suspect_number_item").append("<option value=" +
-                    lastname + "," + firstname + "," + middlename + "," + alias + "," + birthdate + ">" +
-                    lastname + ", " + firstname + " " +
-                    middlename + " -- Alias: '" + alias +
-                    "'</option>");
-            }
-        });
-    }
-
-    //Add rows for Case
-    var case_row = 0;
-
-    function addCase() {
-        html = '<tr id="case-row' + case_row + '">';
-        html +=
-            '<td><select style="width:400px" name="suspect_number_case[]" class="form-control @error("suspect name") is-invalid @enderror suspect_number_case"><option value="" selected>Select Option</option></select></td>';
-        html +=
-            '<td><select style="width:400px" name="case_id[]" class="form-control"><option value="0" selected>Select Option</option>@foreach ($case as $c)<option value="{{ $c->id }}">{{ $c->description }}</option>@endforeach </select></td>';
-        html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#case-row' + case_row +
-            '\').remove();"><i class="fa fa-trash"></i> Delete</button></td>';
-
-        html += '</tr>';
-
-        $('#case tbody').append(html);
-
-        case_row++;
-
-        var table = $("#suspect_informations");
-
-        $(".suspect_number_case").find('option').not(':selected').remove();
-        $(".suspect_number_case").find(':selected').addClass('disabled_field');
-
-        table.find('tr').each(function(i) {
-            var $tds = $(this).find('td input');
-            var suspect_number = $tds.eq(0).val();
-            var lastname = $tds.eq(1).val();
-            var firstname = $tds.eq(2).val();
-            var middlename = $tds.eq(3).val();
-            var alias = $tds.eq(4).val();
-            var birthdate = $tds.eq(5).val();
-
-            if (lastname != null) {
-                $(".suspect_number_case").append("<option value=" +
-                    lastname + "," + firstname + "," + middlename + "," + alias + "," + birthdate + ">" +
-                    lastname + ", " + firstname + " " +
-                    middlename + " -- Alias: '" + alias +
-                    "'</option>");
-            }
-        });
-    }
-
-
-    //Add rows for Operation Team
-    var opteam_row = 0;
-
-    function addOpteam() {
-        html = '<tr id="opteam-row' + opteam_row + '">';
-        html += '<td><input type="text" name="officer_name[]" class="form-control"></td>';
-        html += '<td><input type="text" name="officer_position[]" class="form-control"></td>';
-        html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#opteam-row' + opteam_row +
-            '\').remove();"><i class="fa fa-trash"></i> Delete</button></td>';
-
-        html += '</tr>';
-
-        $('#opteam tbody').append(html);
-
-        opteam_row++;
-    }
-
-
-    $("#preops_number").on("change", function() {
-
-        var preops_number = $(this).val();
-
-        if (preops_number == 1) {
-
-            $("#operation_type_id").removeClass("disabled_field");
-            $("#region_c").removeClass("disabled_field");
-            $("#province_c").removeClass("disabled_field");
-            // $("#operation_datetime").removeClass("disabled_field");
-            $("#operating_unit_id").prop("disabled", false);
-            $("#support_unit_id").prop("disabled", false);
-            $("#support_unit_id").prop("required", false);
-            $("#SPadd").attr("hidden", false);
-            $("#SPadd").css("pointer-events", '');
-
-            $('#operation_type_id').empty();
-            html2 = '<option value="" disabled selected>Select Option</option>@foreach($operation_type_spot_report as $opsr)<option value="{{ $opsr->id }}">{{ $opsr->name }}</option>@endforeach';
-            $('#operation_type_id').append(html2);
-        } else {
-
-            $("#operation_type_id").addClass("disabled_field");
-            $("#region_c").addClass("disabled_field");
-            $("#province_c").addClass("disabled_field");
-            // $("#operation_datetime").addClass("disabled_field");
-            $("#operating_unit_id").addClass("disabled_field");
-            $("#support_unit_id").addClass("disabled_field");
-            $("#support_unit_id").prop("required", true);
-            $("#SPadd").css("pointer-events", 'none');
-
-
-            // Display Preops Header Info
-            $.ajax({
-                type: "GET",
-                url: "/get_preops_header/" + preops_number,
-                fail: function() {
-                    alert("request failed");
-                },
-                success: function(data) {
-                    var data = JSON.parse(data);
-
-                    if (data.length != 0) {
-                        data.forEach(element => {
-                            $('#operation_type_id option[value=' + element['operation_type_id'] + ']').attr('selected', 'selected');
-                            $('#region_c option[value=' + element['region_c'] + ']').attr('selected', 'selected');
-                            $('#operating_unit_id option[value=' + element['operating_unit_id'] + ']').attr('selected', 'selected');
-                            $('#support_unit_id option[value=' + element['support_unit_id'] + ']').attr('selected', 'selected');
-                            $('#operation_datetime').val(element['operation_datetime']);
-
-                            var date = $("#operation_datetime").val();
-
-                            $('#operation_datetime')[0].min = date;
-                            // alert(element['region_c']);
-
-                            var region_c = element['region_c'];
-                            $.ajax({
-                                type: "GET",
-                                url: "/get_province/" + region_c,
-                                fail: function() {
-                                    alert("request failed");
-                                },
-                                success: function(data) {
-                                    var data = JSON.parse(data);
-
-                                    $('#province_c').empty();
-                                    $('#city_c').empty();
-                                    $('#barangay_c').empty();
-                                    var option1 = " <option value='' selected>Select Option</option>";
-                                    $("#province_c").append(option1);
-
-                                    data.forEach(element => {
-                                        var option = " <option value='" +
-                                            element["province_c"] +
-                                            "'>" +
-                                            element["province_m"] +
-                                            "</option>";
-                                        $("#province_c").append(option);
-                                    });
-
-                                    if (element['province_c'] != '0000') {
-                                        $('#province_c option[value=' + element['province_c'] + ']').attr('selected', 'selected');
-                                    } else {
-                                        $("#province_c").removeClass("disabled_field");
-                                    }
-                                }
-                            });
-
-
-                            var province_c = element['province_c'];
-
-                            $.ajax({
-                                type: "GET",
-                                url: "/get_city/" + province_c,
-                                fail: function() {
-                                    alert("request failed");
-                                },
-                                success: function(data) {
-                                    var data = JSON.parse(data);
-
-                                    $('#city_c').empty();
-                                    $('#barangay_c').empty();
-                                    var option1 = " <option value='' selected>Select Option</option>";
-                                    $("#city_c").append(option1);
-
-                                    data.forEach(element => {
-                                        var option = " <option value='" +
-                                            element["city_c"] +
-                                            "'>" +
-                                            element["city_m"] +
-                                            "</option>";
-                                        $("#city_c").append(option);
-                                    });
-                                }
-                            });
-
-                            $.ajax({
-                                type: "GET",
-                                url: "/get_support_unit/" + preops_number,
-                                fail: function() {
-                                    alert("request failed");
-                                },
-                                success: function(data) {
-                                    var data = JSON.parse(data);
-                                    $('.SUdetails').empty();
-                                    $('#SUOptions').empty();
-
-                                    data.forEach(element => {
-                                        var option = "<div class='input-group mb-3 '><select id='support_unit_id' name='support_unit_id[]' class='form-control' style='pointer-events: none; background-color : #e9ecef;' required>" +
-                                            "<option value='" + element["id"] + "' selected> " + element["description"] + "</option></div>";
-                                        $(".SUdetails").append(option);
-                                    });
-                                }
-                            });
-
-                            // Display Warrant Details
-                            $.ajax({
-                                type: "GET",
-                                url: "/get_operation_type/" + element['operation_type_id'],
-                                fail: function() {
-                                    alert("request failed");
-                                },
-                                success: function(data) {
-                                    var data = JSON.parse(data);
-
-                                    data.forEach(element => {
-                                        if (element['is_warrant'] == 1) {
-                                            $('#warrant_Details').attr('hidden', false);
-                                        } else {
-                                            $('#warrant_Details').attr('hidden', true);
-                                        }
-
-                                    });
-
-                                }
-                            });
-                        });
-                    }
-
-
-                }
-            });
-
-
-            // Display Operations Team
-            $("#opsteamlist").empty();
-
-            $.ajax({
-                type: "GET",
-                url: "/get_preops_team/" + preops_number,
-                fail: function() {
-                    alert("request failed");
-                },
-                success: function(data) {
-                    var data = JSON.parse(data);
-
-                    if (data.length > 0) {
-                        data.forEach(element => {
-                            var option =
-                                "<tr><td ><input type='text' name='officer_name[]' class='form-control' value='" +
-                                element["name"] +
-                                "'></td><td ><input type='text' name='officer_position[]' class ='form-control' value='" +
-                                element["position"] +
-                                "'> </td> <td class = 'mt-10' > <button type='button' class='badge badge-danger' onclick='SomeDeleteRowFunction(this)'> <i class ='fa fa-trash'> </i> Delete</button> </td> </tr>";
-                            $("#opsteamlist").append(option);
-                        });
-                    } else {
-                        var option =
-                            "<tr><td ><input type='text' name='officer_name[]' class='form-control'></td><td ><input type='text' name='officer_position[]' class ='form-control'> </td> <td class = 'mt-10' > <button type='button' class='badge badge-danger' onclick='SomeDeleteRowFunction(this)'> <i class ='fa fa-trash'> </i> Delete</button> </td> </tr>";
-                        $("#opsteamlist").append(option);
-                    }
-                }
-            });
-
-
-
-        }
-
-
-
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
 
         //Populate Present Province
         $(document).on("change", ".present_region_c", function() {
@@ -1715,30 +1404,445 @@
             var url = "spot_report/pdf/" + print_id;
             window.open(url, "_blank");
         }
+
+        //Select2 Lazy Loading Spot
+        $(".OPUnitSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_operating_unit',
+                dataType: "json",
+            }
+        }).prop('disabled', true);
+
+
+        $(".PreopsNumberSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_preops_number',
+                dataType: "json",
+            }
+        });
+
+        $(".SUPPUnitSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_operating_unit',
+                dataType: "json",
+            }
+        }).prop('disabled', true);
+
+
     });
 
-    // Add Support Unit
-    $('#sp_list').on("click", "#SPadd", function() {
+    //Add Support Unit
+    function addrow() {
+        var ro_code = $('.ro_code').val();
+        var row = $(".su_options:last");
+        row.find(".SUPPUnitSearch").each(function(index) {
+            $(this).select2('destroy');
+        });
+        var newrow = row.clone();
+        $(".SUdetails").append(newrow);
 
-        var preops_number = $('#preops_number').val();
+        if (ro_code == null) {
+            $(".SUPPUnitSearch").select2({
+                minimumInputLength: 2,
+                ajax: {
+                    url: '/search_operating_unit',
+                    dataType: "json",
+                }
+            });
+        } else {
+            $(".SUPPUnitSearch").select2({
+                minimumInputLength: 2,
+                ajax: {
+                    url: '/search_operating_unit_ro_code',
+                    dataType: "json",
+                    data: function(params) {
+                        return {
+                            q: term, // search term
+                            ro_code: ro_code,
+                        };
+                    },
+                }
+            });
+        }
+    }
 
-        html = '<div class="input-group mb-3 su_options">';
+
+    //Add rows for Item Seized
+    var items_row = 0;
+
+    function addItems() {
+        html = '<tr class="suspect_item_details" id="items-row' + items_row + '">';
+        html +=
+            '<td><select style="width: 300px;" name="suspect_number_item[]" class="form-control @error("suspect name") is-invalid @enderror suspect_number_item"><option value="" selected>Select Option</option></select></td>';
+        html +=
+            '<td><select style="width: 200px;" name="drug[]" class="form-control drugSLCT"><option value="" disabled selected>Select Option</option><option value="drug">Drug</option><option value="non-drug">Non-Drug</option></select></td>';
+        html += '<td><select style="width: 200px;" name="evidence_id[]" class="form-control evidenceSLCT"><option value="" disabled selected>Select Option</option></select></td>';
+        html += '<td><input style="width: 200px;" type="text" name="quantity[]" class="form-control" ></td>';
+        html +=
+            '<td><select style="width: 200px;" name="unit_measurement_id[]" class="form-control disabled_field"><option value="" disabled selected>Select Option</option>@foreach ($unit_measurement as $um)<option value="{{ $um->id }}">{{ $um->name }}</option>@endforeach</select></td>';
+        html += '<td><select style="width: 200px;" name="packaging_id[]" class="form-control"><option value="" selected>Select Option</option>@foreach ($packaging as $pk)<option value="{{ $pk->id }}"> {{ $pk->name }}</option>@endforeach</td>';
+        html += '<td><input style="width: 200px;" type="text" name="markings[]" class="form-control"></td>';
+        html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#items-row' + items_row +
+            '\').remove();"><i class="fa fa-trash"></i> Delete</button></td>';
+
+        html += '</tr>';
+
+        $('#items tbody').append(html);
+
+        items_row++;
+
+        var table = $("#suspect_informations");
+
+        $(".suspect_number_item").find('option').not(':selected').remove();
+        $(".suspect_number_item").find(':selected').addClass('disabled_field');
+
+        table.find('tr').each(function(i) {
+            var $tds = $(this).find('td input');
+            var lastname = $tds.eq(1).val();
+            var firstname = $tds.eq(2).val();
+            var middlename = $tds.eq(3).val();
+            var alias = $tds.eq(4).val();
+            var birthdate = $tds.eq(5).val();
+
+            if (lastname != null || firstname != null || middlename != null || alias != null) {
+                $(".suspect_number_item").append("<option value=" +
+                    lastname + "," + firstname + "," + middlename + "," + alias + "," + birthdate + ">" +
+                    lastname + ", " + firstname + " " +
+                    middlename + " -- Alias: '" + alias +
+                    "'</option>");
+            }
+        });
+    }
+
+    //Add rows for Case
+    var case_row = 0;
+
+    function addCase() {
+        html = '<tr id="case-row' + case_row + '">';
+        html +=
+            '<td><select style="width:400px" name="suspect_number_case[]" class="form-control @error("suspect name") is-invalid @enderror suspect_number_case"><option value="" selected>Select Option</option></select></td>';
+        html +=
+            '<td><select style="width:400px" name="case_id[]" class="form-control"><option value="0" selected>Select Option</option>@foreach ($case as $c)<option value="{{ $c->id }}">{{ $c->description }}</option>@endforeach </select></td>';
+        html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#case-row' + case_row +
+            '\').remove();"><i class="fa fa-trash"></i> Delete</button></td>';
+
+        html += '</tr>';
+
+        $('#case tbody').append(html);
+
+        case_row++;
+
+        var table = $("#suspect_informations");
+
+        $(".suspect_number_case").find('option').not(':selected').remove();
+        $(".suspect_number_case").find(':selected').addClass('disabled_field');
+
+        table.find('tr').each(function(i) {
+            var $tds = $(this).find('td input');
+            var suspect_number = $tds.eq(0).val();
+            var lastname = $tds.eq(1).val();
+            var firstname = $tds.eq(2).val();
+            var middlename = $tds.eq(3).val();
+            var alias = $tds.eq(4).val();
+            var birthdate = $tds.eq(5).val();
+
+            if (lastname != null) {
+                $(".suspect_number_case").append("<option value=" +
+                    lastname + "," + firstname + "," + middlename + "," + alias + "," + birthdate + ">" +
+                    lastname + ", " + firstname + " " +
+                    middlename + " -- Alias: '" + alias +
+                    "'</option>");
+            }
+        });
+    }
+
+
+    //Add rows for Operation Team
+    var opteam_row = 0;
+
+    function addOpteam() {
+        html = '<tr id="opteam-row' + opteam_row + '">';
+        html += '<td><input type="text" name="officer_name[]" class="form-control"></td>';
+        html += '<td><input type="text" name="officer_position[]" class="form-control"></td>';
+        html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#opteam-row' + opteam_row +
+            '\').remove();"><i class="fa fa-trash"></i> Delete</button></td>';
+
+        html += '</tr>';
+
+        $('#opteam tbody').append(html);
+
+        opteam_row++;
+    }
+
+
+    $("#preops_number").on("change", function() {
+
+        var preops_number = $(this).val();
 
         if (preops_number == 1) {
-            html += '<select name="support_unit_id[]" class="form-control" >';
+
+            $("#operation_type_id").removeClass("disabled_field");
+            $("#region_c").removeClass("disabled_field");
+            $("#province_c").removeClass("disabled_field");
+            // $("#operation_datetime").removeClass("disabled_field");
+            $("#operating_unit_id").prop("disabled", false);
+            $("#support_unit_id").prop("disabled", false);
+            $("#support_unit_id").prop("required", false);
+            $("#SPadd").attr("hidden", false);
+            $("#SPadd").css("pointer-events", '');
+
+            $('#operation_type_id').empty();
+            html2 = '<option value="" disabled selected>Select Option</option>@foreach($operation_type_spot_report as $opsr)<option value="{{ $opsr->id }}">{{ $opsr->name }}</option>@endforeach';
+            $('#operation_type_id').append(html2);
         } else {
-            html += '<select name="support_unit_id[]" class="form-control" required>';
+
+            $("#operation_type_id").addClass("disabled_field");
+            $("#region_c").addClass("disabled_field");
+            $("#province_c").addClass("disabled_field");
+            // $("#operation_datetime").addClass("disabled_field");
+            $("#operating_unit_id").addClass("disabled_field");
+            $("#support_unit_id").addClass("disabled_field");
+            $("#support_unit_id").prop("required", true);
+            $("#SPadd").css("pointer-events", 'none');
+
+
+            // Display Preops Header Info
+            $.ajax({
+                type: "GET",
+                url: "/get_preops_header/" + preops_number,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    if (data.length != 0) {
+                        data.forEach(element => {
+                            $('#operation_type_id option[value=' + element['operation_type_id'] + ']').attr('selected', 'selected');
+                            $('#region_c option[value=' + element['region_c'] + ']').attr('selected', 'selected');
+                            $('#operating_unit_id option[value=' + element['operating_unit_id'] + ']').attr('selected', 'selected');
+                            $('#support_unit_id option[value=' + element['support_unit_id'] + ']').attr('selected', 'selected');
+                            $('#operation_datetime').val(element['operation_datetime']);
+
+                            var date = $("#operation_datetime").val();
+
+                            $('#operation_datetime')[0].min = date;
+                            // alert(element['region_c']);
+
+                            var region_c = element['region_c'];
+                            $.ajax({
+                                type: "GET",
+                                url: "/get_province/" + region_c,
+                                fail: function() {
+                                    alert("request failed");
+                                },
+                                success: function(data) {
+                                    var data = JSON.parse(data);
+
+                                    $('#province_c').empty();
+                                    $('#city_c').empty();
+                                    $('#barangay_c').empty();
+                                    var option1 = " <option value='' selected>Select Option</option>";
+                                    $("#province_c").append(option1);
+
+                                    data.forEach(element => {
+                                        var option = " <option value='" +
+                                            element["province_c"] +
+                                            "'>" +
+                                            element["province_m"] +
+                                            "</option>";
+                                        $("#province_c").append(option);
+                                    });
+
+                                    if (element['province_c'] != '0000') {
+                                        $('#province_c option[value=' + element['province_c'] + ']').attr('selected', 'selected');
+                                    } else {
+                                        $("#province_c").removeClass("disabled_field");
+                                    }
+                                }
+                            });
+
+
+                            var province_c = element['province_c'];
+
+                            $.ajax({
+                                type: "GET",
+                                url: "/get_city/" + province_c,
+                                fail: function() {
+                                    alert("request failed");
+                                },
+                                success: function(data) {
+                                    var data = JSON.parse(data);
+
+                                    $('#city_c').empty();
+                                    $('#barangay_c').empty();
+                                    var option1 = " <option value='' selected>Select Option</option>";
+                                    $("#city_c").append(option1);
+
+                                    data.forEach(element => {
+                                        var option = " <option value='" +
+                                            element["city_c"] +
+                                            "'>" +
+                                            element["city_m"] +
+                                            "</option>";
+                                        $("#city_c").append(option);
+                                    });
+                                }
+                            });
+
+                            $.ajax({
+                                type: "GET",
+                                url: "/get_support_unit/" + preops_number,
+                                fail: function() {
+                                    alert("request failed");
+                                },
+                                success: function(data) {
+                                    var data = JSON.parse(data);
+                                    $('.SUdetails').empty();
+                                    $('#SUOptions').empty();
+
+                                    data.forEach(element => {
+                                        var option = "<div class='input-group mb-3 '><select id='support_unit_id' name='support_unit_id[]' class='form-control' style='pointer-events: none; background-color : #e9ecef;' required>" +
+                                            "<option value='" + element["id"] + "' selected> " + element["description"] + "</option></div>";
+                                        $(".SUdetails").append(option);
+                                    });
+                                }
+                            });
+
+                            // Display Warrant Details
+                            $.ajax({
+                                type: "GET",
+                                url: "/get_operation_type/" + element['operation_type_id'],
+                                fail: function() {
+                                    alert("request failed");
+                                },
+                                success: function(data) {
+                                    var data = JSON.parse(data);
+
+                                    data.forEach(element => {
+                                        if (element['is_warrant'] == 1) {
+                                            $('#warrant_Details').attr('hidden', false);
+                                        } else {
+                                            $('#warrant_Details').attr('hidden', true);
+                                        }
+
+                                    });
+
+                                }
+                            });
+                        });
+                    }
+
+
+                }
+            });
+
+
+            // Display Operations Team
+            $("#opsteamlist").empty();
+
+            $.ajax({
+                type: "GET",
+                url: "/get_preops_team/" + preops_number,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    if (data.length > 0) {
+                        data.forEach(element => {
+                            var option =
+                                "<tr><td ><input type='text' name='officer_name[]' class='form-control' value='" +
+                                element["name"] +
+                                "'></td><td ><input type='text' name='officer_position[]' class ='form-control' value='" +
+                                element["position"] +
+                                "'> </td> <td class = 'mt-10' > <button type='button' class='badge badge-danger' onclick='SomeDeleteRowFunction(this)'> <i class ='fa fa-trash'> </i> Delete</button> </td> </tr>";
+                            $("#opsteamlist").append(option);
+                        });
+                    } else {
+                        var option =
+                            "<tr><td ><input type='text' name='officer_name[]' class='form-control'></td><td ><input type='text' name='officer_position[]' class ='form-control'> </td> <td class = 'mt-10' > <button type='button' class='badge badge-danger' onclick='SomeDeleteRowFunction(this)'> <i class ='fa fa-trash'> </i> Delete</button> </td> </tr>";
+                        $("#opsteamlist").append(option);
+                    }
+                }
+            });
+
+
+
         }
 
-        html += '<option value="" disabled selected>Select Option</option>@foreach($operating_unit as $su)<option value="{{ $su->id }}">{{ $su->description }}</option>@endforeach';
-        html += '</select>';
-        html += '<a class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>';
-        html += '</div>';
+        $('#saveBTN').click(function() {
+            $('input:invalid').each(function() {
+                // Find the tab-pane that this element is inside, and get the id
+                var $closest = $(this).closest('.tab-pane');
+                var id = $closest.attr('id');
 
-        $('.SUdetails').append(html);
+                // Find the link that corresponds to the pane and have it show
+                $('.nav a[href="#' + id + '"]').tab('show');
+                $(this).css('border-color', 'red');
+
+                // Only want to do it once
+                return false;
+            });
+        });
+
+        $('.form-control').keyup(function() {
+            if ($(this).val() != null) {
+                $(this).css('border-color', 'green');
+            }
+        });
+        $('.form-control').change(function() {
+            if ($(this).val() != null) {
+                $(this).css('border-color', 'green');
+            }
+        });
+
+        // Remove Required On At Large Surpect Status
+        $(document).on("change", ".suspect_status_id", function() {
+
+            var suspect_status_id = $(this).val();
+            var $row = $(this).closest(".suspect_details");
+
+
+            if (suspect_status_id == 2) {
+                $row.find("td:eq(3) input").attr('required', false);
+                $row.find("td:eq(4) input").attr('required', false);
+                $row.find("td:eq(5) input").attr('required', false);
+                $row.find("td:eq(6) input").attr('required', false);
+                $row.find("td:eq(2) input").attr('required', false);
+            } else {
+                $row.find("td:eq(3) input").attr('required', true);
+                $row.find("td:eq(4) input").attr('required', true);
+                $row.find("td:eq(5) input").attr('required', true);
+                $row.find("td:eq(6) input").attr('required', true);
+                $row.find("td:eq(2) input").attr('required', true);
+            }
+
+
+        });
+
+        // Prevent Multiple Click of Save Button
+        $("#spot_report_form").on("submit", function() {
+            $(this).find(":submit").prop("disabled", true);
+        });
+
+        // HIO tick
+        $('#operation_lvl').change(function() {
+            if (this.checked) {
+                $("#hio_type_id").prop('disabled', false)
+            } else {
+                $("#hio_type_id").prop('disabled', true)
+            }
+
+        });
 
     });
 </script>
+
 
 <style>
     .error {
@@ -1760,91 +1864,5 @@
     });
 </script>
 
-<!-- Check EMpty Fields -->
-<script>
-    $('#saveBTN').click(function() {
-        $('input:invalid').each(function() {
-            // Find the tab-pane that this element is inside, and get the id
-            var $closest = $(this).closest('.tab-pane');
-            var id = $closest.attr('id');
-
-            // Find the link that corresponds to the pane and have it show
-            $('.nav a[href="#' + id + '"]').tab('show');
-            $(this).css('border-color', 'red');
-
-            // Only want to do it once
-            return false;
-        });
-    });
-
-    $('.form-control').keyup(function() {
-        if ($(this).val() != null) {
-            $(this).css('border-color', 'green');
-        }
-    });
-    $('.form-control').change(function() {
-        if ($(this).val() != null) {
-            $(this).css('border-color', 'green');
-        }
-    });
-
-    // Remove Required On At Large Surpect Status
-    $(document).on("change", ".suspect_status_id", function() {
-
-        var suspect_status_id = $(this).val();
-        var $row = $(this).closest(".suspect_details");
-
-
-        if (suspect_status_id == 2) {
-            $row.find("td:eq(3) input").attr('required', false);
-            $row.find("td:eq(4) input").attr('required', false);
-            $row.find("td:eq(5) input").attr('required', false);
-            $row.find("td:eq(6) input").attr('required', false);
-            $row.find("td:eq(2) input").attr('required', false);
-        } else {
-            $row.find("td:eq(3) input").attr('required', true);
-            $row.find("td:eq(4) input").attr('required', true);
-            $row.find("td:eq(5) input").attr('required', true);
-            $row.find("td:eq(6) input").attr('required', true);
-            $row.find("td:eq(2) input").attr('required', true);
-        }
-
-
-    });
-
-    // Prevent Multiple Click of Save Button
-    $("#spot_report_form").on("submit", function() {
-        $(this).find(":submit").prop("disabled", true);
-    });
-
-    // HIO tick
-    $('#operation_lvl').change(function() {
-        if (this.checked) {
-            $("#hio_type_id").prop('disabled', false)
-        } else {
-            $("#hio_type_id").prop('disabled', true)
-        }
-
-    });
-
-    //Select2 Lazy Loading Spot
-    $(".OPUnitSearch").select2({
-        minimumInputLength: 2,
-        ajax: {
-            url: '/search_operating_unit',
-            dataType: "json",
-        }
-
-    }).prop('disabled', true);
-
-    //Select2 Lazy Loading Spot
-    $(".PreopsNumberSearch").select2({
-        minimumInputLength: 2,
-        ajax: {
-            url: '/search_preops_number',
-            dataType: "json",
-        }
-    });
-</script>
 
 @endsection

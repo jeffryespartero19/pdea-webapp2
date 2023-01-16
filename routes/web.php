@@ -262,10 +262,13 @@ Route::group(['middleware' => ['auth', 'cp_acess']], function () {
     //Search Operating Unit
     Route::get('/search_operating_unit', 'GlobalController@search_operating_unit')->name('search_operating_unit');
     Route::get('/search_operating_unit_ro_code', 'GlobalController@search_operating_unit_ro_code')->name('search_operating_unit_ro_code');
+    Route::get('/search_operating_unit_region_c', 'GlobalController@search_operating_unit_region_c')->name('search_operating_unit_region_c');
     //Search Support Unit
     Route::get('/search_support_unit', 'GlobalController@search_support_unit')->name('search_support_unit');
-     //Search Spot Report Number
-     Route::get('/search_preops_number', 'SpotReportController@search_preops_number')->name('search_preops_number');
+    //Search Spot Report Number
+    Route::get('/search_preops_number', 'SpotReportController@search_preops_number')->name('search_preops_number');
+    //Search Operation Type
+    Route::get('/search_operation_type', 'GlobalController@search_operation_type')->name('search_operation_type');
 });
 
 
@@ -303,6 +306,7 @@ Route::get('after_operation_file_delete/{id}', 'AfterOperationReportController@f
 // Spot & Progress Report Module
 // Spot Report Setup
 Route::get('spot_report_list', 'SpotReportController@index')->name('spot_report_list');
+Route::get('/spot_report_list/fetch_data', 'SpotReportController@fetch_data');
 Route::get('spot_report_add', 'SpotReportController@add')->name('spot_report_add');
 Route::get('spot_report_edit/{id}', 'SpotReportController@edit')->name('spot_report_edit');
 Route::post('spot_report_add', 'SpotReportController@store');

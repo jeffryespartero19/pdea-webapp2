@@ -56,44 +56,9 @@ class IssuanceOfPreopsController extends Controller
                 ->get();
         }
 
-        $region = DB::table('region')->orderby('region_sort', 'asc')->get();
-        $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('description', 'asc')->get();
         $operation_type = DB::table('operation_type')->where('status', true)->where('operation_classification_id', 2)->orderby('name', 'asc')->get();
 
-        if ($request->ajax()) {
-            $data = DB::table('preops_header as a')
-                ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
-                ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                ->leftjoin('spot_report_header as d', 'a.preops_number', '=', 'd.preops_number')
-                ->select('a.id', 'a.preops_number', 'a.operating_unit_id', 'a.operation_type_id', 'b.description as operating_unit', 'c.name as operation_type', 'a.operation_datetime', 'a.ro_code', 'a.status', 'a.status', 'a.validity', 'd.report_status', 'a.with_aor', 'a.with_sr');
-
-            if ($request->ro_code != 0) {
-                $data->where(['a.ro_code' => $request->ro_code]);
-            }
-            if ($request->operating_unit_id != 0) {
-                $data->where(['a.operating_unit_id' => $request->operating_unit_id]);
-            }
-            if ($request->operation_type_id != 0) {
-                $data->where(['a.operation_type_id' => $request->operation_type_id]);
-            }
-            if ($request->operation_date != 0) {
-                $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '>=', $request->operation_date);
-            }
-            if ($request->operation_date_to != 0) {
-                $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '<=', $request->operation_date_to);
-            }
-
-            $data = $data->paginate(20);
-
-            // dd($data);
-
-            return view('issuance_of_preops.preops_data', compact('data', 'region', 'operating_unit', 'operation_type', 'regional_office'))->render();
-
-            // return view('issuance_of_preops.ajax.data', ['data' => $data])->render();
-            return view('issuance_of_preops.issuance_of_preops_list', compact('data', 'region', 'operating_unit', 'operation_type', 'regional_office'));
-        } else {
-            return view('issuance_of_preops.issuance_of_preops_list', compact('data', 'region', 'operating_unit', 'operation_type', 'regional_office'));
-        }
+        return view('issuance_of_preops.issuance_of_preops_list', compact('data', 'operation_type', 'regional_office'));
     }
 
     public function fetch_data(Request $request)

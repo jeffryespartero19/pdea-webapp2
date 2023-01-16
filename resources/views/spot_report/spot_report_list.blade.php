@@ -34,8 +34,8 @@
                 <div class="input-group mb-3">
                     <select id="region_c" name="region_c" class="form-control @error('region') is-invalid @enderror">
                         <option value='' disabled selected>Select Option</option>
-                        @foreach($region as $rg)
-                        <option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} - {{ $rg->region_m }}</option>
+                        @foreach($regional_office as $rg)
+                        <option value="{{ $rg->region_c }}">{{ $rg->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -54,11 +54,7 @@
                     <label for="">Type of OPN</label>
                 </div>
                 <div class="input-group mb-3">
-                    <select id="operation_type_id" name="operation_type_id" class="form-control @error('region') is-invalid @enderror">
-                        <option value='' disabled selected>Select Option</option>
-                        @foreach($operation_type as $ot)
-                        <option value="{{ $ot->id }}">{{ $ot->name }}</option>
-                        @endforeach
+                    <select id="operation_type_id" name="operation_type_id" class="form-control OPTypeSearch">
                     </select>
                 </div>
             </div>
@@ -115,27 +111,10 @@
                     </tr>
                 </thead>
                 <tbody id="spot_report_list">
-                    @foreach($data as $spot_report)
-                    <tr>
-                        <td hidden>{{ $spot_report->id }}</td>
-                        <td>{{ $spot_report->spot_report_number }}</td>
-                        <td>@if($spot_report->preops_number == 1) Uncoordinated @else {{ $spot_report->preops_number }} @endif</td>
-                        <td>{{ $spot_report->operating_unit }}</td>
-                        <td>{{ $spot_report->operation_type }}</td>
-                        <td>{{ $spot_report->operation_datetime }}</td>
-                        <td>{{ $spot_report->created_at }}</td>
-                        <td>{{ $spot_report->status == 1 ? 'Yes' : 'No' }}</td>
-                        <td>
-                            <center>
-                                <a href="{{ url('spot_report_edit/'.$spot_report->id) }}" class="btn btn-info">Edit</a>
-                            </center>
-                        </td>
-                    </tr>
-                    @endforeach
+                    @include('spot_report.spot_report_data')
                 </tbody>
-
             </table>
-            <span class="pagination">{{ $data->links() }}</span>
+            <input type="hidden" name="hidden_page" id="hidden_page" value="1">
         </div>
         <!-- /.card-body -->
 
@@ -154,125 +133,110 @@
 @section('scripts')
 
 <script>
-    $('#region_c').change(function() {
-        PreopsFilter();
-    });
-    $('#operating_unit_id').change(function() {
-        PreopsFilter();
-    });
-    $('#operation_type_id').change(function() {
-        PreopsFilter();
-    });
 
-    $('#operation_date').change(function() {
-        PreopsFilter();
-    });
-
-    $('#operation_date_to').change(function() {
-        PreopsFilter();
-    });
-
-    function PreopsFilter() {
-        var region_c = $('#region_c').val();
-        var operating_unit_id = $('#operating_unit_id').val();
-        var operation_type_id = $('#operation_type_id').val();
-        var operation_date = $('#operation_date').val();
-        var operation_date_to = $('#operation_date_to').val();
-
-
-
-        if (region_c == '' || region_c == null) {
-            region_c = 0;
-        }
-        if (operation_date == '' || operation_date == null) {
-            operation_date = 0;
-        }
-        if (operation_date_to == '' || operation_date_to == null) {
-            operation_date_to = 0;
-        }
-        if (operating_unit_id == '' || operating_unit_id == null) {
-            operating_unit_id = 0;
-        }
-        if (operation_type_id == '' || operation_type_id == null) {
-            operation_type_id = 0;
-        }
-
-        var table = $('#example2').DataTable();
-
-        $.ajax({
-            type: "GET",
-            url: "/get_spot_report_list/" + region_c +
-                "/" + operating_unit_id +
-                "/" + operation_type_id +
-                "/" + operation_date +
-                "/" + operation_date_to,
-            fail: function() {
-                alert("request failed");
-            },
-            dataType: 'json',
-            success: function(response) {
-
-                // $links = response.links;
-                
-                // $('.pagination').load(response.links);
-                var data2 = response.datas.data;
-                $("#spot_report_list").empty();
-
-
-                if (data2.length > 0) {
-                    data2.forEach(element => {
-
-                        if (element["status"] == 1) {
-                            status = 'Yes';
-                        } else {
-                            status = 'No';
-                        }
-
-                        var details =
-                            '<tr>' +
-                            '<td>' + element["spot_report_number"] + '</td>' +
-                            '<td>' + element["preops_number"] + '</td>' +
-                            '<td>' + element["operating_unit_name"] + '</td>' +
-                            '<td>' + element["operation_type_name"] + '</td>' +
-                            '<td>' + element["operation_datetime"] + '</td>' +
-                            '<td>' + element["created_at"] + '</td>' +
-                            '<td>' + status + '</td>' +
-                            '<td>' +
-                            '<center>' +
-                            '<a href="/after_operation_report_edit/' + element["id"] + '" class="btn btn-info">Edit</a>' +
-                            '</center>' +
-                            '</td>' +
-                            '</tr>';
-
-                        $("#spot_report_list").append(details);
-
-                    });
-                }
-
-            }
-        });
-
-        table
-            .clear()
-            .draw();
-
-
-    }
 </script>
 
 <script>
-    $(function() {
-        $('#sap').addClass('menu-open');
-    });
-    $(function() {
-        $('#sap_link').addClass('active');
-    });
-    $(function() {
-        $('#spot_report').addClass('active');
-    });
-
-    // Table Sort Data
     $(document).ready(function() {
+        function SpotReportFilter() {
+            var page = $('#hidden_page').val();
+            var region_c = $('#region_c').val();
+            var operating_unit_id = $('#operating_unit_id').val();
+            var operation_type_id = $('#operation_type_id').val();
+            var operation_date = $('#operation_date').val();
+            var operation_date_to = $('#operation_date_to').val();
+
+            if (region_c == '' || region_c == null) {
+                region_c = 0;
+            }
+            if (operation_date == '' || operation_date == null) {
+                operation_date = 0;
+            }
+            if (operation_date_to == '' || operation_date_to == null) {
+                operation_date_to = 0;
+            }
+            if (operating_unit_id == '' || operating_unit_id == null) {
+                operating_unit_id = 0;
+            }
+            if (operation_type_id == '' || operation_type_id == null) {
+                operation_type_id = 0;
+            }
+
+            var table = $('#example2').DataTable();
+
+            $.ajax({
+                url: "/spot_report_list/fetch_data?page=" + page + "&region_c=" + region_c + "&operating_unit_id=" + operating_unit_id + "&operation_type_id=" + operation_type_id + "&operation_date=" + operation_date + "&operation_date_to=" + operation_date_to,
+                success: function(data) {
+                    // alert('test')
+                    $('tbody').html('');
+                    $('tbody').html(data);
+                }
+            });
+
+        }
+
+        $('#region_c').change(function() {
+            $('#hidden_page').val(1);
+            SpotReportFilter();
+        });
+        $('#operating_unit_id').change(function() {
+            $('#hidden_page').val(1);
+            SpotReportFilter();
+        });
+        $('#operation_type_id').change(function() {
+            $('#hidden_page').val(1);
+            SpotReportFilter();
+        });
+
+        $('#operation_date').change(function() {
+            $('#hidden_page').val(1);
+            SpotReportFilter();
+        });
+
+        $('#operation_date_to').change(function() {
+            $('#hidden_page').val(1);
+            SpotReportFilter();
+        });
+
+        $(document).on('click', ".pagination a", function(event) {
+            event.preventDefault();
+
+            var page = $(this).attr('href').split('page=')[1];
+            $('#hidden_page').val(page);
+            var region_c = $('#region_c').val();
+            var operating_unit_id = $('#operating_unit_id').val();
+            var operation_type_id = $('#operation_type_id').val();
+            var operation_date = $('#operation_date').val();
+            var operation_date_to = $('#operation_date_to').val();
+
+            if (region_c == '' || region_c == null) {
+                region_c = 0;
+            }
+            if (operation_date == '' || operation_date == null) {
+                operation_date = 0;
+            }
+            if (operation_date_to == '' || operation_date_to == null) {
+                operation_date_to = 0;
+            }
+            if (operating_unit_id == '' || operating_unit_id == null) {
+                operating_unit_id = 0;
+            }
+            if (operation_type_id == '' || operation_type_id == null) {
+                operation_type_id = 0;
+            }
+            SpotReportFilter();
+        });
+
+        $(function() {
+            $('#sap').addClass('menu-open');
+        });
+        $(function() {
+            $('#sap_link').addClass('active');
+        });
+        $(function() {
+            $('#spot_report').addClass('active');
+        });
+
         $(function() {
             $("#example2").DataTable({
                 "responsive": false,
@@ -284,19 +248,28 @@
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
         });
-    });
 
-    $(".submit_search").on("click", function() {
-        $('#SearchForm').submit();
-    });
+        $(".submit_search").on("click", function() {
+            $('#SearchForm').submit();
+        });
 
-    //Select2 Lazy Loading Spot
-    $(".OPUnitSearch").select2({
-        minimumInputLength: 2,
-        ajax: {
-            url: '/search_operating_unit',
-            dataType: "json",
-        }
+        //Select2 Lazy Loading Spot
+        $(".OPUnitSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_operating_unit',
+                dataType: "json",
+            }
+        });
+
+        $(".OPTypeSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_operation_type',
+                dataType: "json",
+            }
+        });
+
     });
 </script>
 

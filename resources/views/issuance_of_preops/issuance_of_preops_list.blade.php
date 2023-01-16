@@ -46,10 +46,6 @@
                 </div>
                 <div class="input-group mb-3">
                     <select id="operating_unit_id" name="operating_unit_id" class="form-control OPUnitSearch">
-                        <!-- <option value='' disabled selected>Select Option</option>
-                        @foreach($operating_unit as $ou)
-                        <option value="{{ $ou->id }}">{{ $ou->description }}</option>
-                        @endforeach -->
                     </select>
                 </div>
             </div>
@@ -58,11 +54,7 @@
                     <label for="">Type of OPN</label>
                 </div>
                 <div class="input-group mb-3">
-                    <select id="operation_type_id" name="operation_type_id" class="form-control @error('region') is-invalid @enderror">
-                        <option value='' disabled selected>Select Option</option>
-                        @foreach($operation_type as $ot)
-                        <option value="{{ $ot->id }}">{{ $ot->name }}</option>
-                        @endforeach
+                    <select id="operation_type_id" name="operation_type_id" class="form-control OPTypeSearch">
                     </select>
                 </div>
             </div>
@@ -178,7 +170,6 @@
                 operation_type_id = 0;
             }
 
-            alert('test');
             $.ajax({
                 url: "/issuance_of_preops_list/fetch_data?page=" + page + "&ro_code=" + ro_code + "&operating_unit_id=" + operating_unit_id + "&operation_type_id=" + operation_type_id + "&operation_date=" + operation_date + "&operation_date_to=" + operation_date_to,
                 success: function(data) {
@@ -270,6 +261,14 @@
             minimumInputLength: 2,
             ajax: {
                 url: '/search_operating_unit',
+                dataType: "json",
+            }
+        });
+
+        $(".OPTypeSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_operation_type',
                 dataType: "json",
             }
         });
