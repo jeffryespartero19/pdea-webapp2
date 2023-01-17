@@ -27,7 +27,7 @@
             <h3 class="card-title">Filter</h3>
         </div>
         <div class="card-body row">
-            <div class="form-group col-3" style="margin: 0px;">
+            <div class="form-group col-4" style="margin: 0px;">
                 <div>
                     <label for="">Region</label>
                 </div>
@@ -40,38 +40,38 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group col-3" style="margin: 0px;">
+            <div class="form-group col-4" style="margin: 0px;">
                 <div>
                     <label for="">Operating Unit</label>
                 </div>
                 <div class="input-group mb-3">
-                    <select id="operating_unit_id" name="operating_unit_id" class="form-control @error('region') is-invalid @enderror">
-                        <option value='' disabled selected>Select Option</option>
-                        @foreach($operating_unit as $ou)
-                        <option value="{{ $ou->id }}">{{ $ou->name }}</option>
-                        @endforeach
+                    <select id="operating_unit_id" name="operating_unit_id" class="form-control OPUnitSearch">
                     </select>
                 </div>
             </div>
-            <div class="form-group col-3" style="margin: 0px;">
+            <div class="form-group col-4" style="margin: 0px;">
                 <div>
                     <label for="">Type of OPN</label>
                 </div>
                 <div class="input-group mb-3">
-                    <select id="operation_type_id" name="operation_type_id" class="form-control @error('region') is-invalid @enderror">
-                        <option value='' disabled selected>Select Option</option>
-                        @foreach($operation_type as $ot)
-                        <option value="{{ $ot->id }}">{{ $ot->name }}</option>
-                        @endforeach
+                    <select id="operation_type_id" name="operation_type_id" class="form-control OPTypeSearch">
                     </select>
                 </div>
             </div>
-            <div class="form-group col-3" style="margin: 0px;">
+            <div class="form-group col-4" style="margin: 0px;">
                 <div>
                     <label for="">Operation Date</label>
                 </div>
                 <div class="input-group mb-3">
                     <input id="operation_date" name="operation_date" type="date" class="form-control @error('operation') is-invalid @enderror" value="{{ old('operation_date') }}" autocomplete="off">
+                </div>
+            </div>
+            <div class="form-group col-4" style="margin: 0px;">
+                <div>
+                    <label for="">Operation Date To</label>
+                </div>
+                <div class="input-group mb-3">
+                    <input id="operation_date_to" name="operation_date_to" type="date" class="form-control @error('operation') is-invalid @enderror" value="{{ old('operation_date_to') }}" autocomplete="off">
                 </div>
             </div>
             <div class="mr-2" style="width: 100%;">
@@ -99,24 +99,10 @@
                     </tr>
                 </thead>
                 <tbody id="preops_list">
-                    @foreach($data as $preops_header)
-                    <tr>
-                        <td hidden>{{ $preops_header->id }}</td>
-                        <td>{{ $preops_header->preops_number }}</td>
-                        <td>{{ $preops_header->operating_unit }}</td>
-                        <td>{{ $preops_header->operation_type }}</td>
-                        <td>{{ $preops_header->operation_datetime }}</td>
-                        <td>{{ $preops_header->aor_date }}</td>
-                        <td>{{ $preops_header->status == 1 ? 'Yes' : 'No' }}</td>
-                        <td>
-                            <center>
-                                <a href="{{ url('after_operation_report_edit/'.$preops_header->preops_number) }}" class="btn btn-info">Edit</a>
-                            </center>
-                        </td>
-                    </tr>
-                    @endforeach
+                    @include('after_operation_report.after_operation_data')
                 </tbody>
             </table>
+            <input type="hidden" name="hidden_page" id="hidden_page" value="1">
         </div>
         <!-- /.card-body -->
 
@@ -136,26 +122,35 @@
 
 <script>
     $('#ro_code').change(function() {
+        $('#hidden_page').val(1);
         PreopsFilter();
     });
     $('#operating_unit_id').change(function() {
+        $('#hidden_page').val(1);
         PreopsFilter();
     });
     $('#operation_type_id').change(function() {
+        $('#hidden_page').val(1);
         PreopsFilter();
     });
 
     $('#operation_date').change(function() {
+        $('#hidden_page').val(1);
+        PreopsFilter();
+    });
+
+    $('#operation_date_to').change(function() {
+        $('#hidden_page').val(1);
         PreopsFilter();
     });
 
     function PreopsFilter() {
         var ro_code = $('#ro_code').val();
+        var page = $('#hidden_page').val();
         var operating_unit_id = $('#operating_unit_id').val();
         var operation_type_id = $('#operation_type_id').val();
         var operation_date = $('#operation_date').val();
-
-
+        var operation_date = $('#operation_date_to').val();
 
         if (ro_code == '' || ro_code == null) {
             ro_code = 0;
@@ -172,48 +167,10 @@
 
 
         $.ajax({
-            type: "GET",
-            url: "/get_after_operation_list/" + ro_code +
-                "/" + operating_unit_id +
-                "/" + operation_type_id +
-                "/" + operation_date,
-            fail: function() {
-                alert("request failed");
-            },
+            url: "/after_operation_report_list/fetch_data?page=" + page + "&ro_code=" + ro_code + "&operating_unit_id=" + operating_unit_id + "&operation_type_id=" + operation_type_id + "&operation_date=" + operation_date + "&operation_date_to=" + operation_date_to,
             success: function(data) {
-                var data = JSON.parse(data);
-
-                $("#preops_list").empty();
-
-
-                if (data.length > 0) {
-                    data.forEach(element => {
-
-                        if (element["status"] == 1) {
-                            status = 'Yes';
-                        } else {
-                            status = 'No';
-                        }
-
-                        var details =
-                            '<tr>' +
-                            '<td>' + element["preops_number"] + '</td>' +
-                            '<td>' + element["operating_unit_name"] + '</td>' +
-                            '<td>' + element["operation_type_name"] + '</td>' +
-                            '<td>' + element["operation_datetime"] + '</td>' +
-                            '<td>' + status + '</td>' +
-                            '<td>' +
-                            '<center>' +
-                            '<a href="/after_operation_report_edit/' + element["preops_number"] + '" class="btn btn-info">Edit</a>' +
-                            '</center>' +
-                            '</td>' +
-                            '</tr>';
-
-                        $("#preops_list").append(details);
-
-                    });
-                }
-
+                $('tbody').html('');
+                $('tbody').html(data);
             }
         });
 
@@ -243,6 +200,23 @@
                 "autoWidth": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
+        });
+
+        //Select2 Lazy Loading Spot
+        $(".OPUnitSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_operating_unit',
+                dataType: "json",
+            }
+        });
+
+        $(".OPTypeSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_operation_type',
+                dataType: "json",
+            }
         });
     });
 </script>

@@ -54,9 +54,7 @@ class IssuanceOfPreopsController extends Controller
                 ->get();
         }
 
-        $operation_type = DB::table('operation_type')->where('status', true)->where('operation_classification_id', 2)->orderby('name', 'asc')->get();
-
-        return view('issuance_of_preops.issuance_of_preops_list', compact('data', 'operation_type', 'regional_office'));
+        return view('issuance_of_preops.issuance_of_preops_list', compact('data', 'regional_office'));
     }
 
     public function fetch_data(Request $request)
@@ -70,7 +68,7 @@ class IssuanceOfPreopsController extends Controller
             if ($request->get('ro_code') != 0) {
                 $data->where(['a.ro_code' => $request->get('ro_code')]);
             }
-            if ($request->get('operating_unit_i') != 0) {
+            if ($request->get('operating_unit_id') != 0) {
                 $data->where(['a.operating_unit_id' => $request->get('operating_unit_id')]);
             }
             if ($request->get('operation_type_id') != 0) {

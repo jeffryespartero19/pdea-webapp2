@@ -29,10 +29,10 @@ class AfterOperationReportController extends Controller
             $data = DB::table('preops_header as a')
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.aor_date')
+                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status', 'a.aor_date')
                 ->where('a.with_aor', 1)
                 ->orderby('preops_number', 'asc')
-                ->get();
+                ->paginate(20);
 
             $regional_office = DB::table('regional_office')->orderby('print_order', 'asc')->get();
         } else {
@@ -40,11 +40,11 @@ class AfterOperationReportController extends Controller
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
                 ->join('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
-                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.aor_date')
+                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status', 'a.aor_date')
                 ->where('a.with_aor', 1)
                 ->where('d.id', Auth::user()->regional_office_id)
                 ->orderby('preops_number', 'asc')
-                ->get();
+                ->paginate(20);
 
             $regional_office = DB::table('regional_office')
                 ->where('id', Auth::user()->regional_office_id)
@@ -52,11 +52,38 @@ class AfterOperationReportController extends Controller
         }
 
         $region = DB::table('region')->orderby('region_sort', 'asc')->get();
-        $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
-        $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
 
+        return view('after_operation_report.after_operation_report_list', compact('data', 'region', 'regional_office'));
+    }
 
-        return view('after_operation_report.after_operation_report_list', compact('data', 'region', 'operating_unit', 'operation_type', 'regional_office'));
+    public function fetch_data(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = DB::table('preops_header as a')
+                ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+                ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+                ->select('a.id', 'a.preops_number', 'a.operating_unit_id', 'operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.aor_date', 'a.status')
+                ->where('a.with_aor', 1);
+            if ($request->get('ro_code') != 0) {
+                $data->where(['a.ro_code' => $request->get('ro_code')]);
+            }
+            if ($request->get('operating_unit_id') != 0) {
+                $data->where(['a.operating_unit_id' => $request->get('operating_unit_id')]);
+            }
+            if ($request->get('operation_type_id') != 0) {
+                $data->where(['a.operation_type_id' => $request->get('operation_type_id')]);
+            }
+            if ($request->get('operation_date') != 0) {
+                $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '>=', $request->get('operation_date'));
+            }
+            if ($request->get('operation_date_to') != 0) {
+                $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '<=', $request->get('operation_date_to'));
+            }
+
+            $data = $data->paginate(20);
+            
+            return view('after_operation_report.after_operation_data', compact('data'))->render();
+        }
     }
 
     public function add()
@@ -341,5 +368,30 @@ class AfterOperationReportController extends Controller
         Audit::create($data_audit);
 
         return response()->json(array('success' => true));
+    }
+
+    public function get_after_operation_list($ro_code, $operating_unit_id, $operation_type_id, $operation_date)
+    {
+        $data = DB::table('preops_header as a')
+            ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+            ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+            ->select('a.id', 'a.preops_number', 'a.operating_unit_id', 'operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.ro_code', 'a.status')
+            ->whereNotNull('date_reported');
+        if ($ro_code != 0) {
+            $data->where(['a.ro_code' => $ro_code]);
+        }
+        if ($operating_unit_id != 0) {
+            $data->where(['a.operating_unit_id' => $operating_unit_id]);
+        }
+        if ($operation_type_id != 0) {
+            $data->where(['a.operation_type_id' => $operation_type_id]);
+        }
+        if ($operation_date != 0) {
+            $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), $operation_date);
+        }
+
+        $data = $data->get();
+
+        return json_encode($data);
     }
 }

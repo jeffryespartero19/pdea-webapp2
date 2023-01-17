@@ -303,6 +303,7 @@ Route::get('/get_preops_header_count/{ro_code}/{province_c}', 'IssuanceOfPreopsC
 
 // After Operation Report Setup
 Route::get('after_operation_report_list', 'AfterOperationReportController@index')->name('after_operation_report_list');
+Route::get('/after_operation_report_list/fetch_data', 'AfterOperationReportController@fetch_data');
 Route::get('after_operation_report_add', 'AfterOperationReportController@add')->name('after_operation_report_add');
 Route::get('after_operation_report_edit/{preops_number}', 'AfterOperationReportController@edit')->name('after_operation_report_edit');
 Route::post('after_operation_report_add', 'AfterOperationReportController@store');
