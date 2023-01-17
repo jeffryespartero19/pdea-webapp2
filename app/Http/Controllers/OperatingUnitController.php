@@ -22,7 +22,8 @@ class OperatingUnitController extends Controller
 
     public function index()
     {
-        $data = OperatingUnit::all();
+        $data = DB::table('operating_unit')->orderby('description', 'desc')
+            ->paginate(20);
 
         return view('operating_unit.operating_unit_list', compact('data'));
     }

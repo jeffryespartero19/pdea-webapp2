@@ -53,6 +53,11 @@
                                 </td>
                             </tr>
                             @endforeach
+                            <tr>
+                                <td colspan="5" align="center">
+                                    {!! $data->links() !!}
+                                </td>
+                            </tr>
                     </table>
                 </div>
                 <!-- /.card-body -->
@@ -70,4 +75,3 @@
 
 <!-- Set menu to collapse and active -->
 @endsection
-

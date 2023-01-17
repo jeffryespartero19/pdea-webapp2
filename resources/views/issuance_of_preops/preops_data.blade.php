@@ -1,4 +1,4 @@
-@foreach($suspects as $preops_header)
+@foreach($data as $preops_header)
 <tr>
     <td hidden>{{ $preops_header->id }}</td>
     <td>{{ $preops_header->preops_number }}</td>
@@ -12,7 +12,7 @@
     <td>@if($preops_header->validity < date("Y-m-d H:i:s") && $preops_header->with_aor == 0 && $preops_header->with_sr == 0) 1 @else 0 @endif</td>
     <td>{{ $preops_header->with_aor }}</td>
     <td>{{ $preops_header->with_sr }}</td>
-    <td>{{ $preops_header->report_status }}</td>
+    <td>{{ $preops_header->with_pr }}</td>
     <td>
         <center>
             <a href="{{ url('issuance_of_preops_edit/'.$preops_header->id) }}" class="btn btn-info">Edit</a>

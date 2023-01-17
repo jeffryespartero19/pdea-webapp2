@@ -153,6 +153,12 @@ class ProgressReportController extends Controller
 
         $pr_id =  DB::table('spot_report_header')->where('spot_report_number', $request->spot_report_number)->select('id')->get();
 
+        DB::table('preops_header as a')
+            ->leftjoin('spot_report_header as b', 'a.preops_number', '=', 'b.preops_number')
+            ->where('b.id', $pr_id)
+            ->update(['a.with_pr' => 1]);
+
+
         if ($request->file('fileattach')) {
 
             foreach ($request->file('fileattach') as $file) {

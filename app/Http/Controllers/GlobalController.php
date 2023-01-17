@@ -543,6 +543,14 @@ class GlobalController extends Controller
     {
         $operation_type = DB::table('operation_type as a')
             ->where('a.name', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->get(['a.id as id', 'a.name as text']);
+        return ['results' => $operation_type];
+    }
+
+    public function search_operation_type_ro_code(Request $request)
+    {
+        $operation_type = DB::table('operation_type as a')
+            ->where('a.name', 'LIKE', '%' . $request->input('term', '') . '%')
             ->where('d.ro_code', $request->ro_code)
             ->get(['a.id as id', 'a.name as text']);
         return ['results' => $operation_type];

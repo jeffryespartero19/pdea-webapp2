@@ -33,8 +33,7 @@ class IssuanceOfPreopsController extends Controller
             $data = DB::table('preops_header as a')
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                ->leftjoin('spot_report_header as d', 'a.preops_number', '=', 'd.preops_number')
-                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'd.report_status', 'a.with_aor', 'a.with_sr')
+                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'a.with_aor', 'a.with_sr', 'a.with_pr')
                 ->orderby('a.id', 'desc')
                 ->paginate(20);
 
@@ -44,8 +43,7 @@ class IssuanceOfPreopsController extends Controller
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
                 ->leftjoin('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
-                ->leftjoin('spot_report_header as e', 'a.preops_number', '=', 'e.preops_number')
-                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.description as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'e.report_status', 'a.with_aor', 'a.with_sr')
+                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.description as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'a.with_aor', 'a.with_sr', 'a.with_pr')
                 ->orderby('a.id', 'desc')
                 ->where('d.id', Auth::user()->regional_office_id)
                 ->orderby('a.id', 'desc')
@@ -67,8 +65,7 @@ class IssuanceOfPreopsController extends Controller
             $data = DB::table('preops_header as a')
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                ->leftjoin('spot_report_header as d', 'a.preops_number', '=', 'd.preops_number')
-                ->select('a.id', 'a.preops_number', 'a.operating_unit_id', 'a.operation_type_id', 'b.description as operating_unit', 'c.name as operation_type', 'a.operation_datetime', 'a.ro_code', 'a.status', 'a.status', 'a.validity', 'd.report_status', 'a.with_aor', 'a.with_sr');
+                ->select('a.id', 'a.preops_number', 'a.operating_unit_id', 'a.operation_type_id', 'b.description as operating_unit', 'c.name as operation_type', 'a.operation_datetime', 'a.ro_code', 'a.status', 'a.status', 'a.validity', 'a.with_aor', 'a.with_sr', 'a.with_pr');
 
             if ($request->get('ro_code') != 0) {
                 $data->where(['a.ro_code' => $request->get('ro_code')]);
