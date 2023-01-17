@@ -1,4 +1,4 @@
-@foreach($data as $preops_header)
+@foreach($suspects as $preops_header)
 <tr>
     <td hidden>{{ $preops_header->id }}</td>
     <td>{{ $preops_header->preops_number }}</td>

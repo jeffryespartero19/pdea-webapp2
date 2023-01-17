@@ -269,6 +269,12 @@ Route::group(['middleware' => ['auth', 'cp_acess']], function () {
     Route::get('/search_preops_number', 'SpotReportController@search_preops_number')->name('search_preops_number');
     //Search Operation Type
     Route::get('/search_operation_type', 'GlobalController@search_operation_type')->name('search_operation_type');
+    Route::get('/search_operation_type_show', 'GlobalController@search_operation_type_show')->name('search_operation_type_show');
+    Route::get('/search_case', 'GlobalController@search_case')->name('search_case');
+    Route::get('/get_hio_type', 'GlobalController@get_hio_type')->name('get_hio_type');
+
+    //SPOT REPORT GET SUSPECT LIST
+    Route::get('/spot_report/fetch_suspect', 'SpotReportController@fetch_suspect');
 });
 
 

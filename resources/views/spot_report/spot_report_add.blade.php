@@ -85,11 +85,7 @@
                             <label for="">Type of Operation</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="operation_type_id" name="operation_type_id" class="form-control @error('operation type') is-invalid @enderror disabled_field" required>
-                                <option value='' disabled selected>Select Option</option>
-                                @foreach ($operation_type as $ot)
-                                <option value="{{ $ot->id }}">{{ $ot->name }}</option>
-                                @endforeach
+                            <select id="operation_type_id" name="operation_type_id" class="form-control OPTypeSearch" required>
                             </select>
                         </div>
                     </div>
@@ -99,12 +95,7 @@
                                 <input id="operation_lvl" name="operation_lvl" class="custom-control-input" type="checkbox">
                                 <label for="operation_lvl" class="custom-control-label">High Impact Operation</label>
 
-                                <select id="hio_type_id" name="hio_type_id" class="form-control @error('region') is-invalid @enderror " disabled>
-                                    <option value='' disabled selected>Select Option</option>
-                                    @foreach ($hio_type as $hio)
-                                    <option value="{{ $hio->id }}">{{ $hio->name }}
-                                    </option>
-                                    @endforeach
+                                <select id="hio_type_id" name="hio_type_id" class="form-control" disabled>
                                 </select>
                             </div>
                         </div>
@@ -603,13 +594,7 @@
                                                             </td>
                                                             <td class="row">
                                                                 <div class="col-10">
-                                                                    <select name="case_id[]" class="form-control" style="width: 400px" data-placeholder="Select a Case">
-                                                                        <option value="0" selected>Select Option</option>
-                                                                        @foreach ($case as $c)
-                                                                        <option value="{{ $c->id }}">
-                                                                            {{ $c->description }}
-                                                                        </option>
-                                                                        @endforeach
+                                                                    <select name="case_id[]" class="form-control CaseSearch" style="width: 400px" data-placeholder="Select a Case">
                                                                     </select>
                                                                 </div>
 
@@ -1431,7 +1416,47 @@
             }
         }).prop('disabled', true);
 
+        $(".OPTypeSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_operation_type_show',
+                dataType: "json",
+                data: function(params) {
+                    var show = 'spot';
+                    return {
+                        term: params.term, // search term
+                        show: show,
+                    };
+                },
+            }
+        });
 
+        $(".CaseSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_case',
+                dataType: "json",
+            }
+        });
+
+        //Get HIO Type
+        $.ajax({
+            url: '/get_hio_type',
+            success: function(data) {
+                var data = JSON.parse(data);
+
+                data.forEach(element => {
+                    var option1 = " <option value='' selected>Select Option</option>";
+                    $("#hio_type_id").append(option1);
+                    var option = " <option value='" +
+                        element["id"] +
+                        "'>" +
+                        element["name"] +
+                        "</option>";
+                    $("#hio_type_id").append(option);
+                });
+            }
+        });
     });
 
     //Add Support Unit
@@ -1525,13 +1550,21 @@
         html +=
             '<td><select style="width:400px" name="suspect_number_case[]" class="form-control @error("suspect name") is-invalid @enderror suspect_number_case"><option value="" selected>Select Option</option></select></td>';
         html +=
-            '<td><select style="width:400px" name="case_id[]" class="form-control"><option value="0" selected>Select Option</option>@foreach ($case as $c)<option value="{{ $c->id }}">{{ $c->description }}</option>@endforeach </select></td>';
+            '<td><select style="width:400px" name="case_id[]" class="form-control CaseSearch"></select></td>';
         html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#case-row' + case_row +
             '\').remove();"><i class="fa fa-trash"></i> Delete</button></td>';
 
         html += '</tr>';
 
         $('#case tbody').append(html);
+
+        $(".CaseSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_case',
+                dataType: "json",
+            }
+        });
 
         case_row++;
 
@@ -1595,8 +1628,6 @@
             $("#SPadd").css("pointer-events", '');
 
             $('#operation_type_id').empty();
-            html2 = '<option value="" disabled selected>Select Option</option>@foreach($operation_type_spot_report as $opsr)<option value="{{ $opsr->id }}">{{ $opsr->name }}</option>@endforeach';
-            $('#operation_type_id').append(html2);
         } else {
 
             $("#operation_type_id").addClass("disabled_field");

@@ -92,10 +92,6 @@ class SpotReportController extends Controller
 
     public function add()
     {
-        $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
-        $hio_type = DB::table('hio_type')->where('status', true)->orderby('name', 'asc')->get();
-        $operation_type_spot_report = DB::table('operation_type')->where('status', true)->where('show_spot_report', true)->orderby('name', 'asc')->get();
-        $case = DB::table('case_list')->where('status', true)->orderby('description', 'asc')->get();
         $civil_status = DB::table('civil_status')->where('active', true)->orderby('name', 'asc')->get();
         $religion = DB::table('religions')->where('active', true)->orderby('name', 'asc')->get();
         $education = DB::table('Educational_attainment')->where('status', true)->orderby('name', 'asc')->get();
@@ -110,12 +106,11 @@ class SpotReportController extends Controller
         $evidence_type = DB::table('evidence_type')->where('status', true)->orderby('name', 'asc')->get();
         $unit_measurement = DB::table('unit_measurement')->where('status', true)->orderby('name', 'asc')->get();
         $packaging = DB::table('packaging')->where('status', true)->orderby('name', 'asc')->get();
-        $roc_regional_office = DB::table('regional_office')->where('id', Auth::user()->regional_office_id)->get();
         $region = DB::table('region')->where('status', true)->orderby('region_sort', 'asc')->get();
         $identifier = DB::table('identifier')->where('status', true)->orderby('name', 'asc')->get();
 
         if (Auth::user()->user_level_id == 1) {
-            $sregion = DB::table('region')->where('region_c', $roc_regional_office[0]->region_c)->orderby('region_sort', 'asc')->get();
+            $sregion = DB::table('region')->where('region_c', Auth::user()->region_c)->orderby('region_sort', 'asc')->get();
         } else {
             $sregion = DB::table('region')->orderby('region_sort', 'asc')->get();
         }
@@ -126,7 +121,7 @@ class SpotReportController extends Controller
 
         // Auto Spot Number
         $spot_report_number = DB::table('spot_report_header')
-            ->where('region_c', $roc_regional_office[0]->region_c)
+            ->where('region_c', Auth::user()->region_c)
             ->whereDate('reported_date', Carbon::now()->format('Y-m-d'))
             ->count();
         $spot_report_number += 1;
@@ -146,7 +141,6 @@ class SpotReportController extends Controller
             'sregion',
             'suspect_category',
             'suspect_number',
-            'roc_regional_office',
             'date',
             'spot_report_number',
             'unit_measurement',
@@ -158,14 +152,10 @@ class SpotReportController extends Controller
             'ethnic_group',
             'nationality',
             'occupation',
-            'case',
-            'operation_type',
             'region',
             'suspect_status',
             'support_unit',
             'regional_user',
-            'operation_type_spot_report',
-            'hio_type',
             'identifier'
         ));
     }
@@ -614,11 +604,11 @@ class SpotReportController extends Controller
 
     public function edit($id)
     {
+
         $spot_report_header = DB::table('spot_report_header as a')
-            ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
             ->where('a.id', $id)->get();
-        $spot_report_suspect = DB::table('spot_report_suspect as a')
-            ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
+        $suspects = DB::table('spot_report_suspect as a')
+            ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
             ->leftjoin('drug_management as c', 'a.id', '=', 'c.suspect_id')
             ->leftjoin('users as d', 'd.id', '=', 'c.user_id')
             ->leftjoin('tbluserlevel as e', 'd.user_level_id', '=', 'e.id')
@@ -673,9 +663,9 @@ class SpotReportController extends Controller
                 'i.province_m as permanent_province_name',
                 'j.city_m as permanent_city_name',
                 'k.barangay_m as permanent_barangay_name',
-
             )
-            ->where('b.id', $id)->get();
+            ->where('a.spot_report_number', $spot_report_header[0]->spot_report_number)->get();
+        $operating_unit = DB::table('operating_unit')->where('id', $spot_report_header[0]->operating_unit_id)->get();
         $spot_report_evidence = DB::table('spot_report_evidence as a')
             ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
             ->select('a.id', 'a.suspect_number', 'a.spot_report_number', 'a.evidence_id', 'a.quantity', 'a.unit', 'a.packaging_id', 'a.drug', 'a.markings')
@@ -698,11 +688,9 @@ class SpotReportController extends Controller
         $city = DB::table('city')->where('province_c', $spot_report_header[0]->province_c)->orderby('city_m', 'asc')->get();
         $barangay = DB::table('barangay')->where('city_c', $spot_report_header[0]->city_c)->orderby('barangay_m', 'asc')->get();
         $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
-        $preops_header = DB::table('preops_header')->where('status', true)->orderby('id', 'asc')->get();
         $suspect_information = DB::table('spot_report_suspect as a')
-            ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
             ->select('a.suspect_number', 'a.lastname', 'a.firstname', 'a.middlename', 'a.alias')
-            ->where('b.id', $id)
+            ->where('a.spot_report_number', $spot_report_header[0]->spot_report_number)
             ->orderby('lastname', 'asc')->get();
         $case = DB::table('case_list')->where('status', true)->orderby('description', 'asc')->get();
 
@@ -749,7 +737,6 @@ class SpotReportController extends Controller
             'ethnic_group',
             'nationality',
             'occupation',
-            'spot_report_suspect',
             'spot_report_evidence',
             'spot_report_case',
             'spot_report_team',
@@ -760,7 +747,6 @@ class SpotReportController extends Controller
             'city',
             'barangay',
             'operation_type',
-            'preops_header',
             'suspect_information',
             'case',
             'suspect_status',
@@ -768,7 +754,9 @@ class SpotReportController extends Controller
             'regional_user',
             'hio_type',
             'identifier',
-            'suspect_sub_category'
+            'suspect_sub_category',
+            'operating_unit',
+            'suspects'
         ));
     }
 
@@ -859,6 +847,9 @@ class SpotReportController extends Controller
                             $id = 0 + DB::table('spot_report_suspect')->max('id');
                             $id += 1;
 
+                            $sid = 0 + DB::table('suspect_information')->max('id');
+                            $sid += 1;
+
                             $spot_suspect = [
                                 'suspect_number' => $suspect_number,
                                 'spot_report_number' => $request->spot_report_number,
@@ -932,7 +923,7 @@ class SpotReportController extends Controller
                             ];
 
                             DB::table('spot_report_suspect')->updateOrInsert(['id' => $id], $spot_suspect);
-                            DB::table('suspect_information')->updateOrInsert(['suspect_number' => $data['suspect_number'][$i]], $suspect_information);
+                            DB::table('suspect_information')->updateOrInsert(['id' => $sid], $suspect_information);
                         } else if ($data['spot_suspect_id'] > 0) {
                             $id = $data['spot_suspect_id'][$i];
 
@@ -1897,5 +1888,74 @@ class SpotReportController extends Controller
             ->get();
 
         return ['results' => $preops_number];
+    }
+
+    public function fetch_suspect(Request $request)
+    {
+        // dd('test');
+        if ($request->ajax()) {
+            $suspects = DB::table('spot_report_suspect as a')
+                ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
+                ->leftjoin('drug_management as c', 'a.id', '=', 'c.suspect_id')
+                ->leftjoin('users as d', 'd.id', '=', 'c.user_id')
+                ->leftjoin('tbluserlevel as e', 'd.user_level_id', '=', 'e.id')
+                ->leftjoin('province as f', 'a.province_c', '=', 'f.province_c')
+                ->leftjoin('city as g', 'a.city_c', '=', 'g.city_c')
+                ->leftjoin('barangay as h', 'a.barangay_c', '=', 'h.barangay_c')
+                ->leftjoin('province as i', 'a.permanent_province_c', '=', 'i.province_c')
+                ->leftjoin('city as j', 'a.permanent_city_c', '=', 'j.city_c')
+                ->leftjoin('barangay as k', 'a.permanent_barangay_c', '=', 'k.barangay_c')
+                ->select(
+                    'a.id',
+                    'a.suspect_number',
+                    'a.spot_report_number',
+                    'a.lastname',
+                    'a.firstname',
+                    'a.middlename',
+                    'a.alias',
+                    'a.gender',
+                    'a.birthdate',
+                    'a.birthplace',
+                    'a.nationality_id',
+                    'a.civil_status_id',
+                    'a.religion_id',
+                    'a.educational_attainment_id',
+                    'a.ethnic_group_id',
+                    'a.occupation_id',
+                    'a.identifier_id',
+                    'a.region_c',
+                    'a.province_c',
+                    'a.city_c',
+                    'a.barangay_c',
+                    'a.street',
+                    'a.permanent_region_c',
+                    'a.permanent_province_c',
+                    'a.permanent_city_c',
+                    'a.permanent_barangay_c',
+                    'a.permanent_street',
+                    'a.suspect_classification_id',
+                    'a.suspect_status_id',
+                    'a.remarks',
+                    'a.suspect_category_id',
+                    'a.suspect_sub_category_id',
+                    'c.listed',
+                    'c.user_id',
+                    'e.name as ulvl',
+                    'd.name as uname',
+                    'a.est_birthdate',
+                    'a.whereabouts',
+                    'f.province_m as province_name',
+                    'g.city_m as city_name',
+                    'h.barangay_m as barangay_name',
+                    'i.province_m as permanent_province_name',
+                    'j.city_m as permanent_city_name',
+                    'k.barangay_m as permanent_barangay_name',
+
+                )
+                ->where('a.spot_report_number', $request->get('spot_report_number'));
+
+            // dd($suspects);
+            return view('spot_report.spot_report_suspects', compact('suspects'))->render();
+        }
     }
 }

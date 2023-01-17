@@ -1143,7 +1143,7 @@
                     dataType: "json",
                     data: function(params) {
                         return {
-                            q: term, // search term
+                            term: params.term, // search term
                             ro_code: ro_code,
                         };
                     },

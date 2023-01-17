@@ -511,7 +511,7 @@ class GlobalController extends Controller
     {
         $operating_unit = DB::table('operating_unit as a')
             ->leftjoin('regional_office as d', 'a.region_c', '=', 'd.region_c')
-            ->where('a.description', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->where('a.description', 'LIKE', '%' . $request->term . '%')
             ->where('d.ro_code', $request->ro_code)
             ->get(['a.id as id', 'a.description as text']);
 
@@ -543,7 +543,45 @@ class GlobalController extends Controller
     {
         $operation_type = DB::table('operation_type as a')
             ->where('a.name', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->where('d.ro_code', $request->ro_code)
             ->get(['a.id as id', 'a.name as text']);
         return ['results' => $operation_type];
     }
+
+    public function search_operation_type_show(Request $request)
+    {
+        // dd('test');
+        if ($request->show == 'spot') {
+            $operation_type = DB::table('operation_type as a')
+                ->where('a.name', 'LIKE', '%' . $request->term . '%')
+                ->where('a.show_spot_report', true)
+                ->orderby('name', 'asc')
+                ->get(['a.id as id', 'a.name as text']);
+        } elseif ($request->show == 'preops') {
+            $operation_type = DB::table('operation_type as a')
+                ->where('a.name', 'LIKE', '%' . $request->term . '%')
+                ->where('a.show_preops', true)
+                ->orderby('name', 'asc')
+                ->get(['a.id as id', 'a.name as text']);
+        }
+        return ['results' => $operation_type];
+    }
+
+    public function search_case(Request $request)
+    {
+        $case = DB::table('case_list as a')
+            ->where('a.description', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->where('a.status', 1)
+            ->get(['a.id as id', 'a.description as text']);
+        return ['results' => $case];
+    }
+
+    public function get_hio_type(Request $request)
+    {
+        $data = DB::table('hio_type as a')
+            ->where('a.status', 1)
+            ->get();
+        return json_encode($data);
+    }
+    
 }
