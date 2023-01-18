@@ -60,11 +60,11 @@ class DrugManagementController extends Controller
                 'p.description as case',
                 'o.docket_number',
                 'o.case_status',
-                
+
             )
             ->where('b.operation_lvl', 1)
             ->orderby('a.lastname', 'asc')
-            ->get();
+            ->paginate(20);
 
         return view('drug_management.drug_management_list', compact('data1'));
     }

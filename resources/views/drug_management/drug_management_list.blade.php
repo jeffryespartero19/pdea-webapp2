@@ -43,7 +43,7 @@
     <div class="card card-success">
         <div class="card-body">
             <div class="card table-responsive" style="padding: 20px;">
-                <table id="example1" class="table table-bordered table-striped table-hover" style="width: max-content;">
+                <table id="example_info" class="table table-bordered table-striped table-hover" style="width: max-content;">
                     <thead>
                         <tr>
                             <th hidden>Suspect ID</th>
@@ -83,6 +83,11 @@
                             <td style="width: 150px;">{{$dt->case_status}}</td>
                         </tr>
                         @endforeach
+                        <tr>
+                                <td colspan="17" align="center">
+                                    {!! $data1->links() !!}
+                                </td>
+                            </tr>
                     </tbody>
                 </table>
             </div>

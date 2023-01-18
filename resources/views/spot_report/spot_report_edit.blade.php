@@ -411,7 +411,7 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="text-center"><button type="button" class="badge badge-success"  onclick="addSuspect();"><i class="fa fa-plus"></i> ADD NEW</button>
+                                            <div class="text-center"><button type="button" class="badge badge-success" onclick="addSuspect();"><i class="fa fa-plus"></i> ADD NEW</button>
                                             </div>
 
                                         </div>
@@ -920,7 +920,7 @@
         });
     });
 
-   
+
     var items_row = 0;
 
     function addItems() {
@@ -1679,8 +1679,8 @@
 
     //Delete Suspect Row
     $("#suspect").on("click", ".delRow", function() {
-            $(this).closest("tr").remove();
-        });
+        $(this).closest("tr").remove();
+    });
 
 
     function loadSelect2() {

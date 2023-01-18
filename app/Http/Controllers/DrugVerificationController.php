@@ -22,7 +22,7 @@ class DrugVerificationController extends Controller
     public function index()
     {
 
-        $data = DB::table('spot_report_suspect as a')
+        $data1 = DB::table('spot_report_suspect as a')
             ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
             ->leftjoin('drug_management as d', 'a.id', '=', 'd.suspect_id')
             ->leftjoin('region as f', 'b.region_c', '=', 'f.region_c')
@@ -62,54 +62,58 @@ class DrugVerificationController extends Controller
                 'p.name as suspect_sub_category',
             )
             ->where('b.operation_lvl', 1)
+            ->orWhere(function($query) {
+                return $query ->where('b.operation_lvl', 0)
+                ->where('m.hvt', 1);
+                })
             ->orderby('a.lastname', 'asc')
-            ->get();
+            ->paginate(20);
 
-        $data2 = DB::table('spot_report_suspect as a')
-            ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
-            ->leftjoin('drug_management as d', 'a.id', '=', 'd.suspect_id')
-            ->leftjoin('region as f', 'b.region_c', '=', 'f.region_c')
-            ->leftjoin('province as g', 'b.province_c', '=', 'g.province_c')
-            ->leftjoin('city as h', 'b.city_c', '=', 'h.city_c')
-            ->leftjoin('barangay as i', 'b.barangay_c', '=', 'i.barangay_c')
-            ->leftjoin('operating_unit as j', 'b.operating_unit_id', '=', 'j.id')
-            ->leftjoin('operation_type as k', 'b.operation_type_id', '=', 'k.id')
-            ->leftjoin('suspect_classification as l', 'a.suspect_classification_id', '=', 'l.id')
-            ->leftjoin('suspect_category as m', 'a.suspect_category_id', '=', 'm.id')
-            ->leftjoin('suspect_status as n', 'a.suspect_status_id', '=', 'n.id')
-            ->leftjoin('identifier as o', 'a.identifier_id', '=', 'o.id')
-            ->leftjoin('suspect_sub_category as p', 'a.suspect_sub_category_id', '=', 'p.id')
+        // $data2 = DB::table('spot_report_suspect as a')
+        //     ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
+        //     ->leftjoin('drug_management as d', 'a.id', '=', 'd.suspect_id')
+        //     ->leftjoin('region as f', 'b.region_c', '=', 'f.region_c')
+        //     ->leftjoin('province as g', 'b.province_c', '=', 'g.province_c')
+        //     ->leftjoin('city as h', 'b.city_c', '=', 'h.city_c')
+        //     ->leftjoin('barangay as i', 'b.barangay_c', '=', 'i.barangay_c')
+        //     ->leftjoin('operating_unit as j', 'b.operating_unit_id', '=', 'j.id')
+        //     ->leftjoin('operation_type as k', 'b.operation_type_id', '=', 'k.id')
+        //     ->leftjoin('suspect_classification as l', 'a.suspect_classification_id', '=', 'l.id')
+        //     ->leftjoin('suspect_category as m', 'a.suspect_category_id', '=', 'm.id')
+        //     ->leftjoin('suspect_status as n', 'a.suspect_status_id', '=', 'n.id')
+        //     ->leftjoin('identifier as o', 'a.identifier_id', '=', 'o.id')
+        //     ->leftjoin('suspect_sub_category as p', 'a.suspect_sub_category_id', '=', 'p.id')
 
-            ->select(
-                'a.id',
-                'b.preops_number',
-                'b.spot_report_number',
-                'b.operation_datetime',
-                'f.region_m',
-                'g.province_m',
-                'h.city_m',
-                'i.barangay_m',
-                'a.lastname',
-                'a.firstname',
-                'a.middlename',
-                'd.ndis_id',
-                'd.listed',
-                'd.remarks',
-                'j.name as operating_unit',
-                'k.name as operation_type',
-                'l.name as suspect_classification',
-                'm.name as suspect_category',
-                'n.name as status',
-                'b.street',
-                'o.name as identifier',
-                'p.name as suspect_sub_category',
-            )
-            ->where('b.operation_lvl', 0)
-            ->where('m.hvt', 1)
-            ->orderby('a.lastname', 'asc')
-            ->get();
+        //     ->select(
+        //         'a.id',
+        //         'b.preops_number',
+        //         'b.spot_report_number',
+        //         'b.operation_datetime',
+        //         'f.region_m',
+        //         'g.province_m',
+        //         'h.city_m',
+        //         'i.barangay_m',
+        //         'a.lastname',
+        //         'a.firstname',
+        //         'a.middlename',
+        //         'd.ndis_id',
+        //         'd.listed',
+        //         'd.remarks',
+        //         'j.name as operating_unit',
+        //         'k.name as operation_type',
+        //         'l.name as suspect_classification',
+        //         'm.name as suspect_category',
+        //         'n.name as status',
+        //         'b.street',
+        //         'o.name as identifier',
+        //         'p.name as suspect_sub_category',
+        //     )
+        //     ->where('b.operation_lvl', 0)
+        //     ->where('m.hvt', 1)
+        //     ->orderby('a.lastname', 'asc')
+        //     ->get();
 
-        $data1 = $data->merge($data2);
+        // $data1 = $data->merge($data2)->paginate(20);
         $suspect_classification = DB::table('suspect_classification')->where('status', true)->orderby('name', 'asc')->get();
         $suspect_category = DB::table('suspect_category')->where('status', true)->orderby('name', 'asc')->get();
         $suspect_sub_category = DB::table('suspect_sub_category')->where('status', true)->orderby('name', 'asc')->get();
