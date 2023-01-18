@@ -187,15 +187,16 @@ class GlobalController extends Controller
 
     public function get_spot_report_header($spot_report_number)
     {
+
         $data = DB::table('spot_report_header as a')
-            ->join('region as b', 'a.region_c', '=', 'b.region_c')
-            ->join('operating_unit as c', 'a.operating_unit_id', '=', 'c.id')
-            ->join('operation_type as d', 'a.operation_type_id', '=', 'd.id')
-            ->join('province as e', 'a.province_c', '=', 'e.province_c')
-            ->join('city as f', 'a.city_c', '=', 'f.city_c')
-            ->join('barangay as g', 'a.barangay_c', '=', 'g.barangay_c')
+            ->leftjoin('region as b', 'a.region_c', '=', 'b.region_c')
+            ->leftjoin('operating_unit as c', 'a.operating_unit_id', '=', 'c.id')
+            ->leftjoin('operation_type as d', 'a.operation_type_id', '=', 'd.id')
+            ->leftjoin('province as e', 'a.province_c', '=', 'e.province_c')
+            ->leftjoin('city as f', 'a.city_c', '=', 'f.city_c')
+            ->leftjoin('barangay as g', 'a.barangay_c', '=', 'g.barangay_c')
             ->select('a.id', 'a.spot_report_number', 'd.name as operation_type_name', 'a.operation_type_id', 'a.operating_unit_id', 'c.name as operating_unit_name', 'a.region_c', 'b.region_m', 'a.operation_datetime', 'a.province_c', 'e.province_m', 'a.city_c', 'f.city_m', 'a.barangay_c', 'g.barangay_m',)
-            ->where(['spot_report_number' => $spot_report_number])
+            ->where(['a.id' => $spot_report_number])
             ->get();
 
         return json_encode($data);

@@ -29,10 +29,10 @@ class ProgressReportController extends Controller
             $data = DB::table('spot_report_header as a')
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status')
+                ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status')
                 ->where('a.report_status', 1)
                 ->orderby('spot_report_number', 'asc')
-                ->get();
+                ->paginate(20);
 
             $region = DB::table('region')->orderby('region_sort', 'asc')->get();
         } else {
@@ -40,11 +40,11 @@ class ProgressReportController extends Controller
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
                 ->join('regional_office as d', 'a.region_c', '=', 'd.region_c')
-                ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status')
+                ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status')
                 ->where('a.report_status', 1)
                 ->where('d.id', Auth::user()->regional_office_id)
                 ->orderby('spot_report_number', 'asc')
-                ->get();
+                ->paginate(20);
 
             $region = DB::table('region as a')
                 ->join('regional_office as d', 'a.region_c', '=', 'd.region_c')
@@ -58,6 +58,42 @@ class ProgressReportController extends Controller
 
 
         return view('progress_report.progress_report_list', compact('region', 'operating_unit', 'operation_type', 'data'));
+    }
+
+    public function fetch_data(Request $request)
+    {
+
+        if ($request->ajax()) {
+
+            // dd($request->get('operating_unit_id'));
+            $data = DB::table('spot_report_header as a')
+                ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+                ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+                ->select('a.id', 'a.spot_report_number', 'a.operating_unit_id', 'operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.region_c', 'a.status', 'a.created_at', 'a.preops_number')
+                ->where('a.report_status', 1);
+
+            if ($request->get('region_c') != 0) {
+                $data->where(['a.region_c' => $request->get('region_c')]);
+            }
+            if ($request->get('operating_unit_id') != 0) {
+                $data->where(['a.operating_unit_id' => $request->get('operating_unit_id')]);
+            }
+            if ($request->get('operation_type_id') != 0) {
+                $data->where(['a.operation_type_id' => $request->get('operation_type_id')]);
+            }
+            if ($request->get('operation_date') != 0) {
+                $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '>=', $request->get('operation_date'));
+            }
+            if ($request->get('operation_date_to') != 0) {
+                $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '<=', $request->get('operation_date_to'));
+            }
+
+            $data = $data->paginate(20);
+
+            // dd($data);
+
+            return view('progress_report.progress_report_data', compact('data'))->render();
+        }
     }
 
     public function add()
@@ -149,14 +185,21 @@ class ProgressReportController extends Controller
             'prelim_is_number' => $request->prelim_is_number,
         );
 
-        DB::table('spot_report_header')->where('spot_report_number', $request->spot_report_number)->update($pos_data);
+        DB::table('spot_report_header')->where('id', $request->spot_report_number)->update($pos_data);
 
-        $pr_id =  DB::table('spot_report_header')->where('spot_report_number', $request->spot_report_number)->select('id')->get();
+        $pr_id =  DB::table('spot_report_header')->where('id', $request->spot_report_number)->select('id')->get();
+        $preops_number =  DB::table('spot_report_header')->where('id', $request->spot_report_number)->select('preops_number')->get();
 
-        DB::table('preops_header as a')
-            ->leftjoin('spot_report_header as b', 'a.preops_number', '=', 'b.preops_number')
-            ->where('b.id', $pr_id)
-            ->update(['a.with_pr' => 1]);
+        // dd($preops_number[0]->preops_number);
+
+        if ($preops_number[0]->preops_number != null && $preops_number[0]->preops_number != 1) {
+            $form_data2 = array(
+                'with_pr' => true,
+            );
+
+            DB::table('preops_header')->where('preops_number', $preops_number[0]->preops_number)->update($form_data2);
+        }
+
 
 
         if ($request->file('fileattach')) {

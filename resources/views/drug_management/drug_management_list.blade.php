@@ -84,10 +84,10 @@
                         </tr>
                         @endforeach
                         <tr>
-                                <td colspan="17" align="center">
-                                    {!! $data1->links() !!}
-                                </td>
-                            </tr>
+                            <td colspan="17" align="center">
+                                {!! $data1->links() !!}
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

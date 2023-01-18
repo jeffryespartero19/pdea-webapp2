@@ -27,7 +27,7 @@
             <h3 class="card-title">Filter</h3>
         </div>
         <div class="card-body row">
-            <div class="form-group col-3" style="margin: 0px;">
+            <div class="form-group col-4" style="margin: 0px;">
                 <div>
                     <label for="">Region</label>
                 </div>
@@ -40,38 +40,38 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group col-3" style="margin: 0px;">
+            <div class="form-group col-4" style="margin: 0px;">
                 <div>
                     <label for="">Operating Unit</label>
                 </div>
                 <div class="input-group mb-3">
-                    <select id="operating_unit_id" name="operating_unit_id" class="form-control @error('region') is-invalid @enderror">
-                        <option value='' disabled selected>Select Option</option>
-                        @foreach($operating_unit as $ou)
-                        <option value="{{ $ou->id }}">{{ $ou->description }}</option>
-                        @endforeach
+                    <select id="operating_unit_id" name="operating_unit_id" class="form-control OPUnitSearch">
                     </select>
                 </div>
             </div>
-            <div class="form-group col-3" style="margin: 0px;">
+            <div class="form-group col-4" style="margin: 0px;">
                 <div>
                     <label for="">Type of OPN</label>
                 </div>
                 <div class="input-group mb-3">
-                    <select id="operation_type_id" name="operation_type_id" class="form-control @error('region') is-invalid @enderror">
-                        <option value='' disabled selected>Select Option</option>
-                        @foreach($operation_type as $ot)
-                        <option value="{{ $ot->id }}">{{ $ot->name }}</option>
-                        @endforeach
+                    <select id="operation_type_id" name="operation_type_id" class="form-control OPTypeSearch">
                     </select>
                 </div>
             </div>
-            <div class="form-group col-3" style="margin: 0px;">
+            <div class="form-group col-4" style="margin: 0px;">
                 <div>
                     <label for="">Operation Date</label>
                 </div>
                 <div class="input-group mb-3">
                     <input id="operation_date" name="operation_date" type="date" class="form-control @error('operation') is-invalid @enderror" value="{{ old('operation_date') }}" autocomplete="off">
+                </div>
+            </div>
+            <div class="form-group col-4" style="margin: 0px;">
+                <div>
+                    <label for="">Operation Date To</label>
+                </div>
+                <div class="input-group mb-3">
+                    <input id="operation_date_to" name="operation_date_to" type="date" class="form-control @error('operation') is-invalid @enderror" value="{{ old('operation_date_to') }}" autocomplete="off">
                 </div>
             </div>
             <div class="mr-2" style="width: 100%;">
@@ -97,23 +97,11 @@
                     </tr>
                 </thead>
                 <tbody id="spot_report_list">
-                    @foreach($data as $spot_report)
-                    <tr>
-                        <td>{{ $spot_report->spot_report_number }}</td>
-                        <td>{{ $spot_report->operating_unit }}</td>
-                        <td>{{ $spot_report->operation_type }}</td>
-                        <td>{{ $spot_report->operation_datetime }}</td>
-                        <td>{{ $spot_report->status == 1 ? 'Yes' : 'No' }}</td>
-                        <td>
-                            <center>
-                                <a href="{{ url('progress_report_edit/'.$spot_report->id) }}" class="btn btn-info">Edit</a>
-                            </center>
-                        </td>
-                    </tr>
-                    @endforeach
+                    @include('progress_report.progress_report_data')
                 </tbody>
 
             </table>
+            <input type="hidden" name="hidden_page" id="hidden_page" value="1">
         </div>
         <!-- /.card-body -->
 
@@ -132,89 +120,114 @@
 @section('scripts')
 
 <script>
-    $('#region_c').change(function() {
-        PreopsFilter();
-    });
-    $('#operating_unit_id').change(function() {
-        PreopsFilter();
-    });
-    $('#operation_type_id').change(function() {
-        PreopsFilter();
-    });
+    $(document).ready(function() {
+        $('#region_c').change(function() {
+            $('#hidden_page').val(1);
+            ProgressReportFilter();
+        });
+        $('#operating_unit_id').change(function() {
+            $('#hidden_page').val(1);
+            ProgressReportFilter();
+        });
+        $('#operation_type_id').change(function() {
+            $('#hidden_page').val(1);
+            ProgressReportFilter();
+        });
 
-    $('#operation_date').change(function() {
-        PreopsFilter();
-    });
+        $('#operation_date').change(function() {
+            $('#hidden_page').val(1);
+            ProgressReportFilter();
+        });
 
-    function PreopsFilter() {
-        var region_c = $('#region_c').val();
-        var operating_unit_id = $('#operating_unit_id').val();
-        var operation_type_id = $('#operation_type_id').val();
-        var operation_date = $('#operation_date').val();
+        $('#operation_date_to').change(function() {
+            $('#hidden_page').val(1);
+            ProgressReportFilter();
+        });
 
+        $(document).on('click', ".pagination a", function(event) {
+            event.preventDefault();
 
+            var page = $(this).attr('href').split('page=')[1];
+            $('#hidden_page').val(page);
+            var region_c = $('#region_c').val();
+            var operating_unit_id = $('#operating_unit_id').val();
+            var operation_type_id = $('#operation_type_id').val();
+            var operation_date = $('#operation_date').val();
+            var operation_date_to = $('#operation_date_to').val();
 
-        if (region_c == '' || region_c == null) {
-            region_c = 0;
-        }
-        if (operation_date == '' || operation_date == null) {
-            operation_date = 0;
-        }
-        if (operating_unit_id == '' || operating_unit_id == null) {
-            operating_unit_id = 0;
-        }
-        if (operation_type_id == '' || operation_type_id == null) {
-            operation_type_id = 0;
-        }
+            if (region_c == '' || region_c == null) {
+                region_c = 0;
+            }
+            if (operation_date == '' || operation_date == null) {
+                operation_date = 0;
+            }
+            if (operation_date_to == '' || operation_date_to == null) {
+                operation_date_to = 0;
+            }
+            if (operating_unit_id == '' || operating_unit_id == null) {
+                operating_unit_id = 0;
+            }
+            if (operation_type_id == '' || operation_type_id == null) {
+                operation_type_id = 0;
+            }
+            ProgressReportFilter();
+        });
 
+        function ProgressReportFilter() {
+            var page = $('#hidden_page').val();
+            var region_c = $('#region_c').val();
+            var operating_unit_id = $('#operating_unit_id').val();
+            var operation_type_id = $('#operation_type_id').val();
+            var operation_date = $('#operation_date').val();
+            var operation_date_to = $('#operation_date_to').val();
 
-        $.ajax({
-            type: "GET",
-            url: "/get_progress_report_list/" + region_c +
-                "/" + operating_unit_id +
-                "/" + operation_type_id +
-                "/" + operation_date,
-            fail: function() {
-                alert("request failed");
-            },
-            success: function(data) {
-                var data = JSON.parse(data);
+            if (region_c == '' || region_c == null) {
+                region_c = 0;
+            }
+            if (operation_date == '' || operation_date == null) {
+                operation_date = 0;
+            }
+            if (operation_date_to == '' || operation_date_to == null) {
+                operation_date_to = 0;
+            }
+            if (operating_unit_id == '' || operating_unit_id == null) {
+                operating_unit_id = 0;
+            }
+            if (operation_type_id == '' || operation_type_id == null) {
+                operation_type_id = 0;
+            }
 
-                $("#spot_report_list").empty();
+            var table = $('#example2').DataTable();
 
-
-                if (data.length > 0) {
-                    data.forEach(element => {
-
-                        if (element["status"] == 1) {
-                            status = 'Yes';
-                        } else {
-                            status = 'No';
-                        }
-
-                        var details =
-                            '<tr>' +
-                            '<td>' + element["spot_report_number"] + '</td>' +
-                            '<td>' + element["operating_unit_name"] + '</td>' +
-                            '<td>' + element["operation_type_name"] + '</td>' +
-                            '<td>' + element["operation_datetime"] + '</td>' +
-                            '<td>' + status + '</td>' +
-                            '<td>' +
-                            '<center>' +
-                            '<a href="/after_operation_report_edit/' + element["id"] + '" class="btn btn-info">Edit</a>' +
-                            '</center>' +
-                            '</td>' +
-                            '</tr>';
-
-                        $("#spot_report_list").append(details);
-
-                    });
+            $.ajax({
+                url: "/progress_report_list/fetch_data?page=" + page + "&region_c=" + region_c + "&operating_unit_id=" + operating_unit_id + "&operation_type_id=" + operation_type_id + "&operation_date=" + operation_date + "&operation_date_to=" + operation_date_to,
+                success: function(data) {
+                    // alert('test')
+                    $('tbody').html('');
+                    $('tbody').html(data);
                 }
+            });
 
+        }
+
+        //Select2 Lazy Loading Spot
+        $(".OPUnitSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_operating_unit',
+                dataType: "json",
             }
         });
 
-    }
+        $(".OPTypeSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_operation_type',
+                dataType: "json",
+            }
+        });
+
+    });
 </script>
 
 <script>

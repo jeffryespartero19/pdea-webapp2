@@ -338,6 +338,7 @@ Route::get('/get_suspect_number_count/{count}', 'SpotReportController@get_suspec
 
 // Progress Report Setup
 Route::get('progress_report_list', 'ProgressReportController@index')->name('progress_report_list');
+Route::get('/progress_report_list/fetch_data', 'ProgressReportController@fetch_data');
 Route::get('progress_report_add', 'ProgressReportController@add')->name('progress_report_add');
 Route::get('progress_report_edit/{id}', 'ProgressReportController@edit')->name('progress_report_edit');
 Route::post('progress_report_add', 'ProgressReportController@store');

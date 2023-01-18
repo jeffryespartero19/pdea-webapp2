@@ -32,7 +32,7 @@ class SpotReportController extends Controller
                 ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status', 'a.created_at', 'a.preops_number')
                 ->where('a.report_status', 0)
                 ->orderby('spot_report_number', 'asc')
-                ->paginate(10);
+                ->paginate(20);
 
             $regional_office = DB::table('regional_office')->orderby('print_order', 'asc')->get();
         } else {
@@ -44,7 +44,7 @@ class SpotReportController extends Controller
                 ->where('a.report_status', 0)
                 ->where('d.id', Auth::user()->regional_office_id)
                 ->orderby('spot_report_number', 'asc')
-                ->paginate(10);
+                ->paginate(20);
 
             $regional_office = DB::table('regional_office')
                 ->where('id', Auth::user()->regional_office_id)
