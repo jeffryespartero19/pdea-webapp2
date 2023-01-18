@@ -273,6 +273,18 @@ Route::group(['middleware' => ['auth', 'cp_acess']], function () {
     Route::get('/search_operation_type_show', 'GlobalController@search_operation_type_show')->name('search_operation_type_show');
     Route::get('/search_case', 'GlobalController@search_case')->name('search_case');
     Route::get('/get_hio_type', 'GlobalController@get_hio_type')->name('get_hio_type');
+    //Search Maintenance Data
+    Route::get('/search_nationality', 'GlobalController@search_nationality')->name('search_nationality');
+    Route::get('/search_civil_status', 'GlobalController@search_civil_status')->name('search_civil_status');
+    Route::get('/search_ethnic_group', 'GlobalController@search_ethnic_group')->name('search_ethnic_group');
+    Route::get('/search_religion', 'GlobalController@search_religion')->name('search_religion');
+    Route::get('/search_education', 'GlobalController@search_education')->name('search_education');
+    Route::get('/search_occupation', 'GlobalController@search_occupation')->name('search_occupation');
+    Route::get('/search_identifier', 'GlobalController@search_identifier')->name('search_identifier');
+    Route::get('/search_suspect_classification', 'GlobalController@search_suspect_classification')->name('search_suspect_classification');
+    Route::get('/search_suspect_category', 'GlobalController@search_suspect_category')->name('search_suspect_category');
+    Route::get('/search_suspect_sub_category', 'GlobalController@search_suspect_sub_category')->name('search_suspect_sub_category');
+    
 
     //SPOT REPORT GET SUSPECT LIST
     Route::get('/spot_report/fetch_suspect', 'SpotReportController@fetch_suspect');

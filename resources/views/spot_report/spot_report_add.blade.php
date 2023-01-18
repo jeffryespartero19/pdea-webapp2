@@ -382,114 +382,58 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="civil_status_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>Select Option
-                                                                    </option>
-                                                                    @foreach ($civil_status as $cs)
-                                                                    <option value="{{ $cs->id }}">
-                                                                        {{ $cs->name }}
-                                                                    </option>
-                                                                    @endforeach
+                                                                <select name="civil_status_id[]" class="form-control CivilStatusSearch" style="width: 200px;">
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="nationality_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>Select Option
-                                                                    </option>
-                                                                    @foreach ($nationality as $na)
-                                                                    <option value="{{ $na->id }}">
-                                                                        {{ $na->name }}
-                                                                    </option>
-                                                                    @endforeach
+                                                                <select name="nationality_id[]" class="form-control NationalitySearch" style="width: 200px;">
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="ethnic_group_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>Select Option
-                                                                    </option>
-                                                                    @foreach ($ethnic_group as $eg)
-                                                                    <option value="{{ $eg->id }}">
-                                                                        {{ $eg->name }}
-                                                                    </option>
-                                                                    @endforeach
+                                                                <select name="ethnic_group_id[]" class="form-control EthnicGroupSearch" style="width: 200px;">
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="religion_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>Select Option
-                                                                    </option>
-                                                                    @foreach ($religion as $rl)
-                                                                    <option value="{{ $rl->id }}">
-                                                                        {{ $rl->name }}
-                                                                    </option>
-                                                                    @endforeach
+                                                                <select name="religion_id[]" class="form-control ReligionSearch" style="width: 200px;">
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="educational_attainment_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>Select Option
-                                                                    </option>
-                                                                    @foreach ($education as $ed)
-                                                                    <option value="{{ $ed->id }}">
-                                                                        {{ $ed->name }}
-                                                                    </option>
-                                                                    @endforeach
+                                                                <select name="educational_attainment_id[]" class="form-control EducationSearch" style="width: 200px;">
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="occupation_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>Select Option
-                                                                    </option>
-                                                                    @foreach ($occupation as $occ)
-                                                                    <option value="{{ $occ->id }}">
-                                                                        {{ $occ->name }}
-                                                                    </option>
-                                                                    @endforeach
+                                                                <select name="occupation_id[]" class="form-control OccupationSearch" style="width: 200px;">
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="identifier_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>Select Option
-                                                                    </option>
-                                                                    @foreach ($identifier as $identifiers)
-                                                                    <option value="{{ $identifiers->id }}">
-                                                                        {{ $identifiers->name }}
-                                                                    </option>
-                                                                    @endforeach
+                                                                <select name="identifier_id[]" class="form-control IdentifierSearch" style="width: 200px;">
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="suspect_classification_id[]" class="form-control suspect_classification_id" style="width: 200px;">
-                                                                    <option value='' selected>Select Option
-                                                                    </option>
-                                                                    @foreach ($suspect_classification as $sclass)
-                                                                    <option value="{{ $sclass->id }}">
-                                                                        {{ $sclass->name }}
-                                                                    </option>
-                                                                    @endforeach
+                                                                <select name="suspect_classification_id[]" class="form-control suspect_classification_id SuspectClassificationSearch" style="width: 200px;">
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="suspect_category_id[]" class="form-control suspect_category_id" style="width: 200px;">
+                                                                <select name="suspect_category_id[]" class="form-control suspect_category_id SuspectCategorySearch" style="width: 200px;">
                                                                     <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="suspect_sub_category_id[]" class="form-control" style="width: 200px;">
+                                                                <select name="suspect_sub_category_id[]" class="form-control SuspectSubCategorySearch" style="width: 200px;">
                                                                     <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td><input type="text" name="whereabouts[]" style="width: 200px;" class="form-control"></td>
                                                             <td><input type="text" name="remarks[]" style="width: 200px;" class="form-control"></td>
-                                                            <td class="mt-10"><button class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button>
+                                                            <td class="mt-10"><button class="badge badge-danger delRow"><i class="fa fa-trash"></i> Delete</button>
                                                             </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="text-center"><button type="button" class="badge badge-success addSuspect"><i class="fa fa-plus"></i> ADD NEW</button>
+                                            <div class="text-center"><button type="button" class="badge badge-success" onclick="addSuspect();"><i class="fa fa-plus"></i> ADD NEW</button>
                                             </div>
 
                                         </div>
@@ -729,6 +673,7 @@
     </div>
     <!-- /.card -->
 
+
 </section>
 <!-- /.content -->
 
@@ -864,82 +809,9 @@
             });
         });
 
-        //Add rows for Suspect List
-        var suspect_row = 0;
-
-        $(document).on("click", ".addSuspect", function() {
-            html = '<tr class="suspect_details" id="suspect_row' + suspect_row + '">';
-            html +=
-                '<td><input type="text" required name="suspect_number[]" style="width: 200px;" class="form-control disabled_field" value="Auto Generated"></td>';
-            html +=
-                '<td><select required name="suspect_status_id[]" class="form-control suspect_status_id" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($suspect_status as $sstat)<option value="{{ $sstat->id }}">{{ $sstat->name }}</option>@endforeach</select></td>';
-            html +=
-                '<td><input type="text" required name="lastname[]" style="width: 200px;" class="form-control"></td>';
-            html +=
-                '<td><input type="text" required name="firstname[]" style="width: 200px;" class="form-control"></td>';
-            html +=
-                '<td><input type="text" required name="middlename[]" style="width: 200px;" class="form-control"></td>';
-            html +=
-                '<td><input type="text" required name="alias[]" style="width: 200px;" class="form-control"></td>';
-            html +=
-                '<td><input type="date" required name="birthdate[]" style="width: 200px;" class="form-control"></td>';
-            html +=
-                '<td><select name="est_birthdate[]" class="form-control" style="width: 200px;"><option value="0">No</option><option value="1">Yes</option></select></td>';
-            html +=
-                '<td><input type="text" name="birthplace[]" style="width: 200px;" class="form-control"></td>';
-            html +=
-                '<td><select name="present_region_c[]" class="form-control present_region_c" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($region as $rg)<option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} - {{ $rg->region_m }}</option>@endforeach</select></td>';
-            html +=
-                '<td><select name="present_province_c[]" class="form-control present_province_c" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
-            html +=
-                '<td><select name="present_city_c[]" class="form-control present_city_c" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
-            html +=
-                '<td><select name="present_barangay_c[]" class="form-control present_barangay_c" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
-            html +=
-                '<td><input type="text" name="present_street[]" style="width: 200px;" class="form-control"></td>';
-            html +=
-                '<td><select name="permanent_region_c[]" class="form-control permanent_region_c" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($region as $rg)<option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} - {{ $rg->region_m }}</option>@endforeach</select></td>';
-            html +=
-                '<td><select name="permanent_province_c[]" class="form-control permanent_province_c" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
-            html +=
-                '<td><select name="permanent_city_c[]" class="form-control permanent_city_c" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
-            html +=
-                '<td><select name="permanent_barangay_c[]" class="form-control permanent_barangay_c" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
-            html +=
-                '<td><input type="text" name="permanent_street[]" style="width: 200px;" class="form-control"></td>';
-            html +=
-                '<td><select name="gender[]" class="form-control" style="width: 200px;"><option value="male">Male</option><option value="female">Female</option></select></td>';
-            html +=
-                '<td><select name="civil_status_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($civil_status as $cs)<option value="{{ $cs->id }}">{{ $cs->name }}</option>@endforeach</select></td>';
-            html +=
-                '<td><select name="nationality_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($nationality as $na)<option value="{{ $na->id }}">{{ $na->name }}</option>@endforeach</select></td>';
-            html +=
-                '<td><select name="ethnic_group_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($ethnic_group as $eg)<option value="{{ $eg->id }}">{{ $eg->name }}</option>@endforeach</select></td>';
-            html +=
-                '<td><select name="religion_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($religion as $rl)<option value="{{ $rl->id }}">{{ $rl->name }}</option>@endforeach</select></td>';
-            html +=
-                '<td><select name="educational_attainment_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($education as $ed)<option value="{{ $ed->id }}">{{ $ed->name }}</option>@endforeach</select></td>';
-            html +=
-                '<td><select name="occupation_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($occupation as $occ)<option value="{{ $occ->id }}">{{ $occ->name }}</option>@endforeach</select></td>';
-            html +=
-                '<td><select name="identifier_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($identifier as $identifiers)<option value="{{ $identifiers->id }}">{{ $identifiers->name }}</option>@endforeach</select></td>';
-            html +=
-                '<td><select name="suspect_classification_id[]" class="form-control suspect_classification_id" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($suspect_classification as $sclass)<option value="{{ $sclass->id }}">{{ $sclass->name }}</option>@endforeach</select></td>';
-            html +=
-                '<td><select name="suspect_category_id[]" class="form-control suspect_category_id" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
-            html +=
-                '<td><select name="suspect_sub_category_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
-            html +=
-                '<td><input type="text" name="whereabouts[]" style="width: 200px;" class="form-control"></td>';
-            html +=
-                '<td><input type="text" name="remarks[]" style="width: 200px;" class="form-control"></td>';
-            html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#suspect_row' +
-                suspect_row + '\').remove();"><i class="fa fa-trash"></i> Delete</button></td>';
-            html += '</tr>';
-
-            $('#suspect tbody').append(html);
-
-            suspect_row++;
+        //Delete Suspect Row
+        $("#suspect").on("click", ".delRow", function() {
+            $(this).closest("tr").remove();
         });
 
         //Populate Present Province
@@ -1457,6 +1329,8 @@
                 });
             }
         });
+
+        loadSelect2();
     });
 
     //Add Support Unit
@@ -1492,6 +1366,101 @@
                 }
             });
         }
+    }
+
+    //Add Support Unit
+    function addSuspect() {
+        var row = $(".suspect_details:last");
+        row.find(".select2").each(function(index) {
+            $("select.select2-hidden-accessible").select2('destroy');
+        });
+
+        var newrow = row.clone();
+        $("#suspect_informations").append(newrow);
+
+        loadSelect2();
+    }
+
+    function loadSelect2() {
+        $(".NationalitySearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_nationality',
+                dataType: "json",
+            }
+        });
+
+        $(".CivilStatusSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_civil_status',
+                dataType: "json",
+            }
+        });
+
+        $(".EthnicGroupSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_ethnic_group',
+                dataType: "json",
+            }
+        });
+
+        $(".ReligionSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_religion',
+                dataType: "json",
+            }
+        });
+
+        $(".EducationSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_education',
+                dataType: "json",
+            }
+        });
+
+        $(".OccupationSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_occupation',
+                dataType: "json",
+            }
+        });
+
+        $(".IdentifierSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_identifier',
+                dataType: "json",
+            }
+        });
+
+        $(".SuspectClassificationSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_suspect_classification',
+                dataType: "json",
+            }
+        });
+
+        $(".SuspectCategorySearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_suspect_category',
+                dataType: "json",
+            }
+        });
+
+        $(".SuspectSubCategorySearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_suspect_sub_category',
+                dataType: "json",
+            }
+        });
     }
 
 

@@ -591,5 +591,84 @@ class GlobalController extends Controller
             ->get();
         return json_encode($data);
     }
-    
+
+    public function search_nationality(Request $request)
+    {
+        $nationality = DB::table('nationality as a')
+            ->where('a.name', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->get(['a.id as id', 'a.name as text']);
+        return ['results' => $nationality];
+    }
+
+    public function search_civil_status(Request $request)
+    {
+        $civil_status = DB::table('civil_status as a')
+            ->where('a.name', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->get(['a.id as id', 'a.name as text']);
+        return ['results' => $civil_status];
+    }
+
+    public function search_ethnic_group(Request $request)
+    {
+        $civil_status = DB::table('ethnic_group as a')
+            ->where('a.name', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->get(['a.id as id', 'a.name as text']);
+        return ['results' => $civil_status];
+    }
+
+    public function search_religion(Request $request)
+    {
+        $religion = DB::table('religions as a')
+            ->where('a.name', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->get(['a.id as id', 'a.name as text']);
+        return ['results' => $religion];
+    }
+
+    public function search_education(Request $request)
+    {
+        $educational_attainment = DB::table('educational_attainment as a')
+            ->where('a.name', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->get(['a.id as id', 'a.name as text']);
+        return ['results' => $educational_attainment];
+    }
+
+    public function search_occupation(Request $request)
+    {
+        $occupation = DB::table('occupation as a')
+            ->where('a.name', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->get(['a.id as id', 'a.name as text']);
+        return ['results' => $occupation];
+    }
+
+    public function search_identifier(Request $request)
+    {
+        $identifier = DB::table('identifier as a')
+            ->where('a.name', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->get(['a.id as id', 'a.name as text']);
+        return ['results' => $identifier];
+    }
+
+    public function search_suspect_classification(Request $request)
+    {
+        $data = DB::table('suspect_classification as a')
+            ->where('a.description', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->get(['a.id as id', 'a.description as text']);
+        return ['results' => $data];
+    }
+
+    public function search_suspect_category(Request $request)
+    {
+        $data = DB::table('suspect_category as a')
+            ->where('a.name', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->get(['a.id as id', 'a.name as text']);
+        return ['results' => $data];
+    }
+
+    public function search_suspect_sub_category(Request $request)
+    {
+        $data = DB::table('suspect_sub_category as a')
+            ->where('a.name', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->get(['a.id as id', 'a.name as text']);
+        return ['results' => $data];
+    }
 }
