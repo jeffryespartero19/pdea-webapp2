@@ -56,7 +56,7 @@
                         </div>
                         <div class="input-group mb-3">
                             <select id="preops_number" name="preops_number" class="form-control" style="pointer-events: none; background-color : #e9ecef;">
-                                @if($spot_report_header[0]->preops_number == 1)
+                                @if($spot_report_header[0]->preops_number == 1 || $spot_report_header[0]->preops_number == null)
                                 <option value='1' {{ 1 == $spot_report_header[0]->preops_number ? 'selected' : '' }}>Uncoordinated</option>
                                 @else
                                 <option value="{{ $spot_report_header[0]->preops_number }}" selected>
@@ -260,12 +260,12 @@
                     <div id="sp_list" class="form-group col-4 " style="margin: 0px;">
                         <div>
                             <label for="">Supporting Unit</label>
-                            <a onclick="addrow();" href="#" style="float: right;"><i class="fas fa-plus pr-2"></i></a>
+                            <a type="button" onclick="addrow();" style="float: right;"><i class="fas fa-plus pr-2"></i></a>
                         </div>
                         <div class="SUdetails">
 
                             @forelse($preops_support_unit as $psu)
-                            <div class="input-group mb-3">
+                            <div class="input-group mb-3 su_options">
                                 <select name="support_unit_id[]" class="form-control SUPPUnitSearch support_unit_id" required @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                     @else
                                     disabled
@@ -277,7 +277,7 @@
                                 </select>
                             </div>
                             @empty
-                            <div class="input-group mb-3">
+                            <div class="input-group mb-3 su_options">
                                 <select name="support_unit_id[]" class="form-control SUPPUnitSearch support_unit_id" required @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                     @else
                                     disabled
@@ -411,7 +411,7 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="text-center"><button type="button" class="badge badge-success addSuspect"><i class="fa fa-plus"></i> ADD NEW</button>
+                                            <div class="text-center"><button type="button" class="badge badge-success"  onclick="addSuspect();"><i class="fa fa-plus"></i> ADD NEW</button>
                                             </div>
 
                                         </div>
@@ -920,94 +920,7 @@
         });
     });
 
-    var suspect_row = 0;
-
-    $(document).ready(function() {
-        $(document).on("click", ".addSuspect", function() {
-            html = '<tr class="suspect_details" id="suspect_row' + suspect_row + '">';
-            html +=
-                '<td hidden><input type="number" name="spot_suspect_id[]" class="form-control" value="0"></td>';
-            html +=
-                '<td><input required type="text" name="suspect_number[]" style="width: 200px;" class="form-control disabled_field" value="1" hidden><div type="text" style="width: 200px;" class="form-control disabled_field">Auto Generated</div></td>';
-            html +=
-                '<td><select name="suspect_status_id[]" class="form-control suspect_status_id" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($suspect_status as $sstat)<option value="{{ $sstat->id }}">{{ $sstat->name }}</option>@endforeach</select></td>';
-            html +=
-                '<td><input required type="text" name="lastname[]" style="width: 200px;" class="form-control last_name"></td>';
-            html +=
-                '<td><input required type="text" name="firstname[]" style="width: 200px;" class="form-control first_name"></td>';
-            html +=
-                '<td><input required type="text" name="middlename[]" style="width: 200px;" class="form-control middle_name"></td>';
-            html +=
-                '<td><input required type="text" name="alias[]" style="width: 200px;" class="form-control alias"></td>';
-            html +=
-                '<td><input required type="date" name="birthdate[]" style="width: 200px;" class="form-control birthdate"></td>';
-            html +=
-                '<td><select name="est_birthdate[]" class="form-control" style="width: 200px;"><option value="0">No</option><option value="1">Yes</option></select></td>';
-            html +=
-                '<td><input type="text" name="birthplace[]" style="width: 200px;" class="form-control"></td>';
-            html +=
-                '<td><select name="present_region_c[]" class="form-control present_region_c" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($region as $rg)<option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} - {{ $rg->region_m }}</option>@endforeach</select></td>';
-            html +=
-                '<td><select name="present_province_c[]" class="form-control present_province_c" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
-            html +=
-                '<td><select name="present_city_c[]" class="form-control present_city_c" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
-            html +=
-                '<td><select name="present_barangay_c[]" class="form-control present_barangay_c" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
-            html +=
-                '<td><input type="text" name="present_street[]" style="width: 200px;" class="form-control"></td>';
-            html +=
-                '<td><select name="permanent_region_c[]" class="form-control permanent_region_c" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($region as $rg)<option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} - {{ $rg->region_m }}</option>@endforeach</select></td>';
-            html +=
-                '<td><select name="permanent_province_c[]" class="form-control permanent_province_c" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
-            html +=
-                '<td><select name="permanent_city_c[]" class="form-control permanent_city_c" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
-            html +=
-                '<td><select name="permanent_barangay_c[]" class="form-control permanent_barangay_c" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
-            html +=
-                '<td><input type="text" name="permanent_street[]" style="width: 200px;" class="form-control"></td>';
-            html +=
-                '<td><select name="gender[]" class="form-control" style="width: 200px;"><option value="male">Male</option><option value="female">Female</option></select></td>';
-            html +=
-                '<td><select name="civil_status_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($civil_status as $cs)<option value="{{ $cs->id }}">{{ $cs->name }}</option>@endforeach</select></td>';
-            html +=
-                '<td><select name="nationality_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($nationality as $na)<option value="{{ $na->id }}">{{ $na->name }}</option>@endforeach</select></td>';
-            html +=
-                '<td><select name="ethnic_group_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($ethnic_group as $eg)<option value="{{ $eg->id }}">{{ $eg->name }}</option>@endforeach</select></td>';
-            html +=
-                '<td><select name="religion_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($religion as $rl)<option value="{{ $rl->id }}">{{ $rl->name }}</option>@endforeach</select></td>';
-            html +=
-                '<td><select name="educational_attainment_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($education as $ed)<option value="{{ $ed->id }}">{{ $ed->name }}</option>@endforeach</select></td>';
-            html +=
-                '<td><select name="occupation_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($occupation as $occ)<option value="{{ $occ->id }}">{{ $occ->name }}</option>@endforeach</select></td>';
-            html +=
-                '<td><select name="identifier_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($identifier as $identifiers)<option value="{{ $identifiers->id }}">{{ $identifiers->name }}</option>@endforeach</select></td>';
-            html +=
-                '<td><select name="suspect_classification_id[]" class="form-control suspect_classification_id" style="width: 200px;"><option value="" selected>Select Option</option>@foreach ($suspect_classification as $sclass)<option value="{{ $sclass->id }}">{{ $sclass->name }}</option>@endforeach</select></td>';
-            html +=
-                '<td><select name="suspect_category_id[]" class="form-control suspect_category_id" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
-            html +=
-                '<td><select name="suspect_sub_category_id[]" class="form-control" style="width: 200px;"><option value="" selected>Select Option</option></select></td>';
-            html +=
-                '<td><input type="text" name="whereabouts[]" style="width: 200px;" class="form-control"></td>';
-            html +=
-                '<td><input type="text" name="remarks[]" style="width: 200px;" class="form-control"></td>';
-            html +=
-                '<td style="text-align: center; padding: 10px"><input name="active" type="checkbox" style="pointer-events: none;"></td>';
-            html +=
-                '<td><input type="text" style="width: 200px;" class="form-control" value="" disabled></td>';
-            html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#suspect_row' +
-                suspect_row + '\').remove();"><i class="fa fa-trash"></i> Delete</button></td>';
-            html += '</tr>';
-
-
-
-
-            $('#suspect tbody').append(html);
-
-            suspect_row++;
-        });
-    });
-
+   
     var items_row = 0;
 
     function addItems() {
@@ -1695,15 +1608,6 @@
             }
         });
 
-        // //Get Suspect
-        // $.ajax({
-        //     url: "/spot_report/fetch_suspect?spot_report_number=" + spot_report_number,
-        //     success: function(suspects) {
-        //         // alert(suspects);
-        //         $('#suspect_informations').html('');
-        //         $('#suspect_informations').html(suspects);
-        //     }
-        // });
 
         //Select2 Lazy Loading Spot
         $(".OPUnitSearch").select2({
@@ -1721,6 +1625,8 @@
                 dataType: "json",
             }
         });
+
+        loadSelect2();
     });
 
     //Add Support Unit
@@ -1756,6 +1662,107 @@
                 }
             });
         }
+    }
+
+    //Add Support Unit
+    function addSuspect() {
+        var row = $(".suspect_details:last");
+        row.find(".select2").each(function(index) {
+            $("select.select2-hidden-accessible").select2('destroy');
+        });
+
+        var newrow = row.clone();
+        $("#suspect_informations").append(newrow);
+
+        loadSelect2();
+    }
+
+    //Delete Suspect Row
+    $("#suspect").on("click", ".delRow", function() {
+            $(this).closest("tr").remove();
+        });
+
+
+    function loadSelect2() {
+        $(".NationalitySearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_nationality',
+                dataType: "json",
+            }
+        });
+
+        $(".CivilStatusSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_civil_status',
+                dataType: "json",
+            }
+        });
+
+        $(".EthnicGroupSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_ethnic_group',
+                dataType: "json",
+            }
+        });
+
+        $(".ReligionSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_religion',
+                dataType: "json",
+            }
+        });
+
+        $(".EducationSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_education',
+                dataType: "json",
+            }
+        });
+
+        $(".OccupationSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_occupation',
+                dataType: "json",
+            }
+        });
+
+        $(".IdentifierSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_identifier',
+                dataType: "json",
+            }
+        });
+
+        $(".SuspectClassificationSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_suspect_classification',
+                dataType: "json",
+            }
+        });
+
+        $(".SuspectCategorySearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_suspect_category',
+                dataType: "json",
+            }
+        });
+
+        $(".SuspectSubCategorySearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_suspect_sub_category',
+                dataType: "json",
+            }
+        });
     }
 </script>
 

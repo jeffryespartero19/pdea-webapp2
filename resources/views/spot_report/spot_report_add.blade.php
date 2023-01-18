@@ -174,7 +174,7 @@
                     <div id="sp_list" class="form-group col-4 " style="margin: 0px;">
                         <div>
                             <label for="">Supporting Unit</label>
-                            <a onclick="addrow();" href="#" style="float: right;"><i class="fas fa-plus pr-2"></i></a>
+                            <a onclick="addrow();" style="float: right;"><i class="fas fa-plus pr-2"></i></a>
                         </div>
                         <div class="SUdetails">
                             <div class="input-group mb-3 su_options">

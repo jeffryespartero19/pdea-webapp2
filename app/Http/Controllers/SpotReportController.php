@@ -1599,6 +1599,12 @@ class SpotReportController extends Controller
             ->select('b.description')
             ->get();
 
+        if ($spot_report[0]->preops_number == 1) {
+            $preops_number = 'Uncoordinated';
+        } else {
+            $preops_number = $spot_report[0]->preops_number;
+        }
+
 
 
         // Header
@@ -1664,7 +1670,7 @@ class SpotReportController extends Controller
                 <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:28px; margin-left:33px;">Reporting Office:</span><span class="arial" style="font-weight:bold">' . $regional_office[0]->name . '</span></td>
                 </tr>
                 <tr style="border:none;">
-                <td style="border: none; padding:0;" width="50%"><span class="arial" style="font-size:15px; margin-right:23px; margin-left:33px">Pre-Ops Number:</span><span class="arial" style="font-weight:bold">' . $spot_report[0]->preops_number . '</span></td>
+                <td style="border: none; padding:0;" width="50%"><span class="arial" style="font-size:15px; margin-right:23px; margin-left:33px">Pre-Ops Number:</span><span class="arial" style="font-weight:bold">' . $preops_number . '</span></td>
                 <td style="border: none; padding-left:20px;" width="50%"><span  style="margin-right:10px;">Date/Time of OPN:</span><span class="arial" style="font-weight:bold">' . Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->operation_datetime)->format('d F Y H:i:s') . '</span></td>
                 </tr>
                 </tr>
