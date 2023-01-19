@@ -52,15 +52,13 @@
                                 <th>{{ $fu->filename }}</th>
                                 <td>
                                     After Operations
-                                    
                                 </td>
                                 <td>
                                     {{$fu->t_number}}
-                                    
                                 </td>
                                 <td>
                                     <a href="{{ asset('/files/uploads/after_operations/' . $fu->filename) }}">View </a>
-                                    
+
                                 </td>
                             </tr>
                             @endforeach
