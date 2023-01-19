@@ -658,7 +658,7 @@
         $(".SPOTSearch").select2({
             minimumInputLength: 2,
             ajax: {
-                url: '/search_spot_report_number',
+                url: '/pr_search_spot_report_number',
                 dataType: "json",
             }
         });

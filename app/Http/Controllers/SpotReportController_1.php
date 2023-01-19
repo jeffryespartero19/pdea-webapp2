@@ -1565,9 +1565,15 @@ class SpotReportController extends Controller
         return $spot_report;
     }
 
+    function pdf($id)
+    {
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($this->convert_spot_report_to_html($id));
+        return $pdf->stream();
+    }
 
     // Print PDF Format
-    function viewPDF($id)
+    function convert_spot_report_to_html($id)
     {
         date_default_timezone_set('Asia/Manila');
         $date = Carbon::now();
@@ -1578,31 +1584,7 @@ class SpotReportController extends Controller
         );
         DB::table('spot_report_header')->where('id', $id)->update($pos_data);
 
-        $spot_report = DB::table('spot_report_header as a')
-            ->leftjoin('region as b', 'a.region_c', '=', 'b.region_c')
-            ->leftjoin('province as c', 'a.province_c', '=', 'c.province_c')
-            ->leftjoin('city as d', 'a.city_c', '=', 'd.city_c')
-            ->leftjoin('operating_unit as e', 'a.operating_unit_id', '=', 'e.id')
-            ->leftjoin('operation_type as f', 'a.operation_type_id', '=', 'f.id')
-            ->leftjoin('barangay as g', 'a.barangay_c', '=', 'g.barangay_c')
-            ->select(
-                'a.spot_report_number',
-                'a.preops_number',
-                'a.reported_date',
-                'a.operation_datetime',
-                'a.remarks',
-                'a.summary',
-                'a.print_count',
-                'b.region_m',
-                'c.province_m',
-                'd.city_m',
-                'e.description as operating_unit',
-                'f.name as operation_type',
-                'a.region_c',
-                'g.barangay_m'
-            )
-            ->where('a.id', $id)
-            ->get();
+        $spot_report = $this->get_spot_report($id);
 
         if ($spot_report[0]->preops_number == 1) {
             $regional_office = DB::table('regional_office as a')
@@ -1616,6 +1598,12 @@ class SpotReportController extends Controller
                 ->where('b.preops_number', $spot_report[0]->preops_number)->get();
         }
 
+        $region = DB::table('region')->where('region_c', $spot_report[0]->region_c)->get();
+        $province = DB::table('province')->where('province_c', $spot_report[0]->province_c)->get();
+        $city = DB::table('city')->where('city_c', $spot_report[0]->city_c)->get();
+        $barangay = DB::table('barangay')->where('barangay_c', $spot_report[0]->barangay_c)->get();
+        $operating_unit = DB::table('operating_unit')->where('id', $spot_report[0]->operating_unit_id)->get();
+        $operation_type = DB::table('operation_type')->where('id', $spot_report[0]->operation_type_id)->get();
         $evidence = DB::table('spot_report_evidence as a')
             ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
             ->leftjoin('evidence as c', 'a.evidence_id', '=', 'c.id')
@@ -1639,19 +1627,190 @@ class SpotReportController extends Controller
             ->select('b.description')
             ->get();
 
-        $pdf = PDF::loadView('spot_report.spot_report_PDF', compact(
-            'spot_report',
-            'regional_office',
-            'evidence',
-            'case',
-            'team',
-            'support_unit',
-            'date'
-        ));
-        $canvas = $pdf->getDomPDF()->getCanvas();
-        $canvas->page_script('$pdf->set_opacity(.5);
-        $pdf->image("/public/images/Sector_1.png", {x}, {y}, {w}, {h});');
-        return $pdf->stream();
+        if ($spot_report[0]->preops_number == 1) {
+            $preops_number = 'Uncoordinated';
+        } else {
+            $preops_number = $spot_report[0]->preops_number;
+        }
+
+
+
+        // Header
+        $output = '<html>
+        <head>
+            <style>
+                /** Define the margins of your page **/
+                @page {
+                    margin: 100px 25px;
+                }
+    
+                header {
+                    position: fixed;
+                    top: -60px;
+                    left: 0px;
+                    right: 0px;
+                    height: 50px;
+    
+                    /** Extra personal styles **/
+                    color: blue;
+                    text-align: center;
+                    line-height: 35px;
+                    font-size: 20px;
+                }
+    
+                footer {
+                    position: fixed; 
+                    bottom: -60px; 
+                    left: 0px; 
+                    right: 0px;
+                    height: 50px; 
+    
+                    /** Extra personal styles **/
+                    color: black;
+                    text-align: center;
+                    line-height: 35px;
+                }
+
+                .arial {
+                    font-family: Arial, Helvetica, sans-serif;
+                  }
+            </style>
+        </head>
+        <body>
+            <!-- Define header and footer blocks before your content -->
+            <header>
+            CONFIDENTIAL
+            </header>';
+
+
+        $output .= '
+                <img src="./files/uploads/report_header/' . $regional_office[0]->report_header . '" onerror=this.src="./files/uploads/report_header/newhead.jpg" class="col-3" style="width:100%;">
+                <br>
+                <br>
+                <div style="text-align:center;"><h2 class="arial">' . $spot_report[0]->spot_report_number . '</h2></div>
+                <div style="border:solid;" align="center"><span class="arial" style="font-size:20px">SPOT REPORT</span></div>
+                <br>
+                <table width="100%" style="border-collapse: collapse; border: 0px;">
+                <tr style="border:none;">
+                <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:39px; margin-left:33px">Date Reported:</span><span>' . Carbon::createFromFormat('Y-m-d', $spot_report[0]->reported_date)->format('F d,Y') . '</span></td>
+                </tr>
+                <tr style="border:none;">
+                <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:28px; margin-left:33px;">Reporting Office:</span><span class="arial" style="font-weight:bold">' . $regional_office[0]->name . '</span></td>
+                </tr>
+                <tr style="border:none;">
+                <td style="border: none; padding:0;" width="50%"><span class="arial" style="font-size:15px; margin-right:23px; margin-left:33px">Pre-Ops Number:</span><span class="arial" style="font-weight:bold">' . $preops_number . '</span></td>
+                <td style="border: none; padding-left:20px;" width="50%"><span  style="margin-right:10px;">Date/Time of OPN:</span><span class="arial" style="font-weight:bold">' . Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->operation_datetime)->format('d F Y H:i:s') . '</span></td>
+                </tr>
+                </tr>
+                <tr style="border:none;">
+                <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:17px; margin-left:33px">Type of Operation:</span><span class="arial" style="font-weight:bold">' . $operation_type[0]->name . '</span></td>
+                </tr>
+                </tr>
+                <tr style="border:none;">
+                <td style="border: none; padding:0;" width="50%"><span class="arial" style="font-size:15px; margin-right:39px; margin-left:33px">Operating Unit:</span><span class="arial" style="font-weight:bold">' . $operating_unit[0]->name . '</span></td>
+                <td style="border: none; padding-left:20px;" width="50%"><span style="margin-right:10px;">Support Unit:</span><span class="arial" style="font-weight:bold; ">';
+
+
+        $count = 0;
+        foreach ($support_unit as $su) {
+            $count++;
+            if ($count == 1) {
+                $output .= $su->description;
+            } else {
+                $output .= ', ' . $su->description;
+            }
+        }
+        $output .= '</span>
+        </td>
+        </tr>
+        </tr>
+                <tr style="border:none;">
+                <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:17px; margin-left:33px;">Area of Operation:</span><span class="arial" style="font-weight:bold">' . $barangay[0]->barangay_m . ', ' . $city[0]->city_m . '</span></td>
+                </tr>
+                <tr style="border:none;">
+                <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:74px; margin-left:33px">Remarks:</span><span>' . $spot_report[0]->remarks . '</span></td>
+                </tr>
+        </table>
+
+                <br>
+                <table width="100%" style="border-collapse: collapse; border: 0px;">
+                <tr style="border: 1px solid;">
+                    <th class="arial" style="border: none; padding:0 12px;" width="25%" align="left">Qty</th>
+                    <th class="arial" style="border: none; padding:0 12px;" width="25%" align="left">Evidence</th>
+                    <th class="arial" style="border: none; padding:0 12px;" width="50%" align="left">Packaging</th>
+                </tr>';
+
+        // Evidence
+        foreach ($evidence as $ar) {
+            $output .= '
+                <tr>
+                    <td class="arial" style="border: none; padding:0 12px;" width="25%" align="left">' . $ar->quantity . ' ' . $ar->unit_measurement . '</td>
+                    <td class="arial" style="border: none; padding:0 12px;" width="25%">' . $ar->evidence_type . ' - ' . $ar->evidence . '</td>
+                    <td class="arial" style="border: none; padding:0 12px;" width="50%">' . $ar->packaging . '</td>
+                </tr>';
+        }
+        $output .= '</table>';
+
+        $output .= '
+                <br>
+                <table width="100%" style="border-collapse: collapse; border: 0px;">
+                    <tr style="border: 1px solid;">
+                        <th class="arial" style="border: none; padding:0 12px;" width="50%" align="left">Case(s) Filed</th>
+                        <th class="arial" style="border: none; padding:0 12px;" width="50%" align="left">Name of Suspect</th>
+                    </tr>';
+
+        // Case
+        foreach ($case as $cs) {
+            $output .= '
+                    <tr>
+                        <td class="arial" style="border: none; padding:0 12px;" width="50%">' . $cs->case . '</td>
+                        <td class="arial" style="border: none; padding:0 12px;" width="50%">' . $cs->lastname . ', ' . $cs->firstname . ' ' . $cs->middlename . '</td>
+                    </tr>';
+        }
+        $output .= '</table>';
+
+        $output .= '
+                <br>
+                <table width="100%" style="border-collapse: collapse; border: 0px;">
+                    <tr style="border: 1px solid;">
+                        <th class="arial" style="border: none; padding:0 12px;" width="50%" align="left">Operating Team Name</th>
+                        <th class="arial" style="border: none; padding:0 12px;" width="50%" align="left">Position/Department</th>
+                    </tr>';
+
+        // Team
+        foreach ($team as $tm) {
+            $output .= '
+                    <tr>
+                        <td class="arial" style="border: none; padding:0 12px;" width="50%">' . $tm->officer_name . '</td>
+                        <td class="arial" style="border: none; padding:0 12px;" width="50%">' . $tm->officer_position . '</td>
+                    </tr>';
+        }
+        $output .= '</table>';
+
+        $output .= '
+                <br>
+                <table width="100%" style="border-collapse: collapse; border: 0px;">
+                    <tr style="border: 1px solid;">
+                        <th class="arial" style="border: none; padding:0 12px;" width="50%" align="left">Summary</th>
+                    </tr>
+                </table>
+                <span class="arial" style="margin-right:23px; margin-left:13px;">' . $spot_report[0]->summary . '</span>
+                <h4 class="arial" align="center">*** end of report ***</h4>';
+
+        $output .= '
+                <footer>
+                    ' . $date . ' | ' . Auth::user()->name . ' | ';
+        if ($spot_report[0]->print_count == 1) {
+            $output .= 'O';
+        } else {
+            $output .= 'C';
+        }
+        $output .= '
+                </footer>
+            </body>
+            </html>';
+
+        return $output;
     }
 
     public function get_suspect_number_count($count)

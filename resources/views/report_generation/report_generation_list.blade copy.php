@@ -520,6 +520,7 @@
                         <th class="ao ot_name" style="white-space: nowrap">Name</th>
                         <th class="ao ot_name" style="white-space: nowrap">Position</th>
                         <th class="ao ot_name" style="white-space: nowrap">Contact</th>
+
                         <th class="sp sp_suspect_number" style="white-space: nowrap">Suspect Number</th>
                         <th class="sp sp_status" style="white-space: nowrap">Suspect Status</th>
                         <th class="sp sp_lastname" style="white-space: nowrap">Last Name</th>
@@ -606,49 +607,102 @@
                     @if ($issuance_of_preops->preops_number != $current_preops_number)
                     @php ($preops_number = $issuance_of_preops->preops_number)
                     @php ($current_preops_number = $preops_number)
+                    @php ($region = $issuance_of_preops->region)
                     @else
                     @php ($preops_number = "")
+                    @php ($region = "")
                     @endif
 
                     <tr>
-                        <td class="po region" style="white-space: nowrap">{{ $issuance_of_preops->region }}</td>
+                        <td class="po region" style="white-space: nowrap">{{ $region }}</td>
                         <td class="po preops_number" style="white-space: nowrap">{{ $preops_number }}</td>
                         <td class="po province" style="white-space: nowrap">{{ $issuance_of_preops->province_m }}</td>
                         <td class="po type_operation" style="white-space: nowrap">{{ $issuance_of_preops->operation_type }}</td>
                         <td class="po operating_unit" style="white-space: nowrap">{{ $issuance_of_preops->operating_unit }}</td>
-                        <td class="po support_unit" style="white-space: nowrap; color:red;">Support Unit</td>
+                        <td class="po support_unit" style="white-space: nowrap">{{ $issuance_of_preops->support_unit }}</td>
                         <td class="po datetime_coordinate" style="white-space: nowrap">{{ $issuance_of_preops->coordinated_datetime }}</td>
                         <td class="po datetime_operation" style="white-space: nowrap">{{ $issuance_of_preops->operation_datetime }}</td>
                         <td class="po valid_until" style="white-space: nowrap">{{ $issuance_of_preops->validity }}</td>
-                        <td class="ao a_area" style="white-space: nowrap;  color:red;">
-                            Preops Area
+                        <td class="ao a_area" style="white-space: nowrap">
+                            @foreach($preops_area as $pa)
+                            @if ($pa->preops_number == $issuance_of_preops->preops_number)
+                            {{ $pa->a_area }}
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
                         </td>
-                        <td class="ao a_area" style="white-space: nowrap;  color:red;">
-                            Preops Area Region
+                        <td class="ao a_area" style="white-space: nowrap"> @foreach($preops_area as $pa)
+                            @if ($pa->preops_number == $issuance_of_preops->preops_number)
+                            {{ $pa->a_region_m}}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
                         </td>
-                        <td class="ao a_area" style="white-space: nowrap;  color:red;">
-                            Preops Area Province
+                        <td class="ao a_area" style="white-space: nowrap"> @foreach($preops_area as $pa)
+                            @if ($pa->preops_number == $issuance_of_preops->preops_number)
+                            {{ $pa->a_province_m }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
                         </td>
-                        <td class="ao a_area" style="white-space: nowrap;  color:red;">
-                            Preops Area City
+                        <td class="ao a_area" style="white-space: nowrap"> @foreach($preops_area as $pa)
+                            @if ($pa->preops_number == $issuance_of_preops->preops_number)
+                            {{ $pa->a_city_m }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
                         </td>
-                        <td class="ao a_area" style="white-space: nowrap;  color:red;">
-                            Preops Area Barangay
+                        <td class="ao a_area" style="white-space: nowrap"> @foreach($preops_area as $pa)
+                            @if ($pa->preops_number == $issuance_of_preops->preops_number)
+                            {{ $pa->a_barangay_m }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
                         </td>
-                        <td class="ao taget_name" style="white-space: nowrap;  color:red;">
-                            Preops Target Name
+                        <td class="ao taget_name" style="white-space: nowrap"> @foreach($preops_target as $pt)
+                            @if ($pt->preops_number == $issuance_of_preops->preops_number)
+                            {{ $pt->name }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
                         </td>
-                        <td class="ao taget_name" style="white-space: nowrap;  color:red;">
-                            Preops Target Nationality
+                        <td class="ao taget_name" style="white-space: nowrap">@foreach($preops_target as $pt)
+                            @if ($pt->preops_number == $issuance_of_preops->preops_number)
+                            {{ $pt->nationality }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
                         </td>
-                        <td class="ao ot_name" style="white-space: nowrap;  color:red;">
-                            Preops Team Name
+                        <td class="ao ot_name" style="white-space: nowrap">@foreach($preops_team as $ptm)
+                            @if ($ptm->preops_number == $issuance_of_preops->preops_number)
+                            {{ $ptm->name }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
                         </td>
-                        <td class="ao ot_name" style="white-space: nowrap;  color:red;">
-                           Preops Team Position
+                        <td class="ao ot_name" style="white-space: nowrap">@foreach($preops_team as $ptm)
+                            @if ($ptm->preops_number == $issuance_of_preops->preops_number)
+                            {{ $ptm->position }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
                         </td>
-                        <td class="ao ot_name" style="white-space: nowrap;  color:red;">
-                            Preops Team Contact
+                        <td class="ao ot_name" style="white-space: nowrap">@foreach($preops_team as $ptm)
+                            @if ($ptm->preops_number == $issuance_of_preops->preops_number)
+                            {{ $ptm->contact }}&nbsp;
+                            <br> <br>
+                            @else
+                            @endif
+                            @endforeach
                         </td>
                         <td class="ao prepared_by" style="white-space: nowrap">{{ $issuance_of_preops->prepared_by }}</td>
                         <td class="ao ao_result" style="white-space: nowrap">{{ $issuance_of_preops->result }}</td>
