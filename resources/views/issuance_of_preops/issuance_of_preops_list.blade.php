@@ -87,16 +87,19 @@
 
 
         <div class="card-body">
-            <form action="/search_preops" method="GET" role="search" id="SearchForm">
-                {{ csrf_field() }}
-                <div class="input-group">
-                    <input type="text" class="form-control" name="q" placeholder="Search Preops"> <span class="input-group-btn">
+            <!-- <form action="/search_preops" method="GET" role="search" id="SearchForm">
+                {{ csrf_field() }} -->
+            <div class="row">
+                <div class="input-group col-4">
+                    <input type="text" class="form-control SearchPreops" name="q" placeholder="Search Preops Number"> <span class="input-group-btn">
                         <button type="button" class="btn btn-default submit_search">
                             <i class="fa fa-search"></i>
                         </button>
                     </span>
                 </div>
-            </form>
+            </div>
+
+            <!-- </form> -->
             <br>
             <div id="tag_container">
                 <table id="example_info" class="table table-bordered table-striped table-hover">
@@ -253,7 +256,15 @@
         });
 
         $(".submit_search").on("click", function() {
-            $('#SearchForm').submit();
+            var param = $('.SearchPreops').val();
+            var page = $('#hidden_page').val();
+            $.ajax({
+                url: "/issuance_of_preops_list/search_preops_list?page=" + page + "&param=" + param,
+                success: function(data) {
+                    $('tbody').html('');
+                    $('tbody').html(data);
+                }
+            });
         });
 
         //Select2 Lazy Loading Spot
