@@ -50,7 +50,7 @@
 
                 <div class="row">
                     <div class="col-12">
-                        <a href="{{ url('issuance_report/pdf/'.$issuance_of_preops[0]->id) }}" target="_blank" class="btn btn-warning" style="float: right;">Print Report</a>
+                        <a href="{{ url('view_Preops/'.$issuance_of_preops[0]->id) }}" target="_blank" class="btn btn-warning" style="float: right;">Print Report</a>
                     </div>
                     <div class="form-group col-6" style="margin: 0px;">
                         <div>

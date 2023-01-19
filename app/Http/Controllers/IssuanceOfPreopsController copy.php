@@ -92,28 +92,28 @@ class IssuanceOfPreopsController extends Controller
     public function search_preops_list(Request $request)
     {
 
-        $param = $request->get('param');
+            $param = $request->get('param');
 
-        if (Auth::user()->user_level_id == 2) {
-            $data = DB::table('preops_header as a')
-                ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
-                ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'a.with_aor', 'a.with_sr', 'a.with_pr')
-                ->where('a.preops_number', 'LIKE', '%' . $param . '%')
-                ->orderby('a.id', 'desc')
-                ->paginate(20);
-        } else {
-            $data = DB::table('preops_header as a')
-                ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
-                ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                ->leftjoin('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
-                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.description as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'a.with_aor', 'a.with_sr', 'a.with_pr')
-                ->where('a.preops_number', 'LIKE', '%' . $param . '%')
-                ->where('d.id', Auth::user()->regional_office_id)
-                ->orderby('a.id', 'desc')
-                ->paginate(20);
-        }
-        return view('issuance_of_preops.preops_data', compact('data'))->render();
+            if (Auth::user()->user_level_id == 2) {
+                $data = DB::table('preops_header as a')
+                    ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+                    ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+                    ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'a.with_aor', 'a.with_sr', 'a.with_pr')
+                    ->where('a.preops_number', 'LIKE', '%' . $param . '%')
+                    ->orderby('a.id', 'desc')
+                    ->paginate(20);
+            } else {
+                $data = DB::table('preops_header as a')
+                    ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+                    ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+                    ->leftjoin('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
+                    ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.description as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'a.with_aor', 'a.with_sr', 'a.with_pr')
+                    ->where('a.preops_number', 'LIKE', '%' . $param . '%')
+                    ->where('d.id', Auth::user()->regional_office_id)
+                    ->orderby('a.id', 'desc')
+                    ->paginate(20);
+            }
+            return view('issuance_of_preops.preops_data', compact('data'))->render();
     }
 
     public function add()
@@ -617,96 +617,64 @@ class IssuanceOfPreopsController extends Controller
         return back()->with('success', 'You have successfully updated issuance of preops!');
     }
 
-    // Print PDF Format
-    function viewPDF1($id)
+    // function get_preops_data($id)
+    // {
+    //     $preops_data = DB::table('preops_header')
+    //         ->where('id', $id)
+    //         ->get();
+    //     return $preops_data;
+    // }
+
+    function pdf($id)
     {
-        date_default_timezone_set('Asia/Manila');
-        $date = Carbon::now();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($this->convert_preops_data_to_html($id));
+        // $pdf->setPaper('L');
+        // $pdf->output();
+        // $canvas = $pdf->getDomPDF()->getCanvas();
 
-        $pos_data = array(
-            'print_count' => DB::raw('print_count+1'),
-            'print_date' => $date,
-        );
-        DB::table('spot_report_header')->where('id', $id)->update($pos_data);
+        // $height = $canvas->get_height();
+        // $width = $canvas->get_width();
 
-        $spot_report = DB::table('spot_report_header as a')
-            ->leftjoin('region as b', 'a.region_c', '=', 'b.region_c')
-            ->leftjoin('province as c', 'a.province_c', '=', 'c.province_c')
-            ->leftjoin('city as d', 'a.city_c', '=', 'd.city_c')
-            ->leftjoin('operating_unit as e', 'a.operating_unit_id', '=', 'e.id')
-            ->leftjoin('operation_type as f', 'a.operation_type_id', '=', 'f.id')
-            ->leftjoin('barangay as g', 'a.barangay_c', '=', 'g.barangay_c')
-            ->select(
-                'a.spot_report_number',
-                'a.preops_number',
-                'a.reported_date',
-                'a.operation_datetime',
-                'a.remarks',
-                'a.summary',
-                'a.print_count',
-                'b.region_m',
-                'c.province_m',
-                'd.city_m',
-                'e.description as operating_unit',
-                'f.name as operation_type',
-                'a.region_c',
-                'g.barangay_m'
-            )
-            ->where('a.id', $id)
-            ->get();
+        // $canvas->set_opacity(.2, "Multiply");
 
-        if ($spot_report[0]->preops_number == 1) {
-            $regional_office = DB::table('regional_office as a')
-                ->leftjoin('spot_report_header as b', 'a.region_c', '=', 'b.region_c')
-                ->select('a.name', 'a.address', 'a.contact_number', 'a.report_header')
-                ->where('b.region_c', $spot_report[0]->region_c)->get();
-        } else {
-            $regional_office = DB::table('regional_office as a')
-                ->leftjoin('preops_header as b', 'a.ro_code', '=', 'b.ro_code')
-                ->select('a.name', 'a.address', 'a.contact_number', 'a.report_header')
-                ->where('b.preops_number', $spot_report[0]->preops_number)->get();
-        }
+        // $canvas->set_opacity(.2);
 
-        $evidence = DB::table('spot_report_evidence as a')
-            ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
-            ->leftjoin('evidence as c', 'a.evidence_id', '=', 'c.id')
-            ->leftjoin('unit_measurement as d', 'a.unit', '=', 'd.id')
-            ->leftjoin('packaging as e', 'a.packaging_id', '=', 'e.id')
-            ->select('c.name as evidence_type', 'd.name as unit_measurement', 'a.evidence', 'a.quantity', 'e.name as packaging')
-            ->where('b.id', $id)->get();
+        // $canvas->page_text(
+        //     $width / 5,
+        //     $height / 2,
+        //     'Nicesnippets.com',
+        //     null,
+        //     55,
+        //     array(0, 0, 0),
+        //     2,
+        //     2,
+        //     -30
+        // );
 
-        $case = DB::table('spot_report_case as a')
-            ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
-            ->leftjoin('case_list as c', 'a.case_id', '=', 'c.id')
-            ->leftjoin('spot_report_suspect as d', 'a.suspect_number', '=', 'd.suspect_number')
-            ->select('c.description as case', 'd.lastname', 'd.firstname', 'd.middlename')
-            ->where('b.id', $id)->get();
-        $team = DB::table('spot_report_team as a')
-            ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
-            ->where('b.id', $id)->get();
-        $support_unit = DB::table('spot_report_support_unit as a')
-            ->leftjoin('operating_unit as b', 'a.support_unit_id', '=', 'b.id')
-            ->where('a.spot_report_number', $spot_report[0]->spot_report_number)
-            ->select('b.description')
-            ->get();
-
-        $pdf = PDF::loadView('spot_report.spot_report_PDF', compact(
-            'spot_report',
-            'regional_office',
-            'evidence',
-            'case',
-            'team',
-            'support_unit',
-            'date'
-        ));
+        $image1 = "./dist/img/pdea_logo.jpg";
+        // $canvas->image($image1, 100, 140, 400, 400, 50);
+        $pdf->setPaper('L');
+        $pdf->output();
         $canvas = $pdf->getDomPDF()->getCanvas();
-        $canvas->page_script('$pdf->set_opacity(.5);
-        $pdf->image("/public/images/Sector_1.png", {x}, {y}, {w}, {h});');
+        $height = $canvas->get_height();
+        $width = $canvas->get_width();
+        $canvas->set_opacity(.2, "Multiply");
+        $canvas->page_text(
+            $width / 3,
+            $height / 2,
+            'PDEA',
+            null,
+            90,
+            array(0, 0, 0),
+            2,
+            2,
+            -30
+        );
         return $pdf->stream();
     }
 
-
-    function viewPDF($id)
+    function convert_preops_data_to_html($id)
     {
         date_default_timezone_set('Asia/Manila');
         $date = Carbon::now();
@@ -741,29 +709,150 @@ class IssuanceOfPreopsController extends Controller
             ->where('b.id', $id)->get();
 
         $operation_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->operation_datetime);
-        $coordinated_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->coordinated_datetime);
         $validity = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->validity);
         $duration = $operation_datetime->diffInHours($validity);
         $approved_by = DB::table('approved_by')->where('id', $preops_data[0]->approved_by)->get();
 
-        $pdf = PDF::loadView('issuance_of_preops.preops_PDF', compact(
-            'preops_data',
-            'regional_office',
-            'operating_unit',
-            'area',
-            'target',
-            'operation_datetime',
-            'coordinated_datetime',
-            'validity',
-            'duration',
-            'date',
-            'operation_type',
-            'approved_by'
-        ));
-        $canvas = $pdf->getDomPDF()->getCanvas();
-        $canvas->page_script('$pdf->set_opacity(.5);
-        $pdf->image("/public/images/Sector_1.png", {x}, {y}, {w}, {h});');
-        return $pdf->stream();
+        $tbluserlevel = DB::table('tbluserlevel')->where('id', Auth::user()->user_level_id)->get();
+
+
+
+        $output = '<html>
+        <head>
+            <style>
+                /** Define the margins of your page **/
+                @page {
+                    margin: 100px 25px;
+                }
+    
+                header {
+                    position: fixed;
+                    top: -60px;
+                    left: 0px;
+                    right: 0px;
+                    height: 50px;
+    
+                    /** Extra personal styles **/
+                    color: red;
+                    text-align: center;
+                    line-height: 35px;
+                    font-size: 20px;
+                }
+    
+                footer {
+                    position: fixed; 
+                    bottom: -60px; 
+                    left: 0px; 
+                    right: 0px;
+                    height: 50px; 
+    
+                    /** Extra personal styles **/
+                    color: black;
+                    text-align: center;
+                    line-height: 35px;
+                }
+            </style>
+        </head>
+        <body>
+            <!-- Define header and footer blocks before your content -->
+            <header>
+            SECRET
+            </header>';
+
+        $output .= '
+                <img src="./files/uploads/report_header/' . $regional_office[0]->report_header . '" onerror=this.src="./files/uploads/report_header/newhead.jpg" class="col-3" style="width:100%;">
+                <br>
+                <br>
+                <h3 align="center">CERTIFICATE OF COORDINATION</h3>
+                <span style="margin-right:110px">Issuing Office:</span><span>' . $regional_office[0]->name . '</span>
+                <br>
+                <span style="margin-right:39px;">Pre-Ops Control Number:</span><span style="font-weight: bold;">' . $preops_data[0]->preops_number . '</span>
+                <br>
+                <span style="margin-right:23px">Date and Time Coordinated:</span><span>' . Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->coordinated_datetime)->format('F d, Y H:i') . 'H</span>
+                <br>
+                <span style="margin-right:104px">Operating Unit:</span><span style="font-weight: bold;">' . $operating_unit[0]->name . '</span>
+                <br>
+                <span style="margin-right:82px">Type of Operation:</span><span style="font-weight: bold;">' . $operation_type[0]->name . '</span>
+                <br>
+                <span style="margin-right:143px">Duration:</span><span>' . Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->operation_datetime)->format('F d, Y H:i') . 'H to ' . Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->validity)->format('F d, Y H:i') . 'H (' . $duration . ' HRS)</span>
+                <br>
+                <span style="margin-right:149px">Remark:</span><span>' . $preops_data[0]->remarks . '</span>
+                <br>
+                <br>
+                <div style="background-color:green; color:white; padding-left:5px">Area(s) of Operation</div>';
+
+        $output .= '
+                <table width="100%" style="border-collapse: collapse; border: 0px;">
+                    <tr style="border: 1px solid;">
+                        <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Region</th>
+                        <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Province</th>
+                        <th style="border:solid; border-width: thin; padding:0 12px;" align="left">City/Municipality</th>
+                        <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Barangay</th>
+                        <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Area</th>
+                    </tr>';
+
+        // Area
+        foreach ($area as $ar) {
+            if ($ar->area == 'N/A') {
+                $areas = null;
+            } else {
+                $areas = $ar->area;
+            }
+            $output .= '
+                    <tr>
+                        <td style="border:solid; border-width: thin; padding:0 12px;">' . $ar->region_m . '</td>
+                        <td style="border:solid; border-width: thin; padding:0 12px;">' . $ar->province_m . '</td>
+                        <td style="border:solid; border-width: thin; padding:0 12px;">' . $ar->city_m . '</td>
+                        <td style="border:solid; border-width: thin; padding:0 12px;">' . $ar->barangay_m . '</td>
+                        <td style="border:solid; border-width: thin; padding:0 12px;">' . $areas . '</td>
+                    </tr>';
+        }
+        $output .= '</table>';
+
+        $output .= '
+                <br>
+                <div style="background-color:green; color:white; padding-left:5px">Target(s)</div>
+                <table width="100%" style="border-collapse: collapse; border: 0px;">
+                    <tr style="border: 1px solid;">
+                        <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Name</th>
+                        <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Nationality</th>
+                    </tr>';
+
+        // Targets
+        foreach ($target as $tr) {
+            $output .= '
+                    <tr>
+                        <td style="border:solid; border-width: thin; padding:0 12px;">' . $tr->name . '</td>
+                        <td style="border:solid; border-width: thin; padding:0 12px;">' . $tr->nationality . '</td>
+                    </tr>';
+        }
+        $output .= '</table>';
+
+        $output .= '
+        <h4 align="center">***** nothing follows *****</h4>
+        <div style="margin-right:39px; margin-bottom:40px">Prepared by:</div>
+        <div style="margin-right:39px; font-weight: bold;">' . $preops_data[0]->prepared_by . '</div>
+        <div style="margin-right:39px;">DUTY, ROC</div>
+        <br>
+        <div style="padding-left:300px; margin-bottom:40px">Approved by:</div>
+        <div style="padding-left:300px; font-weight: bold;">' . $approved_by[0]->name . '</div>
+        <div style="padding-left:300px;">REGIONAL DIRECTOR</div>
+        ';
+
+        $output .= '
+                <footer>
+                <div class="row" style="float:right; font-size:9">
+                    ' . $date . ' | ' . Auth::user()->name . ' | ';
+        if ($preops_data[0]->print_count == 1) {
+            $output .= 'O';
+        } else {
+            $output .= 'C';
+        }
+        $output .= '</div></footer>
+            </body>
+            </html>';
+
+        return $output;
     }
 
     public function get_preops_header_count($ro_code, $province_c)
