@@ -85,6 +85,16 @@
     <div class="card card-success">
 
         <div class="card-body">
+            <div class="row">
+                <div class="input-group col-4">
+                    <input type="text" class="form-control SearchSpot" name="q" placeholder="Search Spot Report Number"> <span class="input-group-btn">
+                        <button type="button" class="btn btn-default submit_search">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <br>
             <table id="example1" class="table table-bordered table-striped table-hover">
                 <thead>
                     <tr>
@@ -225,6 +235,18 @@
                 url: '/search_operation_type',
                 dataType: "json",
             }
+        });
+
+        $(".submit_search").on("click", function() {
+            var param = $('.SearchSpot').val();
+            var page = $('#hidden_page').val();
+            $.ajax({
+                url: "/progress_report_list/search_spot_report_list?page=" + page + "&param=" + param,
+                success: function(data) {
+                    $('tbody').html('');
+                    $('tbody').html(data);
+                }
+            });
         });
 
     });

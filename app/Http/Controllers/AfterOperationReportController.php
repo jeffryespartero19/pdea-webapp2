@@ -81,9 +81,37 @@ class AfterOperationReportController extends Controller
             }
 
             $data = $data->paginate(20);
-            
+
             return view('after_operation_report.after_operation_data', compact('data'))->render();
         }
+    }
+
+    public function search_preops_list(Request $request)
+    {
+        $param = $request->get('param');
+
+        if (Auth::user()->user_level_id == 2) {
+            $data = DB::table('preops_header as a')
+                ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+                ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'a.with_aor', 'a.with_sr', 'a.with_pr')
+                ->where('a.preops_number', 'LIKE', '%' . $param . '%')
+                ->where('a.with_aor', 1)
+                ->orderby('a.id', 'desc')
+                ->paginate(20);
+        } else {
+            $data = DB::table('preops_header as a')
+                ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+                ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+                ->leftjoin('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
+                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.description as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'a.with_aor', 'a.with_sr', 'a.with_pr')
+                ->where('a.preops_number', 'LIKE', '%' . $param . '%')
+                ->where('d.id', Auth::user()->regional_office_id)
+                ->where('a.with_aor', 1)
+                ->orderby('a.id', 'desc')
+                ->paginate(20);
+        }
+        return view('after_operation_report.after_operation_data', compact('data'))->render();
     }
 
     public function add()
