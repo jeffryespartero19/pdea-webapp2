@@ -1618,10 +1618,9 @@
                 },
                 success: function(data) {
                     var data = JSON.parse(data);
-                    alert('test');
                     if (data.length != 0) {
                         data.forEach(element => {
-                            alert(element["operation_type_id"]);
+                            // alert(element["operation_type_id"]);
                             var operation_type = " <option value='" +
                                 element["operation_type_id"] +
                                 "' selected>" +
@@ -1644,7 +1643,7 @@
                             var date = $("#operation_datetime").val();
 
                             $('#operation_datetime')[0].min = date;
-                            // alert(element['region_c']);
+             
 
                             var region_c = element['region_c'];
                             $.ajax({
