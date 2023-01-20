@@ -86,11 +86,27 @@ class GlobalController extends Controller
     public function getPreopsHeader($preops_number)
     {
         $data = DB::table('preops_header as a')
-            ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
-            ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-            ->join('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
-            ->select('a.id', 'd.ro_code', 'a.preops_number', 'a.operating_unit_id', 'a.operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'validity', 'd.region_c', 'a.province_c', 'a.support_unit_id', DB::raw('DATE_FORMAT(a.operation_datetime, "%Y-%m-%dT%H:%m") as operation_datetime'))
-            ->where(['preops_number' => $preops_number])
+            ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+            ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+            ->leftjoin('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
+            ->leftjoin('region as e', 'a.region_c', '=', 'd.region_c')
+            ->leftjoin('province as f', 'a.province_c', '=', 'f.province_c')
+            ->select(
+                'a.id',
+                'd.ro_code',
+                'a.preops_number',
+                'a.operating_unit_id',
+                'a.operation_type_id',
+                'b.name as operating_unit_name',
+                'c.name as operation_type_name',
+                'validity',
+                'd.region_c',
+                'a.province_c',
+                'a.support_unit_id',
+                'f.province_m',
+                DB::raw('DATE_FORMAT(a.operation_datetime, "%Y-%m-%dT%H:%m") as operation_datetime'),
+            )
+            ->where(['a.id' => $preops_number])
             ->get();
 
         return json_encode($data);
@@ -393,9 +409,10 @@ class GlobalController extends Controller
     public function getPreopsSupportUnit($preops_number)
     {
         $data = DB::table('preops_support_unit as a')
-            ->join('operating_unit as b', 'a.support_unit_id', '=', 'b.id')
+            ->leftjoin('preops_header as c', 'a.preops_number', '=', 'c.preops_number')
+            ->leftjoin('operating_unit as b', 'a.support_unit_id', '=', 'b.id')
             ->select('b.id', 'b.description')
-            ->where(['preops_number' => $preops_number])
+            ->where(['c.id' => $preops_number])
             ->get();
 
         return json_encode($data);

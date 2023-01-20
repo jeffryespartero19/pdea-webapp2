@@ -341,6 +341,7 @@ Route::post('issuance_of_preops_add', 'IssuanceOfPreopsController@store');
 Route::post('issuance_of_preops_edit/{id}', 'IssuanceOfPreopsController@update');
 Route::get('/issuance_report/pdf/{id}', 'IssuanceOfPreopsController@pdf');
 Route::get('/get_preops_header_count/{ro_code}/{province_c}', 'IssuanceOfPreopsController@get_preops_header_count');
+// Route::get('/get_preops_header/{preops_number}', 'IssuanceOfPreopsController@get_preops_header');
 
 // After Operation Report Setup
 Route::get('after_operation_report_list', 'AfterOperationReportController@index')->name('after_operation_report_list');

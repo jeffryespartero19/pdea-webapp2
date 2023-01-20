@@ -1618,13 +1618,27 @@
                 },
                 success: function(data) {
                     var data = JSON.parse(data);
-
+                    alert('test');
                     if (data.length != 0) {
                         data.forEach(element => {
-                            $('#operation_type_id option[value=' + element['operation_type_id'] + ']').attr('selected', 'selected');
+                            alert(element["operation_type_id"]);
+                            var operation_type = " <option value='" +
+                                element["operation_type_id"] +
+                                "' selected>" +
+                                element["operation_type_name"] +
+                                "</option>";
+                            $("#operation_type_id").append(operation_type);
+
+                            var operating_unit = " <option value='" +
+                                element["operating_unit_id"] +
+                                "' selected>" +
+                                element["operating_unit_name"] +
+                                "</option>";
+                            $("#operating_unit_id").append(operating_unit);
+
+                            
+
                             $('#region_c option[value=' + element['region_c'] + ']').attr('selected', 'selected');
-                            $('#operating_unit_id option[value=' + element['operating_unit_id'] + ']').attr('selected', 'selected');
-                            $('#support_unit_id option[value=' + element['support_unit_id'] + ']').attr('selected', 'selected');
                             $('#operation_datetime').val(element['operation_datetime']);
 
                             var date = $("#operation_datetime").val();

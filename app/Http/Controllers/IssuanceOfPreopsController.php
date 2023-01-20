@@ -849,4 +849,28 @@ class IssuanceOfPreopsController extends Controller
 
         return view('issuance_of_preops.issuance_of_preops_list')->withMessage('No Details found. Try to search again !');
     }
+
+    public function get_preops_header($preops_number)
+    {
+        dd($preops_number);
+        date_default_timezone_set('Asia/Manila');
+
+        $data = 0 + DB::table('preops_header as a')
+            ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+            ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+            ->select(
+                'a.id',
+                'a.preops_number',
+                'a.operation_datetime',
+                'b.description as operating_unit',
+                'c.name as operation_type',
+                'a.status',
+                'a.validity',
+                'a.operating_unit_id',
+                'a.operation_type_id'
+            )
+            ->where('id', $preops_number)
+            ->get();
+        return json_encode($data);
+    }
 }
