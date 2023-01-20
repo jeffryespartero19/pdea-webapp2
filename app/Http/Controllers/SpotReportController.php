@@ -1758,6 +1758,7 @@ class SpotReportController extends Controller
             $preops_number = DB::table('preops_header as a')
                 ->select('a.id', 'a.preops_number as text')
                 ->where('a.preops_number', 'LIKE', '%' . $request->input('term', '') . '%')
+                ->where('a.with_sr', 0)
                 ->union($data)
                 ->get();
         } else {
@@ -1766,6 +1767,7 @@ class SpotReportController extends Controller
                 ->select('a.id', 'a.preops_number as text')
                 ->where('a.preops_number', 'LIKE', '%' . $request->input('term', '') . '%')
                 ->where('d.id', Auth::user()->regional_office_id)
+                ->where('a.with_sr', 0)
                 ->union($data)
                 ->get();
         }
