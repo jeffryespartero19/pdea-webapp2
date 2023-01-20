@@ -701,15 +701,9 @@ class ProgressReportController extends Controller
         return $spot_report;
     }
 
-    function pdf($id)
-    {
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($this->convert_spot_report_to_html($id));
-        return $pdf->stream();
-    }
 
     // Print PDF Format
-    function convert_spot_report_to_html($id)
+    function viewPDF($id)
     {
         $spot_report = $this->get_spot_report($id);
         $regional_office = DB::table('regional_office as a')
@@ -752,176 +746,33 @@ class ProgressReportController extends Controller
             ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
             ->where('b.id', $id)->get();
 
+        $report_date = Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->reported_date)->format('F d,Y');
+        $operation_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->operation_datetime)->format('d F Y H:i:s');
+
         date_default_timezone_set('Asia/Manila');
         $date = Carbon::now();
 
-        // Header
-        $output = '<html>
-        <head>
-            <style>
-                /** Define the margins of your page **/
-                @page {
-                    margin: 100px 25px;
-                }
-    
-                header {
-                    position: fixed;
-                    top: -60px;
-                    left: 0px;
-                    right: 0px;
-                    height: 50px;
-    
-                    /** Extra personal styles **/
-                    color: blue;
-                    text-align: center;
-                    line-height: 35px;
-                    font-size: 20px;
-                }
-    
-                footer {
-                    position: fixed; 
-                    bottom: -60px; 
-                    left: 0px; 
-                    right: 0px;
-                    height: 50px; 
-    
-                    /** Extra personal styles **/
-                    color: black;
-                    text-align: center;
-                    line-height: 35px;
-                }
-            </style>
-        </head>
-        <body>
-            <!-- Define header and footer blocks before your content -->
-            <header>
-            CONFIDENTIAL
-            </header>';
-
-
-        $output .= '
-                <img src="./files/uploads/report_header/' . $regional_office[0]->report_header . '" onerror=this.src="./files/uploads/report_header/newhead.jpg" class="col-3" style="width:100%;">
-                <br>
-                <br>
-                <div style="text-align:center;"><h2>' . $spot_report[0]->spot_report_number . '</h2></div>
-                <div style="border:solid;" align="center"><span style="font-size:20px">PROGRESS REPORT</span></div>
-                <br>
-                <span style="margin-right:39px; margin-left:33px">Date Reported:</span><span>' . Carbon::createFromFormat('Y-m-d', $spot_report[0]->reported_date)->format('F d,Y') . '</span>
-                <br>
-                <span style="margin-right:23px; margin-left:33px;">Reporting Office:</span><span style="font-weight:bold">' . $regional_office[0]->name . '</span>
-                <br>
-                <br>
-                <span style="margin-right:23px; margin-left:33px">Pre-Ops Number:</span><span style="font-weight:bold">' . $spot_report[0]->preops_number . '</span>
-                <span style="margin-right:8px; margin-left:33px">Date/Time of OPN:</span><span style="font-weight:bold">' . Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->operation_datetime)->format('d F Y H:i:s') . '</span>
-                <br>
-                <span style="margin-right:35px; margin-left:33px">Operating Unit:</span><span style="font-weight:bold">' . $operating_unit[0]->name . '</span>
-                <br>
-                <span style="margin-right:14px; margin-left:33px">Type of Operation:</span><span style="font-weight:bold">' . $operation_type[0]->name . '</span>
-                <br>
-                <br>
-                <span style="margin-right:14px; margin-left:33px">Area of Operation:</span>
-                <p style="margin-right:14px; margin-left:33px; margin-top: 5px;"><u>' . $barangay[0]->barangay_m . ', ' . $city[0]->city_m . '</u></p>
-                <span style="margin-right:74px; margin-left:33px">Remarks:</span><span>' . $spot_report[0]->remarks . '</span>
-                <br>';
-
-        $output .= '
-                <br>
-                <table width="100%" style="border-collapse: collapse; border: 0px;">
-                <tr style="border: 1px solid;">
-                    <th style="border: none; padding:0 12px;" align="left">Suspect(s) Arrested</th>
-                    <th style="border: none; padding:0 12px;" align="left"></th>
-                    <th style="border: none; padding:0 12px;" align="left"></th>
-                </tr>';
-
-        // Suspect
-        foreach ($suspect as $sp) {
-            $output .= '
-                <tr>
-                    <td colspan="2" style="border: none; padding:0 12px;" align="left"><b>' . $sp->lastname . ',' . $sp->firstname . ' ' . $sp->middlename . ' @' . $sp->alias . '</b></td>
-                </tr>
-                <tr>
-                    <td style="border: none; padding-left:22px;" align="left">Drug Test Result: <b>' . $sp->drug_test_result . '</b></td>
-                    <td style="border: none; padding-left:22px;" align="left">Metabolites: <b>' . $sp->drug_name . '</b></td>
-                </tr>
-                <tr>
-                    <td style="border: none; padding-left:22px;" align="left">Whereabouts: <b>' . $sp->whereabouts . '</b></td>
-                </tr>';
-        }
-        $output .= '</table>';
-
-        $output .= '
-                <br>
-                <table width="100%" style="border-collapse: collapse; border: 0px;">
-                <tr style="border: 1px solid;">
-                    <th style="border: none; padding:0 12px;" width="25%" align="left">Qty</th>
-                    <th style="border: none; padding:0 12px;" width="25%" align="left">Evidence</th>
-                    <th style="border: none; padding:0 12px;" width="50%" align="left">Packaging</th>
-                </tr>';
-
-        // Evidence
-        foreach ($evidence as $ar) {
-            $output .= '
-                <tr>
-                    <td style="border: none; padding:0 12px;" width="25%" align="right">' . $ar->quantity . ' ' . $ar->unit_measurement . '</td>
-                    <td style="border: none; padding:0 12px;" width="25%">' . $ar->evidence_type . ' - ' . $ar->evidence . '</td>
-                    <td style="border: none; padding:0 12px;" width="50%">Sample</td>
-                </tr>';
-        }
-        $output .= '</table>';
-
-        $output .= '
-                <br>
-                <table width="100%" style="border-collapse: collapse; border: 0px;">
-                    <tr style="border: 1px solid;">
-                        <th style="border: none; padding:0 12px;" width="50%" align="left">Case(s) Filed</th>
-                        <th style="border: none; padding:0 12px;" width="50%" align="left">Name of Suspect</th>
-                    </tr>';
-
-        // Case
-        foreach ($case as $cs) {
-            $output .= '
-                    <tr>
-                        <td style="border: none; padding:0 12px;" width="50%">' . $cs->case . '</td>
-                        <td style="border: none; padding:0 12px;" width="50%">' . $cs->lastname . ', ' . $cs->firstname . ' ' . $cs->middlename . '</td>
-                    </tr>';
-        }
-        $output .= '</table>';
-
-        $output .= '
-                <br>
-                <table width="100%" style="border-collapse: collapse; border: 0px;">
-                    <tr style="border: 1px solid;">
-                        <th style="border: none; padding:0 12px;" width="50%" align="left">Case Status</th>
-                    </tr>';
-
-        // Team
-        foreach ($team as $tm) {
-            $output .= '
-                    <tr>
-                        <td style="border: none; padding:0 12px;" width="50%">' . $tm->officer_name . '<span style="margin-left:50px">-' . $tm->officer_position . '</span></td>
-                    </tr>';
-        }
-        $output .= '</table>';
-
-        $output .= '
-                <br>
-                <table width="100%" style="border-collapse: collapse; border: 0px;">
-                    <tr style="border: 1px solid;">
-                        <th style="border: none; padding:0 12px;" width="50%" align="left">Summary</th>
-                    </tr>
-                </table>
-                <p style="margin-right:23px; margin-left:40px;"><b>' . $spot_report[0]->report_header . '</b></p>
-                <p style="margin-right:23px; margin-left:60px;">' . $spot_report[0]->summary . '</p>
-                <h4 align="center">*** end of report ***</h4>';
-
-        $output .= '
-                <footer>
-                    ' . $date . ' | ' . Auth::user()->name . '
-                </footer>
-            </body>
-            </html>';
-
-        return $output;
+        $pdf = PDF::loadView('progress_report.progress_report_PDF', compact(
+            'spot_report',
+            'regional_office',
+            'region',
+            'province',
+            'city',
+            'barangay',
+            'operating_unit',
+            'operation_type',
+            'suspect',
+            'date',
+            'evidence',
+            'case',
+            'team',
+            'report_date',
+            'operation_datetime'
+        ));
+        $canvas = $pdf->getDomPDF()->getCanvas();
+        $canvas->page_script('$pdf->set_opacity(.5);
+        $pdf->image("/public/images/Sector_1.png", {x}, {y}, {w}, {h});');
+        return $pdf->stream();
     }
 
     public function search_spot_report_number(Request $request)

@@ -240,8 +240,8 @@ class AfterOperationReportController extends Controller
     public function edit($preops_number)
     {
         $preops_header = DB::table('preops_header as a')
-            ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
-            ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+            ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+            ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
             ->select('a.id', 'a.ro_code', 'a.preops_number', 'a.operating_unit_id', 'operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.validity', 'a.received_date', 'a.result', 'a.negative_reason_id', 'a.date_reported', 'a.filename')
             ->where(['preops_number' => $preops_number])
             ->get();
@@ -253,7 +253,7 @@ class AfterOperationReportController extends Controller
         $unit_measurement = DB::table('unit_measurement')->where('status', true)->get();
         $negative_reason = DB::table('negative_reason')->where('status', true)->orderby('name', 'asc')->get();
         $evidence = DB::table('evidence as a')
-            ->join('evidence_type as b', 'a.evidence_type_id', '=', 'b.id')
+            ->leftjoin('evidence_type as b', 'a.evidence_type_id', '=', 'b.id')
             ->where('a.status', true)
             ->where('b.category', 'drug')
             ->select('a.id', 'a.name')->get();
