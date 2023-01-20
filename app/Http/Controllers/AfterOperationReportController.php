@@ -422,4 +422,29 @@ class AfterOperationReportController extends Controller
 
         return json_encode($data);
     }
+
+    public function search_preops_number(Request $request)
+    {
+
+        if (Auth::user()->user_level_id == 2) {
+            $preops_number = DB::table('preops_header as a')
+                ->leftjoin('regional_office as d', 'a.region_c', '=', 'd.region_c')
+                ->select('a.id', 'a.preops_number as text')
+                ->where('a.preops_number', 'LIKE', '%' . $request->input('term', '') . '%')
+                ->where('d.id', Auth::user()->regional_office_id)
+                ->where('with_aor', 0)
+                ->where('with_sr', 0)
+                ->get();
+        } else {
+            $preops_number = DB::table('preops_header as a')
+                ->select('a.id', 'a.preops_number as text')
+                ->where('a.preops_number', 'LIKE', '%' . $request->input('term', '') . '%')
+                ->where('a.with_aor', 0)
+                ->where('a.with_sr', 0)
+                ->get();
+        }
+
+
+        return ['results' => $preops_number];
+    }
 }

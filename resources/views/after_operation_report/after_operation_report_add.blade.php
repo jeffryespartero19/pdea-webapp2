@@ -52,11 +52,7 @@
                             <label for="">Pre-Ops Control Number</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="preops_number" name="preops_number" class="form-control select2" style="width: 100%;" required>
-                                <option value='' disabled selected>Select Option</option>
-                                @foreach($preops as $po)
-                                <option value="{{ $po->preops_number }}">{{ $po->preops_number }}</option>
-                                @endforeach
+                            <select id="preops_number" name="preops_number" class="form-control PreopsSearch" style="width: 100%;" required>
                             </select>
                         </div>
                     </div>
@@ -301,6 +297,14 @@
 
             items_row++;
         });
+
+        $(".PreopsSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/ao_search_preops_number',
+                dataType: "json",
+            }
+        })
     });
 
     $("#result").on("change", function() {
@@ -322,7 +326,7 @@
                     if (result == 'positive' && is_testbuy == '1') {
                         $(".ISdetails").attr('hidden', false);
                         $(".NReason").attr('hidden', true);
-                    } else if(result == 'positive' && is_testbuy == '0'){
+                    } else if (result == 'positive' && is_testbuy == '0') {
                         $(".ISdetails").attr('hidden', true);
                         $(".NReason").attr('hidden', true);
                     } else {
