@@ -121,7 +121,7 @@
                             <label for="">Province</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="province_c" name="province_c" class="form-control" required>
+                            <select id="province_c" name="province_c" class="form-control" >
                             </select>
                         </div>
                     </div>
