@@ -121,7 +121,7 @@
                             <label for="">Province</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="province_c" name="province_c" class="form-control" >
+                            <select id="province_c" name="province_c" class="form-control">
                             </select>
                         </div>
                     </div>
@@ -1635,7 +1635,7 @@
                                 "</option>";
                             $("#operating_unit_id").append(operating_unit);
 
-                            
+
 
                             $('#region_c option[value=' + element['region_c'] + ']').attr('selected', 'selected');
                             $('#operation_datetime').val(element['operation_datetime']);
@@ -1643,7 +1643,7 @@
                             var date = $("#operation_datetime").val();
 
                             $('#operation_datetime')[0].min = date;
-             
+
 
                             var region_c = element['region_c'];
                             $.ajax({
@@ -1659,6 +1659,7 @@
                                     $('#city_c').empty();
                                     $('#barangay_c').empty();
                                     var option1 = " <option value='' selected>Select Option</option>";
+                                    var option1 = " <option value='0000' selected>Regional Coordination</option>";
                                     $("#province_c").append(option1);
 
                                     data.forEach(element => {
@@ -1670,8 +1671,10 @@
                                         $("#province_c").append(option);
                                     });
 
-                                    if (element['province_c'] != '0000') {
+                                    if (element['province_c'] != '0000' || element['province_c'] != '') {
                                         $('#province_c option[value=' + element['province_c'] + ']').attr('selected', 'selected');
+                                    } else if (element['province_c'] == '0000') {
+                                        $('#province_c option[value=0000]').attr('selected', 'selected');
                                     } else {
                                         $("#province_c").removeClass("disabled_field");
                                     }
