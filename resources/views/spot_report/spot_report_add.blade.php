@@ -1671,7 +1671,7 @@
                                         $("#province_c").append(option);
                                     });
 
-                                    if (element['province_c'] != '0000' || element['province_c'] != '') {
+                                    if (element['province_c'] != '0000' && element['province_c'] != '') {
                                         $('#province_c option[value=' + element['province_c'] + ']').attr('selected', 'selected');
                                     } else if (element['province_c'] == '0000') {
                                         $('#province_c option[value=0000]').attr('selected', 'selected');
