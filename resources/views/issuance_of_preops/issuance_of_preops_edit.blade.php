@@ -142,12 +142,13 @@
                     <div class="form-group col-6" style="margin: 0px;" id="sp_list">
                         <div>
                             <label for="">Support Unit</label>
-                            <a id="SPadd" href="#" style="float: right;" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                            <a onclick="addrow();" href="#" style="float: right;" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                                 @else
                                 hidden
                                 @endif
                                 ><i class="fas fa-plus pr-2"></i></a>
                         </div>
+                        <div class="SUdetails">
                         @forelse($preops_support_unit as $psu)
                         <div class="input-group mb-3 su_options">
                             <select name="support_unit_id[]" class="form-control support_unit_id SUPPUnitSearch" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
@@ -164,6 +165,7 @@
                                 ><i class="fas fa-minus pr-2 " style="color:red"></i></a>
                         </div>
                         @empty
+                        
                         <div class="input-group mb-3 su_options">
                             <select name="support_unit_id[]" class="form-control support_unit_id">
                                 <option value='' disabled selected>Select Option</option>
@@ -174,6 +176,7 @@
                             <a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>
                         </div>
                         @endforelse
+                        </div>
                     </div>
                 </div>
                 <hr>
@@ -1216,8 +1219,8 @@
                     data: function(params) {
                         ro_code = $('.ro_code').val() //this is the anotherParm
                         return {
-                            q: term, // search term
-                            ro_code: ro_code,
+                            q: params.term, // search term
+                            ro_code: params.ro_code,
                         };
                     },
                 }
@@ -1250,8 +1253,8 @@
                     dataType: "json",
                     data: function(params) {
                         return {
-                            q: term, // search term
-                            ro_code: ro_code,
+                            q: params.term, // search term
+                            ro_code: params.ro_code,
                         };
                     },
                 }

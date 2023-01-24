@@ -30,8 +30,9 @@
 
             /** Extra personal styles **/
             color: black;
-            text-align: center;
+            text-align: right;
             line-height: 35px;
+            font-size: smaller;
         }
 
         .arial {
@@ -73,6 +74,17 @@
     <span style="margin-right:23px">Date and Time Coordinated:</span><span>{{$coordinated_datetime}}H</span>
     <br>
     <span style="margin-right:104px">Operating Unit:</span><span style="font-weight: bold;">{{$operating_unit[0]->name}}</span>
+    <br>
+    <span style="margin-right:113px">Support Unit:</span>
+    @foreach ($support_unit as $su)
+    @if($loop->iteration == 1)
+    <span style="font-weight: bold;">{{$su->name}}</span>
+    @elseif($loop->iteration > 1)
+    <br>
+    <span style="font-weight: bold; margin-left:205px">{{$su->name}}
+    </span>
+    @endif
+    @endforeach
     <br>
     <span style="margin-right:82px">Type of Operation:</span><span style="font-weight: bold;">{{$operation_type[0]->name}}</span>
     <br>
@@ -128,7 +140,7 @@
     <div style="padding-left:300px; margin-bottom:40px">Approved by:</div>
     <div style="padding-left:300px; font-weight: bold;">{{$approved_by[0]->name}}</div>
     <div style="padding-left:300px;">REGIONAL DIRECTOR</div>
-    <footer>
+    <footer >
         {{$date}} | {{Auth::user()->name}} | @if ($preops_data[0]->print_count == 1) O @else C @endif
     </footer>
 </body>

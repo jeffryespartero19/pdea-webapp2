@@ -723,7 +723,9 @@ class IssuanceOfPreopsController extends Controller
 
         $regional_office = DB::table('regional_office')->where('ro_code', $preops_data[0]->ro_code)->get();
         $operating_unit = DB::table('operating_unit')->where('id', $preops_data[0]->operating_unit_id)->get();
-        $support_unit = DB::table('support_unit')->where('status', true)->get();
+        $support_unit = DB::table('preops_support_unit as a')
+            ->leftjoin('operating_unit as b', 'a.support_unit_id', '=', 'b.id')
+            ->where('a.preops_number', $preops_data[0]->preops_number)->get();
         $operation_type = DB::table('operation_type')->where('id', $preops_data[0]->operation_type_id)->get();
         $area = DB::table('preops_area as a')
             ->join('preops_header as b', 'a.preops_number', '=', 'b.preops_number')
@@ -758,7 +760,8 @@ class IssuanceOfPreopsController extends Controller
             'duration',
             'date',
             'operation_type',
-            'approved_by'
+            'approved_by',
+            'support_unit'
         ));
         $canvas = $pdf->getDomPDF()->getCanvas();
         $canvas->page_script('$pdf->set_opacity(.5);
