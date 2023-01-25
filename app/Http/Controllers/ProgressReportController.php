@@ -777,14 +777,18 @@ class ProgressReportController extends Controller
 
     public function search_spot_report_number(Request $request)
     {
-        $spot_report_number = DB::table('spot_report_header as a')
-            ->where('a.spot_report_number', 'LIKE', '%' . $request->input('term', '') . '%')
-            ->where('a.region_c', Auth::user()->region_c)
-            ->where('a.report_status', 0)
-            ->get(['a.id as id', 'a.spot_report_number as text']);
-
-        // dd($spot_report_number);
-
+        if (Auth::user()->user_level_id == 2) {
+            $spot_report_number = DB::table('spot_report_header as a')
+                ->where('a.spot_report_number', 'LIKE', '%' . $request->input('term', '') . '%')
+                ->where('a.report_status', 0)
+                ->get(['a.id as id', 'a.spot_report_number as text']);
+        } else {
+            $spot_report_number = DB::table('spot_report_header as a')
+                ->where('a.spot_report_number', 'LIKE', '%' . $request->input('term', '') . '%')
+                ->where('a.region_c', Auth::user()->region_c)
+                ->where('a.report_status', 0)
+                ->get(['a.id as id', 'a.spot_report_number as text']);
+        }
         return ['results' => $spot_report_number];
     }
 }
