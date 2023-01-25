@@ -1658,8 +1658,8 @@
                                     $('#province_c').empty();
                                     $('#city_c').empty();
                                     $('#barangay_c').empty();
-                                    var option1 = " <option value='' selected>Select Option</option>";
-                                    var option1 = " <option value='0000' selected>Regional Coordination</option>";
+                                    var option1 = " <option value=''>Select Option</option>";
+                                    var option1 = " <option value='0000'>Regional Coordination</option>";
                                     $("#province_c").append(option1);
 
                                     data.forEach(element => {
