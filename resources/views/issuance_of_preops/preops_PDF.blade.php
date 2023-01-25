@@ -73,7 +73,7 @@
     <br>
     <span style="margin-right:23px">Date and Time Coordinated:</span><span>{{$coordinated_datetime}}H</span>
     <br>
-    <span style="margin-right:104px">Lead Unit:</span><span style="font-weight: bold;">{{$operating_unit[0]->description}}</span>
+    <span style="margin-right:136px">Lead Unit:</span><span style="font-weight: bold;">{{$operating_unit[0]->description}}</span>
     <br>
     @if(isset($support_unit->description))
     <span style="margin-right:113px">Support Unit:</span>
