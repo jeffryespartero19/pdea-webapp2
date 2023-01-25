@@ -383,6 +383,8 @@
                                                             </td>
                                                             <td>
                                                                 <select name="civil_status_id[]" class="form-control CivilStatusSearch" style="width: 200px;">
+                                                                 <option value='' selected>Select Option
+                                                                    </option>
                                                                 </select>
                                                             </td>
                                                             <td>
