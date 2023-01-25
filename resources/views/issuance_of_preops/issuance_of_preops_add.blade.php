@@ -1011,7 +1011,7 @@
         $(".support_unit_id option[value='" + operating_unit_id + "']").prop('hidden', true);
     });
 
-    
+
     $(document).on('click', '.su_remove', function() {
         $(this).closest(".su_options").remove();
     });
@@ -1115,6 +1115,14 @@
                     },
                 }
             });
+        }
+
+        //Print Report on Load
+        var print_id = $('#print_id').val();
+        if (print_id > 0) {
+
+            var url = "view_Preops/" + print_id;
+            window.open(url, "_blank");
         }
     });
 
