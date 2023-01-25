@@ -1269,7 +1269,7 @@
                 url: '/search_operating_unit',
                 dataType: "json",
             }
-        }).prop('disabled', true);
+        });
 
 
         $(".PreopsNumberSearch").select2({
