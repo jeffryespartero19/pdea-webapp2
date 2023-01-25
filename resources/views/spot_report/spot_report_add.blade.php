@@ -1683,11 +1683,9 @@
                             });
 
 
-                            var province_c = element['province_c'];
-
                             $.ajax({
                                 type: "GET",
-                                url: "/get_city/" + province_c,
+                                url: "/get_city/" + p_province_c,
                                 fail: function() {
                                     alert("request failed");
                                 },
