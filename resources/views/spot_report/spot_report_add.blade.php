@@ -1644,6 +1644,7 @@
 
                             $('#operation_datetime')[0].min = date;
 
+                            var p_province_c = element['province_c']
 
                             var region_c = element['region_c'];
                             $.ajax({
@@ -1671,9 +1672,9 @@
                                         $("#province_c").append(option);
                                     });
 
-                                    if (element['province_c'] != '0000' && element['province_c'] != '') {
-                                        $('#province_c option[value=' + element['province_c'] + ']').attr('selected', 'selected');
-                                    } else if (element['province_c'] == '0000') {
+                                    if (p_province_c != '0000' && p_province_c != '') {
+                                        $('#province_c option[value=' + p_province_c + ']').attr('selected', 'selected');
+                                    } else if (p_province_c == '0000') {
                                         $('#province_c option[value=0000]').attr('selected', 'selected');
                                     } else {
                                         $("#province_c").removeClass("disabled_field");
