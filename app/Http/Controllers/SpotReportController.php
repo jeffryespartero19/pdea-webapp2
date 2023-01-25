@@ -539,7 +539,7 @@ class SpotReportController extends Controller
             }
         }
 
-        if (isset($data['suspect_number_case'])) {
+        if (isset($data['suspect_number_case']) && isset($data['case_id'])) {
             $spot_case = [];
 
             for ($i = 0; $i < count($data['suspect_number_case']); $i++) {
@@ -1756,7 +1756,7 @@ class SpotReportController extends Controller
 
         if (Auth::user()->user_level_id == 2) {
             $preops_number = DB::table('preops_header as a')
-                ->select('a.id', 'a.preops_number as text')
+                ->select('a.preops_number as id', 'a.preops_number as text')
                 ->where('a.preops_number', 'LIKE', '%' . $request->input('term', '') . '%')
                 ->where('a.with_sr', 0)
                 ->union($data)

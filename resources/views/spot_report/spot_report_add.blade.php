@@ -1258,7 +1258,7 @@
         var print_id = $('#print_id').val();
         if (print_id > 0) {
 
-            var url = "spot_report/pdf/" + print_id;
+            var url = "view_SpotReport/" + print_id;
             window.open(url, "_blank");
         }
 
