@@ -317,6 +317,21 @@ Route::group(['middleware' => ['auth', 'cp_acess']], function () {
     Route::get('/view_SpotReport/{id}', 'SpotReportController@viewPDF');
     Route::get('/view_Preops/{id}', 'IssuanceOfPreopsController@viewPDF');
     Route::get('/view_ProgressReport/{id}', 'IssuanceOfPreopsController@viewPDF');
+
+    //Global Controller
+    Route::get('/get_preops_number/{region_c}', 'GlobalController@getPreopsNumber');
+    Route::get('/get_preops_header/{preops_number}', 'GlobalController@getPreopsHeader');
+    Route::get('/get_preops_team/{preops_number}', 'GlobalController@getPreopsTeam');
+    Route::get('/get_preops_area/{preops_number}', 'GlobalController@getPreopsArea');
+    Route::get('/get_spot_report_header/{spot_report_number}', 'GlobalController@get_spot_report_header');
+    Route::get('/get_spot_report_suspect/{spot_report_number}', 'GlobalController@get_spot_report_suspect');
+    Route::get('/get_spot_report_evidence_drug/{spot_report_number}', 'GlobalController@get_spot_report_evidence_drug');
+    Route::get('/get_spot_report_case/{spot_report_number}', 'GlobalController@get_spot_report_case');
+    Route::get('/get_preops_list/{ro_code}/{operating_unit_id}/{operation_type_id}/{operation_date}/{operation_date_to}', 'GlobalController@get_preops_list');
+    Route::get('/get_after_operation_list/{ro_code}/{operating_unit_id}/{operation_type_id}/{operation_date}', 'GlobalController@get_after_operation_list');
+    Route::get('/get_spot_report_list/{region_c}/{operating_unit_id}/{operation_type_id}/{operation_date}/{operation_date_to}', 'GlobalController@get_spot_report_list');
+    Route::get('/get_progress_report_list/{region_c}/{operating_unit_id}/{operation_type_id}/{operation_date}', 'GlobalController@get_progress_report_list');
+    Route::get('/get_preops_target/{preops_number}', 'GlobalController@getPreopsTarget');
 });
 
 
@@ -394,18 +409,7 @@ Route::get('/get_city/{province_c}', 'GlobalController@getCity');
 Route::get('/get_barangay/{city_c}', 'GlobalController@getBarangay');
 Route::get('/getUsers', 'GlobalController@getUsers')->name('getUsers');
 Route::get('/get_province_details/{province_c}', 'GlobalController@get_province_details');
-Route::get('/get_preops_number/{region_c}', 'GlobalController@getPreopsNumber');
-Route::get('/get_preops_header/{preops_number}', 'GlobalController@getPreopsHeader');
-Route::get('/get_preops_team/{preops_number}', 'GlobalController@getPreopsTeam');
-Route::get('/get_preops_area/{preops_number}', 'GlobalController@getPreopsArea');
-Route::get('/get_spot_report_header/{spot_report_number}', 'GlobalController@get_spot_report_header');
-Route::get('/get_spot_report_suspect/{spot_report_number}', 'GlobalController@get_spot_report_suspect');
-Route::get('/get_spot_report_evidence_drug/{spot_report_number}', 'GlobalController@get_spot_report_evidence_drug');
-Route::get('/get_spot_report_case/{spot_report_number}', 'GlobalController@get_spot_report_case');
-Route::get('/get_preops_list/{ro_code}/{operating_unit_id}/{operation_type_id}/{operation_date}/{operation_date_to}', 'GlobalController@get_preops_list');
-Route::get('/get_after_operation_list/{ro_code}/{operating_unit_id}/{operation_type_id}/{operation_date}', 'GlobalController@get_after_operation_list');
-Route::get('/get_spot_report_list/{region_c}/{operating_unit_id}/{operation_type_id}/{operation_date}/{operation_date_to}', 'GlobalController@get_spot_report_list');
-Route::get('/get_progress_report_list/{region_c}/{operating_unit_id}/{operation_type_id}/{operation_date}', 'GlobalController@get_progress_report_list');
+
 Route::get('/get_user/{user_id}', 'GlobalController@getUser');
 Route::get('/get_drug_management/{suspect_id}', 'GlobalController@getDrugManagement');
 Route::get('/get_support_unit/{preops_number}', 'GlobalController@getPreopsSupportUnit');

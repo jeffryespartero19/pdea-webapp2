@@ -15,7 +15,7 @@
             height: 50px;
 
             /** Extra personal styles **/
-            color: blue;
+            color: red;
             text-align: center;
             line-height: 35px;
             font-size: 20px;
@@ -57,7 +57,7 @@
     </div>
     <!-- Define header and footer blocks before your content -->
     <header>
-        Secret
+        SECRET
     </header>
     @if($regional_office[0]->report_header != null)
     <img id="currentPhoto" src="./files/uploads/report_header/'{{$regional_office[0]->report_header}}" onerror="this.src='./files/uploads/report_header/newhead.jpg'" alt="" class="col-3" style="width:100%;">
@@ -73,25 +73,30 @@
     <br>
     <span style="margin-right:23px">Date and Time Coordinated:</span><span>{{$coordinated_datetime}}H</span>
     <br>
-    <span style="margin-right:104px">Operating Unit:</span><span style="font-weight: bold;">{{$operating_unit[0]->name}}</span>
+    <span style="margin-right:104px">Lead Unit:</span><span style="font-weight: bold;">{{$operating_unit[0]->description}}</span>
     <br>
+    @if(isset($support_unit->description))
     <span style="margin-right:113px">Support Unit:</span>
     @foreach ($support_unit as $su)
+   
     @if($loop->iteration == 1)
-    <span style="font-weight: bold;">{{$su->name}}</span>
+    <span style="font-weight: bold;">{{$su->description}}</span>
     @elseif($loop->iteration > 1)
     <br>
-    <span style="font-weight: bold; margin-left:205px">{{$su->name}}
+    <span style="font-weight: bold; margin-left:205px">{{$su->description}}
     </span>
     @endif
     @endforeach
     <br>
+    @endif
     <span style="margin-right:82px">Type of Operation:</span><span style="font-weight: bold;">{{$operation_type[0]->name}}</span>
     <br>
     <span style="margin-right:143px">Duration:</span><span>{{$operation_datetime}}H to {{$validity}}H ({{$duration}} HRS)</span>
     <br>
+    @if(isset($preops_data[0]->remarks))
     <span style="margin-right:149px">Remark:</span><span>{{$preops_data[0]->remarks}}</span>
     <br>
+    @endif
     <br>
     <div style="background-color:green; color:white; padding-left:5px">Area(s) of Operation</div>
     <table width="100%" style="border-collapse: collapse; border: 0px;">

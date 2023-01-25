@@ -743,7 +743,7 @@ class IssuanceOfPreopsController extends Controller
             ->where('b.id', $id)->get();
 
         $operation_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->operation_datetime);
-        $coordinated_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->coordinated_datetime);
+        $coordinated_datetime = Carbon::createFromFormat('Y-m-d H:m:s', $preops_data[0]->coordinated_datetime);
         $validity = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->validity);
         $duration = $operation_datetime->diffInHours($validity);
         $approved_by = DB::table('approved_by')->where('id', $preops_data[0]->approved_by)->get();

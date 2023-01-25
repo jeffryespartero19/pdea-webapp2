@@ -149,33 +149,33 @@
                                 ><i class="fas fa-plus pr-2"></i></a>
                         </div>
                         <div class="SUdetails">
-                        @forelse($preops_support_unit as $psu)
-                        <div class="input-group mb-3 su_options">
-                            <select name="support_unit_id[]" class="form-control support_unit_id SUPPUnitSearch" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
-                                @else
-                                disabled
-                                @endif
-                                >
-                                <option value="{{ $psu->id }}" selected>{{ $psu->description }}</option>
-                            </select>
-                            <a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
-                                @else
-                                hidden
-                                @endif
-                                ><i class="fas fa-minus pr-2 " style="color:red"></i></a>
-                        </div>
-                        @empty
-                        
-                        <div class="input-group mb-3 su_options">
-                            <select name="support_unit_id[]" class="form-control support_unit_id">
-                                <option value='' disabled selected>Select Option</option>
-                                @foreach($operating_unit as $ou)
-                                <option value="{{ $ou->id }}">{{ $ou->description }}</option>
-                                @endforeach
-                            </select>
-                            <a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>
-                        </div>
-                        @endforelse
+                            @forelse($preops_support_unit as $psu)
+                            <div class="input-group mb-3 su_options">
+                                <select name="support_unit_id[]" class="form-control support_unit_id SUPPUnitSearch" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                    @else
+                                    disabled
+                                    @endif
+                                    >
+                                    <option value="{{ $psu->id }}" selected>{{ $psu->description }}</option>
+                                </select>
+                                <a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                    @else
+                                    hidden
+                                    @endif
+                                    ><i class="fas fa-minus pr-2 " style="color:red"></i></a>
+                            </div>
+                            @empty
+
+                            <div class="input-group mb-3 su_options">
+                                <select name="support_unit_id[]" class="form-control support_unit_id">
+                                    <option value='' disabled selected>Select Option</option>
+                                    @foreach($operating_unit as $ou)
+                                    <option value="{{ $ou->id }}">{{ $ou->description }}</option>
+                                    @endforeach
+                                </select>
+                                <a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>
+                            </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>

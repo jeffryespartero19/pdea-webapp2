@@ -30,8 +30,6 @@ class ReportGenerationController extends Controller
                 ->leftjoin('province as c', 'a.province_c', '=', 'c.province_c')
                 ->leftjoin('operation_type as d', 'a.operation_type_id', '=', 'd.id')
                 ->leftjoin('operating_unit as e', 'a.operating_unit_id', '=', 'e.id')
-                // ->leftjoin('preops_support_unit as f', 'a.preops_number', '=', 'f.preops_number')
-                // ->leftjoin('operating_unit as g', 'f.support_unit_id', '=', 'g.id')
                 ->leftjoin('negative_reason as h', 'a.negative_reason_id', '=', 'h.id')
                 ->select(
                     'b.name as region',
@@ -48,7 +46,6 @@ class ReportGenerationController extends Controller
                     'a.prepared_by',
                     'a.result',
                     'h.name as negative_reason',
-                    'a.received_date'
                 )
                 // ->groupBy(
                 //     'a.preops_number',
@@ -68,7 +65,7 @@ class ReportGenerationController extends Controller
                 //     'h.name',
                 //     'a.received_date'
                 // )
-                ->paginate(20);
+                ->paginate(10);
 
             // $preops_area = DB::table('preops_area as h')
             //     ->leftjoin('region as h1', 'h.region_c', '=', 'h1.region_c')
@@ -471,5 +468,108 @@ class ReportGenerationController extends Controller
                 'spot_report_case'
             ));
         }
+    }
+
+    public function get_after_operation($pn)
+    {
+
+        $spot_report_header = DB::table('spot_report_header as a')
+            ->where('a.id', $id)->get();
+        $ao = DB::table('spot_report_suspect as a')
+            ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
+            ->leftjoin('drug_management as c', 'a.id', '=', 'c.suspect_id')
+            ->leftjoin('users as d', 'd.id', '=', 'c.user_id')
+            ->leftjoin('tbluserlevel as e', 'd.user_level_id', '=', 'e.id')
+            ->leftjoin('province as f', 'a.province_c', '=', 'f.province_c')
+            ->leftjoin('city as g', 'a.city_c', '=', 'g.city_c')
+            ->leftjoin('barangay as h', 'a.barangay_c', '=', 'h.barangay_c')
+            ->leftjoin('province as i', 'a.permanent_province_c', '=', 'i.province_c')
+            ->leftjoin('city as j', 'a.permanent_city_c', '=', 'j.city_c')
+            ->leftjoin('barangay as k', 'a.permanent_barangay_c', '=', 'k.barangay_c')
+            ->select(
+                'a.id',
+                'a.suspect_number',
+                'a.spot_report_number',
+                'a.lastname',
+                'a.firstname',
+                'a.middlename',
+                'a.alias',
+                'a.gender',
+                'a.birthdate',
+                'a.birthplace',
+                'a.nationality_id',
+                'a.civil_status_id',
+                'a.religion_id',
+                'a.educational_attainment_id',
+                'a.ethnic_group_id',
+                'a.occupation_id',
+                'a.identifier_id',
+                'a.region_c',
+                'a.province_c',
+                'a.city_c',
+                'a.barangay_c',
+                'a.street',
+                'a.permanent_region_c',
+                'a.permanent_province_c',
+                'a.permanent_city_c',
+                'a.permanent_barangay_c',
+                'a.permanent_street',
+                'a.suspect_classification_id',
+                'a.suspect_status_id',
+                'a.remarks',
+                'a.suspect_category_id',
+                'a.suspect_sub_category_id',
+                'c.listed',
+                'c.user_id',
+                'e.name as ulvl',
+                'd.name as uname',
+                'a.est_birthdate',
+                'a.whereabouts',
+                'f.province_m as province_name',
+                'g.city_m as city_name',
+                'h.barangay_m as barangay_name',
+                'i.province_m as permanent_province_name',
+                'j.city_m as permanent_city_name',
+                'k.barangay_m as permanent_barangay_name',
+            )
+            ->where('a.spot_report_number', $pn)->get();
+        
+        return view('spot_report.spot_report_edit', compact(
+            'report_header',
+            'packaging',
+            'suspect_category',
+            'is_warrant',
+            'unit_measurement',
+            'evidence',
+            'suspect_classification',
+            'preops_support_unit',
+            'support_unit',
+            'civil_status',
+            'religion',
+            'education',
+            'ethnic_group',
+            'nationality',
+            'occupation',
+            'spot_report_evidence',
+            'spot_report_case',
+            'spot_report_team',
+            'spot_report_summary',
+            'spot_report_header',
+            'region',
+            'province',
+            'city',
+            'barangay',
+            'operation_type',
+            'suspect_information',
+            'case',
+            'suspect_status',
+            'spot_report_files',
+            'regional_user',
+            'hio_type',
+            'identifier',
+            'suspect_sub_category',
+            'operating_unit',
+            'suspects'
+        ));
     }
 }

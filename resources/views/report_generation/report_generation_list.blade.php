@@ -26,7 +26,7 @@
         <div class="card-header">
             <h3 class="card-title">Filter</h3>
         </div>
-        <div class="card-body" style="overflow-y: scroll; height: 1000px">
+        <div class="card-body" style="overflow-y: scroll; height: 100vh">
             <!-- <label>Enter Keyword:</label>
             <input id="myInput" type="text" placeholder="Search..">
 
@@ -610,9 +610,9 @@
                     @php ($preops_number = "")
                     @endif
 
-                    <tr>
+                    <tr class='details'>
                         <td class="po region" style="white-space: nowrap">{{ $issuance_of_preops->region }}</td>
-                        <td class="po preops_number" style="white-space: nowrap">{{ $preops_number }}</td>
+                        <td class="po preops_number pr_number" style="white-space: nowrap">{{ $preops_number }}</td>
                         <td class="po province" style="white-space: nowrap">{{ $issuance_of_preops->province_m }}</td>
                         <td class="po type_operation" style="white-space: nowrap">{{ $issuance_of_preops->operation_type }}</td>
                         <td class="po operating_unit" style="white-space: nowrap">{{ $issuance_of_preops->operating_unit }}</td>
@@ -620,674 +620,135 @@
                         <td class="po datetime_coordinate" style="white-space: nowrap">{{ $issuance_of_preops->coordinated_datetime }}</td>
                         <td class="po datetime_operation" style="white-space: nowrap">{{ $issuance_of_preops->operation_datetime }}</td>
                         <td class="po valid_until" style="white-space: nowrap">{{ $issuance_of_preops->validity }}</td>
-                        <td class="ao a_area" style="white-space: nowrap;  color:red;">
-                            Preops Area
-                        </td>
-                        <td class="ao a_area" style="white-space: nowrap;  color:red;">
-                            Preops Area Region
-                        </td>
-                        <td class="ao a_area" style="white-space: nowrap;  color:red;">
-                            Preops Area Province
-                        </td>
-                        <td class="ao a_area" style="white-space: nowrap;  color:red;">
-                            Preops Area City
-                        </td>
-                        <td class="ao a_area" style="white-space: nowrap;  color:red;">
-                            Preops Area Barangay
-                        </td>
-                        <td class="ao taget_name" style="white-space: nowrap;  color:red;">
-                            Preops Target Name
-                        </td>
-                        <td class="ao taget_name" style="white-space: nowrap;  color:red;">
-                            Preops Target Nationality
-                        </td>
-                        <td class="ao ot_name" style="white-space: nowrap;  color:red;">
+                        <td class="ao a_area" style="white-space: nowrap;"></td>
+                        <td class="ao a_area" style="white-space: nowrap;"></td>
+                        <td class="ao a_area" style="white-space: nowrap;"></td>
+                        <td class="ao a_area" style="white-space: nowrap;"></td>
+                        <td class="ao a_area" style="white-space: nowrap;"></td>
+                        <td class="ao taget_name" style="white-space: nowrap;"> </td>
+                        <td class="ao taget_name" style="white-space: nowrap;"> </td>
+                        <td class="ao ot_name" style="white-space: nowrap;">
                             Preops Team Name
                         </td>
-                        <td class="ao ot_name" style="white-space: nowrap;  color:red;">
-                           Preops Team Position
+                        <td class="ao ot_name" style="white-space: nowrap;">
+                            Preops Team Position
                         </td>
-                        <td class="ao ot_name" style="white-space: nowrap;  color:red;">
+                        <td class="ao ot_name" style="white-space: nowrap;">
                             Preops Team Contact
                         </td>
                         <td class="ao prepared_by" style="white-space: nowrap">{{ $issuance_of_preops->prepared_by }}</td>
                         <td class="ao ao_result" style="white-space: nowrap">{{ $issuance_of_preops->result }}</td>
                         <td class="ao ao_negative_reason" style="white-space: nowrap">{{ $issuance_of_preops->negative_reason }}</td>
-                        <td class="ao ao_illegal_drug" style="white-space: nowrap">@foreach($after_operations_evidence as $aoe)
-                            @if ($aoe->preops_number == $issuance_of_preops->preops_number)
-                            {{ $aoe->evidence }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="ao ao_quantity" style="white-space: nowrap">@foreach($after_operations_evidence as $aoe)
-                            @if ($aoe->preops_number == $issuance_of_preops->preops_number)
-                            {{ $aoe->quantity }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="ao ao_unit_measure" style="white-space: nowrap">@foreach($after_operations_evidence as $aoe)
-                            @if ($aoe->preops_number == $issuance_of_preops->preops_number)
-                            {{ $aoe->unit }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="ao ao_crn" style="white-space: nowrap">@foreach($after_operations_evidence as $aoe)
-                            @if ($aoe->preops_number == $issuance_of_preops->preops_number)
-                            {{ $aoe->chemist_report_number }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="ao ao_date_received" style="white-space: nowrap">{{ $issuance_of_preops->received_date }}</td>
-                        <td class="sp sp_hio" style="white-space: nowrap">@foreach($spot_report_header as $sph)
-                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
-                            @if ($sph->operation_lvl == 1)
-                            Yes&nbsp;
-                            <br> <br>
-                            @else
-                            No&nbsp;
-                            <br> <br>
-                            @endif
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_suspect_number" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->suspect_number }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_suspect_status" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->suspect_status }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_lastname" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->lastname }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_firstname" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->firstname }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_middlename" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->middlename }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_alias" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->alias }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_birthdate" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->birthdate }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_est_birthdate" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            @if ($sps->est_birthdate == 1)
-                            Yes&nbsp;
-                            <br> <br>
-                            @else
-                            No&nbsp;
-                            <br> <br>
-                            @endif
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_birthplace" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->birthplace }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_region" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->s_region }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_province" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->s_province }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_city" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->s_city }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_barangay" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->s_barangay }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_street" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->street }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_p_region" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->p_region }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_p_province" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->p_province }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_p_city" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->p_city }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_p_barangay" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->p_barangay }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_p_street" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->permanent_street }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_gender" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->gender }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_civil_status" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->civil_status }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_nationality" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->nationality }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_ethnic_group" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->ethnic_group }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_religion" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->religion }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_educational_attainment" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->educational_attainment }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_occupation" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->occupation }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_classification" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->suspect_classification }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_category" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->suspect_category }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_whereabouts" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->whereabouts }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_remarks" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->remarks }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_seized_from" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
-                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
-                            {{ $spe->lastname }}, {{ $spe->firstname }} {{ $spe->middlename }},&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_remarks" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
-                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
-                            {{ $spe->drug }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_drug" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
-                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
-                            {{ $spe->evidence }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_quantity" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
-                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
-                            {{ $spe->quantity }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_unit_measure" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
-                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
-                            {{ $spe->unit_measure }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_packaging" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
-                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
-                            {{ $spe->packaging }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_markings" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
-                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
-                            {{ $spe->markings }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_case_type" style="white-space: nowrap">@foreach($spot_report_case as $spc)
-                            @if ($spc->preops_number == $issuance_of_preops->preops_number)
-                            {{ $spc->lastname }}, {{ $spc->firstname }} {{ $spc->middlename }},&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_case_type" style="white-space: nowrap">@foreach($spot_report_case as $spc)
-                            @if ($spc->preops_number == $issuance_of_preops->preops_number)
-                            {{ $spc->case }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_summary" style="white-space: nowrap">@foreach($spot_report_header as $sph)
-                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sph->report_header }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_summary" style="white-space: nowrap">@foreach($spot_report_header as $sph)
-                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sph->summary }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="sp sp_prepared_by" style="white-space: nowrap">@foreach($spot_report_header as $sph)
-                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sph->prepared_by }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_suspect_name" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->lastname }}, {{$sps->firstname}} {{$sps->middlename}}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_suspect_classification" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->suspect_classification }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_suspect_status" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->suspect_status }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_drug_test_result" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->drug_test_result}}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_drug_type" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->drug_type }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_remarks" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sps->remarks }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_evidence" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
-                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
-                            {{ $spe->evidence }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_quantity_on_site" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
-                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
-                            {{ $spe->qty_onsite }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_quantity_on_site" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
-                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
-                            {{ $spe->actual_qty }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_quantity_on_site" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
-                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
-                            {{ $spe->unit_measure }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_quantity_on_site" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
-                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
-                            {{ $spe->drug_test_result }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_quantity_on_site" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
-                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
-                            {{ $spe->chemist_report_number }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_quantity_on_site" style="white-space: nowrap">@foreach($spot_report_evidence as $spe)
-                            @if ($spe->preops_number == $issuance_of_preops->preops_number)
-                            {{ $spe->laboratory_facility }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_cs_name" style="white-space: nowrap">@foreach($spot_report_case as $spc)
-                            @if ($spc->preops_number == $issuance_of_preops->preops_number)
-                            {{ $spc->lastname }}, {{ $spc->firstname }} {{ $spc->middlename }},&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_case" style="white-space: nowrap">@foreach($spot_report_case as $spc)
-                            @if ($spc->preops_number == $issuance_of_preops->preops_number)
-                            {{ $spc->case }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_docket_number" style="white-space: nowrap">@foreach($spot_report_case as $spc)
-                            @if ($spc->preops_number == $issuance_of_preops->preops_number)
-                            {{ $spc->docket_number }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_case_status" style="white-space: nowrap">@foreach($spot_report_header as $spc)
-                            @if ($spc->preops_number == $issuance_of_preops->preops_number)
-                            {{ $spc->case_status }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_case_status" style="white-space: nowrap">@foreach($spot_report_header as $sph)
-                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sph->case_status }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_case_status_date" style="white-space: nowrap">@foreach($spot_report_header as $sph)
-                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sph->case_status_date }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_is_number" style="white-space: nowrap">@foreach($spot_report_header as $sph)
-                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sph->is_number }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_procecutor_name" style="white-space: nowrap">@foreach($spot_report_header as $sph)
-                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sph->procecutor_name }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_procecutor_office" style="white-space: nowrap">@foreach($spot_report_header as $sph)
-                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sph->procecutor_office }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_prelim_case_status" style="white-space: nowrap">@foreach($spot_report_header as $sph)
-                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sph->prelim_case_status }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_prelim_case_date" style="white-space: nowrap">@foreach($spot_report_header as $sph)
-                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sph->prelim_case_date }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_prelim_is_number" style="white-space: nowrap">@foreach($spot_report_header as $sph)
-                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sph->prelim_is_number }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_prelim_prosecutor" style="white-space: nowrap">@foreach($spot_report_header as $sph)
-                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sph->prelim_prosecutor }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="pr pr_prelim_prosecutor_office" style="white-space: nowrap">@foreach($spot_report_header as $sph)
-                            @if ($sph->preops_number == $issuance_of_preops->preops_number)
-                            {{ $sph->prelim_prosecutor_office }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="dv dv_suspect_name" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number && $sps->listed == 1)
-                            {{ $sps->lastname }}, {{ $sps->firstname }} {{ $sps->middlename }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="dv dv_listed" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number && $sps->listed == 1)
-                            Yes&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="dv dv_ndis" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number && $sps->listed == 1)
-                            {{ $sps->ndis_id }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
-                        </td>
-                        <td class="dv dv_remarks" style="white-space: nowrap">@foreach($spot_report_suspect as $sps)
-                            @if ($sps->preops_number == $issuance_of_preops->preops_number && $sps->listed == 1)
-                            {{ $sps->remarks }}&nbsp;
-                            <br> <br>
-                            @else
-                            @endif
-                            @endforeach
+                        <td class="ao ao_illegal_drug" style="white-space: nowrap">
+                            AFter Operation Evidence
                         </td>
+                        <td class="ao ao_quantity" style="white-space: nowrap">
+                            Quantity
+                        </td>
+                        <td class="ao ao_unit_measure" style="white-space: nowrap">
+                            Unit
+                        </td>
+                        <td class="ao ao_crn" style="white-space: nowrap">
+                            Chemist Report Number
+                        </td>
+                        <td class="ao ao_date_received" style="white-space: nowrap">
+                            Received Date
+                        </td>
+                        <td class="sp sp_hio" style="white-space: nowrap">
+                            HIO Yes or No
+                        </td>
+                        <td class="sp sp_suspect_number" style="white-space: nowrap">
+                            Suspect Number
+                        </td>
+                        <td class="sp sp_suspect_status" style="white-space: nowrap">
+                            Suspect Status
+                        </td>
+                        <td class="sp sp_lastname" style="white-space: nowrap">
+                            Lastname
+                        </td>
+                        <td class="sp sp_firstname" style="white-space: nowrap">
+                            First Name
+                        </td>
+                        <td class="sp sp_middlename" style="white-space: nowrap">
+                            Middle Name
+                        </td>
+                        <td class="sp sp_alias" style="white-space: nowrap">
+                            Alias
+                        </td>
+                        <td class="sp sp_birthdate" style="white-space: nowrap">
+                            Birthdate
+                        </td>
+                        <td class="sp sp_est_birthdate" style="white-space: nowrap">
+                            Estimate Birthdate Yes or No
+                        </td>
+                        <td class="sp sp_birthplace" style="white-space: nowrap">
+                            Birthplace
+                        </td>
+                        <td class="sp sp_region" style="white-space: nowrap">Region
+                        </td>
+                        <td class="sp sp_province" style="white-space: nowrap">Province
+                        </td>
+                        <td class="sp sp_city" style="white-space: nowrap">City
+                        </td>
+                        <td class="sp sp_barangay" style="white-space: nowrap">Barangay
+                        </td>
+                        <td class="sp sp_street" style="white-space: nowrap">Street
+                        </td>
+                        <td class="sp sp_p_region" style="white-space: nowrap">Permanent Region
+                        </td>
+                        <td class="sp sp_p_province" style="white-space: nowrap">Permanent Province
+                        </td>
+                        <td class="sp sp_p_city" style="white-space: nowrap">Permanent City
+                        </td>
+                        <td class="sp sp_p_barangay" style="white-space: nowrap">Permanent Barangay
+                        </td>
+                        <td class="sp sp_p_street" style="white-space: nowrap">Permanent Street
+                        </td>
+                        <td class="sp sp_gender" style="white-space: nowrap">Gender
+                        </td>
+                        <td class="sp sp_civil_status" style="white-space: nowrap">Civil Status
+                        </td>
+                        <td class="sp sp_nationality" style="white-space: nowrap">Nationality
+                        </td>
+                        <td class="sp sp_ethnic_group" style="white-space: nowrap">Ethnic Group
+                        </td>
+                        <td class="sp sp_religion" style="white-space: nowrap">Religion
+                        </td>
+                        <td class="sp sp_educational_attainment" style="white-space: nowrap">Educational Attainment
+                        </td>
+                        <td class="sp sp_occupation" style="white-space: nowrap">Occupation
+                        </td>
+                        <td class="sp sp_classification" style="white-space: nowrap">Suspect Classification
+                        </td>
+                        <td class="sp sp_category" style="white-space: nowrap">Suspect Category
+                        </td>
+                        <td class="sp sp_whereabouts" style="white-space: nowrap">Whereabouts
+                        </td>
+                        <td class="sp sp_remarks" style="white-space: nowrap">remarks
+                        </td>
+                        <td class="sp sp_seized_from" style="white-space: nowrap">Full Name
+                        </td>
+                        <td class="sp sp_remarks" style="white-space: nowrap">Evidence Drug
+                        </td>
+                        <td class="sp sp_drug" style="white-space: nowrap">Evidence
+                        </td>
+                        <td class="sp sp_quantity" style="white-space: nowrap">Quantity
+                        </td>
+                        <td class="sp sp_unit_measure" style="white-space: nowrap">Unit Measure
+                        </td>
+                        <td class="sp sp_packaging" style="white-space: nowrap">Packaging
+                        </td>
+                        <td class="sp sp_markings" style="white-space: nowrap">Markings
+                        </td>
+                        <td class="sp sp_case_type" style="white-space: nowrap"> Case Full Name
+                        </td>
+                        <td class="sp sp_case_type" style="white-space: nowrap">Case
+                        </td>
+                        <td class="sp sp_summary" style="white-space: nowrap">Report Header
+                        </td>
+                        <td class="sp sp_summary" style="white-space: nowrap">Summary
+                        </td>
+
 
                     </tr>
                     @endforeach
@@ -4960,6 +4421,54 @@
             var value = $(this).val().toLowerCase();
             $("#myTable tr").filter(function() {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+
+        $(".pr_number").each(function() {
+            var preops_number = $(this).text();
+            var $row = $(this).closest('tr');
+
+            $.ajax({
+                type: "GET",
+                url: "/get_preops_area/" + preops_number,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    if (data.length > 0) {
+                        data.forEach(element => {
+                            $($row.find("td:eq(9)")).append(element["area"] + '<br>');
+                            $($row.find("td:eq(10)")).append(element["region_m"] + '<br>');
+                            $($row.find("td:eq(11)")).append(element["province_m"] + '<br>');
+                            $($row.find("td:eq(12)")).append(element["city_m"] + '<br>');
+                            $($row.find("td:eq(13)")).append(element["barangay_m"] + '<br>');
+                        });
+                    }
+
+
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "/get_preops_target/" + preops_number,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    if (data.length > 0) {
+                        data.forEach(element => {
+                            $($row.find("td:eq(14)")).append(element["name"] + '<br>');
+                            $($row.find("td:eq(15)")).append(element["nationality"] + '<br>');
+                        });
+                    }
+
+
+                }
             });
         });
     });

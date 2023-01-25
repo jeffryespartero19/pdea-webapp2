@@ -124,12 +124,12 @@ class GlobalController extends Controller
     public function getPreopsArea($preops_number)
     {
         $data = DB::table('preops_area as a')
-            ->join('region as b', 'a.region_c', '=', 'b.region_c')
-            ->join('province as c', 'a.province_c', '=', 'c.province_c')
-            ->join('city as d', 'a.city_c', '=', 'd.city_c')
-            ->join('barangay as e', 'a.barangay_c', '=', 'e.barangay_c')
+            ->leftjoin('region as b', 'a.region_c', '=', 'b.region_c')
+            ->leftjoin('province as c', 'a.province_c', '=', 'c.province_c')
+            ->leftjoin('city as d', 'a.city_c', '=', 'd.city_c')
+            ->leftjoin('barangay as e', 'a.barangay_c', '=', 'e.barangay_c')
             ->select('a.preops_number', 'b.region_m', 'c.province_m', 'd.city_m', 'e.barangay_m', 'a.area')
-            ->where(['preops_number' => $preops_number])
+            ->where(['a.preops_number' => $preops_number])
             ->get();
 
         return json_encode($data);
@@ -688,5 +688,20 @@ class GlobalController extends Controller
             ->where('a.name', 'LIKE', '%' . $request->input('term', '') . '%')
             ->get(['a.id as id', 'a.name as text']);
         return ['results' => $data];
+    }
+
+    public function getPreopsTarget($preops_number)
+    {
+        $data = DB::table('preops_target as a')
+            ->leftjoin('nationality as b', 'a.nationality_id', '=', 'b.id')
+            ->select(
+                'a.name',
+                'b.name as nationality',
+            )
+            ->where('a.preops_number', $preops_number)
+            ->orderby('a.name', 'asc')
+            ->get();
+
+        return json_encode($data);
     }
 }
