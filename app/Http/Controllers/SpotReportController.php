@@ -191,7 +191,7 @@ class SpotReportController extends Controller
     public function store(Request $request)
     {
 
-        dd($data = $request->all());
+        // dd($data = $request->all());
         $data = $request->all();
 
         // Auto Spot Number
