@@ -426,7 +426,7 @@ class SpotReportController extends Controller
                             'middlename' => $data['middlename'][$i],
                             'alias' => $data['alias'][$i],
                             'gender' => $data['gender'][$i],
-                            'birthdate' => $data['birthdate'][$i],
+                            'birthdate' => $data['birthdate'][$i],  
                             'birthplace' => $data['birthplace'][$i],
                             'nationality_id' => $data['nationality_id'][$i],
                             'civil_status_id' => $data['civil_status_id'][$i],

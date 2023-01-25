@@ -383,49 +383,49 @@
                                                             </td>
                                                             <td>
                                                                 <select name="civil_status_id[]" class="form-control CivilStatusSearch" style="width: 200px;">
-                                                                 <option value='' selected>Select Option
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td>
                                                                 <select name="nationality_id[]" class="form-control NationalitySearch" style="width: 200px;">
-                                                                     <option value='' selected>Select Option
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td>
                                                                 <select name="ethnic_group_id[]" class="form-control EthnicGroupSearch" style="width: 200px;">
-                                                                 <option value='' selected>Select Option
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td>
                                                                 <select name="religion_id[]" class="form-control ReligionSearch" style="width: 200px;">
-                                                                 <option value='' selected>Select Option
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td>
                                                                 <select name="educational_attainment_id[]" class="form-control EducationSearch" style="width: 200px;">
-                                                                 <option value='' selected>Select Option
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td>
                                                                 <select name="occupation_id[]" class="form-control OccupationSearch" style="width: 200px;">
-                                                                 <option value='' selected>Select Option
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td>
                                                                 <select name="identifier_id[]" class="form-control IdentifierSearch" style="width: 200px;">
-                                                                 <option value='' selected>Select Option
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td>
                                                                 <select name="suspect_classification_id[]" class="form-control suspect_classification_id SuspectClassificationSearch" style="width: 200px;">
-                                                                <option value='' selected>Select Option
+                                                                    <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
@@ -1389,6 +1389,14 @@
         var row = $(".suspect_details:last");
         row.find(".select2").each(function(index) {
             $("select.select2-hidden-accessible").select2('destroy');
+        });
+
+        $(".CaseSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_case',
+                dataType: "json",
+            }
         });
 
         var newrow = row.clone();
