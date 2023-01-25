@@ -381,7 +381,7 @@ Route::post('spot_report_add', 'SpotReportController@store');
 Route::post('spot_report_edit/{id}', 'SpotReportController@update');
 Route::get('get_spot_report_item_seized/{spot_report_number}', 'SpotReportController@get_spot_report_item_seized')->name('get_spot_report_item_seized');
 Route::get('spot_report_file_delete/{id}', 'SpotReportController@fileDelete');
-Route::get('/spot_report/pdf/{id}', 'SpotReportController@pdf');
+Route::get('/spot_report/pdf/{id}', 'SpotReportController@viewPDF');
 Route::get('/get_suspect_number_count/{count}', 'SpotReportController@get_suspect_number_count');
 
 // Progress Report Setup

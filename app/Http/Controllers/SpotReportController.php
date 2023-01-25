@@ -205,6 +205,10 @@ class SpotReportController extends Controller
         $spot_report_number = sprintf("%04s", $spot_report_number);
         $spot_report_number = 'RO' . $request->region_c . '-' . $date . '-' . $spot_report_number;
 
+        $preops_number = DB::table('preops_header')
+            ->where('id', $request->preops_number)
+            ->get();
+
 
         $form_data = array(
             'spot_report_number' => $spot_report_number,
@@ -215,7 +219,7 @@ class SpotReportController extends Controller
             'city_c' => $request->city_c,
             'barangay_c' => $request->barangay_c,
             'street' => $request->street,
-            'preops_number' => $request->preops_number,
+            'preops_number' => $preops_number[0]->preops_number,
             'operating_unit_id' => $request->operating_unit_id,
             'operation_datetime' => $request->operation_datetime,
             'warrant_number' => $request->warrant_number,
@@ -1756,7 +1760,7 @@ class SpotReportController extends Controller
 
         if (Auth::user()->user_level_id == 2) {
             $preops_number = DB::table('preops_header as a')
-                ->select('a.preops_number as id', 'a.preops_number as text')
+                ->select('a.id', 'a.preops_number as text')
                 ->where('a.preops_number', 'LIKE', '%' . $request->input('term', '') . '%')
                 ->where('a.with_sr', 0)
                 ->union($data)
