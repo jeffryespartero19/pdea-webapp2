@@ -340,8 +340,7 @@ class IssuanceOfPreopsController extends Controller
 
         $preops_id_c = $preops_id_c[0]->id;
 
-
-        return back()->with('success', 'COC Issuance has been saved to records.')->with('preops_id_c', $preops_id_c);
+        return redirect()->to('issuance_of_preops_edit/' . $preops_id_c)->with('success', 'COC Issuance has been saved to records');
     }
 
     public function edit($id)
@@ -728,12 +727,13 @@ class IssuanceOfPreopsController extends Controller
             ->where('a.preops_number', $preops_data[0]->preops_number)->get();
         $operation_type = DB::table('operation_type')->where('id', $preops_data[0]->operation_type_id)->get();
         $area = DB::table('preops_area as a')
-            ->join('preops_header as b', 'a.preops_number', '=', 'b.preops_number')
+            ->leftjoin('preops_header as b', 'a.preops_number', '=', 'b.preops_number')
             ->leftjoin('region as c', 'a.region_c', '=', 'c.region_c')
             ->leftjoin('province as d', 'a.province_c', '=', 'd.province_c')
             ->leftjoin('city as e', 'a.city_c', '=', 'e.city_c')
             ->leftjoin('barangay as f', 'a.barangay_c', '=', 'f.barangay_c')
             ->select('c.region_m', 'd.province_m', 'e.city_m', 'f.barangay_m', 'a.area')
+            ->orderBy('c.id', 'asc')
             ->where('b.id', $id)->get();
 
         $target = DB::table('preops_target as a')
@@ -742,9 +742,10 @@ class IssuanceOfPreopsController extends Controller
             ->select('a.id', 'a.name', 'a.preops_number', 'c.name as nationality')
             ->where('b.id', $id)->get();
 
+        $op_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->operation_datetime)->format('g:i A m/d/Y');
         $operation_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->operation_datetime);
-        $coordinated_datetime = Carbon::createFromFormat('Y-m-d H:m:s', $preops_data[0]->coordinated_datetime);
-        $validity = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->validity);
+        $coordinated_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->coordinated_datetime)->format('g:i A m/d/Y');
+        $validity = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->validity)->format('g:i A m/d/Y');
         $duration = $operation_datetime->diffInHours($validity);
         $approved_by = DB::table('approved_by')->where('id', $preops_data[0]->approved_by)->get();
 
@@ -761,7 +762,8 @@ class IssuanceOfPreopsController extends Controller
             'date',
             'operation_type',
             'approved_by',
-            'support_unit'
+            'support_unit',
+            'op_datetime'
         ));
         $canvas = $pdf->getDomPDF()->getCanvas();
         $canvas->page_script('$pdf->set_opacity(.5);

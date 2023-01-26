@@ -244,7 +244,7 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr class="area_details">
-                                                            <td><input type="text" name="area[]" class="form-control change_control cc1" placeholder="Area" style="width: 200px;"></td>
+                                                            <td><input type="text" name="area[]" class="form-control" placeholder="Area" style="width: 200px;" value="N/A"></td>
                                                             <td>
                                                                 <select name="area_region_c[]" class="form-control region_c change_control cc2 disabled_field area_region_c" style="width: 300px;">
                                                                     <option value='0' selected>None

@@ -71,7 +71,7 @@
     <br>
     <span style="margin-right:39px;">Pre-Ops Control Number:</span><span style="font-weight: bold;">{{$preops_data[0]->preops_number}}</span>
     <br>
-    <span style="margin-right:23px">Date and Time Coordinated:</span><span>{{$coordinated_datetime}}H</span>
+    <span style="margin-right:23px">Date and Time Coordinated:</span><span>{{$coordinated_datetime}}</span>
     <br>
     <span style="margin-right:136px">Lead Unit:</span><span style="font-weight: bold;">{{$operating_unit[0]->description}}</span>
     <br>
@@ -91,7 +91,7 @@
     @endif
     <span style="margin-right:82px">Type of Operation:</span><span style="font-weight: bold;">{{$operation_type[0]->name}}</span>
     <br>
-    <span style="margin-right:143px">Duration:</span><span>{{$operation_datetime}}H to {{$validity}}H ({{$duration}} HRS)</span>
+    <span style="margin-right:143px">Duration:</span><span>{{$op_datetime}} to {{$validity}} ({{$duration}} HRS)</span>
     <br>
     @if(isset($preops_data[0]->remarks))
     <span style="margin-right:149px">Remark:</span><span>{{$preops_data[0]->remarks}}</span>
