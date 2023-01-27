@@ -32,7 +32,7 @@
             color: black;
             text-align: right;
             line-height: 35px;
-            font-size: smaller;
+            font-size: 10px;
         }
 
         .arial {
