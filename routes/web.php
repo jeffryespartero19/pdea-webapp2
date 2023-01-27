@@ -332,6 +332,8 @@ Route::group(['middleware' => ['auth', 'cp_acess']], function () {
     Route::get('/get_spot_report_list/{region_c}/{operating_unit_id}/{operation_type_id}/{operation_date}/{operation_date_to}', 'GlobalController@get_spot_report_list');
     Route::get('/get_progress_report_list/{region_c}/{operating_unit_id}/{operation_type_id}/{operation_date}', 'GlobalController@get_progress_report_list');
     Route::get('/get_preops_target/{preops_number}', 'GlobalController@getPreopsTarget');
+    Route::get('/get_preops_support_unit/{preops_number}', 'GlobalController@getPreopsSUnit');
+    Route::get('/get_preops_operating_team/{preops_number}', 'GlobalController@getPreopsOTeam');
 });
 
 

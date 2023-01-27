@@ -340,7 +340,7 @@ class IssuanceOfPreopsController extends Controller
 
         $preops_id_c = $preops_id_c[0]->id;
 
-        return redirect()->to('issuance_of_preops_edit/' . $preops_id_c)->with('success', 'COC Issuance has been saved to records');
+        return redirect()->to('issuance_of_preops_edit/' . $preops_id_c)->with('success', 'COC Issuance has been saved to records')->with('preops_id_c', $preops_id_c);;
     }
 
     public function edit($id)

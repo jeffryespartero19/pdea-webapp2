@@ -709,4 +709,28 @@ class GlobalController extends Controller
 
         return json_encode($data);
     }
+
+    public function getPreopsSUnit($preops_number)
+    {
+        $data = DB::table('preops_support_unit as a')
+            ->leftjoin('operating_unit as b', 'a.support_unit_id', '=', 'b.id')
+            ->select(
+                'b.description',
+            )
+            ->where('a.preops_number', $preops_number)
+            ->orderby('b.description', 'asc')
+            ->get();    
+
+        return json_encode($data);
+    }
+
+    public function getPreopsOTeam($preops_number)
+    {
+        $data = DB::table('preops_team')
+            ->where('preops_number', $preops_number)
+            ->orderby('name', 'asc')
+            ->get();    
+
+        return json_encode($data);
+    }
 }

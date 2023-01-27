@@ -601,25 +601,25 @@
                 </thead>
                 <tbody id="myTable">
                     @php ($current_preops_number = "")
-                    @foreach($issuance_of_preops as $issuance_of_preops)
+                    @foreach($issuance_of_preops as $pr_data)
 
-                    @if ($issuance_of_preops->preops_number != $current_preops_number)
-                    @php ($preops_number = $issuance_of_preops->preops_number)
+                    @if ($pr_data->preops_number != $current_preops_number)
+                    @php ($preops_number = $pr_data->preops_number)
                     @php ($current_preops_number = $preops_number)
                     @else
                     @php ($preops_number = "")
                     @endif
 
                     <tr class='details'>
-                        <td class="po region" style="white-space: nowrap">{{ $issuance_of_preops->region }}</td>
+                        <td class="po region" style="white-space: nowrap">{{ $pr_data->region }}</td>
                         <td class="po preops_number pr_number" style="white-space: nowrap">{{ $preops_number }}</td>
-                        <td class="po province" style="white-space: nowrap">{{ $issuance_of_preops->province_m }}</td>
-                        <td class="po type_operation" style="white-space: nowrap">{{ $issuance_of_preops->operation_type }}</td>
-                        <td class="po operating_unit" style="white-space: nowrap">{{ $issuance_of_preops->operating_unit }}</td>
-                        <td class="po support_unit" style="white-space: nowrap; color:red;">Support Unit</td>
-                        <td class="po datetime_coordinate" style="white-space: nowrap">{{ $issuance_of_preops->coordinated_datetime }}</td>
-                        <td class="po datetime_operation" style="white-space: nowrap">{{ $issuance_of_preops->operation_datetime }}</td>
-                        <td class="po valid_until" style="white-space: nowrap">{{ $issuance_of_preops->validity }}</td>
+                        <td class="po province" style="white-space: nowrap">{{ $pr_data->province_m }}</td>
+                        <td class="po type_operation" style="white-space: nowrap">{{ $pr_data->operation_type }}</td>
+                        <td class="po operating_unit" style="white-space: nowrap">{{ $pr_data->operating_unit }}</td>
+                        <td class="po support_unit" style="white-space: nowrap;"></td>
+                        <td class="po datetime_coordinate" style="white-space: nowrap">{{ $pr_data->coordinated_datetime }}</td>
+                        <td class="po datetime_operation" style="white-space: nowrap">{{ $pr_data->operation_datetime }}</td>
+                        <td class="po valid_until" style="white-space: nowrap">{{ $pr_data->validity }}</td>
                         <td class="ao a_area" style="white-space: nowrap;"></td>
                         <td class="ao a_area" style="white-space: nowrap;"></td>
                         <td class="ao a_area" style="white-space: nowrap;"></td>
@@ -627,18 +627,12 @@
                         <td class="ao a_area" style="white-space: nowrap;"></td>
                         <td class="ao taget_name" style="white-space: nowrap;"> </td>
                         <td class="ao taget_name" style="white-space: nowrap;"> </td>
-                        <td class="ao ot_name" style="white-space: nowrap;">
-                            Preops Team Name
-                        </td>
-                        <td class="ao ot_name" style="white-space: nowrap;">
-                            Preops Team Position
-                        </td>
-                        <td class="ao ot_name" style="white-space: nowrap;">
-                            Preops Team Contact
-                        </td>
-                        <td class="ao prepared_by" style="white-space: nowrap">{{ $issuance_of_preops->prepared_by }}</td>
-                        <td class="ao ao_result" style="white-space: nowrap">{{ $issuance_of_preops->result }}</td>
-                        <td class="ao ao_negative_reason" style="white-space: nowrap">{{ $issuance_of_preops->negative_reason }}</td>
+                        <td class="ao ot_name" style="white-space: nowrap;"> </td>
+                        <td class="ao ot_name" style="white-space: nowrap;"> </td>
+                        <td class="ao ot_name" style="white-space: nowrap;"> </td>
+                        <td class="ao prepared_by" style="white-space: nowrap">{{ $pr_data->prepared_by }}</td>
+                        <td class="ao ao_result" style="white-space: nowrap">{{ $pr_data->result }}</td>
+                        <td class="ao ao_negative_reason" style="white-space: nowrap">{{ $pr_data->negative_reason }}</td>
                         <td class="ao ao_illegal_drug" style="white-space: nowrap">
                             AFter Operation Evidence
                         </td>
@@ -757,7 +751,7 @@
             </table>
         </div>
         <!-- /.card-body -->
-
+        {{ $issuance_of_preops->links()}}
         <div class="card-footer">
             <h6>List of all Spot Report maintenance data sorted by name.</h6>
         </div>
@@ -4430,6 +4424,23 @@
 
             $.ajax({
                 type: "GET",
+                url: "/get_preops_support_unit/" + preops_number,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    if (data.length > 0) {
+                        data.forEach(element => {
+                            $($row.find("td:eq(5)")).append(element["description"] + '<br>');
+                        });
+                    }
+                }
+            });
+
+            $.ajax({
+                type: "GET",
                 url: "/get_preops_area/" + preops_number,
                 fail: function() {
                     alert("request failed");
@@ -4464,6 +4475,27 @@
                         data.forEach(element => {
                             $($row.find("td:eq(14)")).append(element["name"] + '<br>');
                             $($row.find("td:eq(15)")).append(element["nationality"] + '<br>');
+                        });
+                    }
+
+
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "/get_preops_operating_team/" + preops_number,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    if (data.length > 0) {
+                        data.forEach(element => {
+                            $($row.find("td:eq(16)")).append(element["name"] + '<br>');
+                            $($row.find("td:eq(17)")).append(element["position"] + '<br>');
+                            $($row.find("td:eq(18)")).append(element["contact"] + '<br>');
                         });
                     }
 

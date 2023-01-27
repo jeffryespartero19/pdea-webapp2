@@ -572,4 +572,5 @@ class ReportGenerationController extends Controller
             'suspects'
         ));
     }
+    
 }
