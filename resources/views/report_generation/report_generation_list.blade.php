@@ -511,10 +511,10 @@
                     </tr>
                     <tr>
                         <th class="ao a_area" style="white-space: nowrap">Area</th>
-                        <th class="ao a_area" style="white-space: nowrap">Region</th>
-                        <th class="ao a_area" style="white-space: nowrap">Province</th>
-                        <th class="ao a_area" style="white-space: nowrap">City</th>
                         <th class="ao a_area" style="white-space: nowrap">Barangay</th>
+                        <th class="ao a_area" style="white-space: nowrap">City</th>
+                        <th class="ao a_area" style="white-space: nowrap">Province</th>
+                        <th class="ao a_area" style="white-space: nowrap">Region</th>
                         <th class="ao taget_name" style="white-space: nowrap">Name</th>
                         <th class="ao taget_name" style="white-space: nowrap">Nationality</th>
                         <th class="ao ot_name" style="white-space: nowrap">Name</th>
@@ -633,115 +633,57 @@
                         <td class="ao prepared_by" style="white-space: nowrap">{{ $pr_data->prepared_by }}</td>
                         <td class="ao ao_result" style="white-space: nowrap">{{ $pr_data->result }}</td>
                         <td class="ao ao_negative_reason" style="white-space: nowrap">{{ $pr_data->negative_reason }}</td>
-                        <td class="ao ao_illegal_drug" style="white-space: nowrap">
-                            AFter Operation Evidence
-                        </td>
-                        <td class="ao ao_quantity" style="white-space: nowrap">
-                            Quantity
-                        </td>
-                        <td class="ao ao_unit_measure" style="white-space: nowrap">
-                            Unit
-                        </td>
-                        <td class="ao ao_crn" style="white-space: nowrap">
-                            Chemist Report Number
-                        </td>
+                        <td class="ao ao_illegal_drug" style="white-space: nowrap"></td>
+                        <td class="ao ao_quantity" style="white-space: nowrap"></td>
+                        <td class="ao ao_unit_measure" style="white-space: nowrap"></td>
+                        <td class="ao ao_crn" style="white-space: nowrap"></td>
                         <td class="ao ao_date_received" style="white-space: nowrap">
-                            Received Date
+                        {{ $pr_data->negative_reason }}
                         </td>
                         <td class="sp sp_hio" style="white-space: nowrap">
-                            HIO Yes or No
                         </td>
-                        <td class="sp sp_suspect_number" style="white-space: nowrap">
-                            Suspect Number
-                        </td>
-                        <td class="sp sp_suspect_status" style="white-space: nowrap">
-                            Suspect Status
-                        </td>
-                        <td class="sp sp_lastname" style="white-space: nowrap">
-                            Lastname
-                        </td>
-                        <td class="sp sp_firstname" style="white-space: nowrap">
-                            First Name
-                        </td>
-                        <td class="sp sp_middlename" style="white-space: nowrap">
-                            Middle Name
-                        </td>
-                        <td class="sp sp_alias" style="white-space: nowrap">
-                            Alias
-                        </td>
-                        <td class="sp sp_birthdate" style="white-space: nowrap">
-                            Birthdate
-                        </td>
-                        <td class="sp sp_est_birthdate" style="white-space: nowrap">
-                            Estimate Birthdate Yes or No
-                        </td>
-                        <td class="sp sp_birthplace" style="white-space: nowrap">
-                            Birthplace
-                        </td>
-                        <td class="sp sp_region" style="white-space: nowrap">Region
-                        </td>
-                        <td class="sp sp_province" style="white-space: nowrap">Province
-                        </td>
-                        <td class="sp sp_city" style="white-space: nowrap">City
-                        </td>
-                        <td class="sp sp_barangay" style="white-space: nowrap">Barangay
-                        </td>
-                        <td class="sp sp_street" style="white-space: nowrap">Street
-                        </td>
-                        <td class="sp sp_p_region" style="white-space: nowrap">Permanent Region
-                        </td>
-                        <td class="sp sp_p_province" style="white-space: nowrap">Permanent Province
-                        </td>
-                        <td class="sp sp_p_city" style="white-space: nowrap">Permanent City
-                        </td>
-                        <td class="sp sp_p_barangay" style="white-space: nowrap">Permanent Barangay
-                        </td>
-                        <td class="sp sp_p_street" style="white-space: nowrap">Permanent Street
-                        </td>
-                        <td class="sp sp_gender" style="white-space: nowrap">Gender
-                        </td>
-                        <td class="sp sp_civil_status" style="white-space: nowrap">Civil Status
-                        </td>
-                        <td class="sp sp_nationality" style="white-space: nowrap">Nationality
-                        </td>
-                        <td class="sp sp_ethnic_group" style="white-space: nowrap">Ethnic Group
-                        </td>
-                        <td class="sp sp_religion" style="white-space: nowrap">Religion
-                        </td>
-                        <td class="sp sp_educational_attainment" style="white-space: nowrap">Educational Attainment
-                        </td>
-                        <td class="sp sp_occupation" style="white-space: nowrap">Occupation
-                        </td>
-                        <td class="sp sp_classification" style="white-space: nowrap">Suspect Classification
-                        </td>
-                        <td class="sp sp_category" style="white-space: nowrap">Suspect Category
-                        </td>
-                        <td class="sp sp_whereabouts" style="white-space: nowrap">Whereabouts
-                        </td>
-                        <td class="sp sp_remarks" style="white-space: nowrap">remarks
-                        </td>
-                        <td class="sp sp_seized_from" style="white-space: nowrap">Full Name
-                        </td>
-                        <td class="sp sp_remarks" style="white-space: nowrap">Evidence Drug
-                        </td>
-                        <td class="sp sp_drug" style="white-space: nowrap">Evidence
-                        </td>
-                        <td class="sp sp_quantity" style="white-space: nowrap">Quantity
-                        </td>
-                        <td class="sp sp_unit_measure" style="white-space: nowrap">Unit Measure
-                        </td>
-                        <td class="sp sp_packaging" style="white-space: nowrap">Packaging
-                        </td>
-                        <td class="sp sp_markings" style="white-space: nowrap">Markings
-                        </td>
-                        <td class="sp sp_case_type" style="white-space: nowrap"> Case Full Name
-                        </td>
-                        <td class="sp sp_case_type" style="white-space: nowrap">Case
-                        </td>
-                        <td class="sp sp_summary" style="white-space: nowrap">Report Header
-                        </td>
-                        <td class="sp sp_summary" style="white-space: nowrap">Summary
-                        </td>
+                        <td class="sp sp_suspect_number" style="white-space: nowrap"></td>
+                        <td class="sp sp_suspect_status" style="white-space: nowrap"></td>
+                        <td class="sp sp_lastname" style="white-space: nowrap"></td>
+                        <td class="sp sp_firstname" style="white-space: nowrap"></td>
+                        <td class="sp sp_middlename" style="white-space: nowrap"></td>
+                        <td class="sp sp_alias" style="white-space: nowrap"></td>
+                        <td class="sp sp_birthdate" style="white-space: nowrap"></td>
+                        <td class="sp sp_est_birthdate" style="white-space: nowrap"></td>
+                        <td class="sp sp_birthplace" style="white-space: nowrap"></td>
+                        <td class="sp sp_region" style="white-space: nowrap"></td>
+                        <td class="sp sp_province" style="white-space: nowrap"></td>
+                        <td class="sp sp_city" style="white-space: nowrap"></td>
+                        <td class="sp sp_barangay" style="white-space: nowrap"></td>
+                        <td class="sp sp_street" style="white-space: nowrap"></td>
+                        <td class="sp sp_p_region" style="white-space: nowrap"></td>
+                        <td class="sp sp_p_province" style="white-space: nowrap"></td>
+                        <td class="sp sp_p_city" style="white-space: nowrap"></td>
+                        <td class="sp sp_p_barangay" style="white-space: nowrap"></td>
+                        <td class="sp sp_p_street" style="white-space: nowrap"></td>
+                        <td class="sp sp_gender" style="white-space: nowrap"></td>
+                        <td class="sp sp_civil_status" style="white-space: nowrap"></td>
+                        <td class="sp sp_nationality" style="white-space: nowrap"></td>
+                        <td class="sp sp_ethnic_group" style="white-space: nowrap"></td>
+                        <td class="sp sp_religion" style="white-space: nowrap"></td>
+                        <td class="sp sp_educational_attainment" style="white-space: nowrap"></td>
+                        <td class="sp sp_occupation" style="white-space: nowrap"></td>
+                        <td class="sp sp_classification" style="white-space: nowrap"></td>
+                        <td class="sp sp_category" style="white-space: nowrap"></td>
+                        <td class="sp sp_whereabouts" style="white-space: nowrap"></td>
+                        <td class="sp sp_remarks" style="white-space: nowrap"></td>
+                        <td class="sp sp_seized_from" style="white-space: nowrap"></td>
+                        <td class="sp sp_remarks" style="white-space: nowrap"></td>
+                        <td class="sp sp_drug" style="white-space: nowrap"></td>
+                        <td class="sp sp_quantity" style="white-space: nowrap"></td>
+                        <td class="sp sp_unit_measure" style="white-space: nowrap"></td>
+                        <td class="sp sp_packaging" style="white-space: nowrap"></td>
+                        <td class="sp sp_markings" style="white-space: nowrap"></td>
+                        <td class="sp sp_case_type" style="white-space: nowrap"></td>
+                        <td class="sp sp_case_type" style="white-space: nowrap"></td>
+                        <td class="sp sp_summary" style="white-space: nowrap"></td>
+                        <td class="sp sp_summary" style="white-space: nowrap"></td>
+                        <td class="sp sp_prepared_by" style="white-space: nowrap"></td>
 
 
                     </tr>
@@ -4451,10 +4393,10 @@
                     if (data.length > 0) {
                         data.forEach(element => {
                             $($row.find("td:eq(9)")).append(element["area"] + '<br>');
-                            $($row.find("td:eq(10)")).append(element["region_m"] + '<br>');
-                            $($row.find("td:eq(11)")).append(element["province_m"] + '<br>');
-                            $($row.find("td:eq(12)")).append(element["city_m"] + '<br>');
-                            $($row.find("td:eq(13)")).append(element["barangay_m"] + '<br>');
+                            $($row.find("td:eq(10)")).append(element["barangay_m"] + '<br>');
+                            $($row.find("td:eq(11)")).append(element["city_m"] + '<br>');
+                            $($row.find("td:eq(12)")).append(element["province_m"] + '<br>');
+                            $($row.find("td:eq(13)")).append(element["region_m"] + '<br>');
                         });
                     }
 
@@ -4500,6 +4442,143 @@
                     }
 
 
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "/get_after_operation_evidence/" + preops_number,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    if (data.length > 0) {
+                        data.forEach(element => {
+                            $($row.find("td:eq(22)")).append(element["evidence"] + '<br>');
+                            $($row.find("td:eq(23)")).append(element["quantity"] + '<br>');
+                            $($row.find("td:eq(24)")).append(element["unit"] + '<br>');
+                            $($row.find("td:eq(25)")).append(element["chemist_report_number"] + '<br>');
+                        });
+                    }
+
+
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "/get_preops_spot/" + preops_number,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    if (data.length > 0) {
+                        data.forEach(element => {
+                            if (element["operation_lvl"] == 1) {
+                                $($row.find("td:eq(27)")).append('Yes <br>');
+                            } else {
+                                $($row.find("td:eq(27)")).append('No <br>');
+                            }
+                            $($row.find("td:eq(67)")).append(element["report_header"] + '<br>');
+                            $($row.find("td:eq(68)")).append(element["summary"] + '<br>');
+                            $($row.find("td:eq(69)")).append(element["prepared_by"] + '<br>');
+                        });
+                    }
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "/get_preops_spot_suspect/" + preops_number,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    if (data.length > 0) {
+                        data.forEach(element => {
+                            $($row.find("td:eq(28)")).append(element["suspect_number"] + '<br>');
+                            $($row.find("td:eq(29)")).append(element["suspect_status"] + '<br>');
+                            $($row.find("td:eq(30)")).append(element["lastname"] + '<br>');
+                            $($row.find("td:eq(31)")).append(element["firstname"] + '<br>');
+                            $($row.find("td:eq(32)")).append(element["middlename"] + '<br>');
+                            $($row.find("td:eq(33)")).append(element["alias"] + '<br>');
+                            $($row.find("td:eq(34)")).append(element["birthdate"] + '<br>');
+                            if (element["est_birthdate"] == 1) {
+                                $($row.find("td:eq(35)")).append('Yes <br>');
+                            } else {
+                                $($row.find("td:eq(35)")).append('No <br>');
+                            }
+                            $($row.find("td:eq(36)")).append(element["birthplace"] + '<br>');
+                            $($row.find("td:eq(37)")).append(element["s_region"] + '<br>');
+                            $($row.find("td:eq(38)")).append(element["s_province"] + '<br>');
+                            $($row.find("td:eq(39)")).append(element["s_city"] + '<br>');
+                            $($row.find("td:eq(40)")).append(element["s_barangay"] + '<br>');
+                            $($row.find("td:eq(41)")).append(element["street"] + '<br>');
+                            $($row.find("td:eq(42)")).append(element["p_region"] + '<br>');
+                            $($row.find("td:eq(43)")).append(element["p_province"] + '<br>');
+                            $($row.find("td:eq(44)")).append(element["p_city"] + '<br>');
+                            $($row.find("td:eq(45)")).append(element["p_barangay"] + '<br>');
+                            $($row.find("td:eq(46)")).append(element["permanent_street"] + '<br>');
+                            $($row.find("td:eq(47)")).append(element["gender"] + '<br>');
+                            $($row.find("td:eq(48)")).append(element["civil_status"] + '<br>');
+                            $($row.find("td:eq(49)")).append(element["nationality"] + '<br>');
+                            $($row.find("td:eq(50)")).append(element["ethnic_group"] + '<br>');
+                            $($row.find("td:eq(51)")).append(element["religion"] + '<br>');
+                            $($row.find("td:eq(52)")).append(element["educational_attainment"] + '<br>');
+                            $($row.find("td:eq(53)")).append(element["occupation"] + '<br>');
+                            $($row.find("td:eq(54)")).append(element["suspect_classification"] + '<br>');
+                            $($row.find("td:eq(55)")).append(element["suspect_category"] + '<br>');
+                            $($row.find("td:eq(56)")).append(element["whereabouts"] + '<br>');
+                            $($row.find("td:eq(57)")).append(element["remarks"] + '<br>');
+                        });
+                    }
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "/get_preops_spot_evidence/" + preops_number,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    if (data.length > 0) {
+                        data.forEach(element => {
+                            $($row.find("td:eq(58)")).append(element["lastname"] + ', ' + element["firstname"] + ' ' + element["middlename"] + '<br>');
+                            $($row.find("td:eq(59)")).append(element["drug"] + '<br>');
+                            $($row.find("td:eq(60)")).append(element["evidence"] + '<br>');
+                            $($row.find("td:eq(61)")).append(element["quantity"] + '<br>');
+                            $($row.find("td:eq(62)")).append(element["unit_measure"] + '<br>');
+                            $($row.find("td:eq(63)")).append(element["packaging"] + '<br>');
+                            $($row.find("td:eq(64)")).append(element["markings"] + '<br>');
+                        });
+                    }
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "/get_preops_spot_case/" + preops_number,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    if (data.length > 0) {
+                        data.forEach(element => {
+                            $($row.find("td:eq(65)")).append(element["lastname"] + ', ' + element["firstname"] + ' ' + element["middlename"] + '<br>');
+                            $($row.find("td:eq(66)")).append(element["case"] + '<br>');
+                        });
+                    }
                 }
             });
         });
