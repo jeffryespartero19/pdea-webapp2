@@ -1603,7 +1603,7 @@
         $(".PreopsNumberSearch").select2({
             minimumInputLength: 2,
             ajax: {
-                url: '/search_preops_number',
+                url: '/SPsearch_preops_number',
                 dataType: "json",
             }
         });

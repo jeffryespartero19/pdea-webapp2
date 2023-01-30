@@ -35,12 +35,15 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
+        
         if ($request->regional_office_id == 18) {
             $region_c = 00;
         } else {
             $regional_office = DB::table('regional_office')->where('id', $request->regional_office_id)->get();
             $region_c = $regional_office[0]->region_c;
         }
+
+        // dd($region_c);
 
 
         if ($request->user_id > 0) {

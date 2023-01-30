@@ -1771,10 +1771,9 @@ class SpotReportController extends Controller
                 ->get();
         } else {
             $preops_number = DB::table('preops_header as a')
-                ->leftjoin('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
                 ->select('a.id', 'a.preops_number as text')
                 ->where('a.preops_number', 'LIKE', '%' . $request->input('term', '') . '%')
-                ->where('d.id', Auth::user()->regional_office_id)
+                ->where('a.region_c', Auth::user()->region_c)
                 ->where('a.with_sr', 0)
                 ->union($data)
                 ->get();

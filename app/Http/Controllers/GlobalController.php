@@ -523,7 +523,7 @@ class GlobalController extends Controller
             $operating_unit = DB::table('operating_unit as a')
                 ->leftjoin('regional_office as d', 'a.region_c', '=', 'd.region_c')
                 ->where('a.description', 'LIKE', '%' . $request->input('term', '') . '%')
-                ->where('d.id', Auth::user()->regional_office_id)
+                ->where('a.region_c', Auth::user()->region_c)
                 ->get(['a.id as id', 'a.description as text']);
         }
 
