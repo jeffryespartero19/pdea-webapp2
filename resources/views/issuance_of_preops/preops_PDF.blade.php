@@ -78,7 +78,7 @@
     @if(isset($support_unit->description))
     <span style="margin-right:113px">Support Unit:</span>
     @foreach ($support_unit as $su)
-   
+
     @if($loop->iteration == 1)
     <span style="font-weight: bold;">{{$su->description}}</span>
     @elseif($loop->iteration > 1)
@@ -101,11 +101,11 @@
     <div style="background-color:green; color:white; padding-left:5px">Area(s) of Operation</div>
     <table width="100%" style="border-collapse: collapse; border: 0px;">
         <tr style="border: 1px solid;">
-            <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Region</th>
-            <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Province</th>
-            <th style="border:solid; border-width: thin; padding:0 12px;" align="left">City/Municipality</th>
-            <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Barangay</th>
             <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Area</th>
+            <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Barangay</th>
+            <th style="border:solid; border-width: thin; padding:0 12px;" align="left">City/Municipality</th>
+            <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Province</th>
+            <th style="border:solid; border-width: thin; padding:0 12px;" align="left">Region</th>
         </tr>
 
         @foreach ($area as $ar)
@@ -115,11 +115,11 @@
         <?php $areas = $ar->area ?>
         @endif
         <tr>
-            <td style="border:solid; border-width: thin; padding:0 12px;">{{$ar->region_m}}</td>
-            <td style="border:solid; border-width: thin; padding:0 12px;">{{$ar->province_m}}</td>
-            <td style="border:solid; border-width: thin; padding:0 12px;">{{$ar->city_m}}</td>
-            <td style="border:solid; border-width: thin; padding:0 12px;">{{$ar->barangay_m}}</td>
             <td style="border:solid; border-width: thin; padding:0 12px;">{{$areas}}</td>
+            <td style="border:solid; border-width: thin; padding:0 12px;">{{$ar->barangay_m}}</td>
+            <td style="border:solid; border-width: thin; padding:0 12px;">{{$ar->city_m}}</td>
+            <td style="border:solid; border-width: thin; padding:0 12px;">{{$ar->province_m}}</td>
+            <td style="border:solid; border-width: thin; padding:0 12px;">{{$ar->region_m}}</td>
         </tr>
         @endforeach
     </table>
@@ -145,7 +145,7 @@
     <div style="padding-left:300px; margin-bottom:40px">Approved by:</div>
     <div style="padding-left:300px; font-weight: bold;">{{$approved_by[0]->name}}</div>
     <div style="padding-left:300px;">REGIONAL DIRECTOR</div>
-    <footer >
+    <footer>
         {{$Sdate}} | {{Auth::user()->name}} | @if ($preops_data[0]->print_count == 1) O @else C @endif
     </footer>
 </body>
