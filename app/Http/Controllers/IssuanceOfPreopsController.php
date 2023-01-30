@@ -709,6 +709,7 @@ class IssuanceOfPreopsController extends Controller
     {
         date_default_timezone_set('Asia/Manila');
         $date = Carbon::now();
+        $Sdate = Carbon::now()->format('g:i A m/d/Y');
 
         $pos_data = array(
             'print_count' => DB::raw('print_count+1'),
@@ -763,7 +764,8 @@ class IssuanceOfPreopsController extends Controller
             'operation_type',
             'approved_by',
             'support_unit',
-            'op_datetime'
+            'op_datetime',
+            'Sdate'
         ));
         $canvas = $pdf->getDomPDF()->getCanvas();
         $canvas->page_script('$pdf->set_opacity(.5);
