@@ -1577,7 +1577,7 @@ class SpotReportController extends Controller
     {
         date_default_timezone_set('Asia/Manila');
         $date = Carbon::now();
-        $Sdate = Carbon::now()->format('g:i A m/d/Y');
+        $Sdate = Carbon::now()->format('m/d/Y g:i A');
 
         $pos_data = array(
             'print_count' => DB::raw('print_count+1'),
