@@ -705,7 +705,7 @@ class ProgressReportController extends Controller
     // Print PDF Format
     function viewPDF($id)
     {
-               $spot_report = $this->get_spot_report($id);
+        $spot_report = $this->get_spot_report($id);
         $regional_office = DB::table('regional_office as a')
             ->join('preops_header as b', 'a.ro_code', '=', 'b.ro_code')
             ->select('a.name', 'a.address', 'a.contact_number', 'a.report_header')
@@ -749,7 +749,7 @@ class ProgressReportController extends Controller
         $report_date = Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->reported_date)->format('F d,Y');
         $operation_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->operation_datetime)->format('d F Y H:i:s');
 
-        date_default_timezone_set('Asia/Manila');
+        // date_default_timezone_set('Asia/Manila');
         $date = Carbon::now();
         $Sdate = Carbon::now()->format('m/d/Y g:i A');
 

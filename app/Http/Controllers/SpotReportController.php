@@ -1575,7 +1575,7 @@ class SpotReportController extends Controller
     // Print PDF Format
     function viewPDF($id)
     {
-        date_default_timezone_set('Asia/Manila');
+        // date_default_timezone_set('Asia/Manila');
         $date = Carbon::now();
         $Sdate = Carbon::now()->format('m/d/Y g:i A');
 
