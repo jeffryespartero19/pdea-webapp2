@@ -340,6 +340,8 @@ Route::group(['middleware' => ['auth', 'cp_acess']], function () {
     Route::get('/get_preops_spot_suspect/{preops_number}', 'ReportGenerationController@getPreopsSPOTSuspect');
     Route::get('/get_preops_spot_evidence/{preops_number}', 'ReportGenerationController@getPreopsSPOTEvidence');
     Route::get('/get_preops_spot_case/{preops_number}', 'ReportGenerationController@getPreopsSPOTCase');
+    Route::get('/get_preops_progress_suspect/{preops_number}', 'ReportGenerationController@getPreopsPROSuspect');
+    Route::get('/get_preops_spot_suspect_listed/{preops_number}', 'ReportGenerationController@getPreopsPROSuspectListed');
 });
 
 

@@ -209,6 +209,11 @@ class SpotReportController extends Controller
             ->where('id', $request->preops_number)
             ->get();
 
+        $data2 = array(
+            'with_sr' => 1,
+        );
+        DB::table('preops_header')->where('id', $request->preops_number)->update($data2);
+
 
         $form_data = array(
             'spot_report_number' => $spot_report_number,
@@ -239,10 +244,7 @@ class SpotReportController extends Controller
 
         $sr_id = DB::table('spot_report_header')->insertGetId($form_data);
 
-        $data2 = array(
-            'with_sr' => 1,
-        );
-        DB::table('preops_header')->where('preops_number', $request->preops_number)->update($data2);
+
 
         if ($request->hasfile('fileattach')) {
             foreach ($request->file('fileattach') as $file) {
@@ -426,7 +428,7 @@ class SpotReportController extends Controller
                             'middlename' => $data['middlename'][$i],
                             'alias' => $data['alias'][$i],
                             'gender' => $data['gender'][$i],
-                            'birthdate' => $data['birthdate'][$i],  
+                            'birthdate' => $data['birthdate'][$i],
                             'birthplace' => $data['birthplace'][$i],
                             'nationality_id' => $data['nationality_id'][$i],
                             'civil_status_id' => $data['civil_status_id'][$i],

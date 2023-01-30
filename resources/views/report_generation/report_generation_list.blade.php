@@ -638,7 +638,7 @@
                         <td class="ao ao_unit_measure" style="white-space: nowrap"></td>
                         <td class="ao ao_crn" style="white-space: nowrap"></td>
                         <td class="ao ao_date_received" style="white-space: nowrap">
-                        {{ $pr_data->negative_reason }}
+                            {{ $pr_data->negative_reason }}
                         </td>
                         <td class="sp sp_hio" style="white-space: nowrap">
                         </td>
@@ -684,8 +684,37 @@
                         <td class="sp sp_summary" style="white-space: nowrap"></td>
                         <td class="sp sp_summary" style="white-space: nowrap"></td>
                         <td class="sp sp_prepared_by" style="white-space: nowrap"></td>
-
-
+                        <td class="pr pr_suspect_name" style="white-space: nowrap"></td>
+                        <td class="pr pr_suspect_classification" style="white-space: nowrap"></td>
+                        <td class="pr pr_suspect_status" style="white-space: nowrap"></td>
+                        <td class="pr pr_drug_test_result" style="white-space: nowrap"></td>
+                        <td class="pr pr_drug_type" style="white-space: nowrap"></td>
+                        <td class="pr pr_remarks" style="white-space: nowrap"></td>
+                        <td class="pr pr_evidence" style="white-space: nowrap"></td>
+                        <td class="pr pr_quantity_on_site" style="white-space: nowrap"></td>
+                        <td class="pr pr_quantity_on_site" style="white-space: nowrap"></td>
+                        <td class="pr pr_quantity_on_site" style="white-space: nowrap"></td>
+                        <td class="pr pr_quantity_on_site" style="white-space: nowrap"></td>
+                        <td class="pr pr_quantity_on_site" style="white-space: nowrap"></td>
+                        <td class="pr pr_quantity_on_site" style="white-space: nowrap"></td>
+                        <td class="pr pr_cs_name" style="white-space: nowrap"></td>
+                        <td class="pr pr_case" style="white-space: nowrap"></td>
+                        <td class="pr pr_docket_number" style="white-space: nowrap"></td>
+                        <td class="pr pr_case_status" style="white-space: nowrap"></td>
+                        <td class="pr pr_case_status" style="white-space: nowrap"></td>
+                        <td class="pr pr_case_status_date" style="white-space: nowrap"></td>
+                        <td class="pr pr_is_number" style="white-space: nowrap"></td>
+                        <td class="pr pr_procecutor_name" style="white-space: nowrap"></td>
+                        <td class="pr pr_procecutor_office" style="white-space: nowrap"></td>
+                        <td class="pr pr_prelim_case_status" style="white-space: nowrap"></td>
+                        <td class="pr pr_prelim_case_date" style="white-space: nowrap"></td>
+                        <td class="pr pr_prelim_is_number" style="white-space: nowrap"></td>
+                        <td class="pr pr_prelim_prosecutor" style="white-space: nowrap"></td>
+                        <td class="pr pr_prelim_prosecutor_office" style="white-space: nowrap"></td>
+                        <td class="dv dv_suspect_name" style="white-space: nowrap"></td>
+                        <td class="dv dv_listed" style="white-space: nowrap"></td>
+                        <td class="dv dv_ndis" style="white-space: nowrap"></td>
+                        <td class="dv dv_remarks" style="white-space: nowrap"></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -4393,9 +4422,15 @@
                     if (data.length > 0) {
                         data.forEach(element => {
                             $($row.find("td:eq(9)")).append(element["area"] + '<br>');
-                            $($row.find("td:eq(10)")).append(element["barangay_m"] + '<br>');
-                            $($row.find("td:eq(11)")).append(element["city_m"] + '<br>');
-                            $($row.find("td:eq(12)")).append(element["province_m"] + '<br>');
+                            if (element["barangay_m"] != null) {
+                                $($row.find("td:eq(10)")).append(element["barangay_m"] + '<br>');
+                            }
+                            if (element["city_m"] != null) {
+                                $($row.find("td:eq(11)")).append(element["city_m"] + '<br>');
+                            }
+                            if (element["province_m"] != null) {
+                                $($row.find("td:eq(12)")).append(element["province_m"] + '<br>');
+                            }
                             $($row.find("td:eq(13)")).append(element["region_m"] + '<br>');
                         });
                     }
@@ -4486,6 +4521,17 @@
                             $($row.find("td:eq(67)")).append(element["report_header"] + '<br>');
                             $($row.find("td:eq(68)")).append(element["summary"] + '<br>');
                             $($row.find("td:eq(69)")).append(element["prepared_by"] + '<br>');
+
+                            $($row.find("td:eq(87)")).append(element["case_status"] + '<br>');
+                            $($row.find("td:eq(88)")).append(element["case_status_date"] + '<br>');
+                            $($row.find("td:eq(89)")).append(element["is_number"] + '<br>');
+                            $($row.find("td:eq(90)")).append(element["procecutor_name"] + '<br>');
+                            $($row.find("td:eq(91)")).append(element["procecutor_office"] + '<br>');
+                            $($row.find("td:eq(92)")).append(element["prelim_case_status"] + '<br>');
+                            $($row.find("td:eq(93)")).append(element["prelim_case_date"] + '<br>');
+                            $($row.find("td:eq(94)")).append(element["prelim_is_number"] + '<br>');
+                            $($row.find("td:eq(95)")).append(element["prelim_prosecutor"] + '<br>');
+                            $($row.find("td:eq(96)")).append(element["prelim_prosecutor_office"] + '<br>');
                         });
                     }
                 }
@@ -4494,6 +4540,186 @@
             $.ajax({
                 type: "GET",
                 url: "/get_preops_spot_suspect/" + preops_number,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    if (data.length > 0) {
+                        data.forEach(element => {
+                            $($row.find("td:eq(28)")).append(element["suspect_number"] + '<br>');
+                            $($row.find("td:eq(29)")).append(element["suspect_status"] + '<br>');
+                            $($row.find("td:eq(30)")).append(element["lastname"] + '<br>');
+                            $($row.find("td:eq(31)")).append(element["firstname"] + '<br>');
+                            $($row.find("td:eq(32)")).append(element["middlename"] + '<br>');
+                            $($row.find("td:eq(33)")).append(element["alias"] + '<br>');
+                            $($row.find("td:eq(34)")).append(element["birthdate"] + '<br>');
+                            if (element["est_birthdate"] == 1) {
+                                $($row.find("td:eq(35)")).append('Yes <br>');
+                            } else {
+                                $($row.find("td:eq(35)")).append('No <br>');
+                            }
+                            if (element["birthplace"] != null && element["birthplace"] != '') {
+                                $($row.find("td:eq(36)")).append(element["birthplace"] + '<br>');
+                            }
+                            if (element["s_region"] != null && element["s_region"] != '') {
+                                $($row.find("td:eq(37)")).append(element["s_region"] + '<br>');
+                            }
+                            if (element["s_province"] != null && element["s_province"] != '') {
+                                $($row.find("td:eq(38)")).append(element["s_province"] + '<br>');
+                            }
+                            if (element["s_city"] != null && element["s_city"] != '') {
+                                $($row.find("td:eq(39)")).append(element["s_city"] + '<br>');
+                            }
+                            if (element["s_barangay"] != null && element["s_barangay"] != '') {
+                                $($row.find("td:eq(40)")).append(element["s_barangay"] + '<br>');
+                            }
+                            if (element["street"] != null && element["street"] != '') {
+                                $($row.find("td:eq(41)")).append(element["street"] + '<br>');
+                            }
+                            if (element["p_region"] != null && element["p_region"] != '') {
+                                $($row.find("td:eq(42)")).append(element["p_region"] + '<br>');
+                            }
+                            if (element["p_province"] != null && element["p_province"] != '') {
+                                $($row.find("td:eq(43)")).append(element["p_province"] + '<br>');
+                            }
+                            if (element["p_city"] != null && element["p_city"] != '') {
+                                $($row.find("td:eq(44)")).append(element["p_city"] + '<br>');
+                            }
+                            if (element["p_barangay"] != null && element["p_barangay"] != '') {
+                                $($row.find("td:eq(45)")).append(element["p_barangay"] + '<br>');
+                            }
+                            if (element["permanent_street"] != null && element["permanent_street"] != '') {
+                                $($row.find("td:eq(46)")).append(element["permanent_street"] + '<br>');
+                            }
+                            if (element["gender"] != null && element["gender"] != '') {
+                                $($row.find("td:eq(47)")).append(element["gender"] + '<br>');
+                            }
+                            if (element["civil_status"] != null && element["civil_status"] != '') {
+                                $($row.find("td:eq(48)")).append(element["civil_status"] + '<br>');
+                            }
+                            if (element["nationality"] != null && element["nationality"] != '') {
+                                $($row.find("td:eq(49)")).append(element["nationality"] + '<br>');
+                            }
+                            if (element["ethnic_group"] != null && element["ethnic_group"] != '') {
+                                $($row.find("td:eq(50)")).append(element["ethnic_group"] + '<br>');
+                            }
+                            if (element["religion"] != null && element["religion"] != '') {
+                                $($row.find("td:eq(51)")).append(element["religion"] + '<br>');
+                            }
+                            if (element["educational_attainment"] != null && element["educational_attainment"] != '') {
+                                $($row.find("td:eq(52)")).append(element["educational_attainment"] + '<br>');
+                            }
+                            if (element["occupation"] != null && element["occupation"] != '') {
+                                $($row.find("td:eq(53)")).append(element["occupation"] + '<br>');
+                            }
+                            if (element["suspect_classification"] != null && element["suspect_classification"] != '') {
+                                $($row.find("td:eq(54)")).append(element["suspect_classification"] + '<br>');
+                            }
+                            if (element["suspect_category"] != null && element["suspect_category"] != '') {
+                                $($row.find("td:eq(55)")).append(element["suspect_category"] + '<br>');
+                            }
+                            if (element["whereabouts"] != null && element["whereabouts"] != '') {
+                                $($row.find("td:eq(56)")).append(element["whereabouts"] + '<br>');
+                            }
+                            if (element["remarks"] != null && element["remarks"] != '') {
+                                $($row.find("td:eq(57)")).append(element["remarks"] + '<br>');
+                            }
+
+                            $($row.find("td:eq(70)")).append(element["lastname"] + ', ' + element["firstname"] + ' ' + element["middlename"] + '<br>');
+                            $($row.find("td:eq(71)")).append(element["suspect_classification"] + '<br>');
+                            $($row.find("td:eq(72)")).append(element["suspect_status"] + '<br>');
+                            $($row.find("td:eq(73)")).append(element["drug_test_result"] + '<br>');
+                            $($row.find("td:eq(74)")).append(element["drug_type"] + '<br>');
+                            $($row.find("td:eq(75)")).append(element["remarks"] + '<br>');
+                        });
+                    }
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "/get_preops_spot_suspect_listed/" + preops_number,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    if (data.length > 0) {
+                        data.forEach(element => {
+                            $($row.find("td:eq(97)")).append(element["lastname"] + ', ' + element["firstname"] + ' ' + element["middlename"] + '<br>');
+                            if (element["listed"] == 1) {
+                                $($row.find("td:eq(98)")).append('Yes <br>');
+                            } else {
+                                $($row.find("td:eq(98)")).append('No <br>');
+                            }
+                            $($row.find("td:eq(99)")).append(element["ndis_id"] + '<br>');
+                            $($row.find("td:eq(100)")).append(element["remarks"] + '<br>');
+                        });
+                    }
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "/get_preops_spot_evidence/" + preops_number,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    if (data.length > 0) {
+                        data.forEach(element => {
+                            $($row.find("td:eq(58)")).append(element["lastname"] + ', ' + element["firstname"] + ' ' + element["middlename"] + '<br>');
+                            $($row.find("td:eq(59)")).append(element["drug"] + '<br>');
+                            $($row.find("td:eq(60)")).append(element["evidence"] + '<br>');
+                            $($row.find("td:eq(61)")).append(element["quantity"] + '<br>');
+                            $($row.find("td:eq(62)")).append(element["unit_measure"] + '<br>');
+                            $($row.find("td:eq(63)")).append(element["packaging"] + '<br>');
+                            $($row.find("td:eq(64)")).append(element["markings"] + '<br>');
+                            $($row.find("td:eq(59)")).append(element["drug"] + '<br>');
+
+                            $($row.find("td:eq(76)")).append(element["evidence"] + '<br>');
+                            $($row.find("td:eq(77)")).append(element["qty_onsite"] + '<br>');
+                            $($row.find("td:eq(78)")).append(element["actual_qty"] + '<br>');
+                            $($row.find("td:eq(79)")).append(element["unit_measure"] + '<br>');
+                            $($row.find("td:eq(80)")).append(element["drug_test_result"] + '<br>');
+                            $($row.find("td:eq(81)")).append(element["chemist_report_number"] + '<br>');
+                            $($row.find("td:eq(82)")).append(element["laboratory_facility"] + '<br>');
+                        });
+                    }
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "/get_preops_spot_case/" + preops_number,
+                fail: function() {
+                    alert("request failed");
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+
+                    if (data.length > 0) {
+                        data.forEach(element => {
+                            $($row.find("td:eq(65)")).append(element["lastname"] + ', ' + element["firstname"] + ' ' + element["middlename"] + '<br>');
+                            $($row.find("td:eq(66)")).append(element["case"] + '<br>');
+
+                            $($row.find("td:eq(83)")).append(element["lastname"] + ', ' + element["firstname"] + ' ' + element["middlename"] + '<br>');
+                            $($row.find("td:eq(84)")).append(element["case"] + '<br>');
+                            $($row.find("td:eq(85)")).append(element["docket_number"] + '<br>');
+                            $($row.find("td:eq(86)")).append(element["case_status"] + '<br>');
+                        });
+                    }
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "/get_preops_progress_suspect/" + preops_number,
                 fail: function() {
                     alert("request failed");
                 },
@@ -4541,46 +4767,7 @@
                 }
             });
 
-            $.ajax({
-                type: "GET",
-                url: "/get_preops_spot_evidence/" + preops_number,
-                fail: function() {
-                    alert("request failed");
-                },
-                success: function(data) {
-                    var data = JSON.parse(data);
-
-                    if (data.length > 0) {
-                        data.forEach(element => {
-                            $($row.find("td:eq(58)")).append(element["lastname"] + ', ' + element["firstname"] + ' ' + element["middlename"] + '<br>');
-                            $($row.find("td:eq(59)")).append(element["drug"] + '<br>');
-                            $($row.find("td:eq(60)")).append(element["evidence"] + '<br>');
-                            $($row.find("td:eq(61)")).append(element["quantity"] + '<br>');
-                            $($row.find("td:eq(62)")).append(element["unit_measure"] + '<br>');
-                            $($row.find("td:eq(63)")).append(element["packaging"] + '<br>');
-                            $($row.find("td:eq(64)")).append(element["markings"] + '<br>');
-                        });
-                    }
-                }
-            });
-
-            $.ajax({
-                type: "GET",
-                url: "/get_preops_spot_case/" + preops_number,
-                fail: function() {
-                    alert("request failed");
-                },
-                success: function(data) {
-                    var data = JSON.parse(data);
-
-                    if (data.length > 0) {
-                        data.forEach(element => {
-                            $($row.find("td:eq(65)")).append(element["lastname"] + ', ' + element["firstname"] + ' ' + element["middlename"] + '<br>');
-                            $($row.find("td:eq(66)")).append(element["case"] + '<br>');
-                        });
-                    }
-                }
-            });
+            $('td:contains("null")').text(' ');
         });
     });
 

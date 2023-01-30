@@ -431,7 +431,7 @@ class ReportGenerationController extends Controller
                     'a.drug_test_result',
                     'f.name as laboratory_facility'
                 )
-                ->orderby('a.id', 'asc')
+                ->orderby('b.id', 'asc')
                 ->get();
 
             $spot_report_case = DB::table('spot_report_case as a')
@@ -447,7 +447,7 @@ class ReportGenerationController extends Controller
                     'a.docket_number',
                     'a.case_status'
                 )
-                ->orderby('a.id', 'asc')
+                ->orderby('b.id', 'asc')
                 ->get();
 
             $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
@@ -471,108 +471,6 @@ class ReportGenerationController extends Controller
         }
     }
 
-    public function get_after_operation($pn)
-    {
-
-        $spot_report_header = DB::table('spot_report_header as a')
-            ->where('a.id', $id)->get();
-        $ao = DB::table('spot_report_suspect as a')
-            ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
-            ->leftjoin('drug_management as c', 'a.id', '=', 'c.suspect_id')
-            ->leftjoin('users as d', 'd.id', '=', 'c.user_id')
-            ->leftjoin('tbluserlevel as e', 'd.user_level_id', '=', 'e.id')
-            ->leftjoin('province as f', 'a.province_c', '=', 'f.province_c')
-            ->leftjoin('city as g', 'a.city_c', '=', 'g.city_c')
-            ->leftjoin('barangay as h', 'a.barangay_c', '=', 'h.barangay_c')
-            ->leftjoin('province as i', 'a.permanent_province_c', '=', 'i.province_c')
-            ->leftjoin('city as j', 'a.permanent_city_c', '=', 'j.city_c')
-            ->leftjoin('barangay as k', 'a.permanent_barangay_c', '=', 'k.barangay_c')
-            ->select(
-                'a.id',
-                'a.suspect_number',
-                'a.spot_report_number',
-                'a.lastname',
-                'a.firstname',
-                'a.middlename',
-                'a.alias',
-                'a.gender',
-                'a.birthdate',
-                'a.birthplace',
-                'a.nationality_id',
-                'a.civil_status_id',
-                'a.religion_id',
-                'a.educational_attainment_id',
-                'a.ethnic_group_id',
-                'a.occupation_id',
-                'a.identifier_id',
-                'a.region_c',
-                'a.province_c',
-                'a.city_c',
-                'a.barangay_c',
-                'a.street',
-                'a.permanent_region_c',
-                'a.permanent_province_c',
-                'a.permanent_city_c',
-                'a.permanent_barangay_c',
-                'a.permanent_street',
-                'a.suspect_classification_id',
-                'a.suspect_status_id',
-                'a.remarks',
-                'a.suspect_category_id',
-                'a.suspect_sub_category_id',
-                'c.listed',
-                'c.user_id',
-                'e.name as ulvl',
-                'd.name as uname',
-                'a.est_birthdate',
-                'a.whereabouts',
-                'f.province_m as province_name',
-                'g.city_m as city_name',
-                'h.barangay_m as barangay_name',
-                'i.province_m as permanent_province_name',
-                'j.city_m as permanent_city_name',
-                'k.barangay_m as permanent_barangay_name',
-            )
-            ->where('a.spot_report_number', $pn)->get();
-
-        return view('spot_report.spot_report_edit', compact(
-            'report_header',
-            'packaging',
-            'suspect_category',
-            'is_warrant',
-            'unit_measurement',
-            'evidence',
-            'suspect_classification',
-            'preops_support_unit',
-            'support_unit',
-            'civil_status',
-            'religion',
-            'education',
-            'ethnic_group',
-            'nationality',
-            'occupation',
-            'spot_report_evidence',
-            'spot_report_case',
-            'spot_report_team',
-            'spot_report_summary',
-            'spot_report_header',
-            'region',
-            'province',
-            'city',
-            'barangay',
-            'operation_type',
-            'suspect_information',
-            'case',
-            'suspect_status',
-            'spot_report_files',
-            'regional_user',
-            'hio_type',
-            'identifier',
-            'suspect_sub_category',
-            'operating_unit',
-            'suspects'
-        ));
-    }
 
     public function getPreopsTarget($preops_number)
     {
@@ -635,9 +533,10 @@ class ReportGenerationController extends Controller
     public function getPreopsSPOT($preops_number)
     {
         $data = DB::table('spot_report_header as a')
-            ->leftjoin('preops_number', 'a.preops_number', '=', 'b.preops_number')
+            ->leftjoin('preops_header as b', 'a.preops_number', '=', 'b.preops_number')
+            // ->select('a.report_header', 'a.summary', 'a.prepared_by','a.operation_lvl')
             ->where('b.preops_number', $preops_number)
-            ->orderby('id', 'asc')
+            ->orderby('a.id', 'asc')
             ->get();
         return json_encode($data);
     }
@@ -760,9 +659,91 @@ class ReportGenerationController extends Controller
                 'a.case_status'
             )
             ->where('a1.preops_number', $preops_number)
-            ->orderby('a.id', 'asc')
+            ->orderby('b.lastname', 'asc')
             ->get();
 
+
+        return json_encode($data);
+    }
+
+    public function getPreopsPROSuspect($preops_number)
+    {
+        $data = DB::table('spot_report_suspect as a')
+            ->leftjoin('nationality as b', 'a.nationality_id', '=', 'b.id')
+            ->leftjoin('civil_status as c', 'a.civil_status_id', '=', 'c.id')
+            ->leftjoin('religions as d', 'a.religion_id', '=', 'd.id')
+            ->leftjoin('educational_attainment as e', 'a.educational_attainment_id', '=', 'e.id')
+            ->leftjoin('ethnic_group as f', 'a.ethnic_group_id', '=', 'f.id')
+            ->leftjoin('occupation as g', 'a.occupation_id', '=', 'g.id')
+            ->leftjoin('region as h', 'a.region_c', '=', 'h.region_c')
+            ->leftjoin('province as i', 'a.province_c', '=', 'i.province_c')
+            ->leftjoin('city as j', 'a.city_c', '=', 'j.city_c')
+            ->leftjoin('barangay as k', 'a.barangay_c', '=', 'k.barangay_c')
+            ->leftjoin('region as h1', 'a.permanent_region_c', '=', 'h1.region_c')
+            ->leftjoin('province as i1', 'a.permanent_province_c', '=', 'i1.province_c')
+            ->leftjoin('city as j1', 'a.permanent_city_c', '=', 'j1.city_c')
+            ->leftjoin('barangay as k1', 'a.permanent_barangay_c', '=', 'k1.barangay_c')
+            ->leftjoin('suspect_status as l', 'a.suspect_status_id', '=', 'l.id')
+            ->leftjoin('suspect_classification as m', 'a.suspect_classification_id', '=', 'm.id')
+            ->leftjoin('suspect_category as n', 'a.suspect_category_id', '=', 'n.id')
+            ->leftjoin('spot_report_header as o', 'a.spot_report_number', '=', 'o.spot_report_number')
+            ->leftjoin('drug_type as p', 'a.drug_type_id', '=', 'p.id')
+            ->leftjoin('drug_management as q', 'a.id', '=', 'q.suspect_id')
+            ->select(
+                'o.preops_number',
+                'a.spot_report_number',
+                'a.suspect_number',
+                'l.name as suspect_status',
+                'a.lastname',
+                'a.firstname',
+                'a.middlename',
+                'a.alias',
+                'a.birthdate',
+                'a.est_birthdate',
+                'a.birthplace',
+                'h.region_m as s_region',
+                'i.province_m as s_province',
+                'j.city_m as s_city',
+                'k.barangay_m as s_barangay',
+                'a.street',
+                'h1.region_m as p_region',
+                'i1.province_m as p_province',
+                'j1.city_m as p_city',
+                'k1.barangay_m as p_barangay',
+                'a.permanent_street',
+                'a.gender',
+                'b.name as nationality',
+                'c.name as civil_status',
+                'd.name as religion',
+                'e.name as educational_attainment',
+                'f.name as ethnic_group',
+                'g.name as occupation',
+                'm.name as suspect_classification',
+                'n.name as suspect_category',
+                'a.whereabouts',
+                'a.remarks',
+                'p.name as drug_type',
+                'a.drug_test_result',
+                'q.listed',
+                'q.ndis_id',
+                'q.remarks'
+            )
+            ->where('o.preops_number', $preops_number)
+            ->orderby('a.lastname', 'asc')
+            ->get();
+        return json_encode($data);
+    }
+
+    public function getPreopsPROSuspectListed($preops_number)
+    {
+        $data = DB::table('spot_report_suspect as a')
+            ->leftjoin('spot_report_header as o', 'a.spot_report_number', '=', 'o.spot_report_number')
+            ->leftjoin('drug_management as q', 'a.id', '=', 'q.suspect_id')
+            ->select('a.lastname', 'a.firstname', 'a.middlename', 'q.ndis_id', 'q.remarks', 'q.listed')
+            ->where('o.preops_number', $preops_number)
+            ->where('q.listed', 1)
+            ->orderby('a.lastname', 'asc')
+            ->get();
         return json_encode($data);
     }
 }
