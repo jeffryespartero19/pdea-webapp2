@@ -705,6 +705,7 @@ class ProgressReportController extends Controller
     // Print PDF Format
     function viewPDF($id)
     {
+        $Sdate = Carbon::now()->format('g:i A m/d/Y');
         $spot_report = $this->get_spot_report($id);
         $regional_office = DB::table('regional_office as a')
             ->join('preops_header as b', 'a.ro_code', '=', 'b.ro_code')
@@ -767,7 +768,8 @@ class ProgressReportController extends Controller
             'case',
             'team',
             'report_date',
-            'operation_datetime'
+            'operation_datetime',
+            'Sdate'
         ));
         $canvas = $pdf->getDomPDF()->getCanvas();
         $canvas->page_script('$pdf->set_opacity(.5);

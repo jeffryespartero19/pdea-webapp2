@@ -151,7 +151,7 @@
     <p style="margin-right:23px; margin-left:60px;">{{$spot_report[0]->summary}}</p>
     <h4 align="center">*** end of report ***</h4>
     <footer>
-        {{$date}} | {{Auth::user()->name}}
+        {{$Sdate}} | {{Auth::user()->name}}
     </footer>
 </body>
 

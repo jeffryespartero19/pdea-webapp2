@@ -159,7 +159,7 @@
     <span class="arial" style="margin-right:23px; margin-left:13px;">{{$spot_report[0]->summary}}</span>
     <h4 class="arial" align="center">*** end of report ***</h4>
     <footer>
-        {{$date}} | {{Auth::user()->name}} | @if ($spot_report[0]->print_count == 1) O @else C @endif
+        {{$Sdate}} | {{Auth::user()->name}} | @if ($spot_report[0]->print_count == 1) O @else C @endif
     </footer>
 </body>
 
