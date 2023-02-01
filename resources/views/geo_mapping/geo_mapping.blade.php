@@ -204,6 +204,13 @@
             text: 'Philippines'
         },
 
+        xAxis: {
+            minRange: 3
+        },
+        yAxis: {
+            minRange: 3
+        },
+
         // subtitle: {
         //     text: 'Source map: <a href="http://code.highcharts.com/mapdata/countries/ph/ph-all.js">Philippines</a>'
         // },
@@ -667,7 +674,7 @@
         $('#getAreaX').submit();
     });
     $(document).on('click',('.highcharts-name-manila'),function(e) {
-        $('#area_ID').val('1');
+        $('#area_ID').val('0');
         $('#getAreaX').submit();//133901-133914
     });
     $(document).on('click',('.highcharts-name-san-juan'),function(e) {

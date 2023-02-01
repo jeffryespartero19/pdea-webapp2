@@ -484,6 +484,7 @@ class GeoMappingController extends Controller
         $city2 = '';
         $brgy2 = '';
         $Title_Loc = $data['area_ID'];
+        $brgyXB = [];
 
         if (str_contains($data['area_ID'], 'c')) {
             $area_IDx = rtrim($data['area_ID'], "c");
@@ -620,6 +621,7 @@ class GeoMappingController extends Controller
                     $cityXB = DB::table('city')->where('city_c', $ops_details_area3[$key]->city_c)->pluck('city_m');
                     array_push($cityB, $cityXB[0]);
                     $brgyXB = DB::table('barangay')->where('barangay_c', $ops_details_area3[$key]->barangay_c)->pluck('barangay_m');
+                    
                     if ($ops_details_area3[$key]->barangay_c) {
                         array_push($brgy, $brgyXB[0]);
                     } else {
@@ -634,7 +636,7 @@ class GeoMappingController extends Controller
             }
         }
 
-        if ($data['area_ID'] == 1) {
+        if ($data['area_ID'] == 0) {
             $the_province = DB::table('city')->whereIn('city_c', ['MAL','MLA','SVBS'])->pluck('province_c');
             $the_region = DB::table('province')->where('province_c', $the_province[0])->pluck('region_c');
 
@@ -768,6 +770,7 @@ class GeoMappingController extends Controller
                     $cityXB = DB::table('city')->where('city_c', $ops_details_area3[$key]->city_c)->pluck('city_m');
                     array_push($cityB, $cityXB[0]);
                     $brgyXB = DB::table('barangay')->where('barangay_c', $ops_details_area3[$key]->barangay_c)->pluck('barangay_m');
+                    
                     if ($ops_details_area3[$key]->barangay_c) {
                         array_push($brgy, $brgyXB[0]);
                     } else {
@@ -782,9 +785,8 @@ class GeoMappingController extends Controller
             }
         }
 
-        if ($data['area_ID'] < 137400 && $data['area_ID'] != 1) {
+        if ($data['area_ID'] < 137400 && $data['area_ID'] != 0) {
             $the_region = DB::table('province')->where('province_c', $data['area_ID'])->pluck('region_c');
-            //dd($data,$the_region);
 
             if ($the_region[0] == "0000000001") {
                 $X_Region = 1;
@@ -920,6 +922,7 @@ class GeoMappingController extends Controller
                     $cityXB = DB::table('city')->where('city_c', $ops_details_area3[$key]->city_c)->pluck('city_m');
                     array_push($cityB, $cityXB[0]);
                     $brgyXB = DB::table('barangay')->where('barangay_c', $ops_details_area3[$key]->barangay_c)->pluck('barangay_m');
+                    
                     if ($ops_details_area3[$key]->barangay_c) {
                         array_push($brgy, $brgyXB[0]);
                     } else {

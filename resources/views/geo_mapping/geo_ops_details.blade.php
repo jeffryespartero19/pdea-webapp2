@@ -1,6 +1,10 @@
 @extends('layouts.template')
 
 @section('content')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $('.alerter').hide();
+</script>
 <style>
     .table_body tr td{
         text-align: center;
@@ -269,8 +273,45 @@
 <!-- /.content -->
 
 @if($ops_count > 1)
+    <style>
+        .alerter{
+            position: fixed;
+            background-color: rgb(221, 218, 218);
+            color:rgb(240, 90, 73);
+            width:35vw;
+            height:20vh;
+            right: 30vw;
+            top: 15vh;
+            border-radius: 10px;
+            padding: 5px;
+            border: 1px solid black;
+        }
+        .fa-window-close:hover{
+            transform: scale(1.25);
+        }
+        
+    </style>
+
+    <div class="alerter">
+        <div style="text-align: right; font-size:20px;"><i class="fa fa-window-close rx7" aria-hidden="true"></i></div>
+        <div style="width: 100%;">
+            <h5 style="text-align: center; border-bottom:1px solid black;">WARNING</h5>
+        </div>
+        <div style="width: 100%;">
+            <h4 style="text-align: center">There multiple Ops in the same area, please make sure all teams have been issued warning</h4>
+        </div>
+    </div>
+
     <script>
-        alert('There multiple Ops in the same area, please make sure all teams have been issued warning');
+        //alert('There multiple Ops in the same area, please make sure all teams have been issued warning');
+        
+
+        $(document).ready(function(){
+            $('.alerter').fadeIn();
+            $(document).on('click',('.rx7'),function(e) {
+                $('.alerter').fadeOut();
+            });
+        });
     </script>
 @endif
 @endsection
