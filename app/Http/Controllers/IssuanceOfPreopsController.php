@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\DB;
 use App\PreopsArea;
 use App\PreopsTarget;
 use App\PreopsTeam;
-use Illuminate\Support\Carbon;
 use PDF;
 use Illuminate\Support\Facades\View;
+use Carbon\Carbon;
 
 
 class IssuanceOfPreopsController extends Controller
@@ -615,98 +615,10 @@ class IssuanceOfPreopsController extends Controller
         return back()->with('success', 'You have successfully updated issuance of preops!');
     }
 
-    // Print PDF Format
-    function viewPDF1($id)
-    {
-        date_default_timezone_set('Asia/Manila');
-        $date = Carbon::now();
-
-        $pos_data = array(
-            'print_count' => DB::raw('print_count+1'),
-            'print_date' => $date,
-        );
-        DB::table('spot_report_header')->where('id', $id)->update($pos_data);
-
-        $spot_report = DB::table('spot_report_header as a')
-            ->leftjoin('region as b', 'a.region_c', '=', 'b.region_c')
-            ->leftjoin('province as c', 'a.province_c', '=', 'c.province_c')
-            ->leftjoin('city as d', 'a.city_c', '=', 'd.city_c')
-            ->leftjoin('operating_unit as e', 'a.operating_unit_id', '=', 'e.id')
-            ->leftjoin('operation_type as f', 'a.operation_type_id', '=', 'f.id')
-            ->leftjoin('barangay as g', 'a.barangay_c', '=', 'g.barangay_c')
-            ->select(
-                'a.spot_report_number',
-                'a.preops_number',
-                'a.reported_date',
-                'a.operation_datetime',
-                'a.remarks',
-                'a.summary',
-                'a.print_count',
-                'b.region_m',
-                'c.province_m',
-                'd.city_m',
-                'e.description as operating_unit',
-                'f.name as operation_type',
-                'a.region_c',
-                'g.barangay_m'
-            )
-            ->where('a.id', $id)
-            ->get();
-
-        if ($spot_report[0]->preops_number == 1) {
-            $regional_office = DB::table('regional_office as a')
-                ->leftjoin('spot_report_header as b', 'a.region_c', '=', 'b.region_c')
-                ->select('a.name', 'a.address', 'a.contact_number', 'a.report_header')
-                ->where('b.region_c', $spot_report[0]->region_c)->get();
-        } else {
-            $regional_office = DB::table('regional_office as a')
-                ->leftjoin('preops_header as b', 'a.ro_code', '=', 'b.ro_code')
-                ->select('a.name', 'a.address', 'a.contact_number', 'a.report_header')
-                ->where('b.preops_number', $spot_report[0]->preops_number)->get();
-        }
-
-        $evidence = DB::table('spot_report_evidence as a')
-            ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
-            ->leftjoin('evidence as c', 'a.evidence_id', '=', 'c.id')
-            ->leftjoin('unit_measurement as d', 'a.unit', '=', 'd.id')
-            ->leftjoin('packaging as e', 'a.packaging_id', '=', 'e.id')
-            ->select('c.name as evidence_type', 'd.name as unit_measurement', 'a.evidence', 'a.quantity', 'e.name as packaging')
-            ->where('b.id', $id)->get();
-
-        $case = DB::table('spot_report_case as a')
-            ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
-            ->leftjoin('case_list as c', 'a.case_id', '=', 'c.id')
-            ->leftjoin('spot_report_suspect as d', 'a.suspect_number', '=', 'd.suspect_number')
-            ->select('c.description as case', 'd.lastname', 'd.firstname', 'd.middlename')
-            ->where('b.id', $id)->get();
-        $team = DB::table('spot_report_team as a')
-            ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
-            ->where('b.id', $id)->get();
-        $support_unit = DB::table('spot_report_support_unit as a')
-            ->leftjoin('operating_unit as b', 'a.support_unit_id', '=', 'b.id')
-            ->where('a.spot_report_number', $spot_report[0]->spot_report_number)
-            ->select('b.description')
-            ->get();
-
-        $pdf = PDF::loadView('spot_report.spot_report_PDF', compact(
-            'spot_report',
-            'regional_office',
-            'evidence',
-            'case',
-            'team',
-            'support_unit',
-            'date'
-        ));
-        $canvas = $pdf->getDomPDF()->getCanvas();
-        $canvas->page_script('$pdf->set_opacity(.5);
-        $pdf->image("/public/images/Sector_1.png", {x}, {y}, {w}, {h});');
-        return $pdf->stream();
-    }
-
-
+   
     function viewPDF($id)
     {
-        // date_default_timezone_set('Asia/Manila');
+        // date_default_timezone_set('Asia/Singapore');
         $date = Carbon::now();
         $Sdate = Carbon::now()->format('m/d/Y g:i A');
 
@@ -764,7 +676,7 @@ class IssuanceOfPreopsController extends Controller
             'approved_by',
             'support_unit',
             'op_datetime',
-            'Sdate'
+            'Sdate',
         ));
         $canvas = $pdf->getDomPDF()->getCanvas();
         $canvas->page_script('$pdf->set_opacity(.5);

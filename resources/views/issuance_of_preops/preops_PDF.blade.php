@@ -146,7 +146,7 @@
     <div style="padding-left:300px; font-weight: bold;">{{$approved_by[0]->name}}</div>
     <div style="padding-left:300px;">REGIONAL DIRECTOR</div>
     <footer>
-        {{$Sdate}} | {{Auth::user()->name}} | @if ($preops_data[0]->print_count == 1) O @else C @endif
+    {{$Sdate}} | {{Auth::user()->name}}  | @if ($preops_data[0]->print_count == 1) O @else C @endif
     </footer>
 </body>
 

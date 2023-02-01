@@ -316,7 +316,7 @@ Route::group(['middleware' => 'auth'], function () {
     //Report PDF
     Route::get('/view_SpotReport/{id}', 'SpotReportController@viewPDF');
     Route::get('/view_Preops/{id}', 'IssuanceOfPreopsController@viewPDF');
-    Route::get('/view_ProgressReport/{id}', 'IssuanceOfPreopsController@viewPDF');
+    Route::get('/view_ProgressReport/{id}', 'ProgressReportController@viewPDF');
 
     //Global Controller
     Route::get('/get_preops_number/{region_c}', 'GlobalController@getPreopsNumber');
