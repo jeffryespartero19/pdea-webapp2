@@ -241,281 +241,281 @@
 <script>
     //Provinces
     $(document).on('click',('.highcharts-name-ilocos-norte'),function(e) {
-        $('#area_ID').val('0128');
+        $('#area_ID').val('0000000036');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-ilocos-sur'),function(e) {
-        $('#area_ID').val('0129');
+        $('#area_ID').val('0000000037');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-la-union'),function(e) {
-        $('#area_ID').val('0133');
+        $('#area_ID').val('0000000041');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-pangasinan'),function(e) {
-        $('#area_ID').val('0155');
+        $('#area_ID').val('0000000065');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-batanes'),function(e) {
-        $('#area_ID').val('0209');
+        $('#area_ID').val('0000000011');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-cagayan'),function(e) {
-        $('#area_ID').val('0215');
+        $('#area_ID').val('0000000018');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-isabela'),function(e) {
-        $('#area_ID').val('0231');
+        $('#area_ID').val('0000000039');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-nueva-vizcaya'),function(e) {
-        $('#area_ID').val('0250');
+        $('#area_ID').val('0000000060');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-quirino'),function(e) {
-        $('#area_ID').val('0257');
+        $('#area_ID').val('0000000067');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-bataan'),function(e) {
-        $('#area_ID').val('0308');
+        $('#area_ID').val('0000000010');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-bulacan'),function(e) {
-        $('#area_ID').val('0314');
+        $('#area_ID').val('0000000017');
         $('#getAreaX').submit(); 
         
     });
 
     $(document).on('click',('.highcharts-name-nueva-ecija'),function(e) {
-        $('#area_ID').val('0349');
+        $('#area_ID').val('0000000059');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-pampanga'),function(e) {
-        $('#area_ID').val('0354');
+        $('#area_ID').val('0000000064');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-tarlac'),function(e) {
-        $('#area_ID').val('0369');
+        $('#area_ID').val('0000000080');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-zambales'),function(e) {
-        $('#area_ID').val('0371');
+        $('#area_ID').val('0000000082');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-aurora'),function(e) {
-        $('#area_ID').val('0377');
+        $('#area_ID').val('0000000008');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-batangas'),function(e) {
-        $('#area_ID').val('0410');
+        $('#area_ID').val('0000000012');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-cavite'),function(e) {
-        $('#area_ID').val('0421');
+        $('#area_ID').val('0000000024');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-laguna'),function(e) {
-        $('#area_ID').val('0434');
+        $('#area_ID').val('0000000042');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-quezon'),function(e) {
-        $('#area_ID').val('0456');
+        $('#area_ID').val('0000000066');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-rizal'),function(e) {
-        $('#area_ID').val('0458');
+        $('#area_ID').val('0000000068');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-albay'),function(e) {
-        $('#area_ID').val('0505');
+        $('#area_ID').val('0000000005');
         $('#getAreaX').submit(); 
         
     });
 
     $(document).on('click',('.highcharts-name-camarines-norte'),function(e) {
-        $('#area_ID').val('0516');
+        $('#area_ID').val('0000000019');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-camarines-sur'),function(e) {
-        $('#area_ID').val('0517');
+        $('#area_ID').val('0000000020');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-catanduanes'),function(e) {
-        $('#area_ID').val('0520');
+        $('#area_ID').val('0000000023');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-masbate'),function(e) {
-        $('#area_ID').val('0541');
+        $('#area_ID').val('0000000048');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-sorsogon'),function(e) {
-        $('#area_ID').val('0562');
+        $('#area_ID').val('0000000073');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-aklan'),function(e) {
-        $('#area_ID').val('0604');
+        $('#area_ID').val('0000000004');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-antique'),function(e) {
-        $('#area_ID').val('0606');
+        $('#area_ID').val('0000000006');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-capiz'),function(e) {
-        $('#area_ID').val('0619');
+        $('#area_ID').val('0000000022');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-iloilo'),function(e) {
-        $('#area_ID').val('0630');
+        $('#area_ID').val('0000000038');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-negros-occidental'),function(e) {
-        $('#area_ID').val('0645');
+        $('#area_ID').val('NP00000001');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-guimaras'),function(e) {
-        $('#area_ID').val('0679');
+        $('#area_ID').val('0000000034');
         $('#getAreaX').submit(); 
         
     });
 
     $(document).on('click',('.highcharts-name-bohol'),function(e) {
-        $('#area_ID').val('0712');
+        $('#area_ID').val('0000000015');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-cebu'),function(e) {
-        $('#area_ID').val('0722');
+        $('#area_ID').val('0000000025');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-negros-oriental'),function(e) {
-        $('#area_ID').val('0746');
+        $('#area_ID').val('NP00000002');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-siquijor'),function(e) {
-        $('#area_ID').val('0761');
+        $('#area_ID').val('0000000072');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-eastern-samar'),function(e) {
-        $('#area_ID').val('0826');
+        $('#area_ID').val('0000000033');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-leyte'),function(e) {
-        $('#area_ID').val('0837');
+        $('#area_ID').val('0000000045');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-northern-samar'),function(e) {
-        $('#area_ID').val('0848');
+        $('#area_ID').val('0000000058');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-samar'),function(e) {
-        $('#area_ID').val('0860');
+        $('#area_ID').val('0000000070');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-southern-leyte'),function(e) {
-        $('#area_ID').val('0864');
+        $('#area_ID').val('0000000075');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-biliran'),function(e) {
-        $('#area_ID').val('0878');
+        $('#area_ID').val('0000000014');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-zamboanga-del-norte'),function(e) {
-        $('#area_ID').val('0972');
+        $('#area_ID').val('0000000083');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-zamboanga-del-sur'),function(e) {
-        $('#area_ID').val('0973');
+        $('#area_ID').val('0000000084');
         $('#getAreaX').submit(); 
         
     });
 
     $(document).on('click',('.highcharts-name-zamboanga-sibugay'),function(e) {
-        $('#area_ID').val('0983');
+        $('#area_ID').val('0000000085');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-bukidon'),function(e) {
-        $('#area_ID').val('1013');
+        $('#area_ID').val('0000000016');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-camiguin'),function(e) {
-        $('#area_ID').val('1018');
+        $('#area_ID').val('0000000021');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-lanao-del-norte'),function(e) {
-        $('#area_ID').val('1035');
+        $('#area_ID').val('0000000043');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-misamis-occidental'),function(e) {
-        $('#area_ID').val('1042');
+        $('#area_ID').val('0000000049');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-misamis-oriental'),function(e) {
-        $('#area_ID').val('1043');
+        $('#area_ID').val('0000000050');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-davao-del-norte'),function(e) {
-        $('#area_ID').val('137503');
+        $('#area_ID').val('0000000029');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-davao-del-sur'),function(e) { //davao occidental
-        $('#area_ID').val('1186');
+        $('#area_ID').val('0000000030');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-davao-oriental'),function(e) {
-        $('#area_ID').val('1125');
+        $('#area_ID').val('0000000031');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-compostela-valley'),function(e) {
-        $('#area_ID').val('1182');
+        $('#area_ID').val('0000000027');
         $('#getAreaX').submit(); 
         
     });
@@ -526,143 +526,143 @@
     });
 
     $(document).on('click',('.highcharts-name-cotabato'),function(e) { //north cotabato
-        $('#area_ID').val('1247');
+        $('#area_ID').val('COTABATO');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-south-cotabato'),function(e) {
-        $('#area_ID').val('1263');
+        $('#area_ID').val('0000000074');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-sultan-kudarat'),function(e) {
-        $('#area_ID').val('1265');
+        $('#area_ID').val('0000000076');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-sarangani'),function(e) {
-        $('#area_ID').val('1280');
+        $('#area_ID').val('0000000071');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-abra'),function(e) {
-        $('#area_ID').val('1401');
+        $('#area_ID').val('0000000001');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-benguet'),function(e) {
-        $('#area_ID').val('1411');
+        $('#area_ID').val('0000000013');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-ifugao'),function(e) {
-        $('#area_ID').val('1427');
+        $('#area_ID').val('0000000035');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-kalinga'),function(e) {
-        $('#area_ID').val('1432');
+        $('#area_ID').val('0000000040');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-mountain-province'),function(e) {
-        $('#area_ID').val('1444');
+        $('#area_ID').val('0000000051');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-apayao'),function(e) {
-        $('#area_ID').val('1481');
+        $('#area_ID').val('0000000007');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-basilan'),function(e) {
-        $('#area_ID').val('1507');
+        $('#area_ID').val('0000000009');
         $('#getAreaX').submit(); 
         
     });
 
     $(document).on('click',('.highcharts-name-lanao-del-sur'),function(e) {
-        $('#area_ID').val('1536');
+        $('#area_ID').val('0000000044');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-maguindanao'),function(e) {
-        $('#area_ID').val('1538');
+        $('#area_ID').val('0000000046');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-sulu'),function(e) {
-        $('#area_ID').val('1566');
+        $('#area_ID').val('0000000077');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-tawi-tawi'),function(e) {
-        $('#area_ID').val('1570');
+        $('#area_ID').val('0000000081');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-agusan-del-norte'),function(e) {
-        $('#area_ID').val('1602');
+        $('#area_ID').val('0000000002');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-agusan-del-sur'),function(e) {
-        $('#area_ID').val('1603');
+        $('#area_ID').val('0000000003');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-surigao-del-norte'),function(e) {
-        $('#area_ID').val('1667');
+        $('#area_ID').val('0000000078');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-surigao-del-sur'),function(e) {
-        $('#area_ID').val('1668');
+        $('#area_ID').val('0000000079');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-marinduque'),function(e) {
-        $('#area_ID').val('1740');
+        $('#area_ID').val('0000000047');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-mindoro-occidental'),function(e) {
-        $('#area_ID').val('1751');
+        $('#area_ID').val('0000000061');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-mindoro-oriental'),function(e) {
-        $('#area_ID').val('1752');
+        $('#area_ID').val('0000000062');
         $('#getAreaX').submit(); 
         
     });
 
     $(document).on('click',('.highcharts-name-palawan'),function(e) {
-        $('#area_ID').val('1753');
+        $('#area_ID').val('0000000063');
         $('#getAreaX').submit(); 
         
     });
     $(document).on('click',('.highcharts-name-romblon'),function(e) {
-        $('#area_ID').val('1759');
+        $('#area_ID').val('0000000069');
         $('#getAreaX').submit(); 
         
     });
 
    //NCR
     $(document).on('click',('.highcharts-name-navotas'),function(e) {
-        $('#area_ID').val('137503');
+        $('#area_ID').val('0000000009c');
         $('#getAreaX').submit(); 
     });
     $(document).on('click',('.highcharts-name-malabon'),function(e) {
-        $('#area_ID').val('137502');
+        $('#area_ID').val('0000000008c');
         $('#getAreaX').submit();
     });
     $(document).on('click',('.highcharts-name-valenzuela'),function(e) {
-        $('#area_ID').val('137504');
+        $('#area_ID').val('0000000010c');
         $('#getAreaX').submit();
     });
     $(document).on('click',('.highcharts-name-caloocan'),function(e) {
-        $('#area_ID').val('137501');
+        $('#area_ID').val('0000000007c');
         $('#getAreaX').submit();
     });
     $(document).on('click',('.highcharts-name-manila'),function(e) {
@@ -670,51 +670,51 @@
         $('#getAreaX').submit();//133901-133914
     });
     $(document).on('click',('.highcharts-name-san-juan'),function(e) {
-        $('#area_ID').val('137405');
+        $('#area_ID').val('0000000006c');
         $('#getAreaX').submit();
     });
     $(document).on('click',('.highcharts-name-quezon-city'),function(e) {
-        $('#area_ID').val('137404');
+        $('#area_ID').val('0000000005c');
         $('#getAreaX').submit();
     });
     $(document).on('click',('.highcharts-name-marikina'),function(e) {
-        $('#area_ID').val('137402');
+        $('#area_ID').val('0000000003c');
         $('#getAreaX').submit();
     });
     $(document).on('click',('.highcharts-name-pasay'),function(e) {
-        $('#area_ID').val('137605');
+        $('#area_ID').val('0000000015c');
         $('#getAreaX').submit();
     });
     $(document).on('click',('.highcharts-name-makati'),function(e) {
-        $('#area_ID').val('137602');
+        $('#area_ID').val('0000000012c');
         $('#getAreaX').submit();
     });
     $(document).on('click',('.highcharts-name-mandaluyong-city'),function(e) {
-        $('#area_ID').val('137401');
+        $('#area_ID').val('0000000002c');
         $('#getAreaX').submit();
     });
     $(document).on('click',('.highcharts-name-pasig'),function(e) {
-        $('#area_ID').val('137403');
+        $('#area_ID').val('0000000004c');
         $('#getAreaX').submit();
     });
     $(document).on('click',('.highcharts-name-paranaque'),function(e) {
-        $('#area_ID').val('137604');
+        $('#area_ID').val('0000000014c');
         $('#getAreaX').submit();
     });
     $(document).on('click',('.highcharts-name-taguig'),function(e) {
-        $('#area_ID').val('137607');
+        $('#area_ID').val('0000000017c');
         $('#getAreaX').submit();
     });
     $(document).on('click',('.highcharts-name-pateros'),function(e) {
-        $('#area_ID').val('137606');
+        $('#area_ID').val('0000000016c');
         $('#getAreaX').submit();
     });
     $(document).on('click',('.highcharts-name-las-pinas'),function(e) {
-        $('#area_ID').val('137601');
+        $('#area_ID').val('0000000011c');
         $('#getAreaX').submit();
     });
     $(document).on('click',('.highcharts-name-muntinlupa'),function(e) {
-        $('#area_ID').val('137603');
+        $('#area_ID').val('0000000013c');
         $('#getAreaX').submit();
     });
 </script>

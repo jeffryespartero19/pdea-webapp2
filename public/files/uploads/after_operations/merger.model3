@@ -1,0 +1,438 @@
+<!DOCTYPE model>
+<Option type="Map">
+  <Option name="children" type="Map">
+    <Option name="native:intersection_1" type="Map">
+      <Option value="true" name="active" type="bool"/>
+      <Option name="alg_config"/>
+      <Option value="native:intersection" name="alg_id" type="QString"/>
+      <Option value="Intersection" name="component_description" type="QString"/>
+      <Option value="1438" name="component_pos_x" type="double"/>
+      <Option value="400" name="component_pos_y" type="double"/>
+      <Option name="dependencies"/>
+      <Option value="native:intersection_1" name="id" type="QString"/>
+      <Option name="outputs"/>
+      <Option value="true" name="outputs_collapsed" type="bool"/>
+      <Option value="true" name="parameters_collapsed" type="bool"/>
+      <Option name="params" type="Map">
+        <Option name="INPUT" type="List">
+          <Option type="Map">
+            <Option value="qgis:deletecolumn_1" name="child_id" type="QString"/>
+            <Option value="OUTPUT" name="output_name" type="QString"/>
+            <Option value="1" name="source" type="int"/>
+          </Option>
+        </Option>
+        <Option name="INPUT_FIELDS" type="List">
+          <Option type="Map">
+            <Option value="2" name="source" type="int"/>
+            <Option name="static_value" type="invalid"/>
+          </Option>
+        </Option>
+        <Option name="OVERLAY" type="List">
+          <Option type="Map">
+            <Option value="qgis:deletecolumn_2" name="child_id" type="QString"/>
+            <Option value="OUTPUT" name="output_name" type="QString"/>
+            <Option value="1" name="source" type="int"/>
+          </Option>
+        </Option>
+        <Option name="OVERLAY_FIELDS" type="List">
+          <Option type="Map">
+            <Option value="2" name="source" type="int"/>
+            <Option name="static_value" type="invalid"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option name="native:joinattributestable_1" type="Map">
+      <Option value="true" name="active" type="bool"/>
+      <Option name="alg_config"/>
+      <Option value="native:joinattributestable" name="alg_id" type="QString"/>
+      <Option value="Join attributes by field value" name="component_description" type="QString"/>
+      <Option value="586.4830246913582" name="component_pos_x" type="double"/>
+      <Option value="281.53086419753083" name="component_pos_y" type="double"/>
+      <Option name="dependencies"/>
+      <Option value="native:joinattributestable_1" name="id" type="QString"/>
+      <Option name="outputs"/>
+      <Option value="true" name="outputs_collapsed" type="bool"/>
+      <Option value="true" name="parameters_collapsed" type="bool"/>
+      <Option name="params" type="Map">
+        <Option name="DISCARD_NONMATCHING" type="List">
+          <Option type="Map">
+            <Option value="2" name="source" type="int"/>
+            <Option value="true" name="static_value" type="bool"/>
+          </Option>
+        </Option>
+        <Option name="FIELD" type="List">
+          <Option type="Map">
+            <Option value="fieldlu" name="parameter_name" type="QString"/>
+            <Option value="0" name="source" type="int"/>
+          </Option>
+        </Option>
+        <Option name="FIELDS_TO_COPY" type="List">
+          <Option type="Map">
+            <Option value="2" name="source" type="int"/>
+            <Option value="" name="static_value" type="QString"/>
+          </Option>
+        </Option>
+        <Option name="FIELD_2" type="List">
+          <Option type="Map">
+            <Option value="coodlu" name="parameter_name" type="QString"/>
+            <Option value="0" name="source" type="int"/>
+          </Option>
+        </Option>
+        <Option name="INPUT" type="List">
+          <Option type="Map">
+            <Option value="barangay" name="parameter_name" type="QString"/>
+            <Option value="0" name="source" type="int"/>
+          </Option>
+        </Option>
+        <Option name="INPUT_2" type="List">
+          <Option type="Map">
+            <Option value="coordlayer" name="parameter_name" type="QString"/>
+            <Option value="0" name="source" type="int"/>
+          </Option>
+        </Option>
+        <Option name="METHOD" type="List">
+          <Option type="Map">
+            <Option value="2" name="source" type="int"/>
+            <Option value="1" name="static_value" type="int"/>
+          </Option>
+        </Option>
+        <Option name="PREFIX" type="List">
+          <Option type="Map">
+            <Option value="2" name="source" type="int"/>
+            <Option value="" name="static_value" type="QString"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option name="native:joinattributestable_2" type="Map">
+      <Option value="true" name="active" type="bool"/>
+      <Option name="alg_config"/>
+      <Option value="native:joinattributestable" name="alg_id" type="QString"/>
+      <Option value="Join2 attributes by field value" name="component_description" type="QString"/>
+      <Option value="600.6327160493825" name="component_pos_x" type="double"/>
+      <Option value="576.1913580246919" name="component_pos_y" type="double"/>
+      <Option name="dependencies"/>
+      <Option value="native:joinattributestable_2" name="id" type="QString"/>
+      <Option name="outputs"/>
+      <Option value="true" name="outputs_collapsed" type="bool"/>
+      <Option value="true" name="parameters_collapsed" type="bool"/>
+      <Option name="params" type="Map">
+        <Option name="DISCARD_NONMATCHING" type="List">
+          <Option type="Map">
+            <Option value="2" name="source" type="int"/>
+            <Option value="true" name="static_value" type="bool"/>
+          </Option>
+        </Option>
+        <Option name="FIELD" type="List">
+          <Option type="Map">
+            <Option value="muncitfieldlu" name="parameter_name" type="QString"/>
+            <Option value="0" name="source" type="int"/>
+          </Option>
+        </Option>
+        <Option name="FIELDS_TO_COPY" type="List">
+          <Option type="Map">
+            <Option value="2" name="source" type="int"/>
+            <Option value="" name="static_value" type="QString"/>
+          </Option>
+        </Option>
+        <Option name="FIELD_2" type="List">
+          <Option type="Map">
+            <Option value="coodlu" name="parameter_name" type="QString"/>
+            <Option value="0" name="source" type="int"/>
+          </Option>
+        </Option>
+        <Option name="INPUT" type="List">
+          <Option type="Map">
+            <Option value="muncit" name="parameter_name" type="QString"/>
+            <Option value="0" name="source" type="int"/>
+          </Option>
+        </Option>
+        <Option name="INPUT_2" type="List">
+          <Option type="Map">
+            <Option value="coordlayer" name="parameter_name" type="QString"/>
+            <Option value="0" name="source" type="int"/>
+          </Option>
+        </Option>
+        <Option name="METHOD" type="List">
+          <Option type="Map">
+            <Option value="2" name="source" type="int"/>
+            <Option value="0" name="static_value" type="int"/>
+          </Option>
+        </Option>
+        <Option name="PREFIX" type="List">
+          <Option type="Map">
+            <Option value="2" name="source" type="int"/>
+            <Option value="" name="static_value" type="QString"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option name="native:mergevectorlayers_1" type="Map">
+      <Option value="true" name="active" type="bool"/>
+      <Option name="alg_config"/>
+      <Option value="native:mergevectorlayers" name="alg_id" type="QString"/>
+      <Option value="Merge vector layers" name="component_description" type="QString"/>
+      <Option value="1747.283950617284" name="component_pos_x" type="double"/>
+      <Option value="465.56790123456767" name="component_pos_y" type="double"/>
+      <Option name="dependencies"/>
+      <Option value="native:mergevectorlayers_1" name="id" type="QString"/>
+      <Option name="outputs" type="Map">
+        <Option name="MergeCoords" type="Map">
+          <Option value="native:mergevectorlayers_1" name="child_id" type="QString"/>
+          <Option value="MergeCoords" name="component_description" type="QString"/>
+          <Option value="1975.283950617284" name="component_pos_x" type="double"/>
+          <Option value="596.5679012345677" name="component_pos_y" type="double"/>
+          <Option name="default_value" type="invalid"/>
+          <Option value="false" name="mandatory" type="bool"/>
+          <Option value="MergeCoords" name="name" type="QString"/>
+          <Option value="OUTPUT" name="output_name" type="QString"/>
+        </Option>
+      </Option>
+      <Option value="true" name="outputs_collapsed" type="bool"/>
+      <Option value="true" name="parameters_collapsed" type="bool"/>
+      <Option name="params" type="Map">
+        <Option name="CRS" type="List">
+          <Option type="Map">
+            <Option value="2" name="source" type="int"/>
+            <Option name="static_value" type="invalid"/>
+          </Option>
+        </Option>
+        <Option name="LAYERS" type="List">
+          <Option type="Map">
+            <Option value="native:intersection_1" name="child_id" type="QString"/>
+            <Option value="OUTPUT" name="output_name" type="QString"/>
+            <Option value="1" name="source" type="int"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option name="qgis:deletecolumn_1" type="Map">
+      <Option value="true" name="active" type="bool"/>
+      <Option name="alg_config"/>
+      <Option value="qgis:deletecolumn" name="alg_id" type="QString"/>
+      <Option value="Drop field(s)" name="component_description" type="QString"/>
+      <Option value="948" name="component_pos_x" type="double"/>
+      <Option value="346" name="component_pos_y" type="double"/>
+      <Option name="dependencies"/>
+      <Option value="qgis:deletecolumn_1" name="id" type="QString"/>
+      <Option name="outputs"/>
+      <Option value="true" name="outputs_collapsed" type="bool"/>
+      <Option value="true" name="parameters_collapsed" type="bool"/>
+      <Option name="params" type="Map">
+        <Option name="COLUMN" type="List">
+          <Option type="Map">
+            <Option value="fielder" name="parameter_name" type="QString"/>
+            <Option value="0" name="source" type="int"/>
+          </Option>
+        </Option>
+        <Option name="INPUT" type="List">
+          <Option type="Map">
+            <Option value="native:joinattributestable_1" name="child_id" type="QString"/>
+            <Option value="OUTPUT" name="output_name" type="QString"/>
+            <Option value="1" name="source" type="int"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option name="qgis:deletecolumn_2" type="Map">
+      <Option value="true" name="active" type="bool"/>
+      <Option name="alg_config"/>
+      <Option value="qgis:deletecolumn" name="alg_id" type="QString"/>
+      <Option value="Drop field(s)2" name="component_description" type="QString"/>
+      <Option value="945.6697530864196" name="component_pos_x" type="double"/>
+      <Option value="649.9783950617282" name="component_pos_y" type="double"/>
+      <Option name="dependencies"/>
+      <Option value="qgis:deletecolumn_2" name="id" type="QString"/>
+      <Option name="outputs"/>
+      <Option value="true" name="outputs_collapsed" type="bool"/>
+      <Option value="true" name="parameters_collapsed" type="bool"/>
+      <Option name="params" type="Map">
+        <Option name="COLUMN" type="List">
+          <Option type="Map">
+            <Option value="muncitfielder" name="parameter_name" type="QString"/>
+            <Option value="0" name="source" type="int"/>
+          </Option>
+        </Option>
+        <Option name="INPUT" type="List">
+          <Option type="Map">
+            <Option value="native:joinattributestable_2" name="child_id" type="QString"/>
+            <Option value="OUTPUT" name="output_name" type="QString"/>
+            <Option value="1" name="source" type="int"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+  </Option>
+  <Option name="help"/>
+  <Option value="Coord" name="model_group" type="QString"/>
+  <Option value="model sample" name="model_name" type="QString"/>
+  <Option name="parameterDefinitions" type="Map">
+    <Option name="barangay" type="Map">
+      <Option name="data_types" type="List">
+        <Option value="-1" type="int"/>
+      </Option>
+      <Option name="default" type="invalid"/>
+      <Option value="Barangay" name="description" type="QString"/>
+      <Option value="0" name="flags" type="int"/>
+      <Option name="metadata"/>
+      <Option value="barangay" name="name" type="QString"/>
+      <Option value="vector" name="parameter_type" type="QString"/>
+    </Option>
+    <Option name="coodlu" type="Map">
+      <Option value="false" name="allow_multiple" type="bool"/>
+      <Option value="1" name="data_type" type="int"/>
+      <Option name="default" type="invalid"/>
+      <Option value="CoodLU" name="description" type="QString"/>
+      <Option value="0" name="flags" type="int"/>
+      <Option name="metadata"/>
+      <Option value="coodlu" name="name" type="QString"/>
+      <Option value="field" name="parameter_type" type="QString"/>
+      <Option value="coordlayer" name="parent_layer" type="QString"/>
+    </Option>
+    <Option name="coordfielder" type="Map">
+      <Option value="true" name="allow_multiple" type="bool"/>
+      <Option value="1" name="data_type" type="int"/>
+      <Option name="default" type="invalid"/>
+      <Option value="Coord_Fielder" name="description" type="QString"/>
+      <Option value="0" name="flags" type="int"/>
+      <Option name="metadata"/>
+      <Option value="coordfielder" name="name" type="QString"/>
+      <Option value="field" name="parameter_type" type="QString"/>
+      <Option value="coordlayer" name="parent_layer" type="QString"/>
+    </Option>
+    <Option name="coordlayer" type="Map">
+      <Option name="data_types" type="List">
+        <Option value="5" type="int"/>
+      </Option>
+      <Option name="default" type="invalid"/>
+      <Option value="CoordLayer" name="description" type="QString"/>
+      <Option value="0" name="flags" type="int"/>
+      <Option name="metadata"/>
+      <Option value="coordlayer" name="name" type="QString"/>
+      <Option value="vector" name="parameter_type" type="QString"/>
+    </Option>
+    <Option name="fielder" type="Map">
+      <Option value="true" name="allow_multiple" type="bool"/>
+      <Option value="1" name="data_type" type="int"/>
+      <Option name="default" type="invalid"/>
+      <Option value="Barangay_Fielder" name="description" type="QString"/>
+      <Option value="0" name="flags" type="int"/>
+      <Option name="metadata"/>
+      <Option value="fielder" name="name" type="QString"/>
+      <Option value="field" name="parameter_type" type="QString"/>
+      <Option value="barangay" name="parent_layer" type="QString"/>
+    </Option>
+    <Option name="fieldlu" type="Map">
+      <Option value="false" name="allow_multiple" type="bool"/>
+      <Option value="1" name="data_type" type="int"/>
+      <Option value="0" name="default" type="QString"/>
+      <Option value="Barangay_Field_LU" name="description" type="QString"/>
+      <Option value="0" name="flags" type="int"/>
+      <Option name="metadata"/>
+      <Option value="fieldlu" name="name" type="QString"/>
+      <Option value="field" name="parameter_type" type="QString"/>
+      <Option value="barangay" name="parent_layer" type="QString"/>
+    </Option>
+    <Option name="muncit" type="Map">
+      <Option name="data_types" type="List">
+        <Option value="5" type="int"/>
+      </Option>
+      <Option name="default" type="invalid"/>
+      <Option value="MunCit" name="description" type="QString"/>
+      <Option value="0" name="flags" type="int"/>
+      <Option name="metadata"/>
+      <Option value="muncit" name="name" type="QString"/>
+      <Option value="vector" name="parameter_type" type="QString"/>
+    </Option>
+    <Option name="muncitfielder" type="Map">
+      <Option value="true" name="allow_multiple" type="bool"/>
+      <Option value="-1" name="data_type" type="int"/>
+      <Option name="default" type="invalid"/>
+      <Option value="MunCit_Fielder" name="description" type="QString"/>
+      <Option value="0" name="flags" type="int"/>
+      <Option name="metadata"/>
+      <Option value="muncitfielder" name="name" type="QString"/>
+      <Option value="field" name="parameter_type" type="QString"/>
+      <Option value="muncit" name="parent_layer" type="QString"/>
+    </Option>
+    <Option name="muncitfieldlu" type="Map">
+      <Option value="false" name="allow_multiple" type="bool"/>
+      <Option value="1" name="data_type" type="int"/>
+      <Option name="default" type="invalid"/>
+      <Option value="MunCit_Field_LU" name="description" type="QString"/>
+      <Option value="0" name="flags" type="int"/>
+      <Option name="metadata"/>
+      <Option value="muncitfieldlu" name="name" type="QString"/>
+      <Option value="field" name="parameter_type" type="QString"/>
+      <Option value="muncit" name="parent_layer" type="QString"/>
+    </Option>
+    <Option name="native:mergevectorlayers_1:MergeCoords" type="Map">
+      <Option value="true" name="create_by_default" type="bool"/>
+      <Option value="-1" name="data_type" type="int"/>
+      <Option name="default" type="invalid"/>
+      <Option value="MergeCoords" name="description" type="QString"/>
+      <Option value="0" name="flags" type="int"/>
+      <Option name="metadata"/>
+      <Option value="native:mergevectorlayers_1:MergeCoords" name="name" type="QString"/>
+      <Option value="sink" name="parameter_type" type="QString"/>
+      <Option value="true" name="supports_non_file_outputs" type="bool"/>
+    </Option>
+  </Option>
+  <Option name="parameters" type="Map">
+    <Option name="barangay" type="Map">
+      <Option value="barangay" name="component_description" type="QString"/>
+      <Option value="145" name="component_pos_x" type="double"/>
+      <Option value="243" name="component_pos_y" type="double"/>
+      <Option value="barangay" name="name" type="QString"/>
+    </Option>
+    <Option name="coodlu" type="Map">
+      <Option value="coodlu" name="component_description" type="QString"/>
+      <Option value="1240" name="component_pos_x" type="double"/>
+      <Option value="205" name="component_pos_y" type="double"/>
+      <Option value="coodlu" name="name" type="QString"/>
+    </Option>
+    <Option name="coordfielder" type="Map">
+      <Option value="coordfielder" name="component_description" type="QString"/>
+      <Option value="1629.574074074074" name="component_pos_x" type="double"/>
+      <Option value="76.40432098765427" name="component_pos_y" type="double"/>
+      <Option value="coordfielder" name="name" type="QString"/>
+    </Option>
+    <Option name="coordlayer" type="Map">
+      <Option value="coordlayer" name="component_description" type="QString"/>
+      <Option value="1237" name="component_pos_x" type="double"/>
+      <Option value="80" name="component_pos_y" type="double"/>
+      <Option value="coordlayer" name="name" type="QString"/>
+    </Option>
+    <Option name="fielder" type="Map">
+      <Option value="fielder" name="component_description" type="QString"/>
+      <Option value="156.80864197530855" name="component_pos_x" type="double"/>
+      <Option value="458.5324074074074" name="component_pos_y" type="double"/>
+      <Option value="fielder" name="name" type="QString"/>
+    </Option>
+    <Option name="fieldlu" type="Map">
+      <Option value="fieldlu" name="component_description" type="QString"/>
+      <Option value="149.91512345679007" name="component_pos_x" type="double"/>
+      <Option value="344.0216049382716" name="component_pos_y" type="double"/>
+      <Option value="fieldlu" name="name" type="QString"/>
+    </Option>
+    <Option name="muncit" type="Map">
+      <Option value="muncit" name="component_description" type="QString"/>
+      <Option value="149.08641975308637" name="component_pos_x" type="double"/>
+      <Option value="564.875" name="component_pos_y" type="double"/>
+      <Option value="muncit" name="name" type="QString"/>
+    </Option>
+    <Option name="muncitfielder" type="Map">
+      <Option value="muncitfielder" name="component_description" type="QString"/>
+      <Option value="144.7777777777776" name="component_pos_x" type="double"/>
+      <Option value="796.6712962962963" name="component_pos_y" type="double"/>
+      <Option value="muncitfielder" name="name" type="QString"/>
+    </Option>
+    <Option name="muncitfieldlu" type="Map">
+      <Option value="muncitfieldlu" name="component_description" type="QString"/>
+      <Option value="146.99074074074053" name="component_pos_x" type="double"/>
+      <Option value="691.0509259259259" name="component_pos_y" type="double"/>
+      <Option value="muncitfieldlu" name="name" type="QString"/>
+    </Option>
+  </Option>
+</Option>
