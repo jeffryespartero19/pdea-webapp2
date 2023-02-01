@@ -50,7 +50,7 @@ class GeoMappingController extends Controller
         //Provinces
 
         //Region 1
-        if (Auth::user()->regional_office_id == 1 || Auth::user()->regional_office_id == 18) {
+        if (Auth::user()->regional_office_id == 1 || Auth::user()->regional_office_id == 18 || Auth::user()->regional_office_id == 19) {
             $Ilocos_Norte  = DB::table('preops_area')->where('province_c', '0000000036')->where('ops_status', 1)->count();
             $Ilocos_Sur    = DB::table('preops_area')->where('province_c', '0000000037')->where('ops_status', 1)->count();
             $La_Union      = DB::table('preops_area')->where('province_c', '0000000041')->where('ops_status', 1)->count();
@@ -63,7 +63,7 @@ class GeoMappingController extends Controller
         }
 
         //Region 2
-        if (Auth::user()->regional_office_id == 2 || Auth::user()->regional_office_id == 18) {
+        if (Auth::user()->regional_office_id == 2 || Auth::user()->regional_office_id == 18 || Auth::user()->regional_office_id == 19) {
             $Batanes       = DB::table('preops_area')->where('province_c', '0000000011')->where('ops_status', 1)->count();
             $Cagayan       = DB::table('preops_area')->where('province_c', '0000000018')->where('ops_status', 1)->count();
             $Isabela       = DB::table('preops_area')->where('province_c', '0000000039')->where('ops_status', 1)->count();
@@ -78,7 +78,7 @@ class GeoMappingController extends Controller
         }
 
         //Region 3
-        if (Auth::user()->regional_office_id == 3 || Auth::user()->regional_office_id == 18) {
+        if (Auth::user()->regional_office_id == 3 || Auth::user()->regional_office_id == 18 || Auth::user()->regional_office_id == 19) {
             $Bataan        = DB::table('preops_area')->where('province_c', '0000000010')->where('ops_status', 1)->count();
             $Bulacan       = DB::table('preops_area')->where('province_c', '0000000017')->where('ops_status', 1)->count();
             $Nueva_Ecija   = DB::table('preops_area')->where('province_c', '0000000059')->where('ops_status', 1)->count();
@@ -97,7 +97,7 @@ class GeoMappingController extends Controller
         }
 
         //Region 4-a
-        if (Auth::user()->regional_office_id == 4 || Auth::user()->regional_office_id == 18) {
+        if (Auth::user()->regional_office_id == 4 || Auth::user()->regional_office_id == 18 || Auth::user()->regional_office_id == 19) {
             $Batangas      = DB::table('preops_area')->where('province_c', '0000000012')->where('ops_status', 1)->count();
             $Cavite        = DB::table('preops_area')->where('province_c', '0000000024')->where('ops_status', 1)->count();
             $Laguna        = DB::table('preops_area')->where('province_c', '0000000042')->where('ops_status', 1)->count();
@@ -112,7 +112,7 @@ class GeoMappingController extends Controller
         }
 
         //Region 5
-        if (Auth::user()->regional_office_id == 6 || Auth::user()->regional_office_id == 18) {
+        if (Auth::user()->regional_office_id == 6 || Auth::user()->regional_office_id == 18 || Auth::user()->regional_office_id == 19) {
             $Albay         = DB::table('preops_area')->where('province_c', '0000000005')->where('ops_status', 1)->count();
             $Camarines_Norte  = DB::table('preops_area')->where('province_c', '0000000019')->where('ops_status', 1)->count();
             $Camarines_Sur    = DB::table('preops_area')->where('province_c', '0000000020')->where('ops_status', 1)->count();
@@ -129,7 +129,7 @@ class GeoMappingController extends Controller
         }
 
         //Region 6
-        if (Auth::user()->regional_office_id == 7 || Auth::user()->regional_office_id == 18) {
+        if (Auth::user()->regional_office_id == 7 || Auth::user()->regional_office_id == 18 || Auth::user()->regional_office_id == 19) {
             $Aklan         = DB::table('preops_area')->where('province_c', '0000000004')->where('ops_status', 1)->count();
             $Antique       = DB::table('preops_area')->where('province_c', '0000000006')->where('ops_status', 1)->count();
             $Capiz         = DB::table('preops_area')->where('province_c', '0000000022')->where('ops_status', 1)->count();
@@ -146,7 +146,7 @@ class GeoMappingController extends Controller
         }
 
         //Region 7
-        if (Auth::user()->regional_office_id == 8 || Auth::user()->regional_office_id == 18) {
+        if (Auth::user()->regional_office_id == 8 || Auth::user()->regional_office_id == 18 || Auth::user()->regional_office_id == 19) {
             $Bohol         = DB::table('preops_area')->where('province_c', '0000000015')->where('ops_status', 1)->count();
             $Cebu          = DB::table('preops_area')->where('province_c', '0000000025')->where('ops_status', 1)->count();
             $Negros_Oriental  = DB::table('preops_area')->where('province_c', 'NP00000002')->where('ops_status', 1)->count();
@@ -159,7 +159,7 @@ class GeoMappingController extends Controller
         }
 
         //Region 8
-        if (Auth::user()->regional_office_id == 9 || Auth::user()->regional_office_id == 18) {
+        if (Auth::user()->regional_office_id == 9 || Auth::user()->regional_office_id == 18 || Auth::user()->regional_office_id == 19) {
             $Eastern_Samar = DB::table('preops_area')->where('province_c', '0000000033')->where('ops_status', 1)->count();
             $Leyte         = DB::table('preops_area')->where('province_c', '0000000045')->where('ops_status', 1)->count();
             $Northern_Samar = DB::table('preops_area')->where('province_c', '0000000058')->where('ops_status', 1)->count();
@@ -176,7 +176,7 @@ class GeoMappingController extends Controller
         }
 
         //Region 9
-        if (Auth::user()->regional_office_id == 10 || Auth::user()->regional_office_id == 18) {
+        if (Auth::user()->regional_office_id == 10 || Auth::user()->regional_office_id == 18 || Auth::user()->regional_office_id == 19) {
             $Zamboanga_del_Norte = DB::table('preops_area')->where('province_c', '0000000083')->where('ops_status', 1)->count();
             $Zamboanga_del_Sur = DB::table('preops_area')->where('province_c', '0000000084')->where('ops_status', 1)->count();
             $Zamboanga_Sibugay = DB::table('preops_area')->where('province_c', '0000000085')->where('ops_status', 1)->count();
@@ -188,7 +188,7 @@ class GeoMappingController extends Controller
         }
 
         //Region 10
-        if (Auth::user()->regional_office_id == 11 || Auth::user()->regional_office_id == 18) {
+        if (Auth::user()->regional_office_id == 11 || Auth::user()->regional_office_id == 18 || Auth::user()->regional_office_id == 19) {
             $Bukidnon      = DB::table('preops_area')->where('province_c', '0000000016')->where('ops_status', 1)->count();
             $Camiguin      = DB::table('preops_area')->where('province_c', '0000000021')->where('ops_status', 1)->count();
             $Lanao_del_Norte = DB::table('preops_area')->where('province_c', '0000000043')->where('ops_status', 1)->count();
@@ -203,7 +203,7 @@ class GeoMappingController extends Controller
         }
 
         //Region 11
-        if (Auth::user()->regional_office_id == 12 || Auth::user()->regional_office_id == 18) {
+        if (Auth::user()->regional_office_id == 12 || Auth::user()->regional_office_id == 18 || Auth::user()->regional_office_id == 19) {
             $Davao_del_Norte   = DB::table('preops_area')->where('province_c', '0000000029')->where('ops_status', 1)->count();
             $Davao_del_Sur     = DB::table('preops_area')->where('province_c', '0000000030')->where('ops_status', 1)->count();
             $Davao_Oriental    = DB::table('preops_area')->where('province_c', '0000000031')->where('ops_status', 1)->count();
@@ -218,7 +218,7 @@ class GeoMappingController extends Controller
         }
 
         //Region 12
-        if (Auth::user()->regional_office_id == 13 || Auth::user()->regional_office_id == 18) {
+        if (Auth::user()->regional_office_id == 13 || Auth::user()->regional_office_id == 18 || Auth::user()->regional_office_id == 19) {
             $North_Cotabato  = DB::table('preops_area')->where('province_c', 'NCOT')->where('ops_status', 1)->count();
             $South_Cotabato  = DB::table('preops_area')->where('province_c', '0000000074')->where('ops_status', 1)->count();
             $Sultan_Kudarat  = DB::table('preops_area')->where('province_c', '0000000076')->where('ops_status', 1)->count();
@@ -231,7 +231,7 @@ class GeoMappingController extends Controller
         }
 
         //NCR
-        if (Auth::user()->regional_office_id == 17 || Auth::user()->regional_office_id == 18) {
+        if (Auth::user()->regional_office_id == 17 || Auth::user()->regional_office_id == 18 || Auth::user()->regional_office_id == 19) {
             $Manila        = DB::table('preops_area')->where('city_c', 133902)->where('ops_status', 1)->count();
             $Mandaluyong   = DB::table('preops_area')->where('city_c', '0000000002')->where('ops_status', 1)->count();
             $Marikina      = DB::table('preops_area')->where('city_c', '0000000003')->where('ops_status', 1)->count();
@@ -270,7 +270,7 @@ class GeoMappingController extends Controller
         }
 
         //Region CAR
-        if (Auth::user()->regional_office_id == 16 || Auth::user()->regional_office_id == 18) {
+        if (Auth::user()->regional_office_id == 16 || Auth::user()->regional_office_id == 18 || Auth::user()->regional_office_id == 19) {
             $Abra          = DB::table('preops_area')->where('province_c', '0000000001')->where('ops_status', 1)->count();
             $Benguet       = DB::table('preops_area')->where('province_c', '0000000013')->where('ops_status', 1)->count();
             $Ifugao        = DB::table('preops_area')->where('province_c', '0000000035')->where('ops_status', 1)->count();
@@ -287,7 +287,7 @@ class GeoMappingController extends Controller
         }
 
         //Region ARMM
-        if (Auth::user()->regional_office_id == 15 || Auth::user()->regional_office_id == 18) {
+        if (Auth::user()->regional_office_id == 15 || Auth::user()->regional_office_id == 18 || Auth::user()->regional_office_id == 19) {
             $Basilan       = DB::table('preops_area')->where('province_c', 'BAS')->where('ops_status', 1)->count();
             $Lanao_del_Sur  = DB::table('preops_area')->where('province_c', '0000000044')->where('ops_status', 1)->count();
             $Maguindanao    = DB::table('preops_area')->where('province_c', '0000000046')->where('ops_status', 1)->count();
@@ -302,7 +302,7 @@ class GeoMappingController extends Controller
         }
 
         //Region CARAGA
-        if (Auth::user()->regional_office_id == 14 || Auth::user()->regional_office_id == 18) {
+        if (Auth::user()->regional_office_id == 14 || Auth::user()->regional_office_id == 18 || Auth::user()->regional_office_id == 19) {
             $Agusan_del_Norte = DB::table('preops_area')->where('province_c', '0000000002')->where('ops_status', 1)->count();
             $Agusan_del_Sur   = DB::table('preops_area')->where('province_c', '0000000003')->where('ops_status', 1)->count();
             $Surigao_del_Norte = DB::table('preops_area')->where('province_c', '0000000078')->where('ops_status', 1)->count();
@@ -316,7 +316,7 @@ class GeoMappingController extends Controller
             $Dinagat_Islands   = 0;
         }
         //Region 4-b MIMAROPA
-        if (Auth::user()->regional_office_id == 5 || Auth::user()->regional_office_id == 18) {
+        if (Auth::user()->regional_office_id == 5 || Auth::user()->regional_office_id == 18 || Auth::user()->regional_office_id == 19) {
             $Marinduque    = DB::table('preops_area')->where('province_c', '0000000047')->where('ops_status', 1)->count();
             $Occidental_Mindoro    = DB::table('preops_area')->where('province_c', '0000000061')->where('ops_status', 1)->count();
             $Oriental_Mindoro     = DB::table('preops_area')->where('province_c', '0000000062')->where('ops_status', 1)->count();
@@ -545,7 +545,7 @@ class GeoMappingController extends Controller
                 $X_Region = 19;
             }
 
-            if ($user_area != 18) {
+            if ($user_area != 18 && $user_area != 19) {
                 if ($X_Region != $user_area) {
                     return redirect('geo_mapping')->with('warning', 'This is not your Region');
                 }
@@ -693,7 +693,7 @@ class GeoMappingController extends Controller
                 $X_Region = 19;
             }
 
-            if ($user_area != 18) {
+            if ($user_area != 18 && $user_area != 19) {
                 if ($X_Region != $user_area) {
                     return redirect('geo_mapping')->with('warning', 'This is not your Region');
                 }
@@ -840,8 +840,9 @@ class GeoMappingController extends Controller
             if ($the_region[0] == "0000000018") {
                 $X_Region = 19;
             }
-            // dd($data['area_ID'],$the_region,$X_Region,$user_area);
-            if ($user_area != 18) {
+           
+            //dd($data['area_ID'],$the_region,$X_Region,$user_area);
+            if ($user_area != 18 && $user_area != 19) {
                 if ($X_Region != $user_area) {
                     return redirect('geo_mapping')->with('warning', 'This is not your Region');
                 }
@@ -891,7 +892,7 @@ class GeoMappingController extends Controller
                 $brgy = ['---'];
             } else {
                 foreach ($ops_details as $key => $opd) {
-
+                    
                     $regionX = DB::table('region')->where('region_c', $ops_details_area2[$key]->region_c)->pluck('region_m');
                     array_push($region, $regionX[0]);
                     $provinceX = DB::table('province')->where('province_c', $ops_details_area2[$key]->province_c)->pluck('province_m');
@@ -904,7 +905,7 @@ class GeoMappingController extends Controller
                     } else {
                         array_push($brgy, "---");
                     }
-
+                    
                     $cityX2 = $ops_details_area2[$key]->city_c;
                     array_push($city2, $cityX2);
                     $brgyX2 = $ops_details_area2[$key]->barangay_c;
