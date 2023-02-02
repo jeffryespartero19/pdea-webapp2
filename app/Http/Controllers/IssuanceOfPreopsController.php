@@ -636,6 +636,7 @@ class IssuanceOfPreopsController extends Controller
         $operating_unit = DB::table('operating_unit')->where('id', $preops_data[0]->operating_unit_id)->get();
         $support_unit = DB::table('preops_support_unit as a')
             ->leftjoin('operating_unit as b', 'a.support_unit_id', '=', 'b.id')
+            ->select('b.description', 'b.id')
             ->where('a.preops_number', $preops_data[0]->preops_number)->get();
         $operation_type = DB::table('operation_type')->where('id', $preops_data[0]->operation_type_id)->get();
         $area = DB::table('preops_area as a')
@@ -644,9 +645,11 @@ class IssuanceOfPreopsController extends Controller
             ->leftjoin('province as d', 'a.province_c', '=', 'd.province_c')
             ->leftjoin('city as e', 'a.city_c', '=', 'e.city_c')
             ->leftjoin('barangay as f', 'a.barangay_c', '=', 'f.barangay_c')
-            ->select('c.region_m', 'd.province_m', 'e.city_m', 'f.barangay_m', 'a.area')
+            ->select('a.id', 'c.region_m', 'd.province_m', 'e.city_m', 'f.barangay_m', 'a.area')
             ->orderBy('c.id', 'asc')
             ->where('b.id', $id)->get();
+
+            // dd($area);
 
         $target = DB::table('preops_target as a')
             ->join('preops_header as b', 'a.preops_number', '=', 'b.preops_number')
