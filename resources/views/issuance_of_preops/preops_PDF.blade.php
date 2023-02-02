@@ -98,6 +98,7 @@
     <br>
     @endif
     <br>
+    @if(isset($area[0]->id))
     <div style="background-color:green; color:white; padding-left:5px">Area(s) of Operation</div>
     <table width="100%" style="border-collapse: collapse; border: 0px;">
         <tr style="border: 1px solid;">
@@ -124,6 +125,7 @@
         @endforeach
     </table>
     <br>
+    @endif
     <div style="background-color:green; color:white; padding-left:5px">Target(s)</div>
     <table width="100%" style="border-collapse: collapse; border: 0px;">
         <tr style="border: 1px solid;">
