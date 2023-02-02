@@ -61,62 +61,62 @@ class Xporter implements FromView
             $the_province=DB::table('city')->where('city_c',$area_ID)->pluck('province_c');
             $the_region=DB::table('province')->where('province_c',$the_province[0])->pluck('region_c');
             
-            if($the_region[0]=="01"){
+            if($the_region[0]=="0000000001"){
                 $X_Region=1;
             }
-            if($the_region[0]=="02"){
+            if($the_region[0]=="0000000002"){
                 $X_Region=2;
             }
-            if($the_region[0]=="03"){
+            if($the_region[0]=="0000000003"){
                 $X_Region=3;
             }
-            if($the_region[0]=="04"){
+            if($the_region[0]=="0000000004"){
                 $X_Region=4;
             }
-            if($the_region[0]=="05"){
+            if($the_region[0]=="0000000005"){
                 $X_Region=6;
             }
-            if($the_region[0]=="06"){
+            if($the_region[0]=="0000000006"){
                 $X_Region=7;
             }
-            if($the_region[0]=="07"){
+            if($the_region[0]=="0000000007"){
                 $X_Region=8;
             }
-            if($the_region[0]=="08"){
+            if($the_region[0]=="0000000008"){
                 $X_Region=9;
             }
-            if($the_region[0]=="09"){
+            if($the_region[0]=="0000000009"){
                 $X_Region=10;
             }
-            if($the_region[0]=="10"){
+            if($the_region[0]=="0000000010"){
                 $X_Region=11;
             }
-            if($the_region[0]=="11"){
+            if($the_region[0]=="0000000011"){
                 $X_Region=12;
             }
-            if($the_region[0]=="12"){
+            if($the_region[0]=="0000000012"){
                 $X_Region=13;
             }
-            if($the_region[0]=="13"){
+            if($the_region[0]=="0000000013"){
                 $X_Region=17;
             }
-            if($the_region[0]=="14"){
+            if($the_region[0]=="0000000014"){
                 $X_Region=16;
             }
-            if($the_region[0]=="15"){
+            if($the_region[0]=="0000000015"){
                 $X_Region=15;
             }
-            if($the_region[0]=="16"){
+            if($the_region[0]=="0000000016"){
                 $X_Region=14;
             }
-            if($the_region[0]=="17"){
+            if($the_region[0]=="0000000017"){
                 $X_Region=5;
             }
-            if($the_region[0]=="18"){
+            if($the_region[0]=="0000000018"){
                 $X_Region=19;
             }
             
-            if($user_area !=18){
+            if($user_area !=18 && $user_area !=19){
                 if($X_Region != $user_area){
                     return redirect('geo_mapping')->with('warning', 'This is not your Region');
                 }
@@ -204,62 +204,62 @@ class Xporter implements FromView
             $the_province=DB::table('city')->where('city_c',133901)->pluck('province_c');
             $the_region=DB::table('province')->where('province_c',$the_province[0])->pluck('region_c');
 
-            if($the_region[0]=="01"){
+            if($the_region[0]=="0000000001"){
                 $X_Region=1;
             }
-            if($the_region[0]=="02"){
+            if($the_region[0]=="0000000002"){
                 $X_Region=2;
             }
-            if($the_region[0]=="03"){
+            if($the_region[0]=="0000000003"){
                 $X_Region=3;
             }
-            if($the_region[0]=="04"){
+            if($the_region[0]=="0000000004"){
                 $X_Region=4;
             }
-            if($the_region[0]=="05"){
+            if($the_region[0]=="0000000005"){
                 $X_Region=6;
             }
-            if($the_region[0]=="06"){
+            if($the_region[0]=="0000000006"){
                 $X_Region=7;
             }
-            if($the_region[0]=="07"){
+            if($the_region[0]=="0000000007"){
                 $X_Region=8;
             }
-            if($the_region[0]=="08"){
+            if($the_region[0]=="0000000008"){
                 $X_Region=9;
             }
-            if($the_region[0]=="09"){
+            if($the_region[0]=="0000000009"){
                 $X_Region=10;
             }
-            if($the_region[0]=="10"){
+            if($the_region[0]=="0000000010"){
                 $X_Region=11;
             }
-            if($the_region[0]=="11"){
+            if($the_region[0]=="0000000011"){
                 $X_Region=12;
             }
-            if($the_region[0]=="12"){
+            if($the_region[0]=="0000000012"){
                 $X_Region=13;
             }
-            if($the_region[0]=="13"){
+            if($the_region[0]=="0000000013"){
                 $X_Region=17;
             }
-            if($the_region[0]=="14"){
+            if($the_region[0]=="0000000014"){
                 $X_Region=16;
             }
-            if($the_region[0]=="15"){
+            if($the_region[0]=="0000000015"){
                 $X_Region=15;
             }
-            if($the_region[0]=="16"){
+            if($the_region[0]=="0000000016"){
                 $X_Region=14;
             }
-            if($the_region[0]=="17"){
+            if($the_region[0]=="0000000017"){
                 $X_Region=5;
             }
-            if($the_region[0]=="18"){
+            if($the_region[0]=="0000000018"){
                 $X_Region=19;
             }
             
-            if($user_area !=18){
+            if($user_area !=18 && $user_area !=19){
                 if($X_Region != $user_area){
                     return redirect('geo_mapping')->with('warning', 'This is not your Region');
                 }
@@ -345,62 +345,62 @@ class Xporter implements FromView
         if($area_ID<137400 && $area_ID!=1){
             $the_region=DB::table('province')->where('province_c',$area_ID)->pluck('region_c');
             
-            if($the_region[0]=="01"){
+            if($the_region[0]=="0000000001"){
                 $X_Region=1;
             }
-            if($the_region[0]=="02"){
+            if($the_region[0]=="0000000002"){
                 $X_Region=2;
             }
-            if($the_region[0]=="03"){
+            if($the_region[0]=="0000000003"){
                 $X_Region=3;
             }
-            if($the_region[0]=="04"){
+            if($the_region[0]=="0000000004"){
                 $X_Region=4;
             }
-            if($the_region[0]=="05"){
+            if($the_region[0]=="0000000005"){
                 $X_Region=6;
             }
-            if($the_region[0]=="06"){
+            if($the_region[0]=="0000000006"){
                 $X_Region=7;
             }
-            if($the_region[0]=="07"){
+            if($the_region[0]=="0000000007"){
                 $X_Region=8;
             }
-            if($the_region[0]=="08"){
+            if($the_region[0]=="0000000008"){
                 $X_Region=9;
             }
-            if($the_region[0]=="09"){
+            if($the_region[0]=="0000000009"){
                 $X_Region=10;
             }
-            if($the_region[0]=="10"){
+            if($the_region[0]=="0000000010"){
                 $X_Region=11;
             }
-            if($the_region[0]=="11"){
+            if($the_region[0]=="0000000011"){
                 $X_Region=12;
             }
-            if($the_region[0]=="12"){
+            if($the_region[0]=="0000000012"){
                 $X_Region=13;
             }
-            if($the_region[0]=="13"){
+            if($the_region[0]=="0000000013"){
                 $X_Region=17;
             }
-            if($the_region[0]=="14"){
+            if($the_region[0]=="0000000014"){
                 $X_Region=16;
             }
-            if($the_region[0]=="15"){
+            if($the_region[0]=="0000000015"){
                 $X_Region=15;
             }
-            if($the_region[0]=="16"){
+            if($the_region[0]=="0000000016"){
                 $X_Region=14;
             }
-            if($the_region[0]=="17"){
+            if($the_region[0]=="0000000017"){
                 $X_Region=5;
             }
-            if($the_region[0]=="18"){
+            if($the_region[0]=="0000000018"){
                 $X_Region=19;
             }
             
-            if($user_area !=18){
+            if($user_area !=18 && $user_area !=19){
                 if($X_Region != $user_area){
                     return redirect('geo_mapping')->with('warning', 'This is not your Region');
                 }
