@@ -112,7 +112,7 @@
                     </div>
                     <div class="form-group col-6" style="margin: 0px;">
                         <div>
-                            <label for="">Operating Unit<code> *</code></label>
+                            <label for="">Lead Unit<code> *</code></label>
                         </div>
                         <div class="input-group mb-3">
                             <select id="operating_unit_id" name="operating_unit_id" class="form-control OPUnitSearch operating_unit_id" required @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)

@@ -42,7 +42,7 @@
             </div>
             <div class="form-group col-4" style="margin: 0px;">
                 <div>
-                    <label for="">Operating Unit</label>
+                    <label for="">Lead Unit</label>
                 </div>
                 <div class="input-group mb-3">
                     <select id="operating_unit_id" name="operating_unit_id" class="form-control OPUnitSearch">
@@ -107,7 +107,7 @@
                         <tr>
                             <th hidden>ID</th>
                             <th>Pre-Ops Number</th>
-                            <th>Operating Unit</th>
+                            <th>Lead Unit</th>
                             <th>Operation Type</th>
                             <th>Operation Date</th>
                             <th>Active</th>

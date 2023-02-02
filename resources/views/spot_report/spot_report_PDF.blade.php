@@ -87,7 +87,7 @@
         </tr>
         </tr>
         <tr style="border:none;">
-            <td style="border: none; padding:0;" width="50%"><span class="arial" style="font-size:15px; margin-right:39px; margin-left:33px">Operating Unit:</span><span class="arial" style="font-weight:bold">Operating Unit</span></td>
+            <td style="border: none; padding:0;" width="50%"><span class="arial" style="font-size:15px; margin-right:39px; margin-left:33px">Lead Unit:</span><span class="arial" style="font-weight:bold">Lead Unit</span></td>
             <td style="border: none; padding-left:20px;" width="50%"><span style="margin-right:10px;">Support Unit:</span><span class="arial" style="font-weight:bold; ">
                     <?php $count = 0; ?>
                     @foreach ($support_unit as $su)

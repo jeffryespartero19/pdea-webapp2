@@ -59,21 +59,21 @@
     <header>
         SECRET
     </header>
-    @if($regional_office[0]->report_header != null)
-    <img id="currentPhoto" src="./files/uploads/report_header/'{{$regional_office[0]->report_header}}" onerror="this.src='./files/uploads/report_header/newhead.jpg'" alt="" class="col-3" style="width:100%;">
+    @if($preops_data[0]->report_header != null)
+    <img id="currentPhoto" src="./files/uploads/report_header/'{{$preops_data[0]->report_header}}" onerror="this.src='./files/uploads/report_header/newhead.jpg'" alt="" class="col-3" style="width:100%;">
     @else
     <img id="currentPhoto" src="./files/uploads/report_header/newhead.jpg" onerror="this.onerror=null; this.remove();" alt="2" class="col-3" style="width:100%;">
     @endif
     <br>
     <br>
     <h3 align="center">CERTIFICATE OF COORDINATION</h3>
-    <span style="margin-right:110px">Issuing Office:</span><span>{{$regional_office[0]->name}}</span>
+    <span style="margin-right:110px">Issuing Office:</span><span>{{$preops_data[0]->issuing_office}}</span>
     <br>
     <span style="margin-right:39px;">Pre-Ops Control Number:</span><span style="font-weight: bold;">{{$preops_data[0]->preops_number}}</span>
     <br>
     <span style="margin-right:23px">Date and Time Coordinated:</span><span>{{$coordinated_datetime}}</span>
     <br>
-    <span style="margin-right:136px">Lead Unit:</span><span style="font-weight: bold;">{{$operating_unit[0]->description}}</span>
+    <span style="margin-right:136px">Lead Unit:</span><span style="font-weight: bold;">{{$preops_data[0]->description}}</span>
     <br>
     @if(isset($support_unit->description))
     <span style="margin-right:113px">Support Unit:</span>
@@ -89,7 +89,7 @@
     @endforeach
     <br>
     @endif
-    <span style="margin-right:82px">Type of Operation:</span><span style="font-weight: bold;">{{$operation_type[0]->name}}</span>
+    <span style="margin-right:82px">Type of Operation:</span><span style="font-weight: bold;">{{$preops_data[0]->operation_type}}</span>
     <br>
     <span style="margin-right:143px">Duration:</span><span>{{$op_datetime}} to {{$validity}} ({{$duration}} HRS)</span>
     <br>
@@ -145,8 +145,8 @@
     <div style="margin-right:39px;">DUTY, ROC</div>
     <br>
     <div style="padding-left:300px; margin-bottom:40px">Approved by:</div>
-    <div style="padding-left:300px; font-weight: bold;">{{$approved_by[0]->name}}</div>
-    <div style="padding-left:300px;">REGIONAL DIRECTOR</div>
+    <div style="padding-left:300px; font-weight: bold;">{{$preops_data[0]->approved_by}}</div>
+    <div style="padding-left:300px;">{{$preops_data[0]->officer_position}}</div>
     <footer>
     {{$Sdate}} | {{Auth::user()->name}}  | @if ($preops_data[0]->print_count == 1) O @else C @endif
     </footer>

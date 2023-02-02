@@ -628,17 +628,40 @@ class IssuanceOfPreopsController extends Controller
         );
         DB::table('preops_header')->where('id', $id)->update($pos_data);
 
-        $preops_data = DB::table('preops_header')
-            ->where('id', $id)
+        $preops_data = DB::table('preops_header as a')
+            ->leftjoin('regional_office as b', 'a.ro_code', '=', 'b.ro_code')
+            ->leftjoin('operating_unit as c', 'a.operating_unit_id', '=', 'c.id')
+            ->leftjoin('operation_type as d', 'a.operation_type_id', '=', 'd.id')
+            ->leftjoin('approved_by as e', 'a.approved_by', '=', 'e.id')
+            ->leftjoin('officer_position as f', 'e.officer_position_id', '=', 'f.id')
+            
+            ->select(
+                'a.ro_code',
+                'a.preops_number',
+                'c.description',
+                'b.report_header',
+                // 'b.regional_office',
+                'd.name as operation_type',
+                'a.operation_datetime',
+                'a.coordinated_datetime',
+                'a.validity',
+                'e.name as approved_by',
+                'b.name as issuing_office',
+                'a.remarks',
+                'a.prepared_by',
+                'a.print_count',
+                'f.name as officer_position'
+            )
+            ->where('a.id', $id)
             ->get();
 
-        $regional_office = DB::table('regional_office')->where('ro_code', $preops_data[0]->ro_code)->get();
-        $operating_unit = DB::table('operating_unit')->where('id', $preops_data[0]->operating_unit_id)->get();
+        // $regional_office = DB::table('regional_office')->where('ro_code', $preops_data[0]->ro_code)->get();
+        // $operating_unit = DB::table('operating_unit')->where('id', $preops_data[0]->operating_unit_id)->get();
         $support_unit = DB::table('preops_support_unit as a')
             ->leftjoin('operating_unit as b', 'a.support_unit_id', '=', 'b.id')
             ->select('b.description', 'b.id')
             ->where('a.preops_number', $preops_data[0]->preops_number)->get();
-        $operation_type = DB::table('operation_type')->where('id', $preops_data[0]->operation_type_id)->get();
+        // $operation_type = DB::table('operation_type')->where('id', $preops_data[0]->operation_type_id)->get();
         $area = DB::table('preops_area as a')
             ->leftjoin('preops_header as b', 'a.preops_number', '=', 'b.preops_number')
             ->leftjoin('region as c', 'a.region_c', '=', 'c.region_c')
@@ -649,7 +672,7 @@ class IssuanceOfPreopsController extends Controller
             ->orderBy('c.id', 'asc')
             ->where('b.id', $id)->get();
 
-            // dd($area);
+        // dd($area);
 
         $target = DB::table('preops_target as a')
             ->join('preops_header as b', 'a.preops_number', '=', 'b.preops_number')
@@ -662,12 +685,12 @@ class IssuanceOfPreopsController extends Controller
         $coordinated_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->coordinated_datetime)->format('F j, Y g:i A');
         $validity = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->validity)->format('F j, Y g:i A');
         $duration = $operation_datetime->diffInHours($validity);
-        $approved_by = DB::table('approved_by')->where('id', $preops_data[0]->approved_by)->get();
+        // $approved_by = DB::table('approved_by')->where('id', $preops_data[0]->approved_by)->get();
 
         $pdf = PDF::loadView('issuance_of_preops.preops_PDF', compact(
             'preops_data',
-            'regional_office',
-            'operating_unit',
+            // 'regional_office',
+            // 'operating_unit',
             'area',
             'target',
             'operation_datetime',
@@ -675,8 +698,8 @@ class IssuanceOfPreopsController extends Controller
             'validity',
             'duration',
             'date',
-            'operation_type',
-            'approved_by',
+            // 'operation_type',
+            // 'approved_by',
             'support_unit',
             'op_datetime',
             'Sdate',
