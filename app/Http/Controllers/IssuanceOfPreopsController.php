@@ -620,7 +620,7 @@ class IssuanceOfPreopsController extends Controller
     {
         // date_default_timezone_set('Asia/Singapore');
         $date = Carbon::now();
-        $Sdate = Carbon::now()->format('m/d/Y g:i A');
+        $Sdate = Carbon::now()->format('F j, Y g:i A');
 
         $pos_data = array(
             'print_count' => DB::raw('print_count+1'),
@@ -654,10 +654,10 @@ class IssuanceOfPreopsController extends Controller
             ->select('a.id', 'a.name', 'a.preops_number', 'c.name as nationality')
             ->where('b.id', $id)->get();
 
-        $op_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->operation_datetime)->format('g:i A m/d/Y');
+        $op_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->operation_datetime)->format('F j, Y g:i A');
         $operation_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->operation_datetime);
-        $coordinated_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->coordinated_datetime)->format('g:i A m/d/Y');
-        $validity = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->validity)->format('g:i A m/d/Y');
+        $coordinated_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->coordinated_datetime)->format('F j, Y g:i A');
+        $validity = Carbon::createFromFormat('Y-m-d H:i:s', $preops_data[0]->validity)->format('F j, Y g:i A');
         $duration = $operation_datetime->diffInHours($validity);
         $approved_by = DB::table('approved_by')->where('id', $preops_data[0]->approved_by)->get();
 

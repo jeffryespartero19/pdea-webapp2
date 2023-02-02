@@ -1577,7 +1577,7 @@ class SpotReportController extends Controller
     {
         // date_default_timezone_set('Asia/Manila');
         $date = Carbon::now();
-        $Sdate = Carbon::now()->format('m/d/Y g:i A');
+        $Sdate = Carbon::now()->format('F j, Y g:i A');
 
         $pos_data = array(
             'print_count' => DB::raw('print_count+1'),
@@ -1610,6 +1610,8 @@ class SpotReportController extends Controller
             )
             ->where('a.id', $id)
             ->get();
+
+        $operation_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->operation_datetime)->format('F j, Y g:i A');
 
         if ($spot_report[0]->preops_number == 1) {
             $regional_office = DB::table('regional_office as a')
@@ -1654,7 +1656,8 @@ class SpotReportController extends Controller
             'team',
             'support_unit',
             'date',
-            'Sdate'
+            'Sdate',
+            'operation_datetime'
         ));
         $canvas = $pdf->getDomPDF()->getCanvas();
         $canvas->page_script('$pdf->set_opacity(.5);

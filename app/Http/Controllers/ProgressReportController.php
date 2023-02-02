@@ -746,12 +746,12 @@ class ProgressReportController extends Controller
             ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
             ->where('b.id', $id)->get();
 
-        $report_date = Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->reported_date)->format('F d,Y');
-        $operation_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->operation_datetime)->format('d F Y H:i:s');
+        $report_date = Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->reported_date)->format('F j,Y');
+        $operation_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->operation_datetime)->format('F j, Y g:i A');
 
         // date_default_timezone_set('Asia/Manila');
         $date = Carbon::now();
-        $Sdate = Carbon::now()->format('m/d/Y g:i A');
+        $Sdate = Carbon::now()->format('F j, Y g:i A');
 
         $pdf = PDF::loadView('progress_report.progress_report_PDF', compact(
             'spot_report',

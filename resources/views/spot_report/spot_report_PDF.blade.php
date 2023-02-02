@@ -79,7 +79,7 @@
         </tr>
         <tr style="border:none;">
             <td style="border: none; padding:0;" width="50%"><span class="arial" style="font-size:15px; margin-right:23px; margin-left:33px">Pre-Ops Number:</span><span class="arial" style="font-weight:bold">Preops Number</span></td>
-            <td style="border: none; padding-left:20px;" width="50%"><span style="margin-right:10px;">Date/Time of OPN:</span><span class="arial" style="font-weight:bold">{{$spot_report[0]->operation_datetime}}</span></td>
+            <td style="border: none; padding-left:20px;" width="50%"><span style="margin-right:10px;">Date/Time of OPN:</span><span class="arial" style="font-weight:bold">{{$operation_datetime}}</span></td>
         </tr>
         </tr>
         <tr style="border:none;">
