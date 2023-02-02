@@ -4,6 +4,7 @@ $(document).ready(function(){
 });
 
 $(document).on('click',('.ch_openX'),function(e) {
+    $('.chat_list').removeAttr('hidden');
     $('.chat_list').show();
     $('.chat_list').animate({
         right: '5px',
@@ -28,6 +29,7 @@ $(document).on('click',('.chat_person'),function(e) {
 
     var pane=parent.document.getElementById("msg_pane");
     var pane_inside=parent.document.getElementById("the_pane");
+    $(pane).removeAttr('hidden');
     $(pane).show();
     var base_url = window.location.origin;
 

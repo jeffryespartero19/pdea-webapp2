@@ -865,7 +865,7 @@
             <div class="chat_frame">
                 <button class="chat_button ch_openX"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
             </div>
-            <div class="chat_list">
+            <div class="chat_list" hidden>
                 <div class="c_list_title">
                     <div class="eighty">CONTACTS</div>
                     <div class="twenty"><button class="chat_button ch_closeX"><i class="fa fa-times" aria-hidden="true"></i></button></div>
@@ -874,7 +874,7 @@
                     <iframe src="{{ route('chat_list') }}"></iframe>
                 </div>
             </div>
-            <div id="msg_pane" class="msg_pane">
+            <div id="msg_pane" class="msg_pane" hidden>
                 <iframe id="the_pane" src=""></iframe>
             </div>
             @endif
