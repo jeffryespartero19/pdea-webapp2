@@ -31,7 +31,7 @@ class SpotReportController extends Controller
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
                 ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status', 'a.created_at', 'a.preops_number')
                 ->where('a.report_status', 0)
-                ->orderby('spot_report_number', 'asc')
+                ->orderby('a.id', 'desc')
                 ->paginate(20);
 
             $regional_office = DB::table('regional_office')->orderby('print_order', 'asc')->get();
@@ -43,7 +43,7 @@ class SpotReportController extends Controller
                 ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status', 'a.created_at', 'a.preops_number')
                 ->where('a.report_status', 0)
                 ->where('d.id', Auth::user()->regional_office_id)
-                ->orderby('spot_report_number', 'asc')
+                ->orderby('a.id', 'desc')
                 ->paginate(20);
 
             $regional_office = DB::table('regional_office')
@@ -82,7 +82,7 @@ class SpotReportController extends Controller
                 $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '<=', $request->get('operation_date_to'));
             }
 
-            $data = $data->paginate(10);
+            $data = $data->orderby('a.id', 'desc')->paginate(10);
 
             // dd($data);
 
@@ -101,7 +101,7 @@ class SpotReportController extends Controller
                 ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status', 'a.created_at', 'a.preops_number')
                 ->where('a.report_status', 0)
                 ->where('a.spot_report_number', 'LIKE', '%' . $param . '%')
-                ->orderby('spot_report_number', 'asc')
+                ->orderby('a.id', 'desc')
                 ->paginate(20);
         } else {
             $data = DB::table('spot_report_header as a')
@@ -112,7 +112,7 @@ class SpotReportController extends Controller
                 ->where('a.spot_report_number', 'LIKE', '%' . $param . '%')
                 ->where('a.report_status', 0)
                 ->where('d.id', Auth::user()->regional_office_id)
-                ->orderby('spot_report_number', 'asc')
+                ->orderby('a.id', 'desc')
                 ->paginate(20);
         }
         return view('spot_report.spot_report_data', compact('data'))->render();
@@ -1692,7 +1692,7 @@ class SpotReportController extends Controller
                     ->where('a.report_status', 0)
                     ->where('a.spot_report_number', 'LIKE', '%' . $q . '%')
                     ->orWhere('a.preops_number', 'LIKE', '%' . $q . '%')
-                    ->orderby('spot_report_number', 'asc')
+                    ->orderby('a.id', 'desc')
                     ->paginate(20)
                     ->setPath('');
 
@@ -1721,7 +1721,7 @@ class SpotReportController extends Controller
                     ->orWhere('a.preops_number', 'LIKE', '%' . $q . '%')
                     ->where('a.report_status', 0)
                     ->where('d.id', Auth::user()->regional_office_id)
-                    ->orderby('spot_report_number', 'asc')
+                    ->orderby('a.id', 'desc')
                     ->paginate(10)
                     ->setPath('');
 
@@ -1750,6 +1750,7 @@ class SpotReportController extends Controller
             ->leftjoin('regional_office as d', 'a.region_c', '=', 'd.region_c')
             ->where('a.spot_report_number', 'LIKE', '%' . $request->input('term', '') . '%')
             ->where('d.id', Auth::user()->regional_office_id)
+            ->orderby('a.id', 'desc')
             ->get(['a.id as id', 'a.spot_report_number as text']);
 
         // dd($spot_report_number);
@@ -1767,6 +1768,7 @@ class SpotReportController extends Controller
                 ->select('a.id', 'a.preops_number as text')
                 ->where('a.preops_number', 'LIKE', '%' . $request->input('term', '') . '%')
                 ->where('a.with_sr', 0)
+                ->orderby('a.id', 'desc')
                 ->union($data)
                 ->get();
         } else {
@@ -1775,6 +1777,7 @@ class SpotReportController extends Controller
                 ->where('a.preops_number', 'LIKE', '%' . $request->input('term', '') . '%')
                 ->where('a.region_c', Auth::user()->region_c)
                 ->where('a.with_sr', 0)
+                ->orderby('a.id', 'desc')
                 ->union($data)
                 ->get();
         }

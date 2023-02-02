@@ -31,7 +31,7 @@ class AfterOperationReportController extends Controller
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
                 ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status', 'a.aor_date')
                 ->where('a.with_aor', 1)
-                ->orderby('preops_number', 'asc')
+                ->orderby('a.id', 'desc')
                 ->paginate(20);
 
             $regional_office = DB::table('regional_office')->orderby('print_order', 'asc')->get();
@@ -43,7 +43,7 @@ class AfterOperationReportController extends Controller
                 ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status', 'a.aor_date')
                 ->where('a.with_aor', 1)
                 ->where('d.id', Auth::user()->regional_office_id)
-                ->orderby('preops_number', 'asc')
+                ->orderby('a.id', 'desc')
                 ->paginate(20);
 
             $regional_office = DB::table('regional_office')
@@ -80,7 +80,7 @@ class AfterOperationReportController extends Controller
                 $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '<=', $request->get('operation_date_to'));
             }
 
-            $data = $data->paginate(20);
+            $data = $data ->orderby('a.id', 'desc')->paginate(20);
 
             return view('after_operation_report.after_operation_data', compact('data'))->render();
         }
@@ -432,6 +432,7 @@ class AfterOperationReportController extends Controller
                 ->where('a.preops_number', 'LIKE', '%' . $request->input('term', '') . '%')
                 ->where('a.with_aor', 0)
                 ->where('a.with_sr', 0)
+                ->orderby('a.id', 'desc')
                 ->get();
         } else {
             $preops_number = DB::table('preops_header as a')
@@ -441,6 +442,7 @@ class AfterOperationReportController extends Controller
                 ->where('d.id', Auth::user()->regional_office_id)
                 ->where('with_aor', 0)
                 ->where('with_sr', 0)
+                ->orderby('a.id', 'desc')
                 ->get();
         }
 

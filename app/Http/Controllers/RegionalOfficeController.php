@@ -139,16 +139,15 @@ class RegionalOfficeController extends Controller
 
     public function getROProvince($ro_code)
     {
-        $details = DB::table('regional_office')
-            ->where(['ro_code' => $ro_code])
-            ->select('region_c')
-            ->get();
 
-        $data = DB::table('province')
-            ->where(['region_c' => $details[0]->region_c])
-            ->where('status', true)
-            ->orderby('province_m', 'asc')
+        $data = DB::table('province as a')
+            ->leftjoin('regional_office as b', 'a.region_c', '=', 'b.region_c')
+            ->where(['b.ro_code' => $ro_code])
+            ->select('a.province_c', 'a.province_m')
+            ->where('a.status', true)
+            ->orderby('a.province_m', 'asc')
             ->get();
+        // dd($data);
 
         return json_encode($data);
     }
@@ -165,15 +164,11 @@ class RegionalOfficeController extends Controller
 
     public function getRORegion($ro_code)
     {
-        $details = DB::table('regional_office')
-            ->where(['ro_code' => $ro_code])
-            ->select('region_c')
-            ->get();
-
-        $data = DB::table('region')
-            ->where(['region_c' => $details[0]->region_c])
-            ->where('status', true)
-            ->orderby('region_m', 'asc')
+        $data = DB::table('region as a')
+            ->leftjoin('regional_office as b', 'a.region_c', '=', 'b.region_c')
+            ->where(['b.ro_code' => $ro_code])
+            ->where('a.status', true)
+            ->orderby('a.region_m', 'asc')
             ->get();
 
         return json_encode($data);

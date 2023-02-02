@@ -80,7 +80,7 @@ class IssuanceOfPreopsController extends Controller
                 $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '<=', $request->get('operation_date_to'));
             }
 
-            $data = $data->paginate(20);
+            $data = $data->orderby('a.id', 'desc')->paginate(20);
 
             // dd($data);
 
@@ -615,7 +615,7 @@ class IssuanceOfPreopsController extends Controller
         return back()->with('success', 'You have successfully updated issuance of preops!');
     }
 
-   
+
     function viewPDF($id)
     {
         // date_default_timezone_set('Asia/Singapore');

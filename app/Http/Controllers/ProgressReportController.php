@@ -31,7 +31,7 @@ class ProgressReportController extends Controller
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
                 ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status')
                 ->where('a.report_status', 1)
-                ->orderby('spot_report_number', 'asc')
+                ->orderby('a.id', 'desc')
                 ->paginate(20);
 
             $region = DB::table('region')->orderby('region_sort', 'asc')->get();
@@ -43,7 +43,7 @@ class ProgressReportController extends Controller
                 ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status')
                 ->where('a.report_status', 1)
                 ->where('d.id', Auth::user()->regional_office_id)
-                ->orderby('spot_report_number', 'asc')
+                ->orderby('a.id', 'desc')
                 ->paginate(20);
 
             $region = DB::table('region as a')
@@ -88,7 +88,7 @@ class ProgressReportController extends Controller
                 $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '<=', $request->get('operation_date_to'));
             }
 
-            $data = $data->paginate(20);
+            $data = $data->orderby('a.id', 'desc')->paginate(20);
 
             // dd($data);
 
@@ -107,7 +107,7 @@ class ProgressReportController extends Controller
                 ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status', 'a.created_at', 'a.preops_number')
                 ->where('a.report_status', 1)
                 ->where('a.spot_report_number', 'LIKE', '%' . $param . '%')
-                ->orderby('spot_report_number', 'asc')
+                ->orderby('a.id', 'desc')
                 ->paginate(20);
         } else {
             $data = DB::table('spot_report_header as a')
@@ -118,7 +118,7 @@ class ProgressReportController extends Controller
                 ->where('a.spot_report_number', 'LIKE', '%' . $param . '%')
                 ->where('a.report_status', 1)
                 ->where('d.id', Auth::user()->regional_office_id)
-                ->orderby('spot_report_number', 'asc')
+                ->orderby('a.id', 'desc')
                 ->paginate(20);
         }
         return view('progress_report.progress_report_data', compact('data'))->render();
@@ -783,12 +783,14 @@ class ProgressReportController extends Controller
             $spot_report_number = DB::table('spot_report_header as a')
                 ->where('a.spot_report_number', 'LIKE', '%' . $request->input('term', '') . '%')
                 ->where('a.report_status', 0)
+                ->orderby('a.id', 'desc')
                 ->get(['a.id as id', 'a.spot_report_number as text']);
         } else {
             $spot_report_number = DB::table('spot_report_header as a')
                 ->where('a.spot_report_number', 'LIKE', '%' . $request->input('term', '') . '%')
                 ->where('a.region_c', Auth::user()->region_c)
                 ->where('a.report_status', 0)
+                ->orderby('a.id', 'desc')
                 ->get(['a.id as id', 'a.spot_report_number as text']);
         }
         return ['results' => $spot_report_number];
