@@ -675,8 +675,8 @@ class IssuanceOfPreopsController extends Controller
         // dd($area);
 
         $target = DB::table('preops_target as a')
-            ->join('preops_header as b', 'a.preops_number', '=', 'b.preops_number')
-            ->join('nationality as c', 'c.id', '=', 'a.nationality_id')
+            ->leftjoin('preops_header as b', 'a.preops_number', '=', 'b.preops_number')
+            ->leftjoin('nationality as c', 'c.id', '=', 'a.nationality_id')
             ->select('a.id', 'a.name', 'a.preops_number', 'c.name as nationality')
             ->where('b.id', $id)->get();
 

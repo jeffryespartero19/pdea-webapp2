@@ -137,7 +137,7 @@
                                     <div>
                                         <button class="btn btn-sm btn-primary float-right m-t-n-xs LoginBTN" type="button"><strong>Log in</strong></button>
 
-                                        <label> <input type="checkbox" class="i-checks" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}> Remember me </label>
+                                        <!-- <label> <input type="checkbox" class="i-checks" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}> Remember me </label> -->
                                     </div>
                                     <div style="text-align: center;">
                                         @if (Route::has('password.request'))

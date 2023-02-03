@@ -49,6 +49,7 @@
             width: 11cm;
         }
     </style>
+
 </head>
 
 <body>
@@ -66,7 +67,7 @@
     @endif
     <br>
     <br>
-    <h3 align="center">CERTIFICATE OF COORDINATION</h3>
+    <h3 id="h3" align="center">CERTIFICATE OF COORDINATION</h3>
     <span style="margin-right:110px">Issuing Office:</span><span>{{$preops_data[0]->issuing_office}}</span>
     <br>
     <span style="margin-right:39px;">Pre-Ops Control Number:</span><span style="font-weight: bold;">{{$preops_data[0]->preops_number}}</span>
@@ -75,7 +76,7 @@
     <br>
     <span style="margin-right:136px">Lead Unit:</span><span style="font-weight: bold;">{{$preops_data[0]->description}}</span>
     <br>
-    @if(isset($support_unit->description))
+    @if(isset($support_unit[0]->description))
     <span style="margin-right:113px">Support Unit:</span>
     @foreach ($support_unit as $su)
 
@@ -148,8 +149,9 @@
     <div style="padding-left:300px; font-weight: bold;">{{$preops_data[0]->approved_by}}</div>
     <div style="padding-left:300px;">{{$preops_data[0]->officer_position}}</div>
     <footer>
-    {{$Sdate}} | {{Auth::user()->name}}  | @if ($preops_data[0]->print_count == 1) O @else C @endif
+        {{$Sdate}} | {{Auth::user()->name}} | @if ($preops_data[0]->print_count == 1) O @else C @endif
     </footer>
 </body>
+
 
 </html>

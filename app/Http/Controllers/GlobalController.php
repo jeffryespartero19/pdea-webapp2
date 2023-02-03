@@ -515,17 +515,17 @@ class GlobalController extends Controller
 
     public function search_operating_unit(Request $request)
     {
-        if (Auth::user()->user_level_id == 2) {
+        // if (Auth::user()->user_level_id == 2) {
             $operating_unit = DB::table('operating_unit as a')
                 ->where('a.description', 'LIKE', '%' . $request->input('term', '') . '%')
                 ->get(['a.id as id', 'a.description as text']);
-        } else {
-            $operating_unit = DB::table('operating_unit as a')
-                ->leftjoin('regional_office as d', 'a.region_c', '=', 'd.region_c')
-                ->where('a.description', 'LIKE', '%' . $request->input('term', '') . '%')
-                ->where('a.region_c', Auth::user()->region_c)
-                ->get(['a.id as id', 'a.description as text']);
-        }
+        // } else {
+        //     $operating_unit = DB::table('operating_unit as a')
+        //         ->leftjoin('regional_office as d', 'a.region_c', '=', 'd.region_c')
+        //         ->where('a.description', 'LIKE', '%' . $request->input('term', '') . '%')
+        //         ->where('a.region_c', Auth::user()->region_c)
+        //         ->get(['a.id as id', 'a.description as text']);
+        // }
 
         return ['results' => $operating_unit];
     }

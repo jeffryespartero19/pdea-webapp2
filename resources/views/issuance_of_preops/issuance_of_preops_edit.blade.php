@@ -1212,30 +1212,30 @@
 
         var ro_code = $('.ro_code').val();
 
-        if (ro_code == null) {
-            $(".SUPPUnitSearch").select2({
-                minimumInputLength: 2,
-                ajax: {
-                    url: '/search_operating_unit',
-                    dataType: "json",
-                }
-            });
-        } else {
-            $(".SUPPUnitSearch").select2({
-                minimumInputLength: 2,
-                ajax: {
-                    url: '/search_operating_unit_ro_code',
-                    dataType: "json",
-                    data: function(params) {
-                        ro_code = $('.ro_code').val() //this is the anotherParm
-                        return {
-                            q: params.term, // search term
-                            ro_code: params.ro_code,
-                        };
-                    },
-                }
-            });
-        }
+        // if (ro_code == null) {
+        $(".SUPPUnitSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_operating_unit',
+                dataType: "json",
+            }
+        });
+        // } else {
+        //     $(".SUPPUnitSearch").select2({
+        //         minimumInputLength: 2,
+        //         ajax: {
+        //             url: '/search_operating_unit_ro_code',
+        //             dataType: "json",
+        //             data: function(params) {
+        //                 ro_code = $('.ro_code').val() //this is the anotherParm
+        //                 return {
+        //                     q: params.term, // search term
+        //                     ro_code: params.ro_code,
+        //                 };
+        //             },
+        //         }
+        //     });
+        // }
     });
 
     function addrow() {
@@ -1247,29 +1247,29 @@
         var newrow = row.clone();
         $(".SUdetails").append(newrow);
 
-        if (ro_code == null) {
-            $(".SUPPUnitSearch").select2({
-                minimumInputLength: 2,
-                ajax: {
-                    url: '/search_operating_unit',
-                    dataType: "json",
-                }
-            });
-        } else {
-            $(".SUPPUnitSearch").select2({
-                minimumInputLength: 2,
-                ajax: {
-                    url: '/search_operating_unit_ro_code',
-                    dataType: "json",
-                    data: function(params) {
-                        return {
-                            q: params.term, // search term
-                            ro_code: params.ro_code,
-                        };
-                    },
-                }
-            });
-        }
+        // if (ro_code == null) {
+        $(".SUPPUnitSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_operating_unit',
+                dataType: "json",
+            }
+        });
+        // } else {
+        //     $(".SUPPUnitSearch").select2({
+        //         minimumInputLength: 2,
+        //         ajax: {
+        //             url: '/search_operating_unit_ro_code',
+        //             dataType: "json",
+        //             data: function(params) {
+        //                 return {
+        //                     q: params.term, // search term
+        //                     ro_code: params.ro_code,
+        //                 };
+        //             },
+        //         }
+        //     });
+        // }
     }
 </script>
 
