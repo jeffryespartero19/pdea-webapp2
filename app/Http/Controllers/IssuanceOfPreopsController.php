@@ -44,7 +44,7 @@ class IssuanceOfPreopsController extends Controller
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
                 ->leftjoin('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
                 ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.description as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'a.with_aor', 'a.with_sr', 'a.with_pr')
-                ->where('a.region_c', Auth::user()->region_c)
+                ->where('d.id', Auth::user()->regional_office_id)
                 ->orderby('a.id', 'desc')
                 ->paginate(20);
 
@@ -137,9 +137,9 @@ class IssuanceOfPreopsController extends Controller
         } else {
             $operating_unit = DB::table('operating_unit')->where('status', true)->where('region_c', Auth::user()->region_c)->orderby('name', 'asc')->get();
             $approved_by = DB::table('approved_by as a')
-                ->join('regional_office as b', 'a.ro_code', '=', 'b.ro_code')
+                ->leftjoin('regional_office as b', 'a.ro_code', '=', 'b.ro_code')
                 ->select('a.name', 'a.id')
-                ->where('b.region_c', Auth::user()->region_c)
+                ->where('b.id', Auth::user()->regional_office_id)
                 ->orderby('a.name', 'asc')
                 ->get();
         }
