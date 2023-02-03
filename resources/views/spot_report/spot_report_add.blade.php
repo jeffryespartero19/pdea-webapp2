@@ -174,7 +174,7 @@
                     <div id="sp_list" class="form-group col-4 " style="margin: 0px;">
                         <div>
                             <label for="">Supporting Unit</label>
-                            <a onclick="addrow();" style="float: right;"><i class="fas fa-plus pr-2"></i></a>
+                            <a href="#" onclick="addrow();" style="float: right;"><i class="fas fa-plus pr-2"></i></a>
                         </div>
                         <div class="SUdetails">
                             <div class="input-group mb-3 su_options">
@@ -1359,29 +1359,29 @@
         var newrow = row.clone();
         $(".SUdetails").append(newrow);
 
-        if (ro_code == null) {
-            $(".SUPPUnitSearch").select2({
-                minimumInputLength: 2,
-                ajax: {
-                    url: '/search_operating_unit',
-                    dataType: "json",
-                }
-            });
-        } else {
-            $(".SUPPUnitSearch").select2({
-                minimumInputLength: 2,
-                ajax: {
-                    url: '/search_operating_unit_ro_code',
-                    dataType: "json",
-                    data: function(params) {
-                        return {
-                            q: term, // search term
-                            ro_code: ro_code,
-                        };
-                    },
-                }
-            });
-        }
+        // if (ro_code == null) {
+        $(".SUPPUnitSearch").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_operating_unit',
+                dataType: "json",
+            }
+        });
+        // } else {
+        //     $(".SUPPUnitSearch").select2({
+        //         minimumInputLength: 2,
+        //         ajax: {
+        //             url: '/search_operating_unit_ro_code',
+        //             dataType: "json",
+        //             data: function(params) {
+        //                 return {
+        //                     q: term, // search term
+        //                     ro_code: ro_code,
+        //                 };
+        //             },
+        //         }
+        //     });
+        // }
     }
 
     //Add Support Unit
@@ -1748,14 +1748,16 @@
                                 },
                                 success: function(data) {
                                     var data = JSON.parse(data);
-                                    $('.SUdetails').empty();
-                                    $('#SUOptions').empty();
+                                    if (!data) {
+                                        $('.SUdetails').empty();
+                                        $('#SUOptions').empty();
+                                        data.forEach(element => {
+                                            var option = "<div class='input-group mb-3 '><select id='support_unit_id' name='support_unit_id[]' class='form-control' style='pointer-events: none; background-color : #e9ecef;' required>" +
+                                                "<option value='" + element["id"] + "' selected> " + element["description"] + "</option></div>";
+                                            $(".SUdetails").append(option);
+                                        });
 
-                                    data.forEach(element => {
-                                        var option = "<div class='input-group mb-3 '><select id='support_unit_id' name='support_unit_id[]' class='form-control' style='pointer-events: none; background-color : #e9ecef;' required>" +
-                                            "<option value='" + element["id"] + "' selected> " + element["description"] + "</option></div>";
-                                        $(".SUdetails").append(option);
-                                    });
+                                    }
                                 }
                             });
 

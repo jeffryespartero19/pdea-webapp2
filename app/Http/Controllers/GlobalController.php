@@ -256,6 +256,7 @@ class GlobalController extends Controller
     public function get_spot_report_suspect($spot_report_number)
     {
         $data = DB::table('spot_report_suspect as a')
+            ->leftjoin('spot_report_header as aa', 'aa.spot_report_number', '=', 'a.spot_report_number')
             ->leftjoin('region as b', 'a.region_c', '=', 'b.region_c')
             ->leftjoin('region as c', 'a.permanent_region_c', '=', 'c.region_c')
             ->leftjoin('province as d', 'a.province_c', '=', 'd.province_c')
@@ -319,8 +320,10 @@ class GlobalController extends Controller
                 'x.name as identifier',
 
             )
-            ->where(['a.spot_report_number' => $spot_report_number])
+            ->where(['aa.id' => $spot_report_number])
             ->get();
+
+        // dd($data);
 
         return json_encode($data);
     }
