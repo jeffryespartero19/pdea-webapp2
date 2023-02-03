@@ -39,7 +39,7 @@ class ProgressReportController extends Controller
             $data = DB::table('spot_report_header as a')
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                ->join('regional_office as d', 'a.region_c', '=', 'd.region_c')
+                ->leftjoin('regional_office as d', 'a.region_c', '=', 'd.region_c')
                 ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status')
                 ->where('a.report_status', 1)
                 ->where('d.id', Auth::user()->regional_office_id)
@@ -53,11 +53,11 @@ class ProgressReportController extends Controller
         }
 
 
-        $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
-        $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
+        // $operating_unit = DB::table('operating_unit')->where('status', true)->orderby('name', 'asc')->get();
+        // $operation_type = DB::table('operation_type')->where('status', true)->orderby('name', 'asc')->get();
 
 
-        return view('progress_report.progress_report_list', compact('region', 'operating_unit', 'operation_type', 'data'));
+        return view('progress_report.progress_report_list', compact('region', 'data'));
     }
 
     public function fetch_data(Request $request)
@@ -787,8 +787,9 @@ class ProgressReportController extends Controller
                 ->get(['a.id as id', 'a.spot_report_number as text']);
         } else {
             $spot_report_number = DB::table('spot_report_header as a')
+                ->leftjoin('regional_office as d', 'a.region_c', '=', 'd.region_c')
                 ->where('a.spot_report_number', 'LIKE', '%' . $request->input('term', '') . '%')
-                ->where('a.region_c', Auth::user()->region_c)
+                ->where('d.id', Auth::user()->regional_office_id)
                 ->where('a.report_status', 0)
                 ->orderby('a.id', 'desc')
                 ->get(['a.id as id', 'a.spot_report_number as text']);
