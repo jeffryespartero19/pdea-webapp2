@@ -332,9 +332,10 @@ class GlobalController extends Controller
     public function get_spot_report_evidence_drug($spot_report_number)
     {
         $data = DB::table('spot_report_evidence as a')
-            ->join('spot_report_suspect as b', 'a.suspect_number', '=', 'b.suspect_number')
-            ->join('evidence as c', 'a.evidence_id', '=', 'c.id')
-            ->join('unit_measurement as d', 'c.unit_measurement_id', '=', 'd.id')
+            ->leftjoin('spot_report_header as aa', 'aa.spot_report_number', '=', 'a.spot_report_number')
+            ->leftjoin('spot_report_suspect as b', 'a.suspect_number', '=', 'b.suspect_number')
+            ->leftjoin('evidence as c', 'a.evidence_id', '=', 'c.id')
+            ->leftjoin('unit_measurement as d', 'c.unit_measurement_id', '=', 'd.id')
             ->select(
                 'a.id as spot_report_evidence_id',
                 'b.suspect_number',
@@ -346,7 +347,7 @@ class GlobalController extends Controller
                 'd.name as unit_measurement',
                 'a.quantity'
             )
-            ->where(['a.spot_report_number' => $spot_report_number])
+            ->where(['aa.id' => $spot_report_number])
             ->where(['a.drug' => 'drug'])
             ->get();
 
@@ -356,8 +357,9 @@ class GlobalController extends Controller
     public function get_spot_report_case($spot_report_number)
     {
         $data = DB::table('spot_report_case as a')
-            ->join('spot_report_suspect as b', 'a.suspect_number', '=', 'b.suspect_number')
-            ->join('case_list as c', 'a.case_id', '=', 'c.id')
+            ->leftjoin('spot_report_header as aa', 'aa.spot_report_number', '=', 'a.spot_report_number')
+            ->leftjoin('spot_report_suspect as b', 'a.suspect_number', '=', 'b.suspect_number')
+            ->leftjoin('case_list as c', 'a.case_id', '=', 'c.id')
             ->select(
                 'a.id as spot_report_case_id',
                 'b.suspect_number',
@@ -367,7 +369,7 @@ class GlobalController extends Controller
                 'b.alias',
                 'c.description',
             )
-            ->where(['a.spot_report_number' => $spot_report_number])
+            ->where(['aa.id' => $spot_report_number])
             ->get();
 
         return json_encode($data);
