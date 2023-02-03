@@ -23,26 +23,17 @@ class FileUploadsController extends Controller
     {
 
         if (Auth::user()->user_level_id == 2) {
-
-            $region_c = DB::table('regional_office as a')
-                ->leftjoin('users as b', 'a.id', '=', 'b.regional_office_id')
-                ->select('a.region_c')
-                ->where('b.id', Auth::user()->id)
-                ->get();
-
             $file_uploads = DB::table('issuance_of_preops_files as a')
-                ->leftjoin('preops_header as b2', 'a.preops_number', '=', 'b2.preops_number')
                 ->select('a.filenames as filename', 'a.preops_number as t_number')
-                ->where('b2.region_c', $region_c[0]->region_c)
                 ->paginate(20);
-
-
             return view('file_uploads.preops_file_uploads_list', compact('file_uploads'));
         } else {
             $file_uploads = DB::table('issuance_of_preops_files as a')
+                ->leftjoin('preops_header as b2', 'a.preops_number', '=', 'b2.preops_number')
+                ->leftjoin('regional_office as d', 'b2.ro_code', '=', 'd.ro_code')
                 ->select('a.filenames as filename', 'a.preops_number as t_number')
+                ->where('d.id', Auth::user()->regional_office_id)
                 ->paginate(20);
-
             return view('file_uploads.preops_file_uploads_list', compact('file_uploads'));
         }
     }
@@ -51,26 +42,18 @@ class FileUploadsController extends Controller
     {
 
         if (Auth::user()->user_level_id == 2) {
-
-            $region_c = DB::table('regional_office as a')
-                ->join('users as b', 'a.id', '=', 'b.regional_office_id')
-                ->select('a.region_c')
-                ->where('b.id', Auth::user()->id)
-                ->get();
-
             $file_uploads = DB::table('after_operation_files as a')
-                ->leftjoin('preops_header as b2', 'a.preops_number', '=', 'b2.preops_number')
                 ->select('a.filenames as filename', 'a.preops_number as t_number')
-                ->where('b2.region_c', $region_c[0]->region_c)
                 ->paginate(20);
-
 
             return view('file_uploads.afteroperation_file_uploads_list', compact('file_uploads'));
         } else {
             $file_uploads = DB::table('after_operation_files as a')
+                ->leftjoin('preops_header as b2', 'a.preops_number', '=', 'b2.preops_number')
+                ->leftjoin('regional_office as d', 'b2.ro_code', '=', 'd.ro_code')
                 ->select('a.filenames as filename', 'c.preops_number as t_number')
+                ->where('d.id', Auth::user()->regional_office_id)
                 ->paginate(20);
-
             return view('file_uploads.afteroperation_file_uploads_list', compact('file_uploads'));
         }
     }
@@ -80,23 +63,19 @@ class FileUploadsController extends Controller
 
         if (Auth::user()->user_level_id == 2) {
 
-            $region_c = DB::table('regional_office as a')
-                ->leftjoin('users as b', 'a.id', '=', 'b.regional_office_id')
-                ->select('a.region_c')
-                ->where('b.id', Auth::user()->id)
-                ->get();
-
             $file_uploads = DB::table('spot_report_files as b')
                 ->leftjoin('spot_report_header as c', 'b.spot_report_number', '=', 'c.spot_report_number')
                 ->select('b.filenames as filename', 'b.spot_report_number as t_number')
-                ->where('c.region_c', $region_c[0]->region_c)
                 ->paginate(20);
 
 
             return view('file_uploads.spotreport_file_uploads_list', compact('file_uploads'));
         } else {
             $file_uploads = DB::table('spot_report_files as a')
+                ->leftjoin('spot_report_header as c', 'a.spot_report_number', '=', 'c.spot_report_number')
+                ->leftjoin('regional_office as d', 'c.region_c', '=', 'd.region_c')
                 ->select('a.filenames as filename', 'a.spot_report_number as t_number')
+                ->where('d.id', Auth::user()->regional_office_id)
                 ->paginate(20);
 
             return view('file_uploads.spotreport_file_uploads_list', compact('file_uploads'));
@@ -108,22 +87,18 @@ class FileUploadsController extends Controller
 
         if (Auth::user()->user_level_id == 1) {
 
-            $region_c = DB::table('regional_office as a')
-                ->leftjoin('users as b', 'a.id', '=', 'b.regional_office_id')
-                ->select('a.region_c')
-                ->where('b.id', Auth::user()->id)
-                ->get();
-
             $file_uploads = DB::table('progress_report_files as a')
                 ->leftjoin('spot_report_header as c', 'a.spot_report_number', '=', 'c.spot_report_number')
                 ->select('a.filenames as filename', 'a.spot_report_number as t_number')
-                ->where('c.region_c', $region_c[0]->region_c)
                 ->paginate(20);
 
             return view('file_uploads.progressreport_file_uploads_list', compact('file_uploads'));
         } else {
             $file_uploads = DB::table('progress_report_files as a')
+                ->leftjoin('spot_report_header as c', 'a.spot_report_number', '=', 'c.spot_report_number')
+                ->leftjoin('regional_office as d', 'c.region_c', '=', 'd.region_c')
                 ->select('a.filenames as filename', 'a.spot_report_number as t_number')
+                ->where('d.id', Auth::user()->regional_office_id)
                 ->paginate(20);
 
             return view('file_uploads.progressreport_file_uploads_list', compact('file_uploads'));

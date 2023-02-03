@@ -1533,6 +1533,14 @@
                     "'</option>");
             }
         });
+
+        $(".evidenceSLCT").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_evidence',
+                dataType: "json",
+            }
+        });
     }
 
     //Add rows for Case

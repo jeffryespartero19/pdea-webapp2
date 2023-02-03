@@ -357,9 +357,9 @@ class IssuanceOfPreopsController extends Controller
             $approved_by = DB::table('approved_by')->orderby('name', 'asc')->get();
         } else {
             $approved_by = DB::table('approved_by as a')
-                ->join('regional_office as b', 'a.ro_code', '=', 'b.ro_code')
+                ->leftjoin('regional_office as b', 'a.ro_code', '=', 'b.ro_code')
                 ->select('a.name', 'a.id')
-                ->where('b.region_c', Auth::user()->region_c)
+                ->where('b.id', Auth::user()->regional_office_id)
                 ->orderby('a.name', 'asc')
                 ->get();
         }

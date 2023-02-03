@@ -516,9 +516,9 @@ class GlobalController extends Controller
     public function search_operating_unit(Request $request)
     {
         // if (Auth::user()->user_level_id == 2) {
-            $operating_unit = DB::table('operating_unit as a')
-                ->where('a.description', 'LIKE', '%' . $request->input('term', '') . '%')
-                ->get(['a.id as id', 'a.description as text']);
+        $operating_unit = DB::table('operating_unit as a')
+            ->where('a.description', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->get(['a.id as id', 'a.description as text']);
         // } else {
         //     $operating_unit = DB::table('operating_unit as a')
         //         ->leftjoin('regional_office as d', 'a.region_c', '=', 'd.region_c')
@@ -695,5 +695,12 @@ class GlobalController extends Controller
         return ['results' => $data];
     }
 
-    
+    public function search_evidence(Request $request)
+    {
+        $case = DB::table('case_list as a')
+            ->where('a.description', 'LIKE', '%' . $request->input('term', '') . '%')
+            ->where('a.status', 1)
+            ->get(['a.id as id', 'a.description as text']);
+        return ['results' => $case];
+    }
 }

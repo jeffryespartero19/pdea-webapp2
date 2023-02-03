@@ -343,6 +343,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/get_preops_progress_suspect/{preops_number}', 'ReportGenerationController@getPreopsPROSuspect');
     Route::get('/get_preops_spot_suspect_listed/{preops_number}', 'ReportGenerationController@getPreopsPROSuspectListed');
     Route::get('/SPsearch_preops_number', 'SpotReportController@search_preops_number');
+    
 });
 
 
