@@ -76,9 +76,9 @@
     <br>
     <br>
     <span style="margin-right:23px; margin-left:33px">Pre-Ops Number:</span><span style="font-weight:bold">{{$spot_report[0]->preops_number}}</span>
-    <span style="margin-right:8px; margin-left:33px">Date/Time of OPN:</span><span style="font-weight:bold">{{$operation_datetime}}</span>
+    <span style="margin-right:8px; margin-left:120px">Date/Time of OPN:</span><span style="font-weight:bold">{{$operation_datetime}}</span>
     <br>
-    <span style="margin-right:35px; margin-left:33px">Operating Unit:</span><span style="font-weight:bold">{{$operating_unit[0]->name}}</span>
+    <span style="margin-right:68px; margin-left:33px">Lead Unit:</span><span style="font-weight:bold">{{$operating_unit[0]->name}}</span>
     <br>
     <span style="margin-right:14px; margin-left:33px">Type of Operation:</span><span style="font-weight:bold">{{$operation_type[0]->name}}</span>
     <br>
@@ -91,7 +91,7 @@
         </tr>
         @foreach ($suspect as $sp)
         <tr>
-            <td colspan="2" style="border: none; padding:0 12px;" align="left"><b>{{$sp->lastname}},{{$sp->firstname}} {{$sp->middlename}} @{{$sp->alias}}</b></td>
+            <td colspan="2" style="border: none; padding:0 12px;" align="left"><b>{{$sp->lastname}},{{$sp->firstname}} {{$sp->middlename}} {{$sp->alias}}</b></td>
         </tr>
         <tr>
             <td style="border: none; padding-left:22px;" align="left">Drug Test Result: <b>{{$sp->drug_test_result}}</b></td>
