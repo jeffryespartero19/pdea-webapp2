@@ -149,7 +149,7 @@
     <div style="padding-left:300px; font-weight: bold;">{{$preops_data[0]->approved_by}}</div>
     <div style="padding-left:300px;">{{$preops_data[0]->officer_position}}</div>
     <footer>
-        {{$Sdate}} | {{Auth::user()->name}} | @if ($preops_data[0]->print_count == 1) O @else C @endif
+        {{$Sdate}}{{Auth::user()->id}}@if ($preops_data[0]->print_count == 1){{"O"}}@else{{"C"}}@endif
     </footer>
 </body>
 

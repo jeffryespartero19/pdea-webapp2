@@ -620,7 +620,7 @@ class IssuanceOfPreopsController extends Controller
     {
         // date_default_timezone_set('Asia/Singapore');
         $date = Carbon::now();
-        $Sdate = Carbon::now()->format('F j, Y g:i A');
+        $Sdate = Carbon::now()->format('mdYgi');
 
         $pos_data = array(
             'print_count' => DB::raw('print_count+1'),
