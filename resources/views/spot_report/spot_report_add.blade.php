@@ -1332,10 +1332,9 @@
             url: '/get_hio_type',
             success: function(data) {
                 var data = JSON.parse(data);
-
+                var option1 = " <option value='' selected>Select Option</option>";
+                $("#hio_type_id").append(option1);
                 data.forEach(element => {
-                    var option1 = " <option value='' selected>Select Option</option>";
-                    $("#hio_type_id").append(option1);
                     var option = " <option value='" +
                         element["id"] +
                         "'>" +
@@ -1679,6 +1678,8 @@
                             var p_province_c = element['province_c']
 
                             var region_c = element['region_c'];
+
+                            // alert(region_c);
                             $.ajax({
                                 type: "GET",
                                 url: "/get_province/" + region_c,

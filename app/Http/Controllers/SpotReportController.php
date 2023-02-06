@@ -201,9 +201,10 @@ class SpotReportController extends Controller
             ->where('region_c', $request->region_c)
             ->whereDate('reported_date', Carbon::now()->format('Y-m-d'))
             ->count();
+        $str = substr($request->region_c, -2);
         $spot_report_number += 1;
         $spot_report_number = sprintf("%04s", $spot_report_number);
-        $spot_report_number = 'RO' . $request->region_c . '-' . $date . '-' . $spot_report_number;
+        $spot_report_number = 'RO' . $str . '-' . $date . '-' . $spot_report_number;
 
         $preops_number = DB::table('preops_header')
             ->where('id', $request->preops_number)
@@ -1612,6 +1613,7 @@ class SpotReportController extends Controller
             ->get();
 
         $operation_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->operation_datetime)->format('F j, Y g:i A');
+        $reported_date = Carbon::createFromFormat('Y-m-d', $spot_report[0]->reported_date)->format('F j, Y');
 
         if ($spot_report[0]->preops_number == 1) {
             $regional_office = DB::table('regional_office as a')
@@ -1648,6 +1650,84 @@ class SpotReportController extends Controller
             ->select('b.description')
             ->get();
 
+        $suspects = DB::table('spot_report_suspect as a')
+            ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
+            ->leftjoin('drug_management as c', 'a.id', '=', 'c.suspect_id')
+            ->leftjoin('users as d', 'd.id', '=', 'c.user_id')
+            ->leftjoin('tbluserlevel as e', 'd.user_level_id', '=', 'e.id')
+            ->leftjoin('province as f', 'a.province_c', '=', 'f.province_c')
+            ->leftjoin('city as g', 'a.city_c', '=', 'g.city_c')
+            ->leftjoin('barangay as h', 'a.barangay_c', '=', 'h.barangay_c')
+            ->leftjoin('province as i', 'a.permanent_province_c', '=', 'i.province_c')
+            ->leftjoin('city as j', 'a.permanent_city_c', '=', 'j.city_c')
+            ->leftjoin('barangay as k', 'a.permanent_barangay_c', '=', 'k.barangay_c')
+            ->leftjoin('region as l', 'a.region_c', '=', 'l.region_c')
+            ->leftjoin('occupation as m', 'a.occupation_id', '=', 'm.id')
+            ->leftjoin('nationality as n', 'a.nationality_id', '=', 'n.id')
+            ->leftjoin('civil_status as o', 'a.civil_status_id', '=', 'o.id')
+            ->leftjoin('ethnic_group as p', 'a.ethnic_group_id', '=', 'p.id')
+            ->leftjoin('religions as q', 'a.religion_id', '=', 'q.id')
+            ->leftjoin('suspect_category as sc', 'a.suspect_category_id', '=', 'sc.id')
+            ->leftjoin('suspect_classification as scl', 'a.suspect_classification_id', '=', 'scl.id')
+            ->leftjoin('educational_attainment as ed', 'a.educational_attainment_id', '=', 'ed.id')
+            ->select(
+                'a.id',
+                'a.suspect_number',
+                'a.spot_report_number',
+                'a.lastname',
+                'a.firstname',
+                'a.middlename',
+                'a.alias',
+                'a.gender',
+                'a.birthdate',
+                'a.birthplace',
+                'a.nationality_id',
+                'a.civil_status_id',
+                'a.religion_id',
+                'a.educational_attainment_id',
+                'a.ethnic_group_id',
+                'a.occupation_id',
+                'a.identifier_id',
+                'a.region_c',
+                'a.province_c',
+                'a.city_c',
+                'a.barangay_c',
+                'a.street',
+                'a.permanent_region_c',
+                'a.permanent_province_c',
+                'a.permanent_city_c',
+                'a.permanent_barangay_c',
+                'a.permanent_street',
+                'a.suspect_classification_id',
+                'a.suspect_status_id',
+                'a.remarks',
+                'a.suspect_category_id',
+                'a.suspect_sub_category_id',
+                'c.listed',
+                'c.user_id',
+                'e.name as ulvl',
+                'd.name as uname',
+                'a.est_birthdate',
+                'a.whereabouts',
+                'l.region_m as region_name',
+                'f.province_m as province_name',
+                'g.city_m as city_name',
+                'h.barangay_m as barangay_name',
+                'i.province_m as permanent_province_name',
+                'j.city_m as permanent_city_name',
+                'k.barangay_m as permanent_barangay_name',
+                'm.name as occupation',
+                'n.name as nationality',
+                'o.name as civil_status',
+                'p.name as ethnic_group',
+                'q.name as religion',
+                'sc.name as suspect_category',
+                'scl.name as suspect_classification',
+                'ed.name as educational_attainment'
+            )
+            ->where('a.spot_report_number', $spot_report[0]->spot_report_number)
+            ->get();
+
         $pdf = PDF::loadView('spot_report.spot_report_PDF', compact(
             'spot_report',
             'regional_office',
@@ -1657,7 +1737,9 @@ class SpotReportController extends Controller
             'support_unit',
             'date',
             'Sdate',
-            'operation_datetime'
+            'operation_datetime',
+            'suspects',
+            'reported_date'
         ));
         $canvas = $pdf->getDomPDF()->getCanvas();
         $canvas->page_script('$pdf->set_opacity(.5);
