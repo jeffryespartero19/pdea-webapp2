@@ -706,8 +706,10 @@ class ProgressReportController extends Controller
     function viewPDF($id)
     {
         $spot_report = $this->get_spot_report($id);
+
+       
         $regional_office = DB::table('regional_office as a')
-            ->join('preops_header as b', 'a.ro_code', '=', 'b.ro_code')
+            ->leftjoin('preops_header as b', 'a.ro_code', '=', 'b.ro_code')
             ->select('a.name', 'a.address', 'a.contact_number', 'a.report_header')
             ->where('b.preops_number', $spot_report[0]->preops_number)->get();
         $region = DB::table('region')->where('region_c', $spot_report[0]->region_c)->get();
@@ -718,7 +720,7 @@ class ProgressReportController extends Controller
         $operation_type = DB::table('operation_type')->where('id', $spot_report[0]->operation_type_id)->get();
 
         $suspect = DB::table('spot_report_suspect as a')
-            ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
+            ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
             ->leftjoin('drug_type as c', 'a.drug_type_id', '=', 'c.id')
             ->select(
                 'a.lastname',
@@ -731,22 +733,22 @@ class ProgressReportController extends Controller
             )
             ->where('b.id', $id)->get();
         $evidence = DB::table('spot_report_evidence as a')
-            ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
-            ->join('evidence as c', 'a.evidence_id', '=', 'c.id')
-            ->join('unit_measurement as d', 'a.unit', '=', 'd.id')
+            ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
+            ->leftjoin('evidence as c', 'a.evidence_id', '=', 'c.id')
+            ->leftjoin('unit_measurement as d', 'a.unit', '=', 'd.id')
             ->select('c.name as evidence_type', 'd.name as unit_measurement', 'a.evidence', 'a.quantity')
             ->where('b.id', $id)->get();
         $case = DB::table('spot_report_case as a')
-            ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
-            ->join('case_list as c', 'a.case_id', '=', 'c.id')
-            ->join('spot_report_suspect as d', 'a.suspect_number', '=', 'd.suspect_number')
+            ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
+            ->leftjoin('case_list as c', 'a.case_id', '=', 'c.id')
+            ->leftjoin('spot_report_suspect as d', 'a.suspect_number', '=', 'd.suspect_number')
             ->select('c.description as case', 'd.lastname', 'd.firstname', 'd.middlename')
             ->where('b.id', $id)->get();
         $team = DB::table('spot_report_team as a')
-            ->join('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
+            ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
             ->where('b.id', $id)->get();
 
-        $report_date = Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->reported_date)->format('F j,Y');
+        $reported_date = Carbon::createFromFormat('Y-m-d', $spot_report[0]->reported_date)->format('F j,Y');
         $operation_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $spot_report[0]->operation_datetime)->format('F j, Y g:i A');
 
         // date_default_timezone_set('Asia/Manila');
@@ -767,7 +769,7 @@ class ProgressReportController extends Controller
             'evidence',
             'case',
             'team',
-            'report_date',
+            'reported_date',
             'operation_datetime',
             'Sdate'
         ));
