@@ -97,6 +97,7 @@
                                 <td style="width: 150px;">
                                     <center>
                                         <a href="#" class="btn btn-info btnEdit" data-toggle="modal" data-target="#modal-lg">Edit</a>
+                                        <a href="{{ url('spot_report_edit/'.$dt->spot_id) }}" class="btn btn-info">View</a>
                                     </center>
                                 </td>
                             </tr>

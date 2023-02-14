@@ -1689,7 +1689,7 @@
                                     alert("request failed");
                                 },
                                 success: function(data) {
-                                    var data = JSON.parse(data);
+                                    var data2 = JSON.parse(data);
 
                                     $('#province_c').empty();
                                     $('#city_c').empty();
@@ -1698,7 +1698,7 @@
                                     var option1 = " <option value='0000'>Regional Coordination</option>";
                                     $("#province_c").append(option1);
 
-                                    data.forEach(element => {
+                                    data2.forEach(element => {
                                         var option = " <option value='" +
                                             element["province_c"] +
                                             "'>" +
@@ -1720,19 +1720,19 @@
 
                             $.ajax({
                                 type: "GET",
-                                url: "/get_city/" + p_province_c,
+                                url: "/get_city/" + element['province_c'],
                                 fail: function() {
                                     alert("request failed");
                                 },
                                 success: function(data) {
-                                    var data = JSON.parse(data);
+                                    var data3 = JSON.parse(data);
 
                                     $('#city_c').empty();
                                     $('#barangay_c').empty();
                                     var option1 = " <option value='' selected>Select Option</option>";
                                     $("#city_c").append(option1);
 
-                                    data.forEach(element => {
+                                    data3.forEach(element => {
                                         var option = " <option value='" +
                                             element["city_c"] +
                                             "'>" +
@@ -1750,11 +1750,11 @@
                                     alert("request failed");
                                 },
                                 success: function(data) {
-                                    var data = JSON.parse(data);
-                                    if (!data) {
+                                    var data4 = JSON.parse(data);
+                                    if (!data4) {
                                         $('.SUdetails').empty();
                                         $('#SUOptions').empty();
-                                        data.forEach(element => {
+                                        data4.forEach(element => {
                                             var option = "<div class='input-group mb-3 '><select id='support_unit_id' name='support_unit_id[]' class='form-control' style='pointer-events: none; background-color : #e9ecef;' required>" +
                                                 "<option value='" + element["id"] + "' selected> " + element["description"] + "</option></div>";
                                             $(".SUdetails").append(option);
@@ -1772,9 +1772,9 @@
                                     alert("request failed");
                                 },
                                 success: function(data) {
-                                    var data = JSON.parse(data);
+                                    var data5 = JSON.parse(data);
 
-                                    data.forEach(element => {
+                                    data5.forEach(element => {
                                         if (element['is_warrant'] == 1) {
                                             $('#warrant_Details').attr('hidden', false);
                                         } else {
@@ -1785,6 +1785,8 @@
 
                                 }
                             });
+
+
                         });
                     }
 
@@ -1796,34 +1798,36 @@
             // Display Operations Team
             $("#opsteamlist").empty();
 
+            // Get Operation Team
             $.ajax({
                 type: "GET",
-                url: "/get_preops_team/" + preops_number,
+                url: "/get_operation_team/" + preops_number,
                 fail: function() {
                     alert("request failed");
                 },
                 success: function(data) {
-                    var data = JSON.parse(data);
+                    var data6 = JSON.parse(data);
 
-                    if (data.length > 0) {
-                        data.forEach(element => {
-                            var option =
-                                "<tr><td ><input type='text' name='officer_name[]' class='form-control' value='" +
-                                element["name"] +
-                                "'></td><td ><input type='text' name='officer_position[]' class ='form-control' value='" +
-                                element["position"] +
-                                "'> </td> <td class = 'mt-10' > <button type='button' class='badge badge-danger' onclick='SomeDeleteRowFunction(this)'> <i class ='fa fa-trash'> </i> Delete</button> </td> </tr>";
-                            $("#opsteamlist").append(option);
-                        });
-                    } else {
-                        var option =
-                            "<tr><td ><input type='text' name='officer_name[]' class='form-control'></td><td ><input type='text' name='officer_position[]' class ='form-control'> </td> <td class = 'mt-10' > <button type='button' class='badge badge-danger' onclick='SomeDeleteRowFunction(this)'> <i class ='fa fa-trash'> </i> Delete</button> </td> </tr>";
-                        $("#opsteamlist").append(option);
-                    }
+                    data6.forEach(element => {
+                        if (element['id'] > 0) {
+                            var oplist = '<tr>' +
+                                '<td><input type="text" name="officer_name[]" class="form-control" value="' + element["name"] + '"></td>' +
+                                '<td><input type="text" name="officer_position[]" class="form-control" value="' + element["position"] + '"></td>' +
+                                '<td class="mt-10"><button type="button" class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button></td>' +
+                                '</tr>'
+                            $("#opsteamlist").append(oplist);
+                        } else {
+                            var oplist = '<tr>' +
+                                '<td><input type="text" name="officer_name[]" class="form-control"></td>' +
+                                '<td><input type="text" name="officer_position[]" class="form-control"></td>' +
+                                '<td class="mt-10"><button type="button" class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button></td>' +
+                                '</tr>'
+                            $("#opsteamlist").append(oplist);
+                        }
+                    });
+
                 }
             });
-
-
 
         }
 

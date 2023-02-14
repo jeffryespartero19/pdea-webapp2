@@ -60,6 +60,7 @@ class DrugVerificationController extends Controller
                 'b.street',
                 'o.name as identifier',
                 'p.name as suspect_sub_category',
+                'b.id as spot_id'
             )
             ->where('b.operation_lvl', 1)
             ->orWhere(function($query) {

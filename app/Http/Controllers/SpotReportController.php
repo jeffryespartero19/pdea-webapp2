@@ -1939,4 +1939,14 @@ class SpotReportController extends Controller
             return view('spot_report.spot_report_suspects', compact('suspects'))->render();
         }
     }
+
+    public function getPreopsTeam($preops_number)
+    {
+        $data = DB::table('preops_team as a')
+        ->leftjoin('preops_header as b', 'a.preops_number', '=', 'b.preops_number')
+            ->where(['b.id' => $preops_number])
+            ->get();
+
+        return json_encode($data);
+    }
 }
