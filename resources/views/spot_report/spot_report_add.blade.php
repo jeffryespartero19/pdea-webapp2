@@ -1720,7 +1720,7 @@
 
                             $.ajax({
                                 type: "GET",
-                                url: "/get_city/" + element['province_c'],
+                                url: "/get_city/" + p_province_c,
                                 fail: function() {
                                     alert("request failed");
                                 },
@@ -1786,8 +1786,7 @@
                                 }
                             });
 
-
-                        });
+                                                   });
                     }
 
 
@@ -1798,7 +1797,6 @@
             // Display Operations Team
             $("#opsteamlist").empty();
 
-            // Get Operation Team
             $.ajax({
                 type: "GET",
                 url: "/get_operation_team/" + preops_number,
@@ -1806,28 +1804,27 @@
                     alert("request failed");
                 },
                 success: function(data) {
-                    var data6 = JSON.parse(data);
+                    var data = JSON.parse(data);
 
-                    data6.forEach(element => {
-                        if (element['id'] > 0) {
-                            var oplist = '<tr>' +
-                                '<td><input type="text" name="officer_name[]" class="form-control" value="' + element["name"] + '"></td>' +
-                                '<td><input type="text" name="officer_position[]" class="form-control" value="' + element["position"] + '"></td>' +
-                                '<td class="mt-10"><button type="button" class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button></td>' +
-                                '</tr>'
-                            $("#opsteamlist").append(oplist);
-                        } else {
-                            var oplist = '<tr>' +
-                                '<td><input type="text" name="officer_name[]" class="form-control"></td>' +
-                                '<td><input type="text" name="officer_position[]" class="form-control"></td>' +
-                                '<td class="mt-10"><button type="button" class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button></td>' +
-                                '</tr>'
-                            $("#opsteamlist").append(oplist);
-                        }
-                    });
-
+                    if (data.length > 0) {
+                        data.forEach(element => {
+                            var option =
+                                "<tr><td ><input type='text' name='officer_name[]' class='form-control' value='" +
+                                element["name"] +
+                                "'></td><td ><input type='text' name='officer_position[]' class ='form-control' value='" +
+                                element["position"] +
+                                "'> </td> <td class = 'mt-10' > <button type='button' class='badge badge-danger' onclick='SomeDeleteRowFunction(this)'> <i class ='fa fa-trash'> </i> Delete</button> </td> </tr>";
+                            $("#opsteamlist").append(option);
+                        });
+                    } else {
+                        var option =
+                            "<tr><td ><input type='text' name='officer_name[]' class='form-control'></td><td ><input type='text' name='officer_position[]' class ='form-control'> </td> <td class = 'mt-10' > <button type='button' class='badge badge-danger' onclick='SomeDeleteRowFunction(this)'> <i class ='fa fa-trash'> </i> Delete</button> </td> </tr>";
+                        $("#opsteamlist").append(option);
+                    }
                 }
             });
+
+
 
         }
 

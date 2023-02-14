@@ -85,11 +85,12 @@ class GlobalController extends Controller
 
     public function getPreopsHeader($preops_number)
     {
+        // dd($preops_number);
         $data = DB::table('preops_header as a')
             ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
             ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
             ->leftjoin('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
-            ->leftjoin('region as e', 'a.region_c', '=', 'd.region_c')
+            ->leftjoin('region as e', 'a.region_c', '=', 'e.region_c')
             ->leftjoin('province as f', 'a.province_c', '=', 'f.province_c')
             ->select(
                 'a.id',
@@ -99,15 +100,17 @@ class GlobalController extends Controller
                 'a.operation_type_id',
                 'b.name as operating_unit_name',
                 'c.name as operation_type_name',
-                'validity',
+                'a.validity',
                 'd.region_c',
                 'a.province_c',
                 'a.support_unit_id',
                 'f.province_m',
                 DB::raw('DATE_FORMAT(a.operation_datetime, "%Y-%m-%dT%H:%m") as operation_datetime'),
             )
-            ->where(['a.id' => $preops_number])
+            ->where('a.id', $preops_number)
             ->get();
+
+            // dd($data);
 
         return json_encode($data);
     }
