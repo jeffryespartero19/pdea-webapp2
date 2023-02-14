@@ -114,4 +114,10 @@
     <td class="dv dv_ndis" style="white-space: nowrap"></td>
     <td class="dv dv_remarks" style="white-space: nowrap"></td>
 </tr>
+
 @endforeach
+<tr>
+    <td colspan="10" align="center">
+        {!! $issuance_of_preops->links() !!}
+    </td>
+</tr>

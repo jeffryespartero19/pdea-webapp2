@@ -470,7 +470,7 @@
                     <label for="">Search Preops Number</label>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control SearchSpot" name="q" placeholder="Search Spot Report Number"> <span class="input-group-btn">
+                    <input type="text" class="form-control Preops" name="q" placeholder="Search Preops Number"> <span class="input-group-btn">
                         <button type="button" class="btn btn-default submit_search">
                             <i class="fa fa-search"></i>
                         </button>
@@ -483,7 +483,7 @@
                     <label for="">Operation Date</label>
                 </div>
                 <div class="input-group mb-3">
-                    <input id="operation_date" name="operation_date" type="date" class="form-control @error('operation') is-invalid @enderror" value="{{ old('operation_date') }}" autocomplete="off">
+                    <input id="operation_date" name="operation_date" type="date" class="form-control @error('operation') is-invalid @enderror dateSearch" value="{{ old('operation_date') }}" autocomplete="off">
                 </div>
             </div>
             <div class="form-group col-4" style="margin: 0px;">
@@ -491,7 +491,7 @@
                     <label for="">Operation Date To</label>
                 </div>
                 <div class="input-group mb-3">
-                    <input id="operation_date_to" name="operation_date_to" type="date" class="form-control @error('operation') is-invalid @enderror" value="{{ old('operation_date_to') }}" autocomplete="off">
+                    <input id="operation_date_to" name="operation_date_to" type="date" class="form-control @error('operation') is-invalid @enderror dateSearch" value="{{ old('operation_date_to') }}" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -639,7 +639,7 @@
             <input type="hidden" name="hidden_page" id="hidden_page" value="1">
         </div>
         <!-- /.card-body -->
-        {{ $issuance_of_preops->links()}}
+       
         <div class="card-footer">
             <h6>List of all Spot Report maintenance data sorted by name.</h6>
         </div>
@@ -675,14 +675,14 @@
                 operation_date_to = 0;
             }
 
-            $.ajax({
-                url: "/report_generation_list/fetch_data?page=" + page + "&operation_date=" + operation_date + "&operation_date_to=" + operation_date_to,
-                success: function(data) {
-                    // alert('test')
-                    $('tbody').html('');
-                    $('tbody').html(data);
-                }
-            });
+            // $.ajax({
+            //     url: "/report_generation_list/fetch_data?page=" + page + "&operation_date=" + operation_date + "&operation_date_to=" + operation_date_to,
+            //     success: function(data) {
+            //         // alert('test')
+            //         $('tbody').html('');
+            //         $('tbody').html(data);
+            //     }
+            // });
 
             $(".pr_number").each(function() {
                 var preops_number = $(this).text();
@@ -1067,8 +1067,50 @@
 
         }
 
+        $(".submit_search").on("click", function() {
+            var param = $('.Preops').val();
+            var page = $('#hidden_page').val();
+            $.ajax({
+                url: "/reports_generation/search_report_list?page=" + page + "&param=" + param,
+                success: function(data) {
+                    $('tbody').html('');
+                    $('tbody').html(data);
+
+                    DataFilter();
+                }
+            });
+
+        });
+
+        $(".dateSearch").on("change", function() {
+            var param = $('.Preops').val();
+            var page = $('#hidden_page').val();
+            var param2 = $('#operation_date').val();
+            var param3 = $('#operation_date_to').val();
+
+            if (param2 == '' || param2 == null) {
+                param2 = 0;
+            }
+            if (param3 == '' || param3 == null) {
+                param3 = 0;
+            }
+
+            $.ajax({
+                url: "/reports_generation/search_report_list?page=" + page + "&param=" + param + "&param2=" + param2 + "&param3=" + param3,
+                success: function(data) {
+                    $('tbody').html('');
+                    $('tbody').html(data);
+
+                    DataFilter();
+                }
+            });
+
+        });
+
 
     });
+
+
 
 
     $('#operation_date').change(function() {

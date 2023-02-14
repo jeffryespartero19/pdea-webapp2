@@ -702,10 +702,10 @@ class GlobalController extends Controller
 
     public function search_evidence(Request $request)
     {
-        $case = DB::table('case_list as a')
-            ->where('a.description', 'LIKE', '%' . $request->input('term', '') . '%')
+        $case = DB::table('evidence as a')
+            ->where('a.name', 'LIKE', '%' . $request->input('term', '') . '%')
             ->where('a.status', 1)
-            ->get(['a.id as id', 'a.description as text']);
+            ->get(['a.id as id', 'a.name as text']);
         return ['results' => $case];
     }
 }

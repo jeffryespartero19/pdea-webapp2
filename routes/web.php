@@ -267,7 +267,7 @@ Route::group(['middleware' => 'auth'], function () {
     //Search Support Unit
     Route::get('/search_support_unit', 'GlobalController@search_support_unit')->name('search_support_unit');
     //Search Spot Report Number
-    
+
     Route::get('/ao_search_preops_number', 'AfterOperationReportController@search_preops_number');
     //Search Operation Type
     Route::get('/search_operation_type', 'GlobalController@search_operation_type')->name('search_operation_type');
@@ -286,6 +286,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/search_suspect_classification', 'GlobalController@search_suspect_classification')->name('search_suspect_classification');
     Route::get('/search_suspect_category', 'GlobalController@search_suspect_category')->name('search_suspect_category');
     Route::get('/search_suspect_sub_category', 'GlobalController@search_suspect_sub_category')->name('search_suspect_sub_category');
+    Route::get('/search_evidence', 'GlobalController@search_evidence')->name('search_evidence');
 
     //Global Controller
 
@@ -343,7 +344,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/get_preops_progress_suspect/{preops_number}', 'ReportGenerationController@getPreopsPROSuspect');
     Route::get('/get_preops_spot_suspect_listed/{preops_number}', 'ReportGenerationController@getPreopsPROSuspectListed');
     Route::get('/SPsearch_preops_number', 'SpotReportController@search_preops_number');
-    
+
+    Route::get('/reports_generation/search_report_list', 'ReportGenerationController@search_report_list');
 });
 
 

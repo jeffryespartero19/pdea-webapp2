@@ -367,4 +367,88 @@ class ReportGenerationController extends Controller
             ->get();
         return json_encode($data);
     }
+
+    public function search_report_list(Request $request)
+    {
+        $param = $request->get('param');
+        $param2 = $request->get('param2');
+        $param3 = $request->get('param3');
+
+
+
+        if (Auth::user()->user_level_id == 2) {
+            $issuance_of_preops = DB::table('preops_header as a')
+                ->leftjoin('regional_office as b', 'a.ro_code', '=', 'b.ro_code')
+                ->leftjoin('province as c', 'a.province_c', '=', 'c.province_c')
+                ->leftjoin('operation_type as d', 'a.operation_type_id', '=', 'd.id')
+                ->leftjoin('operating_unit as e', 'a.operating_unit_id', '=', 'e.id')
+                ->leftjoin('negative_reason as h', 'a.negative_reason_id', '=', 'h.id')
+                ->select(
+                    'b.name as region',
+                    'a.preops_number',
+                    'c.province_m',
+                    'd.id as d_operation_type_id',
+                    'd.name as operation_type',
+                    'e.id as e_operating_unit_id',
+                    'e.name as operating_unit',
+                    // 'g.name as support_unit',
+                    'a.coordinated_datetime',
+                    'a.operation_datetime',
+                    'a.validity',
+                    'a.prepared_by',
+                    'a.result',
+                    'h.name as negative_reason',
+                    'a.received_date'
+                );
+
+
+            if ($param != 0) {
+                $issuance_of_preops->where('a.preops_number', 'LIKE', '%' . $param . '%');
+            }
+            if ($param2 != 0) {
+                $issuance_of_preops->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '<=', $request->get('param2'));
+            }
+            if ($param3 != 0) {
+                $issuance_of_preops->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '<=', $request->get('param3'));
+            }
+            $issuance_of_preops = $issuance_of_preops->orderby('a.id', 'desc')->paginate(10);
+        } else {
+            $issuance_of_preops = DB::table('preops_header as a')
+                ->leftjoin('regional_office as b', 'a.ro_code', '=', 'b.ro_code')
+                ->leftjoin('province as c', 'a.province_c', '=', 'c.province_c')
+                ->leftjoin('operation_type as d', 'a.operation_type_id', '=', 'd.id')
+                ->leftjoin('operating_unit as e', 'a.operating_unit_id', '=', 'e.id')
+                ->leftjoin('negative_reason as h', 'a.negative_reason_id', '=', 'h.id')
+                ->select(
+                    'b.name as region',
+                    'a.preops_number',
+                    'c.province_m',
+                    'd.id as d_operation_type_id',
+                    'd.name as operation_type',
+                    'e.id as e_operating_unit_id',
+                    'e.name as operating_unit',
+                    // 'g.name as support_unit',
+                    'a.coordinated_datetime',
+                    'a.operation_datetime',
+                    'a.validity',
+                    'a.prepared_by',
+                    'a.result',
+                    'h.name as negative_reason',
+                    'a.received_date'
+                )
+                ->where('b.id', Auth::user()->regional_office_id);
+
+            if ($param != 0) {
+                $issuance_of_preops->where('a.preops_number', 'LIKE', '%' . $param . '%');
+            }
+            if ($param2 != 0) {
+                $issuance_of_preops->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '<=', $request->get('param2'));
+            }
+            if ($param3 != 0) {
+                $issuance_of_preops->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '<=', $request->get('param3'));
+            }
+            $issuance_of_preops = $issuance_of_preops->orderby('a.id', 'desc')->paginate(10);
+        }
+        return view('report_generation.report_generation_data', compact('issuance_of_preops'))->render();
+    }
 }

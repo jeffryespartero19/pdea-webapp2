@@ -1763,6 +1763,14 @@
                 dataType: "json",
             }
         });
+
+        $(".evidenceSLCT").select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '/search_evidence',
+                dataType: "json",
+            }
+        });
     }
 </script>
 

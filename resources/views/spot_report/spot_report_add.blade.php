@@ -1651,6 +1651,10 @@
                     var data = JSON.parse(data);
                     if (data.length != 0) {
                         data.forEach(element => {
+
+                            var p_province_c = element['province_c']
+                            var region_c = element['region_c'];
+
                             // alert(element["operation_type_id"]);
                             var operation_type = " <option value='" +
                                 element["operation_type_id"] +
@@ -1675,9 +1679,7 @@
 
                             $('#operation_datetime')[0].min = date;
 
-                            var p_province_c = element['province_c']
 
-                            var region_c = element['region_c'];
 
                             // alert(region_c);
                             $.ajax({
