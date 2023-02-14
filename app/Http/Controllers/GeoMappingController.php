@@ -594,22 +594,36 @@ class GeoMappingController extends Controller
             } else {
                 foreach ($ops_details as $key => $opd) {
 
+                    if($ops_details_area2[$key]->city_c == null || $ops_details_area2[$key]->city_c==0){
+
+                        $city_find="---";
+                    }else{
+                        $city_find=$ops_details_area2[$key]->city_c;
+                    }
+
+                    if($ops_details_area2[$key]->barangay_c== null || $ops_details_area2[$key]->barangay_c==0){
+
+                        $brgy_find="---";
+                    }else{
+                        $brgy_find=$ops_details_area2[$key]->barangay_c;
+                    }
+
                     $regionX = DB::table('region')->where('region_c', $ops_details_area2[$key]->region_c)->pluck('region_m');
                     array_push($region, $regionX[0]);
                     $provinceX = DB::table('province')->where('province_c', $ops_details_area2[$key]->province_c)->pluck('province_m');
                     array_push($province, $provinceX[0]);
-                    $cityX = DB::table('city')->where('city_c', $ops_details_area2[$key]->city_c)->pluck('city_m');
+                    $cityX = DB::table('city')->where('city_c', $city_find)->pluck('city_m');
                     array_push($city, $cityX[0]);
-                    $brgyX = DB::table('barangay')->where('barangay_c', $ops_details_area2[$key]->barangay_c)->pluck('barangay_m');
-                    if ($ops_details_area2[$key]->barangay_c) {
+                    $brgyX = DB::table('barangay')->where('barangay_c', $brgy_find)->pluck('barangay_m');
+                    if ($brgy_find !="---") {
                         array_push($brgy, $brgyX[0]);
                     } else {
                         array_push($brgy, "---");
                     }
 
-                    $cityX2 = $ops_details_area2[$key]->city_c;
+                    $cityX2 = $city_find;
                     array_push($city2, $cityX2);
-                    $brgyX2 = $ops_details_area2[$key]->barangay_c;
+                    $brgyX2 = $brgy_find;
                     array_push($brgy2, $brgyX2);
                 }
                 foreach ($ops_details2 as $key => $opd2) {
@@ -743,22 +757,36 @@ class GeoMappingController extends Controller
             } else {
                 foreach ($ops_details as $key => $opd) {
 
+                    if($ops_details_area2[$key]->city_c == null || $ops_details_area2[$key]->city_c==0){
+
+                        $city_find="---";
+                    }else{
+                        $city_find=$ops_details_area2[$key]->city_c;
+                    }
+
+                    if($ops_details_area2[$key]->barangay_c== null || $ops_details_area2[$key]->barangay_c==0){
+
+                        $brgy_find="---";
+                    }else{
+                        $brgy_find=$ops_details_area2[$key]->barangay_c;
+                    }
+
                     $regionX = DB::table('region')->where('region_c', $ops_details_area2[$key]->region_c)->pluck('region_m');
                     array_push($region, $regionX[0]);
                     $provinceX = DB::table('province')->where('province_c', $ops_details_area2[$key]->province_c)->pluck('province_m');
                     array_push($province, $provinceX[0]);
-                    $cityX = DB::table('city')->where('city_c', $ops_details_area2[$key]->city_c)->pluck('city_m');
+                    $cityX = DB::table('city')->where('city_c', $city_find)->pluck('city_m');
                     array_push($city, $cityX[0]);
-                    $brgyX = DB::table('barangay')->where('barangay_c', $ops_details_area2[$key]->barangay_c)->pluck('barangay_m');
-                    if ($ops_details_area2[$key]->barangay_c) {
+                    $brgyX = DB::table('barangay')->where('barangay_c', $brgy_find)->pluck('barangay_m');
+                    if ($brgy_find !="---") {
                         array_push($brgy, $brgyX[0]);
                     } else {
                         array_push($brgy, "---");
                     }
 
-                    $cityX2 = $ops_details_area2[$key]->city_c;
+                    $cityX2 = $city_find;
                     array_push($city2, $cityX2);
-                    $brgyX2 = $ops_details_area2[$key]->barangay_c;
+                    $brgyX2 = $brgy_find;
                     array_push($brgy2, $brgyX2);
                 }
                 foreach ($ops_details2 as $key => $opd2) {
@@ -894,23 +922,38 @@ class GeoMappingController extends Controller
                 $brgy = ['---'];
             } else {
                 foreach ($ops_details as $key => $opd) {
+
+                    if($ops_details_area2[$key]->city_c == null || $ops_details_area2[$key]->city_c==0){
+
+                        $city_find="---";
+                    }else{
+                        $city_find=$ops_details_area2[$key]->city_c;
+                    }
+
+                    if($ops_details_area2[$key]->barangay_c== null || $ops_details_area2[$key]->barangay_c==0){
+
+                        $brgy_find="---";
+                    }else{
+                        $brgy_find=$ops_details_area2[$key]->barangay_c;
+                    }
                     
                     $regionX = DB::table('region')->where('region_c', $ops_details_area2[$key]->region_c)->pluck('region_m');
                     array_push($region, $regionX[0]);
                     $provinceX = DB::table('province')->where('province_c', $ops_details_area2[$key]->province_c)->pluck('province_m');
                     array_push($province, $provinceX[0]);
-                    $cityX = DB::table('city')->where('city_c', $ops_details_area2[$key]->city_c)->pluck('city_m');
+                    $cityX = DB::table('city')->where('city_c', $city_find)->pluck('city_m');
                     array_push($city, $cityX[0]);
-                    $brgyX = DB::table('barangay')->where('barangay_c', $ops_details_area2[$key]->barangay_c)->pluck('barangay_m');
-                    if ($ops_details_area2[$key]->barangay_c) {
+                    $brgyX = DB::table('barangay')->where('barangay_c', $brgy_find)->pluck('barangay_m');
+                    //dd($brgyX ,$brgy_find);
+                    if ($brgy_find !="---") {
                         array_push($brgy, $brgyX[0]);
                     } else {
                         array_push($brgy, "---");
                     }
                     
-                    $cityX2 = $ops_details_area2[$key]->city_c;
+                    $cityX2 = $city_find;
                     array_push($city2, $cityX2);
-                    $brgyX2 = $ops_details_area2[$key]->barangay_c;
+                    $brgyX2 = $brgy_find;
                     array_push($brgy2, $brgyX2);
                 }
                 foreach ($ops_details2 as $key => $opd2) {
