@@ -359,6 +359,9 @@ Route::get('/', 'WelcomeController@index')->name('welcome');
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/register', function () {
+    return redirect('/');
+});
 
 // Route::get('chat_list', 'ChatController@chat_list')->name('chat_list');
 
