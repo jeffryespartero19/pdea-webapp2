@@ -70,18 +70,27 @@
     </div>
     <div style="border:solid;" align="center"><span style="font-size:20px">PROGRESS REPORT</span></div>
     <br>
-    <span style="margin-right:39px; margin-left:33px">Date Reported:</span><span>{{$reported_date}}</span>
-    <br>
-    <span style="margin-right:23px; margin-left:33px;">Reporting Office:</span><span style="font-weight:bold">{{$regional_office[0]->name}}</span>
-    <br>
-    <br>
-    <span style="margin-right:23px; margin-left:33px">Pre-Ops Number:</span><span style="font-weight:bold">{{$spot_report[0]->preops_number}}</span>
-    <span style="margin-right:8px; margin-left:120px">Date/Time of OPN:</span><span style="font-weight:bold">{{$operation_datetime}}</span>
-    <br>
-    <span style="margin-right:68px; margin-left:33px">Lead Unit:</span><span style="font-weight:bold">{{$operating_unit[0]->name}}</span>
-    <br>
-    <span style="margin-right:14px; margin-left:33px">Type of Operation:</span><span style="font-weight:bold">{{$operation_type[0]->name}}</span>
-    <br>
+    <table width="100%" style="border-collapse: collapse; border: 0px;">
+        <tr style="border:none;">
+            <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:39px; margin-left:33px">Date Reported:</span><span class="arial" style="font-weight:bold">{{$reported_date}}</span></td>
+        </tr>
+        <tr style="border:none;">
+            <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:28px; margin-left:33px;">Reporting Office:</span><span class="arial" style="font-weight:bold">{{$regional_office[0]->name}}</span></td>
+        </tr>
+        <tr style="border:none;">
+            <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:23px; margin-left:33px">Pre-Ops Number:</span><span class="arial" style="font-weight:bold">{{$spot_report[0]->preops_number}}</span></td>
+        </tr>
+        <tr style="border:none;">
+            <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:13px; margin-left:33px">Date/Time of OPN:</span><span class="arial" style="font-weight:bold">{{$operation_datetime}}</span></td>
+        </tr>
+        </tr>
+        <tr style="border:none;">
+            <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:72px; margin-left:33px">Lead Unit:</span><span class="arial" style="font-weight:bold">{{$operating_unit[0]->name}}</span></td>
+        </tr>
+        <tr style="border:none;">
+            <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:17px; margin-left:33px">Type of Operation:</span><span class="arial" style="font-weight:bold">{{$operation_type[0]->name}}</span></td>
+        </tr>
+    </table>
     <br>
     <table width="100%" style="border-collapse: collapse; border: 0px;">
         <tr style="border: 1px solid;">

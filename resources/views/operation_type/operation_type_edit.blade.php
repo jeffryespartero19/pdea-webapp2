@@ -49,19 +49,6 @@
                 @method('PATCH')
                 <div class="form-group">
                     <div>
-                        <label for="">Operation Classification</label>
-                    </div>
-                    <div class="input-group mb-3">
-                        <select id="operation_classification_id" name="operation_classification_id" class="form-control" style="width: 200px;" required>
-                            <option value='' disabled selected>Select Option</option>
-                            @foreach($operation_classification as $oc)
-                            <option value="{{ $oc->id }}" {{ $oc->id == $operation_type[0]->operation_classification_id ? 'selected' : '' }}>{{ $oc->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div>
                         <label for="">Operation Category</label>
                     </div>
                     <div class="input-group mb-3">
@@ -124,7 +111,7 @@
 <script>
     $(document).on("change", "#operation_classification_id", function() {
 
-   
+
 
         $operation_classification_id = $('#operation_classification_id').val();
 

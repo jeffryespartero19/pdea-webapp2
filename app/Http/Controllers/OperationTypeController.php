@@ -23,16 +23,16 @@ class OperationTypeController extends Controller
     public function index()
     {
         $data = OperationType::all();
-        $operation_classification = DB::table('operation_classification')->where('status', true)->orderby('name', 'asc')->get();
+        $operation_category = DB::table('operation_category')->where('status', true)->orderby('name', 'asc')->get();
 
-        return view('operation_type.operation_type_list', compact('data', 'operation_classification'));
+        return view('operation_type.operation_type_list', compact('data', 'operation_category'));
     }
 
     public function add()
     {
-        $operation_classification = DB::table('operation_classification')->where('status', true)->orderby('name', 'asc')->get();
+        $operation_category = DB::table('operation_category')->where('status', true)->orderby('name', 'asc')->get();
 
-        return view('operation_type.operation_type_add', compact('operation_classification'));
+        return view('operation_type.operation_type_add', compact('operation_category'));
     }
 
     public function store(Request $request)
@@ -42,7 +42,7 @@ class OperationTypeController extends Controller
         ]);
 
         $form_data = array(
-            'operation_classification_id' => $request->operation_classification_id,
+            'operation_classification_id' => 0,
             'name' => $request->name,
             'status' => $request->has('status') ? true : false,
             'is_warrant' => $request->has('is_warrant') ? true : false,
@@ -71,10 +71,10 @@ class OperationTypeController extends Controller
     public function edit($id)
     {
         $operation_type = DB::table('operation_type')->where('id', $id)->get();
-        $operation_classification = DB::table('operation_classification')->where('status', true)->orderby('name', 'asc')->get();
+        // $operation_classification = DB::table('operation_classification')->where('status', true)->orderby('name', 'asc')->get();
         $operation_category  = DB::table('operation_category')->where('status', true)->orderby('name', 'asc')->get();
 
-        return view('operation_type.operation_type_edit', compact('operation_type', 'operation_classification', 'operation_category'));
+        return view('operation_type.operation_type_edit', compact('operation_type', 'operation_category'));
     }
 
     public function update(Request $request, $id)
@@ -84,7 +84,7 @@ class OperationTypeController extends Controller
         ]);
 
         $pos_data = array(
-            'operation_classification_id' => $request->operation_classification_id,
+            'operation_classification_id' => 0,
             'name' =>  $request->name,
             'status' => $request->has('status') ? true : false,
             'is_warrant' => $request->has('is_warrant') ? true : false,

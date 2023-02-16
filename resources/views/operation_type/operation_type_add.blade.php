@@ -48,25 +48,14 @@
                 @csrf
                 <div class="form-group">
                     <div>
-                        <label for="">Operation Classification</label>
-                    </div>
-                    <div class="input-group mb-3">
-                        <select id="operation_classification_id" name="operation_classification_id" class="form-control" style="width: 200px;" required>
-                            <option value='' disabled selected>Select Option</option>
-                            @foreach($operation_classification as $oc)
-                            <option value="{{ $oc->id }}">{{ $oc->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div>
                         <label for="">Operation Category</label>
                     </div>
                     <div class="input-group mb-3">
                         <select id="operation_category_id" name="operation_category_id" class="form-control" style="width: 200px;" required>
                             <option value='' disabled selected>Select Option</option>
-
+                            @foreach($operation_category as $oc)
+                            <option value="{{ $oc->id }}">{{ $oc->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -121,7 +110,7 @@
 <script>
     $(document).on("change", "#operation_classification_id", function() {
 
-   
+
 
         $operation_classification_id = $('#operation_classification_id').val();
 

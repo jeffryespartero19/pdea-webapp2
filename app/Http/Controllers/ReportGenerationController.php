@@ -49,7 +49,7 @@ class ReportGenerationController extends Controller
                     'a.received_date'
                 )
                 ->orderby('a.id', 'desc')
-                ->paginate(10);
+                                ->paginate(10);
 
             return view('report_generation.report_generation_list', compact(
                 'region',
@@ -227,6 +227,7 @@ class ReportGenerationController extends Controller
             ->where('o.preops_number', $preops_number)
             ->orderby('a.lastname', 'asc')
             ->get();
+            
         return json_encode($data);
     }
 

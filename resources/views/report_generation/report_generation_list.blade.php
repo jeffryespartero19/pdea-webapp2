@@ -639,7 +639,7 @@
             <input type="hidden" name="hidden_page" id="hidden_page" value="1">
         </div>
         <!-- /.card-body -->
-       
+
         <div class="card-footer">
             <h6>List of all Spot Report maintenance data sorted by name.</h6>
         </div>
@@ -842,7 +842,8 @@
                         var data = JSON.parse(data);
 
                         if (data.length > 0) {
-                            data.forEach(element => {
+                            data.for(element => {
+                                alert('test');
                                 $($row.find("td:eq(28)")).append(element["suspect_number"] + '<br>');
                                 $($row.find("td:eq(29)")).append(element["suspect_status"] + '<br>');
                                 $($row.find("td:eq(30)")).append(element["lastname"] + '<br>');
@@ -975,8 +976,6 @@
                                 $($row.find("td:eq(62)")).append(element["unit_measure"] + '<br>');
                                 $($row.find("td:eq(63)")).append(element["packaging"] + '<br>');
                                 $($row.find("td:eq(64)")).append(element["markings"] + '<br>');
-                                $($row.find("td:eq(59)")).append(element["drug"] + '<br>');
-
                                 $($row.find("td:eq(76)")).append(element["evidence"] + '<br>');
                                 $($row.find("td:eq(77)")).append(element["qty_onsite"] + '<br>');
                                 $($row.find("td:eq(78)")).append(element["actual_qty"] + '<br>');
@@ -1107,6 +1106,7 @@
 
         });
 
+        DataFilter();
 
     });
 

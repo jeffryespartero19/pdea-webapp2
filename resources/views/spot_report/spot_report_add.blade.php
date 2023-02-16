@@ -1618,8 +1618,8 @@
         if (preops_number == 1) {
 
             $("#operation_type_id").removeClass("disabled_field");
-            $("#region_c").removeClass("disabled_field");
-            $("#province_c").removeClass("disabled_field");
+            // $("#region_c").removeClass("disabled_field");
+            // $("#province_c").removeClass("disabled_field");
             // $("#operation_datetime").removeClass("disabled_field");
             $("#operating_unit_id").prop("disabled", false);
             $("#support_unit_id").prop("disabled", false);
@@ -1631,8 +1631,8 @@
         } else {
 
             $("#operation_type_id").addClass("disabled_field");
-            $("#region_c").addClass("disabled_field");
-            $("#province_c").addClass("disabled_field");
+            // $("#region_c").addClass("disabled_field");
+            // $("#province_c").addClass("disabled_field");
             // $("#operation_datetime").addClass("disabled_field");
             $("#operating_unit_id").addClass("disabled_field");
             $("#support_unit_id").addClass("disabled_field");
@@ -1714,34 +1714,35 @@
                                     } else {
                                         $("#province_c").removeClass("disabled_field");
                                     }
-                                }
-                            });
 
+                                    $.ajax({
+                                        type: "GET",
+                                        url: "/get_city/" + p_province_c,
+                                        fail: function() {
+                                            alert("request failed");
+                                        },
+                                        success: function(data) {
+                                            var data3 = JSON.parse(data);
 
-                            $.ajax({
-                                type: "GET",
-                                url: "/get_city/" + p_province_c,
-                                fail: function() {
-                                    alert("request failed");
-                                },
-                                success: function(data) {
-                                    var data3 = JSON.parse(data);
+                                            $('#city_c').empty();
+                                            $('#barangay_c').empty();
+                                            var option1 = " <option value='' selected>Select Option</option>";
+                                            $("#city_c").append(option1);
 
-                                    $('#city_c').empty();
-                                    $('#barangay_c').empty();
-                                    var option1 = " <option value='' selected>Select Option</option>";
-                                    $("#city_c").append(option1);
-
-                                    data3.forEach(element => {
-                                        var option = " <option value='" +
-                                            element["city_c"] +
-                                            "'>" +
-                                            element["city_m"] +
-                                            "</option>";
-                                        $("#city_c").append(option);
+                                            data3.forEach(element => {
+                                                var option = " <option value='" +
+                                                    element["city_c"] +
+                                                    "'>" +
+                                                    element["city_m"] +
+                                                    "</option>";
+                                                $("#city_c").append(option);
+                                            });
+                                        }
                                     });
                                 }
                             });
+
+
 
                             $.ajax({
                                 type: "GET",
