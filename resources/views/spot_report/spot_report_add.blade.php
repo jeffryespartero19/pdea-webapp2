@@ -245,8 +245,8 @@
                                                 <table id="suspect" class="table table-hover text-nowrap">
                                                     <thead>
                                                         <tr>
-                                                            <th colspan="14" style="background-color: lightgreen; text-align:center">Operational Details</th>
-                                                            <th colspan="13" style="background-color: pink; text-align:center">Personal Background</th>
+                                                            <th colspan="6" style="background-color: lightgreen; text-align:center">Suspect Details</th>
+                                                            <th colspan="20" style="background-color: pink; text-align:center">Personal Background</th>
                                                             <th colspan="6" style="background-color: lightyellow; text-align:center">Other Information</th>
                                                         </tr>
                                                         <tr>
@@ -692,6 +692,167 @@
 
 </section>
 <!-- /.content -->
+
+<!-- Suspect Add -->
+<div class="AddSusHidden" hidden>
+    <tr class="suspect_details suspect_detailsHIDDEN">
+        <td hidden><input type="number" name="spot_suspect_id[]" class="form-control"></td>
+        <td><input type="text" name="suspect_number[]" style="width: 200px;" class="form-control" value="1" hidden>
+            <div type="text" style="width: 200px;" class="form-control disabled_field">Auto Generated</div>
+        </td>
+        <td>
+            <select name="suspect_status_id[]" class="form-control suspect_status_id" style="width: 200px;">
+                <option value='' selected>Select Option</option>
+                @foreach ($suspect_status as $sstat)
+                <option value="{{ $sstat->id }}">
+                    {{ $sstat->name }}
+                </option>
+                @endforeach
+            </select>
+        </td>
+        <td><input type="text" name="lastname[]" style="width: 200px;" class="form-control change_control cc1">
+        </td>
+        <td><input type="text" name="firstname[]" style="width: 200px;" class="form-control change_control cc2">
+        </td>
+        <td><input type="text" name="middlename[]" style="width: 200px;" class="form-control change_control cc3">
+        </td>
+        <td><input type="text" name="alias[]" style="width: 200px;" class="form-control change_control cc4">
+        </td>
+        <td><input type="date" name="birthdate[]" style="width: 200px;" class="form-control change_control cc5">
+        </td>
+        <td>
+            <select name="est_birthdate[]" class="form-control" style="width: 200px;">
+                <option value="0">No
+                </option>
+                <option value="1">Yes
+                </option>
+            </select>
+        </td>
+        <td><input type="text" name="birthplace[]" style="width: 200px;" class="form-control">
+        </td>
+        <td>
+            <select name="present_region_c[]" class="form-control present_region_c" style="width: 200px;">
+                <option value='' selected>Select Option</option>
+                @foreach ($region as $rg)
+                <option value="{{ $rg->region_c }}">
+                    {{ $rg->abbreviation }} -
+                    {{ $rg->region_m }}
+                </option>
+                @endforeach
+            </select>
+        </td>
+        <td>
+            <select name="present_province_c[]" class="form-control present_province_c" style="width: 200px;">
+                <option value='' selected>Select Option</option>
+            </select>
+        </td>
+        <td>
+            <select name="present_city_c[]" class="form-control present_city_c" style="width: 200px;">
+                <option value='' selected>Select Option</option>
+            </select>
+        </td>
+        <td>
+            <select name="present_barangay_c[]" class="form-control present_barangay_c" style="width: 200px;">
+                <option value='' selected>Select Option</option>
+            </select>
+        </td>
+        <td><input type="text" name="present_street[]" style="width: 200px;" class="form-control">
+        </td>
+        <td>
+            <select name="permanent_region_c[]" class="form-control permanent_region_c" style="width: 200px;">
+                <option value='' selected>Select Option</option>
+                @foreach ($region as $rg)
+                <option value="{{ $rg->region_c }}">
+                    {{ $rg->abbreviation }} -
+                    {{ $rg->region_m }}
+                </option>
+                @endforeach
+            </select>
+        </td>
+        <td>
+            <select name="permanent_province_c[]" class="form-control permanent_province_c" style="width: 200px;">
+                <option value='' selected>Select Option</option>
+            </select>
+        </td>
+        <td>
+            <select name="permanent_city_c[]" class="form-control permanent_city_c" style="width: 200px;">
+                <option value='' selected>Select Option</option>
+            </select>
+        </td>
+        <td>
+            <select name="permanent_barangay_c[]" class="form-control permanent_barangay_c" style="width: 200px;">
+                <option value='' selected>Select Option</option>
+            </select>
+        </td>
+        <td><input type="text" name="permanent_street[]" style="width: 200px;" class="form-control">
+        </td>
+        <td>
+            <select name="gender[]" class="form-control" style="width: 200px;">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </td>
+        <td>
+            <select name="civil_status_id[]" class="form-control CivilStatusSearch" style="width: 200px;">
+                <option value='' selected>Select Option</option>
+            </select>
+        </td>
+        <td>
+            <select name="nationality_id[]" class="form-control NationalitySearch" style="width: 200px;">
+                <option value='' selected>Select Option</option>
+            </select>
+        </td>
+        <td>
+            <select name="ethnic_group_id[]" class="form-control EthnicGroupSearch" style="width: 200px;">
+                <option value='' selected>Select Option</option>
+            </select>
+        </td>
+        <td>
+            <select name="religion_id[]" class="form-control ReligionSearch" style="width: 200px;">
+                <option value='' selected>Select Option</option>
+            </select>
+        </td>
+        <td>
+            <select name="educational_attainment_id[]" class="form-control EducationSearch" style="width: 200px;">
+                <option value='' selected>Select Option</option>
+            </select>
+        </td>
+        <td>
+            <select name="occupation_id[]" class="form-control OccupationSearch" style="width: 200px;">
+                <option value='' selected>Select Option</option>
+            </select>
+        </td>
+        <td>
+            <select name="identifier_id[]" class="form-control IdentifierSearch" style="width: 200px;">
+                <option value='' selected>Select Option</option>
+            </select>
+        </td>
+        <td>
+            <select name="suspect_classification_id[]" class="form-control suspect_classification_id SuspectClassificationSearch" style="width: 200px;">
+                <option value='' selected>Select Option</option>
+            </select>
+        </td>
+        <td>
+            <select name="suspect_category_id[]" class="form-control suspect_category_id SuspectCategorySearch" style="width: 200px;">
+                <option value='' selected>Select Option</option>
+            </select>
+        </td>
+        <td>
+            <select name="suspect_sub_category_id[]" class="form-control SuspectSubCategorySearch" style="width: 200px;">
+                <option value='' selected>Select Option</option>
+            </select>
+        </td>
+        <td><input type="text" name="whereabouts[]" style="width: 200px;" class="form-control"></td>
+        <td><input type="text" name="remarks[]" style="width: 200px;" class="form-control"></td>
+        <td style="text-align: center; padding: 10px"><input name="active" type="checkbox" style="pointer-events: none;"></td>
+        <td><input type="text" style="width: 200px;" class="form-control" value="" disabled></td>
+        <td class="mt-10"><button type="button" class="badge badge-danger delRow"><i class="fa fa-trash"></i> Delete</button>
+        </td>
+    </tr>
+    <!-- Suspect Add ENd -->
+</div>
+
+
 
 <!-- Set menu to collapse and active -->
 @endsection
@@ -1385,7 +1546,7 @@
 
     //Add Support Unit
     function addSuspect() {
-        var row = $(".suspect_details:last");
+        var row = $(".AddSusHidden").find(".suspect_details");
         row.find(".select2").each(function(index) {
             $("select.select2-hidden-accessible").select2('destroy');
         });
@@ -1399,7 +1560,9 @@
         });
 
         var newrow = row.clone();
+        newrow.find('input').val();
         $("#suspect_informations").append(newrow);
+        $("#suspect_informations .suspect_details:last").removeClass('suspect_detailsHIDDEN');
 
         loadSelect2();
     }

@@ -22,7 +22,8 @@ class BarangayController extends Controller
 
     public function index()
     {
-        $data = Barangay::all();
+        $data = DB::table('barangay')
+            ->paginate(20);
 
         return view('barangay.barangay_list', compact('data'));
     }
