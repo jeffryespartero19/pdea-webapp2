@@ -59,6 +59,7 @@ class IssuanceOfPreopsController extends Controller
     public function fetch_data(Request $request)
     {
         if ($request->ajax()) {
+            dd('test');
             $data = DB::table('preops_header as a')
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')

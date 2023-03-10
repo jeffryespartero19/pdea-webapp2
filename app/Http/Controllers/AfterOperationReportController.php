@@ -80,7 +80,7 @@ class AfterOperationReportController extends Controller
                 $data->where(DB::raw("(DATE_FORMAT(a.operation_datetime,'%Y-%m-%d'))"), '<=', $request->get('operation_date_to'));
             }
 
-            $data = $data ->orderby('a.id', 'desc')->paginate(20);
+            $data = $data->orderby('a.id', 'desc')->paginate(20);
 
             return view('after_operation_report.after_operation_data', compact('data'))->render();
         }
@@ -436,12 +436,12 @@ class AfterOperationReportController extends Controller
                 ->get();
         } else {
             $preops_number = DB::table('preops_header as a')
-                ->leftjoin('regional_office as d', 'a.region_c', '=', 'd.region_c')
+                ->leftjoin('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
                 ->select('a.id', 'a.preops_number as text')
                 ->where('a.preops_number', 'LIKE', '%' . $request->input('term', '') . '%')
                 ->where('d.id', Auth::user()->regional_office_id)
-                ->where('with_aor', 0)
-                ->where('with_sr', 0)
+                ->where('a.with_sr', 0)
+                ->where('a.with_aor', 0)
                 ->orderby('a.id', 'desc')
                 ->get();
         }
