@@ -24,14 +24,14 @@
     <div class="card card-success">
         <div class="card-body">
             <div class="row">
-                <div class="input-group col-md-6">
+                <div class="input-group col-md-4">
                     <input type="text" class="form-control SearchData" name="q" placeholder="Search Barangay"> <span class="input-group-btn">
                         <button type="button" class="btn btn-default submit_search">
                             <i class="fa fa-search"></i>
                         </button>
                     </span>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <a href="{{ route('barangay_add') }}" class="btn btn-info" style="float: right;">Add Barangay</a>
                     <!-- <button class="btn btn-danger" onClick="window.location.reload();" style="float: right; margin-right:10px">Reset Filter</button> -->
                 </div>
