@@ -461,3 +461,6 @@ Route::get('search_suspect', 'SuspectInformationController@search_suspect');
 Route::get('search_spot_report', 'SpotReportController@search_spot_report');
 Route::get('search_preops', 'IssuanceOfPreopsController@search_preops');
 Route::get('search_files', 'FileUploadsController@search_files');
+
+// Search Barangay List
+Route::get('/barangay_list/search_barangay_list', 'BarangayController@search_barangay_list');

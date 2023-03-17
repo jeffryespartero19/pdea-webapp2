@@ -22,7 +22,18 @@ class BarangayController extends Controller
 
     public function index()
     {
-        $data = DB::table('barangay')
+        $data = DB::table('barangay as a')
+            ->leftjoin('city as b', 'a.city_c', '=', 'b.city_c')
+            ->select(
+                'a.id',
+                'a.barangay_c',
+                'a.barangay_m',
+                'a.status',
+                'b.city_m',
+                'b.city_c',
+
+            )
+            ->orderby('a.id', 'asc')
             ->paginate(20);
 
         return view('barangay.barangay_list', compact('data'));
@@ -30,9 +41,9 @@ class BarangayController extends Controller
 
     public function add()
     {
-        $city = DB::table('city')->orderby('city_m', 'asc')->get();
+        $region = DB::table('region')->orderby('region_m', 'asc')->get();
 
-        return view('barangay.barangay_add', compact('city'));
+        return view('barangay.barangay_add', compact('region'));
     }
 
     public function store(Request $request)
@@ -68,10 +79,26 @@ class BarangayController extends Controller
 
     public function edit($id)
     {
-        $barangay = DB::table('barangay')->where('id', $id)->get();
-        $city = DB::table('city')->orderby('city_m', 'asc')->get();
+        $barangay = DB::table('barangay as a')
+            ->leftjoin('city as b', 'a.city_c', '=', 'b.city_c')
+            ->leftjoin('province as c', 'b.province_c', '=', 'c.province_c')
+            ->leftjoin('region as d', 'c.region_c', '=', 'd.region_c')
+            ->select(
+                'a.id',
+                'a.barangay_c',
+                'a.barangay_m',
+                'a.status',
+                'b.city_m',
+                'c.province_m',
+                'b.city_c',
+                'c.province_c',
+                'c.region_c',
 
-        return view('barangay.barangay_edit', compact('barangay', 'city'));
+            )
+            ->where('a.id', $id)->get();
+        $region = DB::table('region')->orderby('region_m', 'asc')->get();
+
+        return view('barangay.barangay_edit', compact('barangay', 'region'));
     }
 
     public function update(Request $request, $id)
@@ -104,5 +131,27 @@ class BarangayController extends Controller
         Audit::create($data_audit);
 
         return back()->with('success', 'You have successfully updated barangay!');
+    }
+
+    public function search_barangay_list(Request $request)
+    {
+        $param = $request->get('param');
+
+        $data = DB::table('barangay as a')
+            ->leftjoin('city as b', 'a.city_c', '=', 'b.city_c')
+            ->select(
+                'a.id',
+                'a.barangay_c',
+                'a.barangay_m',
+                'a.status',
+                'b.city_m',
+                'b.city_c',
+            )
+            ->where('a.barangay_m', 'LIKE', '%' . $param . '%')
+            ->orWhere('a.barangay_c', 'LIKE', '%' . $param . '%')
+            ->orderby('a.id', 'asc')
+            ->paginate(20);
+
+        return view('barangay.barangay_list_data', compact('data'))->render();
     }
 }

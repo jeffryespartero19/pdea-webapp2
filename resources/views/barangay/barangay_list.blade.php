@@ -21,43 +21,38 @@
 
 <!-- Main content -->
 <section class="content">
-    <!-- Default box -->
     <div class="card card-success">
-        <div class="ml-4 mt-4">
-            <a href="{{ route('barangay_add') }}" class="btn btn-info">Add Barangay</a>
-        </div>
         <div class="card-body">
-            <div class="card">
-                <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>Code</th>
-                                <th>Barangay</th>
-                                <th>Province</th>
-                                <th>Active</th>
-                                <th>Edit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($data as $barangay)
-                            <tr>
-                                <th>{{ $barangay->barangay_c }}</th>
-                                <th>{{ $barangay->barangay_m }}</th>
-                                <th>{{ $barangay->city_c }}</th>
-                                <td><b>{{ $barangay->status == 1 ? 'YES' : 'NO' }}</b></td>
-                                <td>
-                                    <center>
-                                        <a href="{{ url('barangay_edit/'.$barangay->id) }}" class="btn btn-info">Edit</a>
-                                    </center>
-                                </td>
-                            </tr>
-                            @endforeach
-                    </table>
+            <div class="row">
+                <div class="input-group col-md-6">
+                    <input type="text" class="form-control SearchData" name="q" placeholder="Search Barangay"> <span class="input-group-btn">
+                        <button type="button" class="btn btn-default submit_search">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
                 </div>
-                <!-- /.card-body -->
+                <div class="col-md-6">
+                    <a href="{{ route('barangay_add') }}" class="btn btn-info" style="float: right;">Add Barangay</a>
+                    <!-- <button class="btn btn-danger" onClick="window.location.reload();" style="float: right; margin-right:10px">Reset Filter</button> -->
+                </div>
             </div>
-            <!-- /.card -->
+
+            <br>
+            <table id="example1" class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Barangay</th>
+                        <th>Province</th>
+                        <th>Active</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody id="brgy_list">
+                    @include('barangay.barangay_list_data')
+                </tbody>
+            </table>
+            <input type="hidden" name="hidden_page" id="hidden_page" value="1">
         </div>
         <div class="card-footer">
             <h6>List of all Barangay maintenance data sorted by name.</h6>
@@ -69,4 +64,34 @@
 <!-- /.content -->
 
 <!-- Set menu to collapse and active -->
+@endsection
+
+
+@section('scripts')
+<script>
+    $(".submit_search").on("click", function() {
+        DataFilter();
+    });
+
+    $(document).on('click', ".pagination a", function(event) {
+        event.preventDefault();
+
+        var page = $(this).attr('href').split('page=')[1];
+        $('#hidden_page').val(page);
+        DataFilter();
+    });
+
+    function DataFilter() {
+        var param = $('.SearchData').val();
+        var page = $('#hidden_page').val();
+        $.ajax({
+            url: "/barangay_list/search_barangay_list?page=" + page + "&param=" + param,
+            success: function(data) {
+                $('tbody').html('');
+                $('tbody').html(data);
+            }
+        });
+
+    }
+</script>
 @endsection
