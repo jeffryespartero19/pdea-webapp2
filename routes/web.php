@@ -464,3 +464,6 @@ Route::get('search_files', 'FileUploadsController@search_files');
 
 // Search Barangay List
 Route::get('/barangay_list/search_barangay_list', 'BarangayController@search_barangay_list');
+
+// Search Drug Verification List
+Route::get('/drug_verification_list/search_drug_verification_list', 'DrugVerificationController@search_drug_verification_list');

@@ -797,7 +797,7 @@ class IssuanceOfPreopsController extends Controller
 
     public function get_preops_header($preops_number)
     {
-        dd($preops_number);
+        // dd($preops_number);
         date_default_timezone_set('Asia/Manila');
 
         $data = 0 + DB::table('preops_header as a')

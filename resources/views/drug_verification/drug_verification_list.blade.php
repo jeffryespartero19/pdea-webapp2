@@ -41,78 +41,51 @@
     @endif
     <!-- Default box -->
     <div class="card card-success">
+        <div class="card-header">
+            <h3 class="card-title">High Impact Operation</h3>
+        </div>
+
         <div class="card-body">
-            <div class="card card-success">
-                <div class="card-header">
-                    <h3 class="card-title">High Impact Operation</h3>
+            <div class="row">
+                <div class="input-group col-md-4">
+                    <input type="text" class="form-control SearchData" name="q" placeholder="Search Preops/Spot Report Number"> <span class="input-group-btn">
+                        <button type="button" class="btn btn-default submit_search">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
                 </div>
-                <div class="card table-responsive" style="padding: 20px;">
-                    <table id="example_info" class="table table-bordered table-striped table-hover" style="width: max-content;">
-                        <thead>
-                            <tr>
-                                <th hidden>Suspect ID</th>
-                                <th>Pre-Ops #</th>
-                                <th>Spot Report #</th>
-                                <th>Region</th>
-                                <th>Area Of Operation</th>
-                                <th>OPN Type</th>
-                                <th>OPN Unit</th>
-                                <th>Date of OPN</th>
-                                <th>Suspect</th>
-                                <th>Identifier</th>
-                                <th>Suspect Classification</th>
-                                <th>Suspect Category</th>
-                                <th>Suspect Sub Category</th>
-                                <th>Listed</th>
-                                <th>NDIS</th>
-                                <th>Remarks</th>
-                                <th>Status</th>
-                                <th>Edit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($data1 as $dt)
-                            <tr class="suspect_info">
-                                <td hidden><input type="text" class="suspect_id" value="{{ $dt->id }}"></td>
-                                <td style="width: 150px;">{{$dt->preops_number}}</td>
-                                <td style="width: 150px;">{{$dt->spot_report_number}}</td>
-                                <td style="width: 150px;">{{$dt->region_m}}</td>
-                                <td style="width: 150px;">{{$dt->province_m}}</td>
-                                <td style="width: 150px;">{{$dt->operation_type}}</td>
-                                <td style="width: 150px;">{{$dt->operating_unit}}</td>
-                                <td style="width: 150px;">{{$dt->operation_datetime}}</td>
-                                <td class="s_name" style="width: 150px;">{{$dt->lastname}}, {{$dt->firstname}} {{$dt->middlename}}</td>
-                                <td style="width: 150px;">{{$dt->identifier}}</td>
-                                <td style="width: 150px;">{{$dt->suspect_classification}}</td>
-                                <td style="width: 150px;">{{$dt->suspect_category}}</td>
-                                <td style="width: 150px;">{{$dt->suspect_sub_category}}</td>
-                                <td>@if($dt->listed == 1)
-                                    Yes
-                                    @else
-                                    No
-                                    @endif</td>
-                                <td style="width: 150px;">{{$dt->ndis_id}}</td>
-                                <td style="width: 150px;">{{$dt->remarks}}</td>
-                                <td style="width: 150px;">{{$dt->status}}</td>
-                                <td style="width: 150px;">
-                                    <center>
-                                        <a href="#" class="btn btn-info btnEdit" data-toggle="modal" data-target="#modal-lg">Edit</a>
-                                        <a href="{{ url('spot_report_edit/'.$dt->spot_id) }}" class="btn btn-info">View</a>
-                                    </center>
-                                </td>
-                            </tr>
-                            @endforeach
-                            <tr>
-                                <td colspan="17" align="center">
-                                    {!! $data1->links() !!}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /.card-body -->
             </div>
-            <!-- /.card -->
+
+            <br>
+            <div class="table-responsive" style="padding: 20px;">
+                <table id="example_info" class="table table-bordered table-striped table-hover" style="width: max-content;">
+                    <thead>
+                        <tr>
+                            <th hidden>Suspect ID</th>
+                            <th>Pre-Ops #</th>
+                            <th>Spot Report #</th>
+                            <th>Region</th>
+                            <th>Area Of Operation</th>
+                            <th>OPN Type</th>
+                            <th>OPN Unit</th>
+                            <th>Date of OPN</th>
+                            <th>Suspect</th>
+                            <th>Identifier</th>
+                            <th>Suspect Classification</th>
+                            <th>Suspect Category</th>
+                            <th>Suspect Sub Category</th>
+                            <th>Listed</th>
+                            <th>NDIS</th>
+                            <th>Remarks</th>
+                            <th>Status</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @include('drug_verification.drug_verification_list_data')
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="card-footer">
             <h6>List of all Drug Verification maintenance data sorted by name.</h6>
@@ -356,6 +329,31 @@
             }
         });
     });
+
+    $(".submit_search").on("click", function() {
+        DataFilter();
+    });
+
+    $(document).on('click', ".pagination a", function(event) {
+        event.preventDefault();
+
+        var page = $(this).attr('href').split('page=')[1];
+        $('#hidden_page').val(page);
+        DataFilter();
+    });
+
+    function DataFilter() {
+        var param = $('.SearchData').val();
+        var page = $('#hidden_page').val();
+        $.ajax({
+            url: "/drug_verification_list/search_drug_verification_list?page=" + page + "&param=" + param,
+            success: function(data) {
+                $('tbody').html('');
+                $('tbody').html(data);
+            }
+        });
+
+    }
 </script>
 
 @endsection
