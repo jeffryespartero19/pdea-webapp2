@@ -49,6 +49,7 @@
                 <div class="row">
                     <div class="col-12">
                         <a href="{{ url('/view_SpotReport/'.$spot_report_header[0]->id) }}" target="_blank" class="btn btn-warning" style="float: right;">Print Report</a>
+                        <a href="{{ url('progress_report_edit/'.$spot_report_header[0]->id) }}" class="btn btn-info" style="float: right;">Add Progress Report</a>
                     </div>
                     <div class="form-group col-4" style="margin: 0px;">
                         <div>
@@ -220,6 +221,18 @@
                         </div>
                         <div class="input-group mb-3">
                             <input id="street" name="street" type="text" class="form-control" autocomplete="off" value="{{ $spot_report_header[0]->street }}" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                            @else
+                            disabled
+                            @endif
+                            >
+                        </div>
+                    </div>
+                    <div class="form-group col-4" style="margin: 0px;">
+                        <div>
+                            <label for="">Area</label>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input id="area" name="area" type="text" class="form-control" autocomplete="off" value="{{ $spot_report_header[0]->area }}" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
                             @else
                             disabled
                             @endif

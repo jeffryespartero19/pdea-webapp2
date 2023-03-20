@@ -27,12 +27,28 @@
             <h3 class="card-title">Filter</h3>
         </div>
         <div class="card-body row">
-            <div class="form-group col-4" style="margin: 0px;">
+            <div class="form-group col-lg-3" style="margin: 0px;">
+                <div>
+                    <label for="">Spot Report/Pre-ops Number</label>
+                </div>
+                <div class="input-group mb-3">
+                    <input id="tnumber" name="tnumber" type="text" class="listFilter form-control @error('operation') is-invalid @enderror" value="{{ old('tnumber') }}" autocomplete="off">
+                </div>
+            </div>
+            <div class="form-group col-lg-3" style="margin: 0px;">
+                <div>
+                    <label for="">Area of Operation</label>
+                </div>
+                <div class="input-group mb-3">
+                    <input id="area" name="area" type="text" class="listFilter form-control @error('operation') is-invalid @enderror" value="{{ old('area') }}" autocomplete="off">
+                </div>
+            </div>
+            <div class="form-group col-lg-3" style="margin: 0px;">
                 <div>
                     <label for="">Region</label>
                 </div>
                 <div class="input-group mb-3">
-                    <select id="region_c" name="region_c" class="form-control @error('region') is-invalid @enderror">
+                    <select id="region_c" name="region_c" class="listFilter form-control @error('region') is-invalid @enderror">
                         <option value='' disabled selected>Select Option</option>
                         @foreach($region as $rg)
                         <option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} - {{ $rg->region_m }}</option>
@@ -40,38 +56,46 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group col-4" style="margin: 0px;">
+            <div class="form-group col-lg-3" style="margin: 0px;">
                 <div>
-                    <label for="">Operating Unit</label>
+                    <label for="">Lead Unit</label>
                 </div>
                 <div class="input-group mb-3">
-                    <select id="operating_unit_id" name="operating_unit_id" class="form-control OPUnitSearch">
+                    <select id="operating_unit_id" name="operating_unit_id" class="listFilter form-control OPUnitSearch">
                     </select>
                 </div>
             </div>
-            <div class="form-group col-4" style="margin: 0px;">
+            <div class="form-group col-lg-3" style="margin: 0px;">
                 <div>
                     <label for="">Type of OPN</label>
                 </div>
                 <div class="input-group mb-3">
-                    <select id="operation_type_id" name="operation_type_id" class="form-control OPTypeSearch">
+                    <select id="operation_type_id" name="operation_type_id" class="listFilter form-control OPTypeSearch">
                     </select>
                 </div>
             </div>
-            <div class="form-group col-4" style="margin: 0px;">
+            <div class="form-group col-lg-3" style="margin: 0px;">
                 <div>
                     <label for="">Operation Date</label>
                 </div>
                 <div class="input-group mb-3">
-                    <input id="operation_date" name="operation_date" type="date" class="form-control @error('operation') is-invalid @enderror" value="{{ old('operation_date') }}" autocomplete="off">
+                    <input id="operation_date" name="operation_date" type="date" class="listFilter form-control @error('operation') is-invalid @enderror" value="{{ old('operation_date') }}" autocomplete="off">
                 </div>
             </div>
-            <div class="form-group col-4" style="margin: 0px;">
+            <div class="form-group col-lg-3" style="margin: 0px;">
                 <div>
                     <label for="">Operation Date To</label>
                 </div>
                 <div class="input-group mb-3">
-                    <input id="operation_date_to" name="operation_date_to" type="date" class="form-control @error('operation') is-invalid @enderror" value="{{ old('operation_date_to') }}" autocomplete="off">
+                    <input id="operation_date_to" name="operation_date_to" type="date" class="listFilter form-control @error('operation') is-invalid @enderror" value="{{ old('operation_date_to') }}" autocomplete="off">
+                </div>
+            </div>
+            <div class="form-group col-lg-3" style="margin: 0px;">
+                <div>
+                    <label for="">Suspect Name</label>
+                </div>
+                <div class="input-group mb-3">
+                    <input id="suspect" name="suspect" type="text" class="listFilter form-control @error('operation') is-invalid @enderror" value="{{ old('suspect') }}" autocomplete="off">
                 </div>
             </div>
             <div class="mr-2" style="width: 100%;">
@@ -85,7 +109,7 @@
     <div class="card card-success">
 
         <div class="card-body">
-            <div class="row">
+            <!-- <div class="row">
                 <div class="input-group col-4">
                     <input type="text" class="form-control SearchSpot" name="q" placeholder="Search Spot Report Number"> <span class="input-group-btn">
                         <button type="button" class="btn btn-default submit_search">
@@ -94,11 +118,12 @@
                     </span>
                 </div>
             </div>
-            <br>
+            <br> -->
             <table id="example1" class="table table-bordered table-striped table-hover">
                 <thead>
                     <tr>
                         <th>Spot Report Number</th>
+                        <th>Preops Number</th>
                         <th>Operating Unit</th>
                         <th>Operation Type</th>
                         <th>Operation Date</th>
@@ -131,25 +156,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#region_c').change(function() {
-            $('#hidden_page').val(1);
-            ProgressReportFilter();
-        });
-        $('#operating_unit_id').change(function() {
-            $('#hidden_page').val(1);
-            ProgressReportFilter();
-        });
-        $('#operation_type_id').change(function() {
-            $('#hidden_page').val(1);
-            ProgressReportFilter();
-        });
-
-        $('#operation_date').change(function() {
-            $('#hidden_page').val(1);
-            ProgressReportFilter();
-        });
-
-        $('#operation_date_to').change(function() {
+        $('.listFilter').change(function() {
             $('#hidden_page').val(1);
             ProgressReportFilter();
         });
@@ -190,6 +197,9 @@
             var operation_type_id = $('#operation_type_id').val();
             var operation_date = $('#operation_date').val();
             var operation_date_to = $('#operation_date_to').val();
+            var area = $('#area').val();
+            var tnumber = $('#tnumber').val();
+            var suspect = $('#suspect').val();
 
             if (region_c == '' || region_c == null) {
                 region_c = 0;
@@ -210,7 +220,7 @@
             var table = $('#example2').DataTable();
 
             $.ajax({
-                url: "/progress_report_list/fetch_data?page=" + page + "&region_c=" + region_c + "&operating_unit_id=" + operating_unit_id + "&operation_type_id=" + operation_type_id + "&operation_date=" + operation_date + "&operation_date_to=" + operation_date_to,
+                url: "/progress_report_list/fetch_data?page=" + page + "&region_c=" + region_c + "&operating_unit_id=" + operating_unit_id + "&operation_type_id=" + operation_type_id + "&operation_date=" + operation_date + "&operation_date_to=" + operation_date_to + "&area=" + area + "&tnumber=" + tnumber + "&suspect=" + suspect,
                 success: function(data) {
                     // alert('test')
                     $('tbody').html('');

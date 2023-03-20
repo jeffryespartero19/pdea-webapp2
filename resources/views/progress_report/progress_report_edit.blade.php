@@ -122,6 +122,22 @@
                             <input hidden id="barangay_c" type="text" class="form-control" style="pointer-events: none; background-color : #e9ecef; ">
                         </div>
                     </div>
+                    <div class="form-group col-4" style="margin: 0px;">
+                        <div>
+                            <label for="">Street</label>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input id="street" type="text" class="form-control" style="pointer-events: none; background-color : #e9ecef; " value="{{$spot_report_header[0]->street}}">
+                        </div>
+                    </div>
+                    <div class="form-group col-4" style="margin: 0px;">
+                        <div>
+                            <label for="">Area</label>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input id="area" type="text" class="form-control" style="pointer-events: none; background-color : #e9ecef; " value="{{$spot_report_header[0]->area}}">
+                        </div>
+                    </div>
                 </div>
                 <hr>
 

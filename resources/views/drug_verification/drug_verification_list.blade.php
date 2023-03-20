@@ -85,6 +85,7 @@
                         @include('drug_verification.drug_verification_list_data')
                     </tbody>
                 </table>
+                <input type="hidden" name="hidden_page" id="hidden_page" value="1">
             </div>
         </div>
         <div class="card-footer">

@@ -42,7 +42,17 @@
     <!-- Default box -->
     <div class="card card-success">
         <div class="card-body">
-            <div class="card table-responsive" style="padding: 20px;">
+            <div class="row">
+                <div class="input-group col-md-4">
+                    <input type="text" class="form-control SearchData" name="q" placeholder="Search Preops/Spot Report Number"> <span class="input-group-btn">
+                        <button type="button" class="btn btn-default submit_search">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <br>
+            <div class="table-responsive" style="padding: 20px;">
                 <table id="example_info" class="table table-bordered table-striped table-hover" style="width: max-content;">
                     <thead>
                         <tr>
@@ -90,6 +100,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <input type="hidden" name="hidden_page" id="hidden_page" value="1">
             </div>
             <!-- /.card-body -->
         </div>
@@ -103,4 +114,35 @@
 <!-- /.content -->
 
 <!-- Set menu to collapse and active -->
+@endsection
+
+@section('scripts')
+
+<script>
+    $(".submit_search").on("click", function() {
+        DataFilter();
+    });
+
+    $(document).on('click', ".pagination a", function(event) {
+        event.preventDefault();
+
+        var page = $(this).attr('href').split('page=')[1];
+        $('#hidden_page').val(page);
+        DataFilter();
+    });
+
+    function DataFilter() {
+        var param = $('.SearchData').val();
+        var page = $('#hidden_page').val();
+        $.ajax({
+            url: "/drug_management_list/search_drug_management_list?page=" + page + "&param=" + param,
+            success: function(data) {
+                $('tbody').html('');
+                $('tbody').html(data);
+            }
+        });
+
+    }
+</script>
+
 @endsection

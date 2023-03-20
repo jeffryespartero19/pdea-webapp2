@@ -122,6 +122,22 @@
                             <input hidden id="barangay_c" type="text" class="form-control" disabled>
                         </div>
                     </div>
+                    <div class="form-group col-4" style="margin: 0px;">
+                        <div>
+                            <label for="">Street</label>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input id="street" type="text" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group col-4" style="margin: 0px;">
+                        <div>
+                            <label for="">Area</label>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input id="area" type="text" class="form-control" disabled>
+                        </div>
+                    </div>
                 </div>
                 <hr>
 
@@ -839,6 +855,8 @@
                     $("#city_c").val(element["city_m"]);
                     $("#barangay_m").val(element["barangay_m"]);
                     $("#barangay_c").val(element["barangay_m"]);
+                    $("#street").val(element["street"]);
+                    $("#area").val(element["area"]);
                 });
             }
         });

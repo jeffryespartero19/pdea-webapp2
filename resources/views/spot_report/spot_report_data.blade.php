@@ -5,6 +5,7 @@
     <td>@if($spot_report->preops_number == 1) Uncoordinated @else {{ $spot_report->preops_number }} @endif</td>
     <td>{{ $spot_report->operating_unit_name }}</td>
     <td>{{ $spot_report->operation_type_name }}</td>
+    <td>{{ $spot_report->area }}</td>
     <td>{{ $spot_report->operation_datetime }}</td>
     <td>{{ $spot_report->created_at }}</td>
     <td>{{ $spot_report->status == 1 ? 'Yes' : 'No' }}</td>

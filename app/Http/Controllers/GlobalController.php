@@ -110,7 +110,7 @@ class GlobalController extends Controller
             ->where('a.id', $preops_number)
             ->get();
 
-            // dd($data);
+        // dd($data);
 
         return json_encode($data);
     }
@@ -214,7 +214,25 @@ class GlobalController extends Controller
             ->leftjoin('province as e', 'a.province_c', '=', 'e.province_c')
             ->leftjoin('city as f', 'a.city_c', '=', 'f.city_c')
             ->leftjoin('barangay as g', 'a.barangay_c', '=', 'g.barangay_c')
-            ->select('a.id', 'a.spot_report_number', 'd.name as operation_type_name', 'a.operation_type_id', 'a.operating_unit_id', 'c.name as operating_unit_name', 'a.region_c', 'b.region_m', 'a.operation_datetime', 'a.province_c', 'e.province_m', 'a.city_c', 'f.city_m', 'a.barangay_c', 'g.barangay_m',)
+            ->select(
+                'a.id',
+                'a.spot_report_number',
+                'd.name as operation_type_name',
+                'a.operation_type_id',
+                'a.operating_unit_id',
+                'c.name as operating_unit_name',
+                'a.region_c',
+                'b.region_m',
+                'a.operation_datetime',
+                'a.province_c',
+                'e.province_m',
+                'a.city_c',
+                'f.city_m',
+                'a.barangay_c',
+                'g.barangay_m',
+                'a.area',
+                'a.street'
+            )
             ->where(['a.id' => $spot_report_number])
             ->get();
 

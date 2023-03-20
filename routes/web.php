@@ -467,3 +467,5 @@ Route::get('/barangay_list/search_barangay_list', 'BarangayController@search_bar
 
 // Search Drug Verification List
 Route::get('/drug_verification_list/search_drug_verification_list', 'DrugVerificationController@search_drug_verification_list');
+// Search Drug Management List
+Route::get('/drug_management_list/search_drug_management_list', 'DrugManagementController@search_drug_management_list');
