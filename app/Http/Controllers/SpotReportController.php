@@ -1927,6 +1927,7 @@ class SpotReportController extends Controller
                 ->select('a.id', 'a.preops_number as text')
                 ->where('a.preops_number', 'LIKE', '%' . $request->input('term', '') . '%')
                 ->where('a.with_sr', 0)
+                ->where('a.with_aor', 0)
                 ->orderby('a.id', 'desc')
                 ->union($data)
                 ->get();
@@ -1937,6 +1938,7 @@ class SpotReportController extends Controller
                 ->where('a.preops_number', 'LIKE', '%' . $request->input('term', '') . '%')
                 ->where('d.id', Auth::user()->regional_office_id)
                 ->where('a.with_sr', 0)
+                ->where('a.with_aor', 0)
                 ->orderby('a.id', 'desc')
                 ->union($data)
                 ->get();
