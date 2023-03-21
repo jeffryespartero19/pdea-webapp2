@@ -29,7 +29,7 @@ class AfterOperationReportController extends Controller
             $data = DB::table('preops_header as a')
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status', 'a.aor_date')
+                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.description as operating_unit_name', 'c.name as operation_type_name', 'a.status', 'a.aor_date')
                 ->where('a.with_aor', 1)
                 ->orderby('a.id', 'desc')
                 ->paginate(20);
@@ -40,7 +40,7 @@ class AfterOperationReportController extends Controller
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
                 ->join('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
-                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status', 'a.aor_date')
+                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.description as operating_unit_name', 'c.name as operation_type_name', 'a.status', 'a.aor_date')
                 ->where('a.with_aor', 1)
                 ->where('d.id', Auth::user()->regional_office_id)
                 ->orderby('a.id', 'desc')
@@ -62,7 +62,7 @@ class AfterOperationReportController extends Controller
             $data = DB::table('preops_header as a')
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                ->select('a.id', 'a.preops_number', 'a.operating_unit_id', 'operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.aor_date', 'a.status')
+                ->select('a.id', 'a.preops_number', 'a.operating_unit_id', 'operation_type_id', 'b.description as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.aor_date', 'a.status')
                 ->where('a.with_aor', 1);
             if ($request->get('ro_code') != 0) {
                 $data->where(['a.ro_code' => $request->get('ro_code')]);
@@ -94,7 +94,7 @@ class AfterOperationReportController extends Controller
             $data = DB::table('preops_header as a')
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'a.with_aor', 'a.with_sr', 'a.with_pr')
+                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.description as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'a.with_aor', 'a.with_sr', 'a.with_pr')
                 ->where('a.preops_number', 'LIKE', '%' . $param . '%')
                 ->where('a.with_aor', 1)
                 ->orderby('a.id', 'desc')
@@ -244,7 +244,7 @@ class AfterOperationReportController extends Controller
         $preops_header = DB::table('preops_header as a')
             ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
             ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-            ->select('a.id', 'a.ro_code', 'a.preops_number', 'a.operating_unit_id', 'operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.validity', 'a.received_date', 'a.result', 'a.negative_reason_id', 'a.date_reported', 'a.filename')
+            ->select('a.id', 'a.ro_code', 'a.preops_number', 'a.operating_unit_id', 'operation_type_id', 'b.description as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.validity', 'a.received_date', 'a.result', 'a.negative_reason_id', 'a.date_reported', 'a.filename')
             ->where(['preops_number' => $preops_number])
             ->get();
         $region = DB::table('region')->orderby('region_sort', 'asc')->get();
@@ -405,7 +405,7 @@ class AfterOperationReportController extends Controller
         $data = DB::table('preops_header as a')
             ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
             ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-            ->select('a.id', 'a.preops_number', 'a.operating_unit_id', 'operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.ro_code', 'a.status')
+            ->select('a.id', 'a.preops_number', 'a.operating_unit_id', 'operation_type_id', 'b.description as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.ro_code', 'a.status')
             ->whereNotNull('date_reported');
         if ($ro_code != 0) {
             $data->where(['a.ro_code' => $ro_code]);
