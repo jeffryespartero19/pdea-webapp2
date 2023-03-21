@@ -393,7 +393,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="drug_type_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>Select Option</option>
+                                                                    <option value='0' selected>Select Option</option>
                                                                     @foreach($drug_type as $dt)
                                                                     <option value="{{ $dt->id }}" {{ $dt->id == $srs->drug_type_id ? 'selected' : '' }}>{{ $dt->name }}</option>
                                                                     @endforeach
