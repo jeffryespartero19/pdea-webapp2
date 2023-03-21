@@ -177,6 +177,10 @@ class IssuanceOfPreopsController extends Controller
         $preops_id += 1;
         $preops_id = sprintf("%03s", $preops_id);
 
+        $code = 0 + DB::table('regional_office')
+            ->where('ro_code', $request->ro_code)
+            ->get();
+
         if (Auth::user()->user_level_id == 2) {
             $preops_number = $request->preops_number;
         } else {
@@ -635,7 +639,7 @@ class IssuanceOfPreopsController extends Controller
             ->leftjoin('operation_type as d', 'a.operation_type_id', '=', 'd.id')
             ->leftjoin('approved_by as e', 'a.approved_by', '=', 'e.id')
             ->leftjoin('officer_position as f', 'e.officer_position_id', '=', 'f.id')
-            
+
             ->select(
                 'a.ro_code',
                 'a.preops_number',

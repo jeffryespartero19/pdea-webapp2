@@ -61,7 +61,7 @@
         SECRET
     </header>
     @if(isset($preops_data[0]->report_header) && $preops_data[0]->report_header != null)
-    <img id="currentPhoto" src="./files/uploads/report_header/'{{$preops_data[0]->report_header}}" onerror="this.src='./files/uploads/report_header/newhead.jpg'" alt="" class="col-3" style="width:100%;">
+    <img id="currentPhoto" src="./files/uploads/report_header/{{$preops_data[0]->report_header}}" onerror="this.src='./files/uploads/report_header/newhead.jpg'" alt="" class="col-3" style="width:100%;">
     @else
     <img id="currentPhoto" src="./files/uploads/report_header/newhead.jpg" onerror="this.onerror=null; this.remove();" alt="2" class="col-3" style="width:100%;">
     @endif
