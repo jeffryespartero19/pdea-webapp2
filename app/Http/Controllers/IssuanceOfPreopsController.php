@@ -177,14 +177,11 @@ class IssuanceOfPreopsController extends Controller
         $preops_id += 1;
         $preops_id = sprintf("%03s", $preops_id);
 
-        $code = 0 + DB::table('regional_office')
-            ->where('ro_code', $request->ro_code)
-            ->get();
-
+        $str = substr($request->hprovince_c, -2);
         if (Auth::user()->user_level_id == 2) {
             $preops_number = $request->preops_number;
         } else {
-            $preops_number = $request->ro_code . '-' . $request->hprovince_c . '-' . $p_date . '-' . $preops_id;
+            $preops_number = $request->ro_code . '-' . $str . '-' . $p_date . '-' . $preops_id;
         }
 
 
