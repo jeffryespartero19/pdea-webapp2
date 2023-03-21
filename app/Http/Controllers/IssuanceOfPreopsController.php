@@ -33,7 +33,7 @@ class IssuanceOfPreopsController extends Controller
             $data = DB::table('preops_header as a')
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'a.with_aor', 'a.with_sr', 'a.with_pr')
+                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.description as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'a.with_aor', 'a.with_sr', 'a.with_pr')
                 ->orderby('a.id', 'desc')
                 ->paginate(20);
 
@@ -98,7 +98,7 @@ class IssuanceOfPreopsController extends Controller
             $data = DB::table('preops_header as a')
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'a.with_aor', 'a.with_sr', 'a.with_pr')
+                ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.description as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'a.with_aor', 'a.with_sr', 'a.with_pr')
                 ->where('a.preops_number', 'LIKE', '%' . $param . '%')
                 ->orderby('a.id', 'desc')
                 ->paginate(20);
@@ -738,7 +738,7 @@ class IssuanceOfPreopsController extends Controller
                     ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                     ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
                     ->leftjoin('spot_report_header as d', 'a.preops_number', '=', 'd.preops_number')
-                    ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.name as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'd.report_status', 'a.with_aor', 'a.with_sr')
+                    ->select('a.id', 'a.preops_number', 'a.operation_datetime', 'b.description as operating_unit', 'c.name as operation_type', 'a.status', 'a.validity', 'd.report_status', 'a.with_aor', 'a.with_sr')
                     ->where('a.preops_number', 'LIKE', '%' . $q . '%')
                     ->orderby('a.id', 'desc')
                     ->paginate(20)

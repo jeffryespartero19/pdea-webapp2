@@ -33,7 +33,7 @@ class ProgressReportController extends Controller
                     'a.id',
                     'a.spot_report_number',
                     'a.operation_datetime',
-                    'b.name as operating_unit_name',
+                    'b.description as operating_unit_name',
                     'c.name as operation_type_name',
                     'a.status',
                     'a.preops_number'
@@ -52,7 +52,7 @@ class ProgressReportController extends Controller
                     'a.id',
                     'a.spot_report_number',
                     'a.operation_datetime',
-                    'b.name as operating_unit_name',
+                    'b.description as operating_unit_name',
                     'c.name as operation_type_name',
                     'a.status',
                     'a.preops_number'
@@ -89,7 +89,7 @@ class ProgressReportController extends Controller
             $data = DB::table('spot_report_header as a')
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                ->select('a.id', 'a.spot_report_number', 'a.operating_unit_id', 'operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.region_c', 'a.status', 'a.created_at', 'a.preops_number')
+                ->select('a.id', 'a.spot_report_number', 'a.operating_unit_id', 'operation_type_id', 'b.description as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.region_c', 'a.status', 'a.created_at', 'a.preops_number')
                 ->where('a.report_status', 1);
 
             if ($request->get('region_c') != 0) {
@@ -151,7 +151,7 @@ class ProgressReportController extends Controller
             $data = DB::table('spot_report_header as a')
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-                ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status', 'a.created_at', 'a.preops_number')
+                ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.description as operating_unit_name', 'c.name as operation_type_name', 'a.status', 'a.created_at', 'a.preops_number')
                 ->where('a.report_status', 1)
                 ->where('a.spot_report_number', 'LIKE', '%' . $param . '%')
                 ->orderby('a.id', 'desc')
@@ -161,7 +161,7 @@ class ProgressReportController extends Controller
                 ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
                 ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
                 ->leftjoin('regional_office as d', 'a.region_c', '=', 'd.region_c')
-                ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.status', 'a.created_at', 'a.preops_number')
+                ->select('a.id', 'a.spot_report_number', 'a.operation_datetime', 'b.description as operating_unit_name', 'c.name as operation_type_name', 'a.status', 'a.created_at', 'a.preops_number')
                 ->where('a.spot_report_number', 'LIKE', '%' . $param . '%')
                 ->where('a.report_status', 1)
                 ->where('d.id', Auth::user()->regional_office_id)
