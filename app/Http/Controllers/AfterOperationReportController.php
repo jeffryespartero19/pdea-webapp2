@@ -156,6 +156,8 @@ class AfterOperationReportController extends Controller
     {
 
         $data = $request->all();
+
+        // dd($data);
         date_default_timezone_set('Asia/Manila');
         $aor_date = Carbon::now();
 
@@ -168,7 +170,7 @@ class AfterOperationReportController extends Controller
             'aor_date' => $aor_date,
         );
 
-        DB::table('preops_header')->where('preops_number', $request->preops_number)->update($form_data);
+        DB::table('preops_header')->where('id', $request->preops_number)->update($form_data);
 
         if ($request->hasfile('fileattach')) {
             foreach ($request->file('fileattach') as $file) {
