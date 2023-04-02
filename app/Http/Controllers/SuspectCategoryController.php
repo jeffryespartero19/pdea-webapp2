@@ -41,7 +41,7 @@ class SuspectCategoryController extends Controller
 
         $form_data = array(
             'name' => $request->name,
-            'suspect_classification_id' => $request->suspect_classification_id,
+            'suspect_classification_id' => 0,
             'status' => $request->has('status') ? true : false,
             'hvt' => $request->has('hvt') ? true : false,
         );
@@ -78,7 +78,7 @@ class SuspectCategoryController extends Controller
 
         $pos_data = array(
             'name' =>  $request->name,
-            'suspect_classification_id' => $request->suspect_classification_id,
+            'suspect_classification_id' => 0,
             'status' => $request->has('status') ? true : false,
             'hvt' => $request->has('hvt') ? true : false,
         );

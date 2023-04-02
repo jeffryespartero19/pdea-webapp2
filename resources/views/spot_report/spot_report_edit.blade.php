@@ -925,53 +925,103 @@
             </select>
         </td>
         <td>
-            <select name="civil_status_id[]" class="form-control CivilStatusSearch" style="width: 200px;">
+            <select name="civil_status_id[]" class="form-control" style="width: 200px;">
                 <option value='' selected>Select Option</option>
+                @foreach ($civil_status as $cs)
+                <option value="{{ $cs->id }}">
+                    {{ $cs->name }}
+                </option>
+                @endforeach
             </select>
         </td>
         <td>
-            <select name="nationality_id[]" class="form-control NationalitySearch" style="width: 200px;">
+            <select name="nationality_id[]" class="form-control" style="width: 200px;">
                 <option value='' selected>Select Option</option>
+                @foreach ($nationality as $na)
+                <option value="{{ $na->id }}">
+                    {{ $na->name }}
+                </option>
+                @endforeach
             </select>
         </td>
         <td>
-            <select name="ethnic_group_id[]" class="form-control EthnicGroupSearch" style="width: 200px;">
+            <select name="ethnic_group_id[]" class="form-control" style="width: 200px;">
                 <option value='' selected>Select Option</option>
+                @foreach ($ethnic_group as $eg)
+                <option value="{{ $eg->id }}">
+                    {{ $eg->name }}
+                </option>
+                @endforeach
             </select>
         </td>
         <td>
-            <select name="religion_id[]" class="form-control ReligionSearch" style="width: 200px;">
+            <select name="religion_id[]" class="form-control" style="width: 200px;">
                 <option value='' selected>Select Option</option>
+                @foreach ($religion as $rl)
+                <option value="{{ $rl->id }}">
+                    {{ $rl->name }}
+                </option>
+                @endforeach
             </select>
         </td>
         <td>
-            <select name="educational_attainment_id[]" class="form-control EducationSearch" style="width: 200px;">
+            <select name="educational_attainment_id[]" class="form-control" style="width: 200px;">
                 <option value='' selected>Select Option</option>
+                @foreach ($education as $ed)
+                <option value="{{ $ed->id }}">
+                    {{ $ed->name }}
+                </option>
+                @endforeach
             </select>
         </td>
         <td>
-            <select name="occupation_id[]" class="form-control OccupationSearch" style="width: 200px;">
+            <select name="occupation_id[]" class="form-control" style="width: 200px;">
                 <option value='' selected>Select Option</option>
+                @foreach ($occupation as $occ)
+                <option value="{{ $occ->id }}">
+                    {{ $occ->name }}
+                </option>
+                @endforeach
             </select>
         </td>
         <td>
-            <select name="identifier_id[]" class="form-control IdentifierSearch" style="width: 200px;">
+            <select name="identifier_id[]" class="form-control" style="width: 200px;">
                 <option value='' selected>Select Option</option>
+                @foreach ($identifier as $identifiers)
+                <option value="{{ $identifiers->id }}">
+                    {{ $identifiers->name }}
+                </option>
+                @endforeach
             </select>
         </td>
         <td>
-            <select name="suspect_classification_id[]" class="form-control suspect_classification_id SuspectClassificationSearch" style="width: 200px;">
+            <select name="suspect_classification_id[]" class="form-control suspect_classification_id" style="width: 200px;">
                 <option value='' selected>Select Option</option>
+                @foreach ($suspect_classification as $sclass)
+                <option value="{{ $sclass->id }}">
+                    {{ $sclass->name }}
+                </option>
+                @endforeach
             </select>
         </td>
         <td>
-            <select name="suspect_category_id[]" class="form-control suspect_category_id SuspectCategorySearch" style="width: 200px;">
+            <select name="suspect_category_id[]" class="form-control suspect_category_id" style="width: 200px;">
                 <option value='' selected>Select Option</option>
+                @foreach ($suspect_category as $scat)
+                <option value="{{ $scat->id }}">
+                    {{ $scat->name }}
+                </option>
+                @endforeach
             </select>
         </td>
         <td>
-            <select name="suspect_sub_category_id[]" class="form-control SuspectSubCategorySearch" style="width: 200px;">
+            <select name="suspect_sub_category_id[]" class="form-control" style="width: 200px;">
                 <option value='' selected>Select Option</option>
+                @foreach ($suspect_sub_category as $scat)
+                <option value="{{ $scat->id }}">
+                    {{ $scat->name }}
+                </option>
+                @endforeach
             </select>
         </td>
         <td><input type="text" name="whereabouts[]" style="width: 200px;" class="form-control"></td>

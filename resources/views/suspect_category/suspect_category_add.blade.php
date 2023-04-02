@@ -54,7 +54,7 @@
                         <input id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Suspect Category Name" autocomplete="off">
                     </div>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <div>
                         <label for="">Suspect Classification</label>
                     </div>
@@ -67,7 +67,7 @@
                             @endforeach
                         </select>
                     </div>
-                </div>
+                </div> -->
                 <div class="custom-control custom-checkbox mb-2">
                     <input name="hvt" class="custom-control-input" type="checkbox" id="customCheckbox2">
                     <label for="customCheckbox2" class="custom-control-label">Is HVT</label>

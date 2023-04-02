@@ -742,161 +742,212 @@
 <!-- /.content -->
 
 <!-- Suspect Add -->
-<div class="AddSusHidden" hidden>
-    <tr class="suspect_details suspect_detailsHIDDEN">
-        <td hidden><input type="number" name="spot_suspect_id[]" class="form-control"></td>
-        <td><input type="text" name="suspect_number[]" style="width: 200px;" class="form-control" value="1" hidden>
-            <div type="text" style="width: 200px;" class="form-control disabled_field">Auto Generated</div>
-        </td>
-        <td>
-            <select name="suspect_status_id[]" class="form-control suspect_status_id" style="width: 200px;">
-                <option value='' selected>Select Option</option>
-                @foreach ($suspect_status as $sstat)
-                <option value="{{ $sstat->id }}">
-                    {{ $sstat->name }}
-                </option>
-                @endforeach
-            </select>
-        </td>
-        <td><input type="text" name="lastname[]" style="width: 200px;" class="form-control change_control cc1">
-        </td>
-        <td><input type="text" name="firstname[]" style="width: 200px;" class="form-control change_control cc2">
-        </td>
-        <td><input type="text" name="middlename[]" style="width: 200px;" class="form-control change_control cc3">
-        </td>
-        <td><input type="text" name="alias[]" style="width: 200px;" class="form-control change_control cc4">
-        </td>
-        <td><input type="date" name="birthdate[]" style="width: 200px;" class="form-control change_control cc5">
-        </td>
-        <td>
-            <select name="est_birthdate[]" class="form-control" style="width: 200px;">
-                <option value="0">No
-                </option>
-                <option value="1">Yes
-                </option>
-            </select>
-        </td>
-        <td><input type="text" name="birthplace[]" style="width: 200px;" class="form-control">
-        </td>
-        <td>
-            <select name="present_region_c[]" class="form-control present_region_c" style="width: 200px;">
-                <option value='' selected>Select Option</option>
-                @foreach ($region as $rg)
-                <option value="{{ $rg->region_c }}">
-                    {{ $rg->abbreviation }} -
-                    {{ $rg->region_m }}
-                </option>
-                @endforeach
-            </select>
-        </td>
-        <td>
-            <select name="present_province_c[]" class="form-control present_province_c" style="width: 200px;">
-                <option value='' selected>Select Option</option>
-            </select>
-        </td>
-        <td>
-            <select name="present_city_c[]" class="form-control present_city_c" style="width: 200px;">
-                <option value='' selected>Select Option</option>
-            </select>
-        </td>
-        <td>
-            <select name="present_barangay_c[]" class="form-control present_barangay_c" style="width: 200px;">
-                <option value='' selected>Select Option</option>
-            </select>
-        </td>
-        <td><input type="text" name="present_street[]" style="width: 200px;" class="form-control">
-        </td>
-        <td>
-            <select name="permanent_region_c[]" class="form-control permanent_region_c" style="width: 200px;">
-                <option value='' selected>Select Option</option>
-                @foreach ($region as $rg)
-                <option value="{{ $rg->region_c }}">
-                    {{ $rg->abbreviation }} -
-                    {{ $rg->region_m }}
-                </option>
-                @endforeach
-            </select>
-        </td>
-        <td>
-            <select name="permanent_province_c[]" class="form-control permanent_province_c" style="width: 200px;">
-                <option value='' selected>Select Option</option>
-            </select>
-        </td>
-        <td>
-            <select name="permanent_city_c[]" class="form-control permanent_city_c" style="width: 200px;">
-                <option value='' selected>Select Option</option>
-            </select>
-        </td>
-        <td>
-            <select name="permanent_barangay_c[]" class="form-control permanent_barangay_c" style="width: 200px;">
-                <option value='' selected>Select Option</option>
-            </select>
-        </td>
-        <td><input type="text" name="permanent_street[]" style="width: 200px;" class="form-control">
-        </td>
-        <td>
-            <select name="gender[]" class="form-control" style="width: 200px;">
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-            </select>
-        </td>
-        <td>
-            <select name="civil_status_id[]" class="form-control CivilStatusSearch" style="width: 200px;">
-                <option value='' selected>Select Option</option>
-            </select>
-        </td>
-        <td>
-            <select name="nationality_id[]" class="form-control NationalitySearch" style="width: 200px;">
-                <option value='' selected>Select Option</option>
-            </select>
-        </td>
-        <td>
-            <select name="ethnic_group_id[]" class="form-control EthnicGroupSearch" style="width: 200px;">
-                <option value='' selected>Select Option</option>
-            </select>
-        </td>
-        <td>
-            <select name="religion_id[]" class="form-control ReligionSearch" style="width: 200px;">
-                <option value='' selected>Select Option</option>
-            </select>
-        </td>
-        <td>
-            <select name="educational_attainment_id[]" class="form-control EducationSearch" style="width: 200px;">
-                <option value='' selected>Select Option</option>
-            </select>
-        </td>
-        <td>
-            <select name="occupation_id[]" class="form-control OccupationSearch" style="width: 200px;">
-                <option value='' selected>Select Option</option>
-            </select>
-        </td>
-        <td>
-            <select name="identifier_id[]" class="form-control IdentifierSearch" style="width: 200px;">
-                <option value='' selected>Select Option</option>
-            </select>
-        </td>
-        <td>
-            <select name="suspect_classification_id[]" class="form-control suspect_classification_id SuspectClassificationSearch" style="width: 200px;">
-                <option value='' selected>Select Option</option>
-            </select>
-        </td>
-        <td>
-            <select name="suspect_category_id[]" class="form-control suspect_category_id SuspectCategorySearch" style="width: 200px;">
-                <option value='' selected>Select Option</option>
-            </select>
-        </td>
-        <td>
-            <select name="suspect_sub_category_id[]" class="form-control SuspectSubCategorySearch" style="width: 200px;">
-                <option value='' selected>Select Option</option>
-            </select>
-        </td>
-        <td><input type="text" name="whereabouts[]" style="width: 200px;" class="form-control"></td>
-        <td><input type="text" name="remarks[]" style="width: 200px;" class="form-control"></td>
-        <td style="text-align: center; padding: 10px"><input name="active" type="checkbox" style="pointer-events: none;"></td>
-        <td><input type="text" style="width: 200px;" class="form-control" value="" disabled></td>
-        <td class="mt-10"><button type="button" class="badge badge-danger delRow"><i class="fa fa-trash"></i> Delete</button>
-        </td>
-    </tr>
+<div hidden>
+    <table class="AddSusHidden">
+        <tr class="suspect_details suspect_detailsHIDDEN">
+            <td hidden><input type="number" name="spot_suspect_id[]" class="form-control"></td>
+            <td><input type="text" name="suspect_number[]" style="width: 200px;" class="form-control" value="1" hidden>
+                <div type="text" style="width: 200px;" class="form-control disabled_field">Auto Generated</div>
+            </td>
+            <td>
+                <select name="suspect_status_id[]" class="form-control suspect_status_id" style="width: 200px;">
+                    <option value='' selected>Select Option</option>
+                    @foreach ($suspect_status as $sstat)
+                    <option value="{{ $sstat->id }}">
+                        {{ $sstat->name }}
+                    </option>
+                    @endforeach
+                </select>
+            </td>
+            <td><input type="text" name="lastname[]" style="width: 200px;" class="form-control change_control cc1">
+            </td>
+            <td><input type="text" name="firstname[]" style="width: 200px;" class="form-control change_control cc2">
+            </td>
+            <td><input type="text" name="middlename[]" style="width: 200px;" class="form-control change_control cc3">
+            </td>
+            <td><input type="text" name="alias[]" style="width: 200px;" class="form-control change_control cc4">
+            </td>
+            <td><input type="date" name="birthdate[]" style="width: 200px;" class="form-control change_control cc5">
+            </td>
+            <td>
+                <select name="est_birthdate[]" class="form-control" style="width: 200px;">
+                    <option value="0">No
+                    </option>
+                    <option value="1">Yes
+                    </option>
+                </select>
+            </td>
+            <td><input type="text" name="birthplace[]" style="width: 200px;" class="form-control">
+            </td>
+            <td>
+                <select name="present_region_c[]" class="form-control present_region_c" style="width: 200px;">
+                    <option value='' selected>Select Option</option>
+                    @foreach ($region as $rg)
+                    <option value="{{ $rg->region_c }}">
+                        {{ $rg->abbreviation }} -
+                        {{ $rg->region_m }}
+                    </option>
+                    @endforeach
+                </select>
+            </td>
+            <td>
+                <select name="present_province_c[]" class="form-control present_province_c" style="width: 200px;">
+                    <option value='' selected>Select Option</option>
+                </select>
+            </td>
+            <td>
+                <select name="present_city_c[]" class="form-control present_city_c" style="width: 200px;">
+                    <option value='' selected>Select Option</option>
+                </select>
+            </td>
+            <td>
+                <select name="present_barangay_c[]" class="form-control present_barangay_c" style="width: 200px;">
+                    <option value='' selected>Select Option</option>
+                </select>
+            </td>
+            <td><input type="text" name="present_street[]" style="width: 200px;" class="form-control">
+            </td>
+            <td>
+                <select name="permanent_region_c[]" class="form-control permanent_region_c" style="width: 200px;">
+                    <option value='' selected>Select Option</option>
+                    @foreach ($region as $rg)
+                    <option value="{{ $rg->region_c }}">
+                        {{ $rg->abbreviation }} -
+                        {{ $rg->region_m }}
+                    </option>
+                    @endforeach
+                </select>
+            </td>
+            <td>
+                <select name="permanent_province_c[]" class="form-control permanent_province_c" style="width: 200px;">
+                    <option value='' selected>Select Option</option>
+                </select>
+            </td>
+            <td>
+                <select name="permanent_city_c[]" class="form-control permanent_city_c" style="width: 200px;">
+                    <option value='' selected>Select Option</option>
+                </select>
+            </td>
+            <td>
+                <select name="permanent_barangay_c[]" class="form-control permanent_barangay_c" style="width: 200px;">
+                    <option value='' selected>Select Option</option>
+                </select>
+            </td>
+            <td><input type="text" name="permanent_street[]" style="width: 200px;" class="form-control">
+            </td>
+            <td>
+                <select name="gender[]" class="form-control" style="width: 200px;">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </td>
+            <td>
+                <select name="civil_status_id[]" class="form-control" style="width: 200px;">
+                    <option value='' selected>Select Option</option>
+                    @foreach ($civil_status as $cs)
+                    <option value="{{ $cs->id }}">
+                        {{ $cs->name }}
+                    </option>
+                    @endforeach
+                </select>
+            </td>
+            <td>
+                <select name="nationality_id[]" class="form-control" style="width: 200px;">
+                    <option value='' selected>Select Option</option>
+                    @foreach ($nationality as $na)
+                    <option value="{{ $na->id }}">
+                        {{ $na->name }}
+                    </option>
+                    @endforeach
+                </select>
+            </td>
+            <td>
+                <select name="ethnic_group_id[]" class="form-control" style="width: 200px;">
+                    <option value='' selected>Select Option</option>
+                    @foreach ($ethnic_group as $eg)
+                    <option value="{{ $eg->id }}">
+                        {{ $eg->name }}
+                    </option>
+                    @endforeach
+                </select>
+            </td>
+            <td>
+                <select name="religion_id[]" class="form-control" style="width: 200px;">
+                    <option value='' selected>Select Option</option>
+                    @foreach ($religion as $rl)
+                    <option value="{{ $rl->id }}">
+                        {{ $rl->name }}
+                    </option>
+                    @endforeach
+                </select>
+            </td>
+            <td>
+                <select name="educational_attainment_id[]" class="form-control" style="width: 200px;">
+                    <option value='' selected>Select Option</option>
+                    @foreach ($education as $ed)
+                    <option value="{{ $ed->id }}">
+                        {{ $ed->name }}
+                    </option>
+                    @endforeach
+                </select>
+            </td>
+            <td>
+                <select name="occupation_id[]" class="form-control" style="width: 200px;">
+                    <option value='' selected>Select Option</option>
+                    @foreach ($occupation as $occ)
+                    <option value="{{ $occ->id }}">
+                        {{ $occ->name }}
+                    </option>
+                    @endforeach
+                </select>
+            </td>
+            <td>
+                <select name="identifier_id[]" class="form-control" style="width: 200px;">
+                    <option value='' selected>Select Option</option>
+                    @foreach ($identifier as $identifiers)
+                    <option value="{{ $identifiers->id }}">
+                        {{ $identifiers->name }}
+                    </option>
+                    @endforeach
+                </select>
+            </td>
+            <td>
+                <select name="suspect_classification_id[]" class="form-control suspect_classification_id" style="width: 200px;">
+                    <option value='' selected>Select Option</option>
+                    @foreach ($suspect_classification as $sclass)
+                    <option value="{{ $sclass->id }}">
+                        {{ $sclass->name }}
+                    </option>
+                    @endforeach
+                </select>
+            </td>
+            <td>
+                <select name="suspect_category_id[]" class="form-control suspect_category_id" style="width: 200px;">
+                    <option value='' selected>Select Option</option>
+                    @foreach ($suspect_category as $scat)
+                    <option value="{{ $scat->id }}">
+                        {{ $scat->name }}
+                    </option>
+                    @endforeach
+                </select>
+            </td>
+            <td>
+                <select name="suspect_sub_category_id[]" class="form-control" style="width: 200px;">
+                    <option value='' selected>Select Option</option>
+                    @foreach ($suspect_sub_category as $scat)
+                    <option value="{{ $scat->id }}">
+                        {{ $scat->name }}
+                    </option>
+                    @endforeach
+                </select>
+            </td>
+            <td><input type="text" name="whereabouts[]" style="width: 200px;" class="form-control"></td>
+            <td><input type="text" name="remarks[]" style="width: 200px;" class="form-control"></td>
+            <td class="mt-10"><button type="button" class="badge badge-danger delRow"><i class="fa fa-trash"></i> Delete</button>
+            </td>
+        </tr>
+    </table>
+
     <!-- Suspect Add ENd -->
 </div>
 
@@ -1511,7 +1562,7 @@
                 url: '/search_operating_unit',
                 dataType: "json",
             }
-        }).prop('disabled', true);
+        }).prop('disabled', false);
 
         $(".OPTypeSearch").select2({
             minimumInputLength: 2,
@@ -1833,8 +1884,8 @@
             // $("#province_c").removeClass("disabled_field");
             // $("#operation_datetime").removeClass("disabled_field");
             $("#operating_unit_id").prop("disabled", false);
-            $("#support_unit_id").prop("disabled", false);
-            $("#support_unit_id").prop("required", false);
+            // $("#support_unit_id").prop("disabled", false);
+            // $("#support_unit_id").prop("required", false);
             $("#SPadd").attr("hidden", false);
             $("#SPadd").css("pointer-events", '');
 
@@ -1846,8 +1897,8 @@
             // $("#province_c").addClass("disabled_field");
             // $("#operation_datetime").addClass("disabled_field");
             $("#operating_unit_id").addClass("disabled_field");
-            $("#support_unit_id").addClass("disabled_field");
-            $("#support_unit_id").prop("required", true);
+            // $("#support_unit_id").addClass("disabled_field");
+            // $("#support_unit_id").prop("required", true);
             $("#SPadd").css("pointer-events", 'none');
 
 
@@ -1963,11 +2014,11 @@
                                 },
                                 success: function(data) {
                                     var data4 = JSON.parse(data);
-                                    if (!data4) {
+                                    if (data4.length > 0) {
                                         $('.SUdetails').empty();
                                         $('#SUOptions').empty();
                                         data4.forEach(element => {
-                                            var option = "<div class='input-group mb-3 '><select id='support_unit_id' name='support_unit_id[]' class='form-control' style='pointer-events: none; background-color : #e9ecef;' required>" +
+                                            var option = "<div class='input-group mb-3 '><select id='support_unit_id' name='support_unit_id[]' class='form-control'>" +
                                                 "<option value='" + element["id"] + "' selected> " + element["description"] + "</option></div>";
                                             $(".SUdetails").append(option);
                                         });

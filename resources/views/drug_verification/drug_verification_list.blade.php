@@ -101,7 +101,7 @@
 <div class="modal fade" id="modal-lg">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
-            <form action="/drug_verification_add" role="form" method="post">
+            <form id="EditForm" action="/drug_verification_add" role="form" method="post">
                 {{ csrf_field() }}
                 <div class="modal-header">
                     <h4 class="modal-title">Edit</h4>
@@ -236,6 +236,10 @@
 
 @section('scripts')
 <script>
+    $('#modal-lg').on('hidden.bs.modal', function() {
+        $(this).find('form').trigger('reset');
+    });
+    
     $(".btnEdit").on("click", function() {
 
         var suspect_id = $(this).closest(".suspect_info").find('.suspect_id').val();

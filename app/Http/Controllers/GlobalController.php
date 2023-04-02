@@ -98,7 +98,7 @@ class GlobalController extends Controller
                 'a.preops_number',
                 'a.operating_unit_id',
                 'a.operation_type_id',
-                'b.name as operating_unit_name',
+                'b.description as operating_unit_name',
                 'c.name as operation_type_name',
                 'a.validity',
                 'd.region_c',
@@ -184,7 +184,7 @@ class GlobalController extends Controller
         $data = DB::table('preops_header as a')
             ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
             ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-            ->select('a.id', 'a.preops_number', 'a.operating_unit_id', 'operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.ro_code', 'a.status')
+            ->select('a.id', 'a.preops_number', 'a.operating_unit_id', 'operation_type_id', 'b.description as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.ro_code', 'a.status')
             ->whereNotNull('date_reported');
         if ($ro_code != 0) {
             $data->where(['a.ro_code' => $ro_code]);
@@ -220,7 +220,7 @@ class GlobalController extends Controller
                 'd.name as operation_type_name',
                 'a.operation_type_id',
                 'a.operating_unit_id',
-                'c.name as operating_unit_name',
+                'c.description as operating_unit_name',
                 'a.region_c',
                 'b.region_m',
                 'a.operation_datetime',
@@ -244,7 +244,7 @@ class GlobalController extends Controller
         $data = DB::table('spot_report_header as a')
             ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
             ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-            ->select('a.id', 'a.spot_report_number', 'a.operating_unit_id', 'operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.region_c', 'a.status', 'a.created_at', 'a.preops_number')
+            ->select('a.id', 'a.spot_report_number', 'a.operating_unit_id', 'operation_type_id', 'b.description as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.region_c', 'a.status', 'a.created_at', 'a.preops_number')
             ->where('a.report_status', 0);
         if ($region_c != 0) {
             $data->where(['a.region_c' => $region_c]);
@@ -401,7 +401,7 @@ class GlobalController extends Controller
         $data = DB::table('spot_report_header as a')
             ->join('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
             ->join('operation_type as c', 'a.operation_type_id', '=', 'c.id')
-            ->select('a.id', 'a.spot_report_number', 'a.operating_unit_id', 'operation_type_id', 'b.name as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.region_c', 'a.status')
+            ->select('a.id', 'a.spot_report_number', 'a.operating_unit_id', 'operation_type_id', 'b.description as operating_unit_name', 'c.name as operation_type_name', 'a.operation_datetime', 'a.region_c', 'a.status')
             ->where('a.report_status', 1);
         if ($region_c != 0) {
             $data->where(['a.region_c' => $region_c]);
