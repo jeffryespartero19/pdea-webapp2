@@ -932,29 +932,29 @@
                         }
                         details += '"></td>' +
                             '<td><input type="text" name="region[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
-                        if (element["region"] != null) {
-                            details += 'value="' + element["region"];
+                        if (element["region_m"] != null) {
+                            details += 'value="' + element["region_m"];
                         } else {
                             details += 'value="';
                         }
                         details += '"></td>' +
                             '<td><input type="text" name="province[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
-                        if (element["province"] != null) {
-                            details += 'value="' + element["province"];
+                        if (element["province_m"] != null) {
+                            details += 'value="' + element["province_m"];
                         } else {
                             details += 'value="';
                         }
                         details += '"></td>' +
                             '<td><input type="text" name="city[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
-                        if (element["city"] != null) {
-                            details += 'value="' + element["city"];
+                        if (element["city_m"] != null) {
+                            details += 'value="' + element["city_m"];
                         } else {
                             details += 'value="';
                         }
                         details += '"></td>' +
                             '<td><input type="text" name="barangay[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
-                        if (element["barangay"] != null) {
-                            details += 'value="' + element["barangay"];
+                        if (element["barangay_m"] != null) {
+                            details += 'value="' + element["barangay_m"];
                         } else {
                             details += 'value="';
                         }
@@ -967,29 +967,29 @@
                         }
                         details += '"></td>' +
                             '<td><input type="text" name="permanent_region[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
-                        if (element["permanent_region"] != null) {
-                            details += 'value="' + element["permanent_region"];
+                        if (element["permanent_region_m"] != null) {
+                            details += 'value="' + element["permanent_region_m"];
                         } else {
                             details += 'value="';
                         }
                         details += '"></td>' +
                             '<td><input type="text" name="permanent_province[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
-                        if (element["permanent_province"] != null) {
-                            details += 'value="' + element["permanent_province"];
+                        if (element["permanent_province_m"] != null) {
+                            details += 'value="' + element["permanent_province_m"];
                         } else {
                             details += 'value="';
                         }
                         details += '"></td>' +
                             '<td><input type="text" name="permanent_city[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
-                        if (element["permanent_city"] != null) {
-                            details += 'value="' + element["permanent_city"];
+                        if (element["permanent_city_m"] != null) {
+                            details += 'value="' + element["permanent_city_m"];
                         } else {
                             details += 'value="';
                         }
                         details += '"></td>' +
                             '<td><input type="text" name="permanent_barangay[]" style="pointer-events: none; background-color : #e9ecef; width: 200px;" class="form-control"';
-                        if (element["permanent_barangay"] != null) {
-                            details += 'value="' + element["permanent_barangay"];
+                        if (element["permanent_barangay_m"] != null) {
+                            details += 'value="' + element["permanent_barangay_m"];
                         } else {
                             details += 'value="';
                         }

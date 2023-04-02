@@ -276,6 +276,7 @@ class GlobalController extends Controller
 
     public function get_spot_report_suspect($spot_report_number)
     {
+        // dd($spot_report_number);
         $data = DB::table('spot_report_suspect as a')
             ->leftjoin('spot_report_header as aa', 'aa.spot_report_number', '=', 'a.spot_report_number')
             ->leftjoin('region as b', 'a.region_c', '=', 'b.region_c')
