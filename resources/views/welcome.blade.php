@@ -126,8 +126,7 @@
                                     <div class="form-group">
                                         <div class="form-group"><label>Log In As</label><span id="on_duty" hidden style="float: right; color:red" for="">Someone's already on Duty</span>
                                             <select id="user_log_type" name="user_log_type" class="form-control user_log_type" required>
-                                                <option value="" disabled selected>Select Option</option>
-                                                <option value='1'>Duty</option>
+                                                <option value='1' selected>Duty</option>
                                                 <option value='2'>Encoder</option>
 
                                             </select>
