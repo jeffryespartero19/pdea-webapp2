@@ -54,7 +54,7 @@
             </div>
             <div class="custom-control custom-checkbox">
                 <input class="custom-control-input  po_item" type="checkbox" checked id="operating_unit" value="option1">
-                <label for="operating_unit" class="custom-control-label">Operating Unit</label>
+                <label for="operating_unit" class="custom-control-label">Lead Unit</label>
             </div>
             <div class="custom-control custom-checkbox">
                 <input class="custom-control-input  po_item" type="checkbox" checked id="support_unit" value="option1">
@@ -512,7 +512,7 @@
                         <th class="po preops_number" rowspan="2" style="white-space: nowrap; text-align:center; font-size: 20px; vertical-align : middle;text-align:center;">Preops Number</th>
                         <th class="po province" rowspan="2" style="white-space: nowrap; text-align:center; font-size: 20px; vertical-align : middle;text-align:center;">Province</th>
                         <th class="po type_operation" rowspan="2" style="white-space: nowrap; text-align:center; font-size: 20px; vertical-align : middle;text-align:center;">Type Of Operation</th>
-                        <th class="po operating_unit" rowspan="2" style="white-space: nowrap; text-align:center; font-size: 20px; vertical-align : middle;text-align:center;">Operating Unit</th>
+                        <th class="po operating_unit" rowspan="2" style="white-space: nowrap; text-align:center; font-size: 20px; vertical-align : middle;text-align:center;">Lead Unit</th>
                         <th class="po support_unit" rowspan="2" style="white-space: nowrap; text-align:center; font-size: 20px; vertical-align : middle;text-align:center;">Support Unit</th>
                         <th class="po datetime_coordinate" rowspan="2" style="white-space: nowrap; text-align:center; font-size: 20px; vertical-align : middle;text-align:center;">Date/Time Coordinate</th>
                         <th class="po datetime_operation" rowspan="2" style="white-space: nowrap; text-align:center; font-size: 20px; vertical-align : middle;text-align:center;">Date/Time Operation</th>
@@ -816,7 +816,6 @@
                                 $($row.find("td:eq(67)")).append(element["report_header"] + '<br>');
                                 $($row.find("td:eq(68)")).append(element["summary"] + '<br>');
                                 $($row.find("td:eq(69)")).append(element["prepared_by"] + '<br>');
-
                                 $($row.find("td:eq(87)")).append(element["case_status"] + '<br>');
                                 $($row.find("td:eq(88)")).append(element["case_status_date"] + '<br>');
                                 $($row.find("td:eq(89)")).append(element["is_number"] + '<br>');
