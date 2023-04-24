@@ -745,7 +745,7 @@
 <div hidden>
     <table class="AddSusHidden">
         <tr class="suspect_details suspect_detailsHIDDEN">
-            <td hidden><input type="number" name="spot_suspect_id[]" class="form-control"></td>
+            <!-- <td hidden><input type="number" name="spot_suspect_id[]" class="form-control"></td> -->
             <td><input type="text" name="suspect_number[]" style="width: 200px;" class="form-control" value="1" hidden>
                 <div type="text" style="width: 200px;" class="form-control disabled_field">Auto Generated</div>
             </td>
@@ -1104,12 +1104,12 @@
                 success: function(data) {
                     var data = JSON.parse(data);
 
-                    $($row.find("td:eq(13) select")).empty();
+                    $($row.find("td:eq(10) select")).empty();
                     $($row.find("td:eq(11) select")).empty();
                     $($row.find("td:eq(12) select")).empty();
                     var option1 =
                         " <option value='' selected>Select Option</option>";
-                    $($row.find("td:eq(13) select")).append(option1);
+                    $($row.find("td:eq(10) select")).append(option1);
                     var option2 =
                         " <option value='' selected>Select Option</option>";
                     $($row.find("td:eq(11) select")).append(option2);
@@ -1123,7 +1123,7 @@
                             "'>" +
                             element["province_m"] +
                             "</option>";
-                        $($row.find("td:eq(11) select")).append(option);
+                        $($row.find("td:eq(10) select")).append(option);
                     });
                 }
             });
@@ -1143,14 +1143,14 @@
                 success: function(data) {
                     var data = JSON.parse(data);
 
-                    $($row.find("td:eq(11) select")).empty();
                     $($row.find("td:eq(12) select")).empty();
+                    $($row.find("td:eq(11) select")).empty();
                     var option1 =
                         " <option value='' selected>Select Option</option>";
-                    $($row.find("td:eq(11) select")).append(option1);
+                    $($row.find("td:eq(12) select")).append(option1);
                     var option3 =
                         " <option value='' selected>Select Option</option>";
-                    $($row.find("td:eq(12) select")).append(option3);
+                    $($row.find("td:eq(11) select")).append(option3);
 
                     data.forEach(element => {
                         var option = " <option value='" +
