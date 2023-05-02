@@ -40,8 +40,7 @@ class SpotReportController extends Controller
                     'a.preops_number',
                     'a.area'
                 )
-                ->where('a.report_status', 0)
-                ->orderby('a.id', 'desc')
+                      ->orderby('a.id', 'desc')
                 ->paginate(20);
 
             $regional_office = DB::table('regional_office')->orderby('print_order', 'asc')->get();
@@ -61,8 +60,7 @@ class SpotReportController extends Controller
                     'a.preops_number',
                     'a.area'
                 )
-                ->where('a.report_status', 0)
-                ->where('d.id', Auth::user()->regional_office_id)
+                     ->where('d.id', Auth::user()->regional_office_id)
                 ->orderby('a.id', 'desc')
                 ->paginate(20);
 
