@@ -125,7 +125,7 @@
                             <label for="">Suspect Classification</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="suspect_classification_id" name="suspect_classification_id" class="form-control suspect_classification_id" style="width: 200px;">
+                            <select id="suspect_classification_id" name="suspect_classification_id" class="form-control suspect_classification_id" style="width: 200px;" disabled>
                                 <option value='0' selected>Select Option
                                 </option>
                                 @foreach ($suspect_classification as $scl)
@@ -142,7 +142,7 @@
                             <label for="">Suspect Category</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="suspect_category_id" name="suspect_category_id" class="form-control suspect_category_id" style="width: 200px;">
+                            <select id="suspect_category_id" name="suspect_category_id" class="form-control suspect_category_id" style="width: 200px;" disabled>
                                 <option value='0' selected>Select Option
                                 </option>
                                 @foreach ($suspect_category as $sc)
@@ -159,7 +159,7 @@
                             <label for="">Suspect Sub-category</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="suspect_sub_category_id" name="suspect_sub_category_id" class="form-control" style="width: 200px;">
+                            <select id="suspect_sub_category_id" name="suspect_sub_category_id" class="form-control" style="width: 200px;" disabled>
                                 <option value='0' selected>Select Option
                                 </option>
                                 @foreach ($suspect_sub_category as $ssc)
@@ -176,7 +176,7 @@
                             <label for="">Identifier</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="identifier_id" name="identifier_id" class="form-control identifier_id" style="width: 200px;">
+                            <select id="identifier_id" name="identifier_id" class="form-control identifier_id" style="width: 200px;" disabled>
                                 <option value='0' selected>Select Option
                                 </option>
                                 @foreach ($identifier as $idn)
