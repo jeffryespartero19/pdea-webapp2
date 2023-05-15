@@ -36,47 +36,47 @@
             <hr> -->
                 <h4>COC</h4>
                 <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input" type="checkbox" id="all_coc" checked >
+                    <input class="custom-control-input" type="checkbox" id="all_coc" checked>
                     <label for="all_coc" class="custom-control-label">All</label>
                 </div>
                 <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input po_item" type="checkbox" id="region" name="region" checked >
+                    <input class="custom-control-input po_item" type="checkbox" id="region" name="region" checked>
                     <label for="region" class="custom-control-label">Region</label>
                 </div>
                 <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input  po_item" type="checkbox" checked id="preops_number" name="preops_number" >
+                    <input class="custom-control-input  po_item" type="checkbox" checked id="preops_number" name="preops_number">
                     <label for="preops_number" class="custom-control-label">Preops Number</label>
                 </div>
                 <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input  po_item" type="checkbox" checked id="province" name="province" >
+                    <input class="custom-control-input  po_item" type="checkbox" checked id="province" name="province">
                     <label for="province" class="custom-control-label">Province</label>
                 </div>
                 <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input  po_item" type="checkbox" checked id="type_operation" name="type_operation" >
+                    <input class="custom-control-input  po_item" type="checkbox" checked id="type_operation" name="type_operation">
                     <label for="type_operation" class="custom-control-label">Type of Operation</label>
                 </div>
                 <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input  po_item" type="checkbox" checked id="operating_unit" name="operating_unit" >
+                    <input class="custom-control-input  po_item" type="checkbox" checked id="operating_unit" name="operating_unit">
                     <label for="operating_unit" class="custom-control-label">Lead Unit</label>
                 </div>
                 <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input  po_item" type="checkbox" checked id="support_unit" name="support_unit" >
+                    <input class="custom-control-input  po_item" type="checkbox" checked id="support_unit" name="support_unit">
                     <label for="support_unit" class="custom-control-label">Support Unit</label>
                 </div>
                 <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input  po_item" type="checkbox" checked id="datetime_coordinate" name="datetime_coordinate" >
+                    <input class="custom-control-input  po_item" type="checkbox" checked id="datetime_coordinate" name="datetime_coordinate">
                     <label for="datetime_coordinate" class="custom-control-label">Date/Time Coordinate</label>
                 </div>
                 <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input  po_item" type="checkbox" checked id="datetime_operation" name="datetime_operation" >
+                    <input class="custom-control-input  po_item" type="checkbox" checked id="datetime_operation" name="datetime_operation">
                     <label for="datetime_operation" class="custom-control-label">Date/Time Operation</label>
                 </div>
                 <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input  po_item" type="checkbox" checked id="valid_until" name="valid_until" >
+                    <input class="custom-control-input  po_item" type="checkbox" checked id="valid_until" name="valid_until">
                     <label for="valid_until" class="custom-control-label">Valid Until</label>
                 </div>
                 <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input  po_item" type="checkbox" checked id="a_area" name="a_area" >
+                    <input class="custom-control-input  po_item" type="checkbox" checked id="a_area" name="a_area">
                     <label for="a_area" class="custom-control-label">Area Operation</label>
                 </div>
                 <!-- <div class="custom-control custom-checkbox">
@@ -96,21 +96,21 @@
                 <label for="a_barangay" class="custom-control-label">Barangay</label>
             </div> -->
                 <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input  po_item" type="checkbox" checked id="taget_name" name="taget_name" >
+                    <input class="custom-control-input  po_item" type="checkbox" checked id="taget_name" name="taget_name">
                     <label for="taget_name" class="custom-control-label">Target</label>
                 </div>
                 <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input  po_item" type="checkbox" checked id="ot_name" name="ot_name" >
+                    <input class="custom-control-input  po_item" type="checkbox" checked id="ot_name" name="ot_name">
                     <label for="ot_name" class="custom-control-label">Operating Team</label>
                 </div>
                 <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input  po_item" type="checkbox" checked id="prepared_by" name="prepared_by" >
+                    <input class="custom-control-input  po_item" type="checkbox" checked id="prepared_by" name="prepared_by">
                     <label for="prepared_by" class="custom-control-label">Prepared By</label>
                 </div>
                 <hr>
                 <h4>After Operations</h4>
                 <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input" type="checkbox" id="all_ao" checked >
+                    <input class="custom-control-input" type="checkbox" id="all_ao" checked>
                     <label for="all_ao" class="custom-control-label">All</label>
                 </div>
                 <div class="custom-control custom-checkbox">
@@ -146,7 +146,7 @@
                 <hr>
                 <h4>Spot Report</h4>
                 <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input" type="checkbox" id="all_sr" name="all_sr" checked >
+                    <input class="custom-control-input" type="checkbox" id="all_sr" name="all_sr" checked>
                     <label for="all_sr" class="custom-control-label">All</label>
                 </div>
                 <div class="custom-control custom-checkbox">
@@ -326,7 +326,7 @@
                 <hr>
                 <h4>Progress Report</h4>
                 <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input" type="checkbox" id="all_pr" checked >
+                    <input class="custom-control-input" type="checkbox" id="all_pr" checked>
                     <label for="all_pr" class="custom-control-label">All</label>
                 </div>
                 <div class="custom-control custom-checkbox">
@@ -442,7 +442,7 @@
                 <hr>
                 <h4>Drug Verification List</h4>
                 <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input" type="checkbox" id="all_dv" checked >
+                    <input class="custom-control-input" type="checkbox" id="all_dv" checked>
                     <label for="all_dv" class="custom-control-label">All</label>
                 </div>
                 <div class="custom-control custom-checkbox">
@@ -505,11 +505,11 @@
                 <table id="example_info" class="table table-bordered table-striped table-hover" style="width:auto">
                     <thead>
                         <tr>
-                            <th id="IOP" class="po" colspan="20" style="white-space: nowrap;  text-align:center; font-size: 30px">Issuance of Pre-Ops</th>
-                            <th id="AO" class="ao" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 30px">After Operations</th>
-                            <th id="SP" class="sp" colspan="43" style="white-space: nowrap;  text-align:center; font-size: 30px">Spot Report</th>
-                            <th id="PR" class="pr" colspan="27" style="white-space: nowrap;  text-align:center; font-size: 30px">Progress Report</th>
-                            <th id="DV" class="dv" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 30px">Drug Verification List</th>
+                            <th id="IOP" class="po" colspan="20" style="white-space: nowrap;  text-align:center; font-size: 30px"><input id="IOP2" name="IOP" hidden value="20"></input>Issuance of Pre-Ops</th>
+                            <th id="AO" class="ao" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 30px"><input id="AO2" name="AO" hidden value="7"></input>After Operations</th>
+                            <th id="SP" class="sp" colspan="43" style="white-space: nowrap;  text-align:center; font-size: 30px"><input id="SP2" name="SP" hidden value="43"></input>Spot Report</th>
+                            <th id="PR" class="pr" colspan="27" style="white-space: nowrap;  text-align:center; font-size: 30px"><input id="PR2" name="PR" hidden value="27"></input>Progress Report</th>
+                            <th id="DV" class="dv" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 30px"><input id="DV2" name="DV" hidden value="4"></input>Drug Verification List</th>
                         </tr>
                         <tr>
                             <th class="po region" rowspan="2" style="white-space: nowrap; text-align:center; font-size: 20px; vertical-align : middle;text-align:center;">Region</th>
@@ -1133,48 +1133,54 @@
         if ($(this).is(":checked")) {
             $('.po').attr('hidden', false);
             $('.po_item').prop('checked', true);
-            $('#IOP').prop("colspan", 20)
+            $('#IOP').prop("colspan", 20);
+            $('#IOP2').val(20);
 
         } else {
             $('.po').attr('hidden', true);
             $('.po_item').prop('checked', false);
-            $('#IOP').prop("colspan", 1)
+            $('#IOP').prop("colspan", 1);
+            $('#IOP2').val(1);
         }
     });
     $(document).on('click', '#all_ao', function() {
         if ($(this).is(":checked")) {
             $('.ao').attr('hidden', false);
             $('.ao_item').prop('checked', true);
-            $('#AO').prop("colspan", 20)
+            $('#AO').prop("colspan", 20);
+            $('#AO2').val(20);
 
         } else {
             $('.ao').attr('hidden', true);
             $('.ao_item').prop('checked', false);
-            $('#AO').prop("colspan", 1)
+            $('#AO').prop("colspan", 1);
+            $('#AO2').val(1);
         }
     });
     $(document).on('click', '#all_sr', function() {
         if ($(this).is(":checked")) {
             $('.sp').attr('hidden', false);
             $('.sr_item').prop('checked', true);
-            $('#SP').prop("colspan", 20)
-
+            $('#SP').prop("colspan", 43);
+            $('#SP2').val(43);
         } else {
             $('.sp').attr('hidden', true);
             $('.sr_item').prop('checked', false);
-            $('#SP').prop("colspan", 1)
+            $('#SP').prop("colspan", 1);
+            $('#SP2').val(1);
         }
     });
     $(document).on('click', '#all_pr', function() {
         if ($(this).is(":checked")) {
             $('.pr').attr('hidden', false);
             $('.pr_item').prop('checked', true);
-            $('#PR').prop("colspan", 20)
-
+            $('#PR').prop("colspan", 20);
+            $('#PR2').val(20);
         } else {
             $('.pr').attr('hidden', true);
             $('.pr_item').prop('checked', false);
-            $('#PR').prop("colspan", 1)
+            $('#PR').prop("colspan", 1);
+            $('#PR2').val(1);
         }
     });
     $(document).on('click', '#all_dv', function() {
@@ -1182,11 +1188,13 @@
             $('.dv').attr('hidden', false);
             $('.dv_item').prop('checked', true);
             $('#DV').prop("colspan", 20)
+            $('#DV2').val(20);
 
         } else {
             $('.dv').attr('hidden', true);
             $('.dv_item').prop('checked', false);
             $('#DV').prop("colspan", 1)
+            $('#DV2').val(1);
         }
     });
     $(document).on('click', '#region', function() {
@@ -1196,7 +1204,8 @@
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 1;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
 
         } else {
@@ -1205,7 +1214,8 @@
                 $('#IOP').attr('hidden', true);
             } else {
                 $iop = $('#IOP').prop("colspan") - 1;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         }
     });
@@ -1216,7 +1226,8 @@
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 1;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         } else {
             $('.preops_number').attr('hidden', true);
@@ -1224,7 +1235,8 @@
                 $('#IOP').attr('hidden', true);
             } else {
                 $iop = $('#IOP').prop("colspan") - 1;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         }
     });
@@ -1235,7 +1247,8 @@
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 1;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         } else {
             $('.province').attr('hidden', true);
@@ -1243,7 +1256,8 @@
                 $('#IOP').attr('hidden', true);
             } else {
                 $iop = $('#IOP').prop("colspan") - 1;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         }
     });
@@ -1254,7 +1268,8 @@
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 1;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         } else {
             $('.type_operation').attr('hidden', true);
@@ -1262,7 +1277,8 @@
                 $('#IOP').attr('hidden', true);
             } else {
                 $iop = $('#IOP').prop("colspan") - 1;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         }
     });
@@ -1273,7 +1289,8 @@
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 1;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         } else {
             $('.operating_unit').attr('hidden', true);
@@ -1281,7 +1298,8 @@
                 $('#IOP').attr('hidden', true);
             } else {
                 $iop = $('#IOP').prop("colspan") - 1;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         }
     });
@@ -1292,7 +1310,8 @@
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 1;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         } else {
             $('.support_unit').attr('hidden', true);
@@ -1300,7 +1319,8 @@
                 $('#IOP').attr('hidden', true);
             } else {
                 $iop = $('#IOP').prop("colspan") - 1;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         }
     });
@@ -1311,7 +1331,8 @@
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 1;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         } else {
             $('.datetime_coordinate').attr('hidden', true);
@@ -1319,7 +1340,8 @@
                 $('#IOP').attr('hidden', true);
             } else {
                 $iop = $('#IOP').prop("colspan") - 1;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         }
     });
@@ -1330,7 +1352,8 @@
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 1;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         } else {
             $('.datetime_operation').attr('hidden', true);
@@ -1338,7 +1361,8 @@
                 $('#IOP').attr('hidden', true);
             } else {
                 $iop = $('#IOP').prop("colspan") - 1;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         }
     });
@@ -1349,7 +1373,8 @@
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 1;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         } else {
             $('.valid_until').attr('hidden', true);
@@ -1357,7 +1382,8 @@
                 $('#IOP').attr('hidden', true);
             } else {
                 $iop = $('#IOP').prop("colspan") - 1;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         }
     });
@@ -1368,7 +1394,8 @@
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 5;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
 
         } else {
@@ -1377,7 +1404,8 @@
                 $('#IOP').attr('hidden', true);
             } else {
                 $iop = $('#IOP').prop("colspan") - 5;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
 
         }
@@ -1389,7 +1417,8 @@
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 2;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         } else {
             $('.taget_name').attr('hidden', true);
@@ -1397,7 +1426,8 @@
                 $('#IOP').attr('hidden', true);
             } else {
                 $iop = $('#IOP').prop("colspan") - 2;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         }
     });
@@ -1405,11 +1435,13 @@
     //     if ($(this).is(":checked")) {
     //         $('.target_nationality').attr('hidden', false);
     //         $iop = $('#IOP').prop("colspan") + 1;
-    //         $('#IOP').prop("colspan", $iop)
+    //         $('#IOP').prop("colspan", $iop);
+    $('#IOP2').val($iop);
     //     } else {
     //         $('.target_nationality').attr('hidden', true);
     //         $iop = $('#IOP').prop("colspan") - 1;
-    //         $('#IOP').prop("colspan", $iop)
+    //         $('#IOP').prop("colspan", $iop);
+    $('#IOP2').val($iop);
     //     }
     // });
     $(document).on('click', '#ot_name', function() {
@@ -1419,7 +1451,8 @@
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 3;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         } else {
             $('.ot_name').attr('hidden', true);
@@ -1427,7 +1460,8 @@
                 $('#IOP').attr('hidden', true);
             } else {
                 $iop = $('#IOP').prop("colspan") - 3;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         }
     });
@@ -1438,7 +1472,8 @@
                 $('#IOP').attr('hidden', false);
             } else {
                 $iop = $('#IOP').prop("colspan") + 1;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         } else {
             $('.prepared_by').attr('hidden', true);
@@ -1446,7 +1481,8 @@
                 $('#IOP').attr('hidden', true);
             } else {
                 $iop = $('#IOP').prop("colspan") - 1;
-                $('#IOP').prop("colspan", $iop)
+                $('#IOP').prop("colspan", $iop);
+                $('#IOP2').val($iop);
             }
         }
     });
@@ -1457,7 +1493,8 @@
                 $('#AO').attr('hidden', false);
             } else {
                 $iop = $('#AO').prop("colspan") + 1;
-                $('#AO').prop("colspan", $iop)
+                $('#AO').prop("colspan", $iop);
+                $('#AO2').val($iop);
             }
         } else {
             $('.ao_result').attr('hidden', true);
@@ -1465,7 +1502,8 @@
                 $('#AO').attr('hidden', true);
             } else {
                 $iop = $('#AO').prop("colspan") - 1;
-                $('#AO').prop("colspan", $iop)
+                $('#AO').prop("colspan", $iop);
+                $('#AO2').val($iop);
             }
         }
     });
@@ -1476,7 +1514,8 @@
                 $('#AO').attr('hidden', false);
             } else {
                 $iop = $('#AO').prop("colspan") + 1;
-                $('#AO').prop("colspan", $iop)
+                $('#AO').prop("colspan", $iop);
+                $('#AO2').val($iop);
             }
         } else {
             $('.ao_negative_reason').attr('hidden', true);
@@ -1484,7 +1523,8 @@
                 $('#AO').attr('hidden', true);
             } else {
                 $iop = $('#AO').prop("colspan") - 1;
-                $('#AO').prop("colspan", $iop)
+                $('#AO').prop("colspan", $iop);
+                $('#AO2').val($iop);
             }
         }
     });
@@ -1495,7 +1535,8 @@
                 $('#AO').attr('hidden', false);
             } else {
                 $iop = $('#AO').prop("colspan") + 1;
-                $('#AO').prop("colspan", $iop)
+                $('#AO').prop("colspan", $iop);
+                $('#AO2').val($iop);
             }
         } else {
             $('.ao_illegal_drug').attr('hidden', true);
@@ -1503,7 +1544,8 @@
                 $('#AO').attr('hidden', true);
             } else {
                 $iop = $('#AO').prop("colspan") - 1;
-                $('#AO').prop("colspan", $iop)
+                $('#AO').prop("colspan", $iop);
+                $('#AO2').val($iop);
             }
         }
     });
@@ -1514,7 +1556,8 @@
                 $('#AO').attr('hidden', false);
             } else {
                 $iop = $('#AO').prop("colspan") + 1;
-                $('#AO').prop("colspan", $iop)
+                $('#AO').prop("colspan", $iop);
+                $('#AO2').val($iop);
             }
         } else {
             $('.ao_quantity').attr('hidden', true);
@@ -1522,7 +1565,8 @@
                 $('#AO').attr('hidden', true);
             } else {
                 $iop = $('#AO').prop("colspan") - 1;
-                $('#AO').prop("colspan", $iop)
+                $('#AO').prop("colspan", $iop);
+                $('#AO2').val($iop);
             }
         }
     });
@@ -1533,7 +1577,8 @@
                 $('#AO').attr('hidden', false);
             } else {
                 $iop = $('#AO').prop("colspan") + 1;
-                $('#AO').prop("colspan", $iop)
+                $('#AO').prop("colspan", $iop);
+                $('#AO2').val($iop);
             }
         } else {
             $('.ao_unit_measure').attr('hidden', true);
@@ -1541,7 +1586,8 @@
                 $('#AO').attr('hidden', true);
             } else {
                 $iop = $('#AO').prop("colspan") - 1;
-                $('#AO').prop("colspan", $iop)
+                $('#AO').prop("colspan", $iop);
+                $('#AO2').val($iop);
             }
         }
     });
@@ -1552,7 +1598,8 @@
                 $('#AO').attr('hidden', false);
             } else {
                 $iop = $('#AO').prop("colspan") + 1;
-                $('#AO').prop("colspan", $iop)
+                $('#AO').prop("colspan", $iop);
+                $('#AO2').val($iop);
             }
         } else {
             $('.ao_crn').attr('hidden', true);
@@ -1560,7 +1607,8 @@
                 $('#AO').attr('hidden', true);
             } else {
                 $iop = $('#AO').prop("colspan") - 1;
-                $('#AO').prop("colspan", $iop)
+                $('#AO').prop("colspan", $iop);
+                $('#AO2').val($iop);
             }
         }
     });
@@ -1571,7 +1619,8 @@
                 $('#AO').attr('hidden', false);
             } else {
                 $iop = $('#AO').prop("colspan") + 1;
-                $('#AO').prop("colspan", $iop)
+                $('#AO').prop("colspan", $iop);
+                $('#AO2').val($iop);
             }
         } else {
             $('.ao_date_received').attr('hidden', true);
@@ -1579,7 +1628,8 @@
                 $('#AO').attr('hidden', true);
             } else {
                 $iop = $('#AO').prop("colspan") - 1;
-                $('#AO').prop("colspan", $iop)
+                $('#AO').prop("colspan", $iop);
+                $('#AO2').val($iop);
             }
         }
     });
@@ -1592,7 +1642,8 @@
                 $('#SP').attr('hidden', false);
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
         } else {
             $('.sp_hio').attr('hidden', true);
@@ -1600,7 +1651,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
         }
     });
@@ -1622,6 +1674,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_suspect_number').attr('hidden', false);
@@ -1639,7 +1692,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -1667,6 +1721,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_status').attr('hidden', false);
@@ -1684,7 +1739,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -1712,6 +1768,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_lastname').attr('hidden', false);
@@ -1729,7 +1786,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -1757,6 +1815,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_firstname').attr('hidden', false);
@@ -1774,7 +1833,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -1802,6 +1862,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_middlename').attr('hidden', false);
@@ -1819,7 +1880,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -1847,6 +1909,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_alias').attr('hidden', false);
@@ -1864,7 +1927,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -1892,6 +1956,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_birthdate').attr('hidden', false);
@@ -1909,7 +1974,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -1937,6 +2003,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_est_birthdate').attr('hidden', false);
@@ -1954,7 +2021,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -1982,6 +2050,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_birthplace').attr('hidden', false);
@@ -1999,7 +2068,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2027,6 +2097,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_region').attr('hidden', false);
@@ -2044,7 +2115,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2072,6 +2144,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_province').attr('hidden', false);
@@ -2089,7 +2162,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2117,6 +2191,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_city').attr('hidden', false);
@@ -2134,7 +2209,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2162,6 +2238,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_barangay').attr('hidden', false);
@@ -2179,7 +2256,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2207,6 +2285,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_street').attr('hidden', false);
@@ -2224,7 +2303,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2252,6 +2332,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_p_region').attr('hidden', false);
@@ -2269,7 +2350,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2297,6 +2379,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_p_province').attr('hidden', false);
@@ -2314,7 +2397,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2342,6 +2426,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_p_city').attr('hidden', false);
@@ -2359,7 +2444,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2387,6 +2473,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_p_barangay').attr('hidden', false);
@@ -2404,7 +2491,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2432,6 +2520,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_p_street').attr('hidden', false);
@@ -2449,7 +2538,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2477,6 +2567,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_sex').attr('hidden', false);
@@ -2494,7 +2585,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2522,6 +2614,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_civil_status').attr('hidden', false);
@@ -2539,7 +2632,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2567,6 +2661,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_nationality').attr('hidden', false);
@@ -2584,7 +2679,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2612,6 +2708,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_ethnic_group').attr('hidden', false);
@@ -2629,7 +2726,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2657,6 +2755,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_religion').attr('hidden', false);
@@ -2674,7 +2773,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2702,6 +2802,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_educational_attainment').attr('hidden', false);
@@ -2719,7 +2820,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2747,6 +2849,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_occupation').attr('hidden', false);
@@ -2764,7 +2867,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2792,6 +2896,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_classification').attr('hidden', false);
@@ -2809,7 +2914,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2837,6 +2943,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_category').attr('hidden', false);
@@ -2854,7 +2961,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2882,6 +2990,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_whereabouts').attr('hidden', false);
@@ -2899,7 +3008,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2927,6 +3037,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_suspect').prop("colspan") == 1 && $('#SP_suspect').is(":hidden") == true) {
                     $('#SP_suspect').attr('hidden', false);
                     $('.sp_remarks').attr('hidden', false);
@@ -2944,7 +3055,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_suspect').prop("colspan") == 1) {
@@ -2972,6 +3084,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_item_seized').prop("colspan") == 1 && $('#SP_item_seized').is(":hidden") == true) {
                     $('#SP_item_seized').attr('hidden', false);
                     $('.sp_seized_from').attr('hidden', false);
@@ -2989,7 +3102,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_item_seized').prop("colspan") == 1) {
@@ -3017,6 +3131,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_item_seized').prop("colspan") == 1 && $('#SP_item_seized').is(":hidden") == true) {
                     $('#SP_item_seized').attr('hidden', false);
                     $('.sp_drug').attr('hidden', false);
@@ -3034,7 +3149,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_item_seized').prop("colspan") == 1) {
@@ -3062,6 +3178,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_item_seized').prop("colspan") == 1 && $('#SP_item_seized').is(":hidden") == true) {
                     $('#SP_item_seized').attr('hidden', false);
                     $('.sp_evidence').attr('hidden', false);
@@ -3079,7 +3196,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_item_seized').prop("colspan") == 1) {
@@ -3107,6 +3225,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_item_seized').prop("colspan") == 1 && $('#SP_item_seized').is(":hidden") == true) {
                     $('#SP_item_seized').attr('hidden', false);
                     $('.sp_quantity').attr('hidden', false);
@@ -3124,7 +3243,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_item_seized').prop("colspan") == 1) {
@@ -3152,6 +3272,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_item_seized').prop("colspan") == 1 && $('#SP_item_seized').is(":hidden") == true) {
                     $('#SP_item_seized').attr('hidden', false);
                     $('.sp_unit').attr('hidden', false);
@@ -3169,7 +3290,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_item_seized').prop("colspan") == 1) {
@@ -3197,6 +3319,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_item_seized').prop("colspan") == 1 && $('#SP_item_seized').is(":hidden") == true) {
                     $('#SP_item_seized').attr('hidden', false);
                     $('.sp_packaging').attr('hidden', false);
@@ -3214,7 +3337,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_item_seized').prop("colspan") == 1) {
@@ -3242,6 +3366,7 @@
             } else {
                 $iop = $('#SP').prop("colspan") + 1;
                 $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
                 if ($('#SP_item_seized').prop("colspan") == 1 && $('#SP_item_seized').is(":hidden") == true) {
                     $('#SP_item_seized').attr('hidden', false);
                     $('.sp_markings').attr('hidden', false);
@@ -3259,7 +3384,8 @@
                 $('#SP').attr('hidden', true);
             } else {
                 $iop = $('#SP').prop("colspan") - 1;
-                $('#SP').prop("colspan", $iop)
+                $('#SP').prop("colspan", $iop);
+                $('#SP2').val($iop);
             }
 
             if ($('#SP_item_seized').prop("colspan") == 1) {
@@ -3275,12 +3401,14 @@
     //         $('.sp_case_name').attr('hidden', false);
     //         $iop = $('#SP').prop("colspan") + 1;
     //         $('#SP').prop("colspan", $iop);
+    $('#SP2').val($iop);
     //         $iop2 = $('#SP_CF').prop("colspan") + 1;
     //         $('#SP_CF').prop("colspan", $iop)
     //     } else {
     //         $('.sp_case_name').attr('hidden', true);
     //         $iop = $('#SP').prop("colspan") - 1;
     //         $('#SP').prop("colspan", $iop);
+    $('#SP2').val($iop);
     //         $iop2 = $('#SP_CF').prop("colspan") - 1;
     //         $('#SP_CF').prop("colspan", $iop2)
     //     }
@@ -3290,11 +3418,13 @@
             $('.sp_case_type').attr('hidden', false);
             $iop = $('#SP').prop("colspan") + 2;
             $('#SP').prop("colspan", $iop);
+            $('#SP2').val($iop);
             $('#SP_CF').attr('hidden', false);
         } else {
             $('.sp_case_type').attr('hidden', true);
             $iop = $('#SP').prop("colspan") - 2;
             $('#SP').prop("colspan", $iop);
+            $('#SP2').val($iop);
             $('#SP_CF').attr('hidden', true);
         }
     });
@@ -3303,12 +3433,14 @@
     //         $('.sp_report_header').attr('hidden', false);
     //         $iop = $('#SP').prop("colspan") + 1;
     //         $('#SP').prop("colspan", $iop);
+    $('#SP2').val($iop);
     //         $iop2 = $('#SP_suspect').prop("colspan") + 1;
     //         $('#SP_suspect').prop("colspan", $iop)
     //     } else {
     //         $('.sp_report_header').attr('hidden', true);
     //         $iop = $('#SP').prop("colspan") - 1;
     //         $('#SP').prop("colspan", $iop);
+    $('#SP2').val($iop);
     //         $iop2 = $('#SP_suspect').prop("colspan") - 1;
     //         $('#SP_suspect').prop("colspan", $iop2)
     //     }
@@ -3318,10 +3450,12 @@
             $('.sp_summary').attr('hidden', false);
             $iop = $('#SP').prop("colspan") + 2;
             $('#SP').prop("colspan", $iop);
+            $('#SP2').val($iop);
         } else {
             $('.sp_summary').attr('hidden', true);
             $iop = $('#SP').prop("colspan") - 2;
             $('#SP').prop("colspan", $iop);
+            $('#SP2').val($iop);
         }
     });
     $(document).on('click', '#sp_prepared_by', function() {
@@ -3353,6 +3487,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_suspect').prop("colspan") == 1 && $('#PR_suspect').is(":hidden") == true) {
                     $('#PR_suspect').attr('hidden', false);
                     $('.pr_suspect_name').attr('hidden', false);
@@ -3370,14 +3505,15 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_suspect').prop("colspan") == 1) {
                 $('#PR_suspect').attr('hidden', true);
             } else {
                 $iop = $('#PR_suspect').prop("colspan") - 1;
-                $('#PR_suspect').prop("colspan", $iop)
+                $('#PR_suspect').prop("colspan", $iop);
             }
         }
     });
@@ -3399,6 +3535,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_suspect').prop("colspan") == 1 && $('#PR_suspect').is(":hidden") == true) {
                     $('#PR_suspect').attr('hidden', false);
                     $('.pr_suspect_classification').attr('hidden', false);
@@ -3416,7 +3553,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_suspect').prop("colspan") == 1) {
@@ -3445,6 +3583,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_suspect').prop("colspan") == 1 && $('#PR_suspect').is(":hidden") == true) {
                     $('#PR_suspect').attr('hidden', false);
                     $('.pr_suspect_status').attr('hidden', false);
@@ -3462,7 +3601,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_suspect').prop("colspan") == 1) {
@@ -3491,6 +3631,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_suspect').prop("colspan") == 1 && $('#PR_suspect').is(":hidden") == true) {
                     $('#PR_suspect').attr('hidden', false);
                     $('.pr_drug_test_result').attr('hidden', false);
@@ -3508,7 +3649,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_suspect').prop("colspan") == 1) {
@@ -3537,6 +3679,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_suspect').prop("colspan") == 1 && $('#PR_suspect').is(":hidden") == true) {
                     $('#PR_suspect').attr('hidden', false);
                     $('.pr_drug_type').attr('hidden', false);
@@ -3554,7 +3697,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_suspect').prop("colspan") == 1) {
@@ -3583,6 +3727,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_suspect').prop("colspan") == 1 && $('#PR_suspect').is(":hidden") == true) {
                     $('#PR_suspect').attr('hidden', false);
                     $('.pr_remarks').attr('hidden', false);
@@ -3600,7 +3745,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_suspect').prop("colspan") == 1) {
@@ -3629,6 +3775,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_IS').prop("colspan") == 1 && $('#PR_IS').is(":hidden") == true) {
                     $('#PR_IS').attr('hidden', false);
                     $('.pr_drug_seized').attr('hidden', false);
@@ -3646,7 +3793,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_IS').prop("colspan") == 1) {
@@ -3675,6 +3823,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_IS').prop("colspan") == 1 && $('#PR_IS').is(":hidden") == true) {
                     $('#PR_IS').attr('hidden', false);
                     $('.pr_qty_onsite').attr('hidden', false);
@@ -3692,7 +3841,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_IS').prop("colspan") == 1) {
@@ -3721,6 +3871,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_IS').prop("colspan") == 1 && $('#PR_IS').is(":hidden") == true) {
                     $('#PR_IS').attr('hidden', false);
                     $('.pr_actual_qty').attr('hidden', false);
@@ -3738,7 +3889,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_IS').prop("colspan") == 1) {
@@ -3767,6 +3919,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_IS').prop("colspan") == 1 && $('#PR_IS').is(":hidden") == true) {
                     $('#PR_IS').attr('hidden', false);
                     $('.pr_unit').attr('hidden', false);
@@ -3784,7 +3937,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_IS').prop("colspan") == 1) {
@@ -3813,6 +3967,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_IS').prop("colspan") == 1 && $('#PR_IS').is(":hidden") == true) {
                     $('#PR_IS').attr('hidden', false);
                     $('.pr_id_drug_test_result').attr('hidden', false);
@@ -3830,7 +3985,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_IS').prop("colspan") == 1) {
@@ -3859,6 +4015,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_IS').prop("colspan") == 1 && $('#PR_IS').is(":hidden") == true) {
                     $('#PR_IS').attr('hidden', false);
                     $('.pr_id_cr_number').attr('hidden', false);
@@ -3876,7 +4033,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_IS').prop("colspan") == 1) {
@@ -3905,6 +4063,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_IS').prop("colspan") == 1 && $('#PR_IS').is(":hidden") == true) {
                     $('#PR_IS').attr('hidden', false);
                     $('.pr_id_laboratory').attr('hidden', false);
@@ -3922,7 +4081,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_IS').prop("colspan") == 1) {
@@ -3951,6 +4111,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_CASE').prop("colspan") == 1 && $('#PR_CASE').is(":hidden") == true) {
                     $('#PR_CASE').attr('hidden', false);
                     $('.pr_cf_suspect_name').attr('hidden', false);
@@ -3968,7 +4129,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_CASE').prop("colspan") == 1) {
@@ -3997,6 +4159,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_CASE').prop("colspan") == 1 && $('#PR_CASE').is(":hidden") == true) {
                     $('#PR_CASE').attr('hidden', false);
                     $('.pr_cf_case').attr('hidden', false);
@@ -4014,7 +4177,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_CASE').prop("colspan") == 1) {
@@ -4043,6 +4207,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_CASE').prop("colspan") == 1 && $('#PR_CASE').is(":hidden") == true) {
                     $('#PR_CASE').attr('hidden', false);
                     $('.pr_cf_docket_number').attr('hidden', false);
@@ -4060,7 +4225,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_CASE').prop("colspan") == 1) {
@@ -4089,6 +4255,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_CASE').prop("colspan") == 1 && $('#PR_CASE').is(":hidden") == true) {
                     $('#PR_CASE').attr('hidden', false);
                     $('.pr_cf_status').attr('hidden', false);
@@ -4106,7 +4273,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_CASE').prop("colspan") == 1) {
@@ -4135,6 +4303,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_INQUEST').prop("colspan") == 1 && $('#PR_INQUEST').is(":hidden") == true) {
                     $('#PR_INQUEST').attr('hidden', false);
                     $('.pr_inquest_status').attr('hidden', false);
@@ -4152,7 +4321,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_INQUEST').prop("colspan") == 1) {
@@ -4181,6 +4351,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_INQUEST').prop("colspan") == 1 && $('#PR_INQUEST').is(":hidden") == true) {
                     $('#PR_INQUEST').attr('hidden', false);
                     $('.pr_inquest_nps').attr('hidden', false);
@@ -4198,7 +4369,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_INQUEST').prop("colspan") == 1) {
@@ -4227,6 +4399,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_INQUEST').prop("colspan") == 1 && $('#PR_INQUEST').is(":hidden") == true) {
                     $('#PR_INQUEST').attr('hidden', false);
                     $('.pr_inquest_date').attr('hidden', false);
@@ -4244,7 +4417,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_INQUEST').prop("colspan") == 1) {
@@ -4273,6 +4447,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_INQUEST').prop("colspan") == 1 && $('#PR_INQUEST').is(":hidden") == true) {
                     $('#PR_INQUEST').attr('hidden', false);
                     $('.pr_inquest_prosecutor').attr('hidden', false);
@@ -4290,7 +4465,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_INQUEST').prop("colspan") == 1) {
@@ -4319,6 +4495,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_INQUEST').prop("colspan") == 1 && $('#PR_INQUEST').is(":hidden") == true) {
                     $('#PR_INQUEST').attr('hidden', false);
                     $('.pr_inquest_office').attr('hidden', false);
@@ -4336,7 +4513,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_INQUEST').prop("colspan") == 1) {
@@ -4365,6 +4543,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_PRELIM').prop("colspan") == 1 && $('#PR_PRELIM').is(":hidden") == true) {
                     $('#PR_PRELIM').attr('hidden', false);
                     $('.pr_prelim_status').attr('hidden', false);
@@ -4382,7 +4561,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_PRELIM').prop("colspan") == 1) {
@@ -4411,6 +4591,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_PRELIM').prop("colspan") == 1 && $('#PR_PRELIM').is(":hidden") == true) {
                     $('#PR_PRELIM').attr('hidden', false);
                     $('.pr_prelim_date').attr('hidden', false);
@@ -4428,7 +4609,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_PRELIM').prop("colspan") == 1) {
@@ -4457,6 +4639,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_PRELIM').prop("colspan") == 1 && $('#PR_PRELIM').is(":hidden") == true) {
                     $('#PR_PRELIM').attr('hidden', false);
                     $('.pr_prelim_nps').attr('hidden', false);
@@ -4474,7 +4657,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_PRELIM').prop("colspan") == 1) {
@@ -4503,6 +4687,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_PRELIM').prop("colspan") == 1 && $('#PR_PRELIM').is(":hidden") == true) {
                     $('#PR_PRELIM').attr('hidden', false);
                     $('.pr_prelim_prosecutor').attr('hidden', false);
@@ -4520,7 +4705,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_PRELIM').prop("colspan") == 1) {
@@ -4549,6 +4735,7 @@
             } else {
                 $iop = $('#PR').prop("colspan") + 1;
                 $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
                 if ($('#PR_PRELIM').prop("colspan") == 1 && $('#PR_PRELIM').is(":hidden") == true) {
                     $('#PR_PRELIM').attr('hidden', false);
                     $('.pr_prelim_office').attr('hidden', false);
@@ -4566,7 +4753,8 @@
                 $('#PR').attr('hidden', true);
             } else {
                 $iop = $('#PR').prop("colspan") - 1;
-                $('#PR').prop("colspan", $iop)
+                $('#PR').prop("colspan", $iop);
+                $('#PR2').val($iop);
             }
 
             if ($('#PR_PRELIM').prop("colspan") == 1) {
@@ -4597,6 +4785,7 @@
             } else {
                 $iop = $('#DV').prop("colspan") + 1;
                 $('#DV').prop("colspan", $iop);
+                $('#DV2').val($iop);
                 if ($('#DV_HIO').prop("colspan") == 1 && $('#DV_HIO').is(":hidden") == true) {
                     $('#DV_HIO').attr('hidden', false);
                     $('.dv_suspect_name').attr('hidden', false);
@@ -4615,6 +4804,7 @@
             } else {
                 $iop = $('#DV').prop("colspan") - 1;
                 $('#DV').prop("colspan", $iop)
+                $('#DV2').val($iop);
             }
 
             if ($('#DV_HIO').prop("colspan") == 1) {
@@ -4643,6 +4833,7 @@
             } else {
                 $iop = $('#DV').prop("colspan") + 1;
                 $('#DV').prop("colspan", $iop);
+                $('#DV2').val($iop);
                 if ($('#DV_HIO').prop("colspan") == 1 && $('#DV_HIO').is(":hidden") == true) {
                     $('#DV_HIO').attr('hidden', false);
                     $('.dv_listed').attr('hidden', false);
@@ -4661,6 +4852,7 @@
             } else {
                 $iop = $('#DV').prop("colspan") - 1;
                 $('#DV').prop("colspan", $iop)
+                $('#DV2').val($iop);
             }
 
             if ($('#DV_HIO').prop("colspan") == 1) {
@@ -4689,6 +4881,7 @@
             } else {
                 $iop = $('#DV').prop("colspan") + 1;
                 $('#DV').prop("colspan", $iop);
+                $('#DV2').val($iop);
                 if ($('#DV_HIO').prop("colspan") == 1 && $('#DV_HIO').is(":hidden") == true) {
                     $('#DV_HIO').attr('hidden', false);
                     $('.dv_ndis').attr('hidden', false);
@@ -4707,6 +4900,7 @@
             } else {
                 $iop = $('#DV').prop("colspan") - 1;
                 $('#DV').prop("colspan", $iop)
+                $('#DV2').val($iop);
             }
 
             if ($('#DV_HIO').prop("colspan") == 1) {
@@ -4735,6 +4929,7 @@
             } else {
                 $iop = $('#DV').prop("colspan") + 1;
                 $('#DV').prop("colspan", $iop);
+                $('#DV2').val($iop);
                 if ($('#DV_HIO').prop("colspan") == 1 && $('#DV_HIO').is(":hidden") == true) {
                     $('#DV_HIO').attr('hidden', false);
                     $('.dv_remarks').attr('hidden', false);
@@ -4753,6 +4948,7 @@
             } else {
                 $iop = $('#DV').prop("colspan") - 1;
                 $('#DV').prop("colspan", $iop)
+                $('#DV2').val($iop);
             }
 
             if ($('#DV_HIO').prop("colspan") == 1) {
