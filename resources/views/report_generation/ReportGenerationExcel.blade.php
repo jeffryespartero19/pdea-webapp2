@@ -30,16 +30,16 @@
             @if($ao_date_received != 0)<th class="ao ao_date_received" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Date Received</th>@endif
             @if($sp_hio != 0)<th class="sp sp_hio" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">High Impact Operation</th>@endif
             <th class="sp suspect" id="SP_suspect" colspan="30" style="white-space: nowrap;  text-align:center; font-size: 20px">Suspect</th>
-            @if($item_seized != 0)<th class="sp item_seized" id="SP_item_seized" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 20px">Item Seized</th>
+            @if($item_seized != 0)<th class="sp item_seized" id="SP_item_seized" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 20px">Item Seized</th>@endif
             @if($sp_case_type != 0)<th class="sp case_filed" id="SP_CF" colspan="2" style="white-space: nowrap;  text-align:center; font-size: 20px">Case Filed</th>@endif
             @if($sp_summary != 0)<th class="sp sp_summary" colspan="2" style="white-space: nowrap;  text-align:center; font-size: 20px">Summary</th>@endif
             @if($sp_prepared_by != 0)<th class="sp sp_prepared_by" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Prepared By</th>@endif
-            @if($pr_suspect != 0)<th class="pr pr_suspect" id="PR_suspect" colspan="6" style="white-space: nowrap;  text-align:center; font-size: 20px">Suspect</th>
-            @if($pr_evidence != 0)<th class="pr pr_evidence" id="PR_IS" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 20px">Item Seized</th>
-            @if($pr_case != 0)<th class="pr pr_case" id="PR_CASE" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 20px">Case Filed</th>
-            @if($pr_inquest != 0)<th class="pr pr_inquest" id="PR_INQUEST" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Inquest</th>
-            @if($pr_prelim != 0)<th class="pr pr_prelim" id="PR_PRELIM" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Preliminary Investigation</th>
-            @if($dv_hio != 0)<th class="dv dv_hio" id="DV_HIO" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 20px">High Impact Operation</th>
+            @if($pr_suspect != 0)<th class="pr pr_suspect" id="PR_suspect" colspan="6" style="white-space: nowrap;  text-align:center; font-size: 20px">Suspect</th>@endif
+            @if($pr_evidence != 0)<th class="pr pr_evidence" id="PR_IS" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 20px">Item Seized</th>@endif
+            @if($pr_case != 0)<th class="pr pr_case" id="PR_CASE" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 20px">Case Filed</th>@endif
+            @if($pr_inquest != 0)<th class="pr pr_inquest" id="PR_INQUEST" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Inquest</th>@endif
+            @if($pr_prelim != 0)<th class="pr pr_prelim" id="PR_PRELIM" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Preliminary Investigation</th>@endif
+            @if($dv_hio != 0)<th class="dv dv_hio" id="DV_HIO" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 20px">High Impact Operation</th>@endif
         </tr>
         <tr>
             @if($a_area != 0)<th class="ao a_area" style="white-space: nowrap">Area</th>@endif
