@@ -215,7 +215,7 @@ class ReportsGenerationView implements FromView
         $q = $this->q;
         $operation_date = $this->operation_date;
         $operation_date_to = $this->operation_date_to;
-        $region = $this->region;
+        $region1 = $this->region;
         $preops_number = $this->preops_number;
         $province = $this->province;
         $type_operation = $this->type_operation;
@@ -549,7 +549,7 @@ class ReportsGenerationView implements FromView
             ->get();
 
         return view('report_generation.ReportGenerationExcel', compact(
-            'region',
+            'region1',
             'issuance_of_preops',
             'region',
             'preops_number',
