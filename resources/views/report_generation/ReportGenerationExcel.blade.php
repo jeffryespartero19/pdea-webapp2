@@ -30,16 +30,16 @@
             @if($ao_date_received != 0)<th class="ao ao_date_received" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Date Received</th>@endif
             @if($sp_hio != 0)<th class="sp sp_hio" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">High Impact Operation</th>@endif
             <th class="sp suspect" id="SP_suspect" colspan="30" style="white-space: nowrap;  text-align:center; font-size: 20px">Suspect</th>
-            @if($item_seized != 0)<th class="sp item_seized" id="SP_item_seized" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 20px">Item Seized</th>@endif
+            <th class="sp item_seized" id="SP_item_seized" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 20px">Item Seized</th>
             @if($sp_case_type != 0)<th class="sp case_filed" id="SP_CF" colspan="2" style="white-space: nowrap;  text-align:center; font-size: 20px">Case Filed</th>@endif
             @if($sp_summary != 0)<th class="sp sp_summary" colspan="2" style="white-space: nowrap;  text-align:center; font-size: 20px">Summary</th>@endif
             @if($sp_prepared_by != 0)<th class="sp sp_prepared_by" rowspan="2" style="white-space: nowrap; text-align:center;  font-size: 20px; vertical-align : middle;text-align:center;">Prepared By</th>@endif
-            @if($pr_suspect != 0)<th class="pr pr_suspect" id="PR_suspect" colspan="6" style="white-space: nowrap;  text-align:center; font-size: 20px">Suspect</th>@endif
-            @if($pr_evidence != 0)<th class="pr pr_evidence" id="PR_IS" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 20px">Item Seized</th>@endif
-            @if($pr_case != 0)<th class="pr pr_case" id="PR_CASE" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 20px">Case Filed</th>@endif
-            @if($pr_inquest != 0)<th class="pr pr_inquest" id="PR_INQUEST" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Inquest</th>@endif
-            @if($pr_prelim != 0)<th class="pr pr_prelim" id="PR_PRELIM" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Preliminary Investigation</th>@endif
-            @if($dv_hio != 0)<th class="dv dv_hio" id="DV_HIO" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 20px">High Impact Operation</th>@endif
+            <th class="pr pr_suspect" id="PR_suspect" colspan="6" style="white-space: nowrap;  text-align:center; font-size: 20px">Suspect</th>
+            <th class="pr pr_evidence" id="PR_IS" colspan="7" style="white-space: nowrap;  text-align:center; font-size: 20px">Item Seized</th>
+            <th class="pr pr_case" id="PR_CASE" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 20px">Case Filed</th>
+            <th class="pr pr_inquest" id="PR_INQUEST" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Inquest</th>
+            <th class="pr pr_prelim" id="PR_PRELIM" colspan="5" style="white-space: nowrap;  text-align:center; font-size: 20px">Preliminary Investigation</th>
+            <th class="dv dv_hio" id="DV_HIO" colspan="4" style="white-space: nowrap;  text-align:center; font-size: 20px">High Impact Operation</th>
         </tr>
         <tr>
             @if($a_area != 0)<th class="ao a_area" style="white-space: nowrap">Area</th>@endif
@@ -622,7 +622,7 @@
                 @endforeach
             </td>
             @endif
-            @if($sp_unit_measure != 0)<td class="sp sp_unit_measure" style="white-space: nowrap">
+            @if($sp_unit != 0)<td class="sp sp_unit" style="white-space: nowrap">
                 @foreach($spot_report_evidence as $sre_data)
                 @if($sre_data->preops_number == $pr_data->preops_number)
                 <span style="white-space: nowrap">{{ $sre_data->unit_measure }}</span>
@@ -748,7 +748,7 @@
                 @endforeach
             </td>
             @endif
-            @if($pr_evidence != 0)<td class="pr pr_evidence" style="white-space: nowrap">
+            @if($pr_drug_seized != 0)<td class="pr pr_evidence" style="white-space: nowrap">
                 @foreach($spot_report_evidence as $sre_data)
                 @if($sre_data->preops_number == $pr_data->preops_number)
                 <span style="white-space: nowrap">{{ $sre_data->evidence }}</span>
@@ -757,7 +757,7 @@
                 @endforeach
             </td>
             @endif
-            @if($pr_quantity_on_site != 0)<td class="pr pr_quantity_on_site" style="white-space: nowrap">
+            @if($pr_qty_onsite != 0)<td class="pr pr_qty_onsite" style="white-space: nowrap">
                 @foreach($spot_report_evidence as $sre_data)
                 @if($sre_data->preops_number == $pr_data->preops_number)
                 <span style="white-space: nowrap">{{ $sre_data->qty_onsite }}</span>
@@ -766,7 +766,7 @@
                 @endforeach
             </td>
             @endif
-            @if($pr_quantity_on_site != 0)<td class="pr pr_quantity_on_site" style="white-space: nowrap">
+            @if($pr_actual_qty != 0)<td class="pr pr_qty_onsite" style="white-space: nowrap">
                 @foreach($spot_report_evidence as $sre_data)
                 @if($sre_data->preops_number == $pr_data->preops_number)
                 <span style="white-space: nowrap">{{ $sre_data->actual_qty }}</span>
@@ -775,7 +775,7 @@
                 @endforeach
             </td>
             @endif
-            @if($pr_quantity_on_site != 0)<td class="pr pr_quantity_on_site" style="white-space: nowrap">
+            @if($pr_unit != 0)<td class="pr pr_qty_onsite" style="white-space: nowrap">
                 @foreach($spot_report_evidence as $sre_data)
                 @if($sre_data->preops_number == $pr_data->preops_number)
                 <span style="white-space: nowrap">{{ $sre_data->unit_measure }}</span>
@@ -784,7 +784,7 @@
                 @endforeach
             </td>
             @endif
-            @if($pr_quantity_on_site != 0)<td class="pr pr_quantity_on_site" style="white-space: nowrap">
+            @if($pr_id_drug_test_result != 0)<td class="pr pr_qty_onsite" style="white-space: nowrap">
                 @foreach($spot_report_evidence as $sre_data)
                 @if($sre_data->preops_number == $pr_data->preops_number)
                 <span style="white-space: nowrap">{{ $sre_data->drug_test_result }}</span>
@@ -793,7 +793,7 @@
                 @endforeach
             </td>
             @endif
-            @if($pr_quantity_on_site != 0)<td class="pr pr_quantity_on_site" style="white-space: nowrap">
+            @if($pr_id_cr_number != 0)<td class="pr pr_qty_onsite" style="white-space: nowrap">
                 @foreach($spot_report_evidence as $sre_data)
                 @if($sre_data->preops_number == $pr_data->preops_number)
                 <span style="white-space: nowrap">{{ $sre_data->chemist_report_number }}</span>
@@ -802,7 +802,7 @@
                 @endforeach
             </td>
             @endif
-            @if($pr_quantity_on_site != 0)<td class="pr pr_quantity_on_site" style="white-space: nowrap">
+            @if($pr_id_laboratory != 0)<td class="pr pr_qty_onsite" style="white-space: nowrap">
                 @foreach($spot_report_evidence as $sre_data)
                 @if($sre_data->preops_number == $pr_data->preops_number)
                 <span style="white-space: nowrap">{{ $sre_data->laboratory_facility }}</span>
@@ -811,7 +811,7 @@
                 @endforeach
             </td>
             @endif
-            @if($pr_cs_name != 0)<td class="pr pr_cs_name" style="white-space: nowrap">
+            @if($pr_cf_suspect_name != 0)<td class="pr pr_cs_name" style="white-space: nowrap">
                 @foreach($spot_report_case as $src_data)
                 @if($src_data->preops_number == $pr_data->preops_number)
                 <span style="white-space: nowrap">{{ $src_data->lastname }}, {{ $src_data->firstname }} {{ $src_data->middlename }}</span>
@@ -821,7 +821,7 @@
                 @endforeach
             </td>
             @endif
-            @if($pr_case != 0)<td class="pr pr_case" style="white-space: nowrap">
+            @if($pr_cf_case != 0)<td class="pr pr_case" style="white-space: nowrap">
                 @foreach($spot_report_case as $src_data)
                 @if($src_data->preops_number == $pr_data->preops_number)
                 <span style="white-space: nowrap">{{ $src_data->case }}</span>
@@ -831,7 +831,7 @@
                 @endforeach
             </td>
             @endif
-            @if($pr_docket_number != 0)<td class="pr pr_docket_number" style="white-space: nowrap">
+            @if($pr_cf_docket_number != 0)<td class="pr pr_docket_number" style="white-space: nowrap">
                 @foreach($spot_report_case as $src_data)
                 @if($src_data->preops_number == $pr_data->preops_number)
                 <span style="white-space: nowrap">{{ $src_data->docket_number }}</span>
@@ -841,7 +841,7 @@
                 @endforeach
             </td>
             @endif
-            @if($pr_case_status != 0)<td class="pr pr_case_status" style="white-space: nowrap">
+            @if($pr_cf_status != 0)<td class="pr pr_case_status" style="white-space: nowrap">
                 @foreach($spot_report_case as $src_data)
                 @if($src_data->preops_number == $pr_data->preops_number)
                 <span style="white-space: nowrap">{{ $src_data->case_status }}</span>
@@ -851,7 +851,7 @@
                 @endforeach
             </td>
             @endif
-            @if($pr_case_status != 0)<td class="pr pr_case_status" style="white-space: nowrap">
+            @if($pr_inquest_status != 0)<td class="pr pr_case_status" style="white-space: nowrap">
                 @foreach($spot_report_header as $srh_data)
                 @if($srh_data->preops_number == $pr_data->preops_number)
                 <span style="white-space: nowrap">{{ $srh_data->case_status }}</span>
@@ -860,7 +860,7 @@
                 @endforeach
             </td>
             @endif
-            @if($pr_case_status_date != 0)<td class="pr pr_case_status_date" style="white-space: nowrap">
+            @if($pr_inquest_date != 0)<td class="pr pr_case_status_date" style="white-space: nowrap">
                 @foreach($spot_report_header as $srh_data)
                 @if($srh_data->preops_number == $pr_data->preops_number)
                 <span style="white-space: nowrap">{{ $srh_data->case_status_date }}</span>
@@ -869,7 +869,7 @@
                 @endforeach
             </td>
             @endif
-            @if($pr_is_number != 0)<td class="pr pr_is_number" style="white-space: nowrap">
+            @if($pr_inquest_nps != 0)<td class="pr pr_is_number" style="white-space: nowrap">
                 @foreach($spot_report_header as $srh_data)
                 @if($srh_data->preops_number == $pr_data->preops_number)
                 <span style="white-space: nowrap">{{ $srh_data->is_number }}</span>
@@ -878,7 +878,7 @@
                 @endforeach
             </td>
             @endif
-            @if($pr_procecutor_name != 0)<td class="pr pr_procecutor_name" style="white-space: nowrap">
+            @if($pr_inquest_prosecutor != 0)<td class="pr pr_procecutor_name" style="white-space: nowrap">
                 @foreach($spot_report_header as $srh_data)
                 @if($srh_data->preops_number == $pr_data->preops_number)
                 <span style="white-space: nowrap">{{ $srh_data->procecutor_name }}</span>
@@ -887,7 +887,7 @@
                 @endforeach
             </td>
             @endif
-            @if($pr_procecutor_office != 0)<td class="pr pr_procecutor_office" style="white-space: nowrap">
+            @if($pr_inquest_office != 0)<td class="pr pr_procecutor_office" style="white-space: nowrap">
                 @foreach($spot_report_header as $srh_data)
                 @if($srh_data->preops_number == $pr_data->preops_number)
                 <span style="white-space: nowrap">{{ $srh_data->procecutor_office }}</span>
@@ -896,7 +896,7 @@
                 @endforeach
             </td>
             @endif
-            @if($pr_prelim_case_status != 0)<td class="pr pr_prelim_case_status" style="white-space: nowrap">
+            @if($pr_prelim_status != 0)<td class="pr pr_prelim_case_status" style="white-space: nowrap">
                 @foreach($spot_report_header as $srh_data)
                 @if($srh_data->preops_number == $pr_data->preops_number)
                 <span style="white-space: nowrap">{{ $srh_data->prelim_case_status }}</span>
@@ -905,7 +905,7 @@
                 @endforeach
             </td>
             @endif
-            @if($pr_prelim_case_date != 0)<td class="pr pr_prelim_case_date" style="white-space: nowrap">
+            @if($pr_prelim_date != 0)<td class="pr pr_prelim_case_date" style="white-space: nowrap">
                 @foreach($spot_report_header as $srh_data)
                 @if($srh_data->preops_number == $pr_data->preops_number)
                 <span style="white-space: nowrap">{{ $srh_data->prelim_case_date }}</span>
@@ -914,7 +914,7 @@
                 @endforeach
             </td>
             @endif
-            @if($pr_prelim_is_number != 0)<td class="pr pr_prelim_is_number" style="white-space: nowrap">
+            @if($pr_prelim_nps != 0)<td class="pr pr_prelim_is_number" style="white-space: nowrap">
                 @foreach($spot_report_header as $srh_data)
                 @if($srh_data->preops_number == $pr_data->preops_number)
                 <span style="white-space: nowrap">{{ $srh_data->prelim_is_number }}</span>
@@ -932,7 +932,7 @@
                 @endforeach
             </td>
             @endif
-            @if($pr_prelim_prosecutor_office != 0)<td class="pr pr_prelim_prosecutor_office" style="white-space: nowrap">
+            @if($pr_prelim_office != 0)<td class="pr pr_prelim_prosecutor_office" style="white-space: nowrap">
                 @foreach($spot_report_header as $srh_data)
                 @if($srh_data->preops_number == $pr_data->preops_number)
                 <span style="white-space: nowrap">{{ $srh_data->prelim_prosecutor_office }}</span>
