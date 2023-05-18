@@ -458,7 +458,7 @@ class ReportGenerationController extends Controller
     public function export(Request $request)
     {
         $data = request()->all();
-        dd($data);
+        // dd($data);
 
         $region = isset($data['region']) ? 1 : 0;
         $preops_number = isset($data['preops_number']) ? 1 : 0;
