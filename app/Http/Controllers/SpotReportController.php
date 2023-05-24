@@ -1591,6 +1591,24 @@ class SpotReportController extends Controller
                     DB::table('file_upload_list')->insert($file_upload);
                 }
             }
+
+            if (isset($data['support_unit_id'])) {
+                $spot_su = [];
+
+                DB::table('spot_report_support_unit')->where('spot_report_number', $request->spot_report_number)->delete();
+
+                for ($i = 0; $i < count($data['support_unit_id']); $i++) {
+                    if ($data['support_unit_id'][$i] != NULL) {
+
+                        $spot_su = [
+                            'spot_report_number' => $request->spot_report_number,
+                            'support_unit_id' => $data['support_unit_id'][$i],
+                        ];
+
+                        DB::table('spot_report_support_unit')->Insert($spot_su);
+                    }
+                }
+            }
         }
 
         //Save audit trail
@@ -1744,6 +1762,7 @@ class SpotReportController extends Controller
             ->leftjoin('suspect_category as sc', 'a.suspect_category_id', '=', 'sc.id')
             ->leftjoin('suspect_classification as scl', 'a.suspect_classification_id', '=', 'scl.id')
             ->leftjoin('educational_attainment as ed', 'a.educational_attainment_id', '=', 'ed.id')
+            ->leftjoin('suspect_status as ss', 'a.suspect_status_id', '=', 'ss.id')
             ->select(
                 'a.id',
                 'a.suspect_number',
@@ -1797,7 +1816,8 @@ class SpotReportController extends Controller
                 'q.name as religion',
                 'sc.name as suspect_category',
                 'scl.name as suspect_classification',
-                'ed.name as educational_attainment'
+                'ed.name as educational_attainment',
+                'ss.name as suspect_status'
             )
             ->where('a.spot_report_number', $spot_report[0]->spot_report_number)
             ->get();
