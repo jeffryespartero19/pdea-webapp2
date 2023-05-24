@@ -40,7 +40,6 @@ class SpotReportController extends Controller
                     'a.preops_number',
                     'a.area'
                 )
-                ->where('a.report_status', 0)
                 ->orderby('a.id', 'desc')
                 ->paginate(20);
 
@@ -61,7 +60,6 @@ class SpotReportController extends Controller
                     'a.preops_number',
                     'a.area'
                 )
-                ->where('a.report_status', 0)
                 ->where('d.id', Auth::user()->regional_office_id)
                 ->orderby('a.id', 'desc')
                 ->paginate(20);
@@ -103,8 +101,7 @@ class SpotReportController extends Controller
                     'a.created_at',
                     'a.preops_number',
                     'a.area'
-                )
-                ->where('a.report_status', 0);
+                );
 
             if ($request->get('region_c') != 0) {
                 $data->where(['a.region_c' => $request->get('region_c')]);

@@ -7,6 +7,8 @@ use Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 use PDF;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ReportsGenerationView;
 
 class ReportGenerationController extends Controller
 {
@@ -451,5 +453,209 @@ class ReportGenerationController extends Controller
             $issuance_of_preops = $issuance_of_preops->orderby('a.id', 'desc')->paginate(10);
         }
         return view('report_generation.report_generation_data', compact('issuance_of_preops'))->render();
+    }
+
+    public function export(Request $request)
+    {
+        $data = request()->all();
+        // dd($data);
+
+        $region = isset($data['region']) ? 1 : 0;
+        $preops_number = isset($data['preops_number']) ? 1 : 0;
+        $province = isset($data['province']) ? 1 : 0;
+        $type_operation = isset($data['type_operation']) ? 1 : 0;
+        $operating_unit = isset($data['operating_unit']) ? 1 : 0;
+        $support_unit = isset($data['support_unit']) ? 1 : 0;
+        $datetime_coordinate = isset($data['datetime_coordinate']) ? 1 : 0;
+        $datetime_operation = isset($data['datetime_operation']) ? 1 : 0;
+        $valid_until = isset($data['valid_until']) ? 1 : 0;
+        $a_area = isset($data['a_area']) ? 1 : 0;
+        $taget_name = isset($data['taget_name']) ? 1 : 0;
+        $ot_name = isset($data['ot_name']) ? 1 : 0;
+        $prepared_by = isset($data['prepared_by']) ? 1 : 0;
+        $ao_result = isset($data['ao_result']) ? 1 : 0;
+        $ao_negative_reason = isset($data['ao_negative_reason']) ? 1 : 0;
+        $ao_illegal_drug = isset($data['ao_illegal_drug']) ? 1 : 0;
+        $ao_quantity = isset($data['ao_quantity']) ? 1 : 0;
+        $ao_unit_measure = isset($data['ao_unit_measure']) ? 1 : 0;
+        $ao_crn = isset($data['ao_crn']) ? 1 : 0;
+        $ao_date_received = isset($data['ao_date_received']) ? 1 : 0;
+        $all_sr = isset($data['all_sr']) ? 1 : 0;
+        $sp_hio = isset($data['sp_hio']) ? 1 : 0;
+        $sp_suspect_number = isset($data['sp_suspect_number']) ? 1 : 0;
+        $sp_status = isset($data['sp_status']) ? 1 : 0;
+        $sp_lastname = isset($data['sp_lastname']) ? 1 : 0;
+        $sp_firstname = isset($data['sp_firstname']) ? 1 : 0;
+        $sp_middlename = isset($data['sp_middlename']) ? 1 : 0;
+        $sp_alias = isset($data['sp_alias']) ? 1 : 0;
+        $sp_birthdate = isset($data['sp_birthdate']) ? 1 : 0;
+        $sp_est_birthdate = isset($data['sp_est_birthdate']) ? 1 : 0;
+        $sp_birthplace = isset($data['sp_birthplace']) ? 1 : 0;
+        $sp_region = isset($data['sp_region']) ? 1 : 0;
+        $sp_province = isset($data['sp_province']) ? 1 : 0;
+        $sp_city = isset($data['sp_city']) ? 1 : 0;
+        $sp_barangay = isset($data['sp_barangay']) ? 1 : 0;
+        $sp_street = isset($data['sp_street']) ? 1 : 0;
+        $sp_p_region = isset($data['sp_p_region']) ? 1 : 0;
+        $sp_p_province = isset($data['sp_p_province']) ? 1 : 0;
+        $sp_p_city = isset($data['sp_p_city']) ? 1 : 0;
+        $sp_p_barangay = isset($data['sp_p_barangay']) ? 1 : 0;
+        $sp_p_street = isset($data['sp_p_street']) ? 1 : 0;
+        $sp_sex = isset($data['sp_sex']) ? 1 : 0;
+        $sp_civil_status = isset($data['sp_civil_status']) ? 1 : 0;
+        $sp_nationality = isset($data['sp_nationality']) ? 1 : 0;
+        $sp_ethnic_group = isset($data['sp_ethnic_group']) ? 1 : 0;
+        $sp_religion = isset($data['sp_religion']) ? 1 : 0;
+        $sp_educational_attainment = isset($data['sp_educational_attainment']) ? 1 : 0;
+        $sp_occupation = isset($data['sp_occupation']) ? 1 : 0;
+        $sp_classification = isset($data['sp_classification']) ? 1 : 0;
+        $sp_category = isset($data['sp_category']) ? 1 : 0;
+        $sp_whereabouts = isset($data['sp_whereabouts']) ? 1 : 0;
+        $sp_remarks = isset($data['sp_remarks']) ? 1 : 0;
+        $sp_seized_from = isset($data['sp_seized_from']) ? 1 : 0;
+        $sp_drug = isset($data['sp_drug']) ? 1 : 0;
+        $sp_evidence = isset($data['sp_evidence']) ? 1 : 0;
+        $sp_quantity = isset($data['sp_quantity']) ? 1 : 0;
+        $sp_unit = isset($data['sp_unit']) ? 1 : 0;
+        $sp_packaging = isset($data['sp_packaging']) ? 1 : 0;
+        $sp_markings = isset($data['sp_markings']) ? 1 : 0;
+        $sp_case_type = isset($data['sp_case_type']) ? 1 : 0;
+        $sp_summary = isset($data['sp_summary']) ? 1 : 0;
+        $sp_prepared_by = isset($data['sp_prepared_by']) ? 1 : 0;
+        $pr_suspect_name = isset($data['pr_suspect_name']) ? 1 : 0;
+        $pr_suspect_classification = isset($data['pr_suspect_classification']) ? 1 : 0;
+        $pr_suspect_status = isset($data['pr_suspect_status']) ? 1 : 0;
+        $pr_drug_test_result = isset($data['pr_drug_test_result']) ? 1 : 0;
+        $pr_drug_type = isset($data['pr_drug_type']) ? 1 : 0;
+        $pr_remarks = isset($data['pr_remarks']) ? 1 : 0;
+        $pr_drug_seized = isset($data['pr_drug_seized']) ? 1 : 0;
+        $pr_qty_onsite = isset($data['pr_qty_onsite']) ? 1 : 0;
+        $pr_actual_qty = isset($data['pr_actual_qty']) ? 1 : 0;
+        $pr_unit = isset($data['pr_unit']) ? 1 : 0;
+        $pr_id_drug_test_result = isset($data['pr_id_drug_test_result']) ? 1 : 0;
+        $pr_id_cr_number = isset($data['pr_id_cr_number']) ? 1 : 0;
+        $pr_id_laboratory = isset($data['pr_id_laboratory']) ? 1 : 0;
+        $pr_cf_suspect_name = isset($data['pr_cf_suspect_name']) ? 1 : 0;
+        $pr_cf_case = isset($data['pr_cf_case']) ? 1 : 0;
+        $pr_cf_docket_number = isset($data['pr_cf_docket_number']) ? 1 : 0;
+        $pr_cf_status = isset($data['pr_cf_status']) ? 1 : 0;
+        $pr_inquest_status = isset($data['pr_inquest_status']) ? 1 : 0;
+        $pr_inquest_date = isset($data['pr_inquest_date']) ? 1 : 0;
+        $pr_inquest_nps = isset($data['pr_inquest_nps']) ? 1 : 0;
+        $pr_inquest_prosecutor = isset($data['pr_inquest_prosecutor']) ? 1 : 0;
+        $pr_inquest_office = isset($data['pr_inquest_office']) ? 1 : 0;
+        $pr_prelim_status = isset($data['pr_prelim_status']) ? 1 : 0;
+        $pr_prelim_date = isset($data['pr_prelim_date']) ? 1 : 0;
+        $pr_prelim_nps = isset($data['pr_prelim_nps']) ? 1 : 0;
+        $pr_prelim_prosecutor = isset($data['pr_prelim_prosecutor']) ? 1 : 0;
+        $pr_prelim_office = isset($data['pr_prelim_office']) ? 1 : 0;
+        $dv_suspect_name = isset($data['dv_suspect_name']) ? 1 : 0;
+        $dv_listed = isset($data['dv_listed']) ? 1 : 0;
+        $dv_ndis = isset($data['dv_ndis']) ? 1 : 0;
+        $dv_remarks = isset($data['dv_remarks']) ? 1 : 0;
+        $title = 'reports_generation.xlsx';
+        $q = $data['q'];
+        $operation_date = $data['operation_date'];
+        $operation_date_to = $data['operation_date_to'];
+
+        return Excel::download(new ReportsGenerationView(
+            $region,
+            $preops_number,
+            $province,
+            $type_operation,
+            $operating_unit,
+            $support_unit,
+            $datetime_coordinate,
+            $datetime_operation,
+            $valid_until,
+            $a_area,
+            $taget_name,
+            $ot_name,
+            $prepared_by,
+            $ao_result,
+            $ao_negative_reason,
+            $ao_illegal_drug,
+            $ao_quantity,
+            $ao_unit_measure,
+            $ao_crn,
+            $ao_date_received,
+            $all_sr,
+            $sp_hio,
+            $sp_suspect_number,
+            $sp_status,
+            $sp_lastname,
+            $sp_firstname,
+            $sp_middlename,
+            $sp_alias,
+            $sp_birthdate,
+            $sp_est_birthdate,
+            $sp_birthplace,
+            $sp_region,
+            $sp_province,
+            $sp_city,
+            $sp_barangay,
+            $sp_street,
+            $sp_p_region,
+            $sp_p_province,
+            $sp_p_city,
+            $sp_p_barangay,
+            $sp_p_street,
+            $sp_sex,
+            $sp_civil_status,
+            $sp_nationality,
+            $sp_ethnic_group,
+            $sp_religion,
+            $sp_educational_attainment,
+            $sp_occupation,
+            $sp_classification,
+            $sp_category,
+            $sp_whereabouts,
+            $sp_remarks,
+            $sp_seized_from,
+            $sp_drug,
+            $sp_evidence,
+            $sp_quantity,
+            $sp_unit,
+            $sp_packaging,
+            $sp_markings,
+            $sp_case_type,
+            $sp_summary,
+            $sp_prepared_by,
+            $pr_suspect_name,
+            $pr_suspect_classification,
+            $pr_suspect_status,
+            $pr_drug_test_result,
+            $pr_drug_type,
+            $pr_remarks,
+            $pr_drug_seized,
+            $pr_qty_onsite,
+            $pr_actual_qty,
+            $pr_unit,
+            $pr_id_drug_test_result,
+            $pr_id_cr_number,
+            $pr_id_laboratory,
+            $pr_cf_suspect_name,
+            $pr_cf_case,
+            $pr_cf_docket_number,
+            $pr_cf_status,
+            $pr_inquest_status,
+            $pr_inquest_date,
+            $pr_inquest_nps,
+            $pr_inquest_prosecutor,
+            $pr_inquest_office,
+            $pr_prelim_status,
+            $pr_prelim_date,
+            $pr_prelim_nps,
+            $pr_prelim_prosecutor,
+            $pr_prelim_office,
+            $dv_suspect_name,
+            $dv_listed,
+            $dv_ndis,
+            $dv_remarks,
+            $q,
+            $operation_date,
+            $operation_date_to
+
+        ), $title);
     }
 }

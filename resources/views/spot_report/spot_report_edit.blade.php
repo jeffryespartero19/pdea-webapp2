@@ -1679,35 +1679,35 @@
     });
 
     //Populate Suspect Category
-    $(document).on("change", ".suspect_classification_id", function() {
-        var suspect_classification_id = $(this).val();
-        var $row = $(this).closest(".suspect_details");
+    // $(document).on("change", ".suspect_classification_id", function() {
+    //     var suspect_classification_id = $(this).val();
+    //     var $row = $(this).closest(".suspect_details");
 
-        $.ajax({
-            type: "GET",
-            url: "/get_suspect_category/" + suspect_classification_id,
-            fail: function() {
-                alert("request failed");
-            },
-            success: function(data) {
-                var data = JSON.parse(data);
+    //     $.ajax({
+    //         type: "GET",
+    //         url: "/get_suspect_category/" + suspect_classification_id,
+    //         fail: function() {
+    //             alert("request failed");
+    //         },
+    //         success: function(data) {
+    //             var data = JSON.parse(data);
 
-                $($row.find("td:eq(29) select")).empty();
-                var option1 =
-                    " <option value='' selected>Select Option</option>";
-                $($row.find("td:eq(29) select")).append(option1);
+    //             $($row.find("td:eq(29) select")).empty();
+    //             var option1 =
+    //                 " <option value='' selected>Select Option</option>";
+    //             $($row.find("td:eq(29) select")).append(option1);
 
-                data.forEach(element => {
-                    var option = " <option value='" +
-                        element["id"] +
-                        "'>" +
-                        element["name"] +
-                        "</option>";
-                    $($row.find("td:eq(29) select")).append(option);
-                });
-            }
-        });
-    });
+    //             data.forEach(element => {
+    //                 var option = " <option value='" +
+    //                     element["id"] +
+    //                     "'>" +
+    //                     element["name"] +
+    //                     "</option>";
+    //                 $($row.find("td:eq(29) select")).append(option);
+    //             });
+    //         }
+    //     });
+    // });
 
     $(document).on("change", ".suspect_category_id", function() {
         var suspect_category_id = $(this).val();

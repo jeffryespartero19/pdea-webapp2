@@ -335,7 +335,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/get_preops_target/{preops_number}', 'ReportGenerationController@getPreopsTarget');
     Route::get('/get_preops_support_unit/{preops_number}', 'ReportGenerationController@getPreopsSUnit');
     Route::get('/get_preops_operating_team/{preops_number}', 'ReportGenerationController@getPreopsOTeam');
-    Route::get('/get_preops_operating_team/{preops_number}', 'ReportGenerationController@getPreopsOTeam');
     Route::get('/get_after_operation_evidence/{preops_number}', 'ReportGenerationController@getPreopsAOE');
     Route::get('/get_preops_spot/{preops_number}', 'ReportGenerationController@getPreopsSPOT');
     Route::get('/get_preops_spot_suspect/{preops_number}', 'ReportGenerationController@getPreopsSPOTSuspect');
@@ -348,6 +347,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/reports_generation/search_report_list', 'ReportGenerationController@search_report_list');
 
     Route::get('/get_operation_team/{preops_number}', 'SpotReportController@getPreopsTeam');
+
+    // Export to Excel
+    Route::get('reports_generation/export', 'ReportGenerationController@export')->name('reports_generation.export');
 });
 
 
