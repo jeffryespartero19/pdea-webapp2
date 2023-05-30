@@ -41,7 +41,7 @@
     <!-- Default box -->
     <div class="card card-success">
         <div class="card-header">
-            <h3 class="card-title">Edit Spot Report {{$spot_report_header[0]->id }}</h3>
+            <h3 class="card-title">Edit Spot Report</h3>
         </div>
         <div class="card-body">
             <form action="/spot_report_edit/{{ $spot_report_header[0]->id }}" role="form" method="post" enctype="multipart/form-data" id="spot_report_form">
@@ -279,7 +279,7 @@
 
                             @forelse($preops_support_unit as $psu)
                             <div class="input-group mb-3 su_options">
-                                <select name="support_unit_id[]" class="form-control SUPPUnitSearch support_unit_id" required @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                <select name="support_unit_id[]" class="form-control SUPPUnitSearch support_unit_id" required @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2 || Auth::user()->user_level_id == 3)
                                     @else
                                     disabled
                                     @endif
@@ -288,15 +288,17 @@
                                         {{ $psu->description }}
                                     </option>
                                 </select>
+                                <a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>
                             </div>
                             @empty
                             <div class="input-group mb-3 su_options">
-                                <select name="support_unit_id[]" class="form-control SUPPUnitSearch support_unit_id" required @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                <select name="support_unit_id[]" class="form-control SUPPUnitSearch support_unit_id" required @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2 || Auth::user()->user_level_id == 3)
                                     @else
                                     disabled
                                     @endif
                                     >
                                 </select>
+                                <a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>
                             </div>
                             @endforelse
                         </div>
