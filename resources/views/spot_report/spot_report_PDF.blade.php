@@ -154,6 +154,10 @@
             </td>
         </tr>
         <tr style="border:none;">
+            <td colspan="2" style="border: none; padding:0;"><span class="arial" style="font-size:15px; margin-right:28px; margin-left:33px;">Address: {{$suspect->suspect_status}}</span>
+            </td>
+        </tr>
+        <tr style="border:none;">
             <td colspan="2" style="border: none; padding:0;"><span class="arial" style="font-size:15px; margin-right:28px; margin-left:33px;">Address: {{$suspect->street}}, {{$suspect->barangay_name}}, {{$suspect->city_name}}, {{$suspect->province_name}}, {{$suspect->region_name}}</span>
             </td>
         </tr>

@@ -107,7 +107,7 @@ class GlobalController extends Controller
                 'f.province_m',
                 DB::raw('DATE_FORMAT(a.operation_datetime, "%Y-%m-%dT%H:%m") as operation_datetime'),
             )
-            ->where('a.id', $preops_number)
+            ->where('a.preops_number', $preops_number)
             ->get();
 
         // dd($data);
