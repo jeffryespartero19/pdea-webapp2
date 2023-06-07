@@ -224,6 +224,8 @@
     <h4 class="arial" align="center">*** end of report ***</h4>
     <footer>
         {{$Sdate}} | {{Auth::user()->name}} | @if ($spot_report[0]->print_count == 1) O @else C @endif
+        <br>
+        <span style="color: blue; font-size: 20px">CONFIDENTIAL</span>
     </footer>
 </body>
 
