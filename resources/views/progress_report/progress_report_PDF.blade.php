@@ -131,26 +131,46 @@
         <tr style="border: 1px solid;">
             <th style="border: none; padding:0 12px;" width="50%" align="left">Case(s) Filed</th>
             <th style="border: none; padding:0 12px;" width="50%" align="left">Name of Suspect</th>
-            <th style="border: none; padding:0 12px;" width="50%" align="left">Status</th>
         </tr>
         @foreach ($case as $cs)
         <tr>
             <td style="border: none; padding:0 12px;" width="50%">{{$cs->case}}</td>
             <td style="border: none; padding:0 12px;" width="50%">{{$cs->lastname}}, {{$cs->firstname}} {{$cs->middlename}}</td>
-            <td style="border: none; padding:0 12px;" width="50%">{{$cs->case_status}}</td>
         </tr>
         @endforeach
     </table>
     <br>
     <table width="100%" style="border-collapse: collapse; border: 0px;">
         <tr style="border: 1px solid;">
-            <th style="border: none; padding:0 12px;" width="50%" align="left">Operating Team</th>
+            <th style="border: none; padding:0 12px;" width="50%" align="left">Case Status</th>
         </tr>
-        @foreach ($team as $tm)
         <tr>
-            <td style="border: none; padding:0 12px;" width="50%">{{$tm->officer_name}}<span style="margin-left:50px">-{{$tm->officer_position}}</span></td>
+            <th style="border: none; padding:0 12px;" width="50%" align="left">Inquest</th>
         </tr>
-        @endforeach
+        <tr>
+            <td style="border: none; padding:0 12px;" width="100%">Date: {{$spot_report[0]->case_status_date}}</td>
+        </tr>
+        <tr>
+            <td style="border: none; padding:0 12px;" width="100%">Name of Prosecutor: {{$spot_report[0]->procecutor_name}}</td>
+        </tr>
+        <tr>
+            <td style="border: none; padding:0 12px;" width="100%">Prosecutor's Office: {{$spot_report[0]->procecutor_office}}</td>
+        </tr>
+        <tr>
+            <br>
+        </tr>
+        <tr>
+            <th style="border: none; padding:0 12px;" width="50%" align="left">Preliminary Investigation</th>
+        </tr>
+        <tr>
+            <td style="border: none; padding:0 12px;" width="100%">Date: {{$spot_report[0]->prelim_case_date}}</td>
+        </tr>
+        <tr>
+            <td style="border: none; padding:0 12px;" width="100%">Name of Prosecutor: {{$spot_report[0]->prelim_prosecutor}}</td>
+        </tr>
+        <tr>
+            <td style="border: none; padding:0 12px;" width="100%">Prosecutor's Office: {{$spot_report[0]->prelim_prosecutor_office}}</td>
+        </tr>
     </table>
     <br>
     <table width="100%" style="border-collapse: collapse; border: 0px;">
