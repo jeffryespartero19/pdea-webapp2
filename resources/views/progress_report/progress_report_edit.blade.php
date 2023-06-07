@@ -453,7 +453,7 @@
                                                             </td>
                                                             <td>
                                                                 <select name="laboratory_facility_id[]" class="form-control" style="width: 200px;">
-                                                                    <option value='' selected>Select Option</option>
+                                                                    <option value='0' selected>Select Option</option>
                                                                     @foreach($laboratory_facility as $lf)
                                                                     <option value="{{ $lf->id }}" {{ $lf->id == $srv->laboratory_facility_id ? 'selected' : '' }}>{{ $lf->name }}</option>
                                                                     @endforeach
