@@ -781,14 +781,15 @@ class ProgressReportController extends Controller
         $evidence = DB::table('spot_report_evidence as a')
             ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
             ->leftjoin('evidence as c', 'a.evidence_id', '=', 'c.id')
+            ->leftjoin('packaging as e', 'a.packaging_id', '=', 'e.id')
             ->leftjoin('unit_measurement as d', 'a.unit', '=', 'd.id')
-            ->select('c.name as evidence_type', 'd.name as unit_measurement', 'a.evidence', 'a.quantity')
+            ->select('c.name as evidence_type', 'd.name as unit_measurement', 'a.evidence', 'a.quantity', 'a.actual_qty', 'e.name as packaging')
             ->where('b.id', $id)->get();
         $case = DB::table('spot_report_case as a')
             ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')
             ->leftjoin('case_list as c', 'a.case_id', '=', 'c.id')
             ->leftjoin('spot_report_suspect as d', 'a.suspect_number', '=', 'd.suspect_number')
-            ->select('c.description as case', 'd.lastname', 'd.firstname', 'd.middlename')
+            ->select('c.description as case', 'd.lastname', 'd.firstname', 'd.middlename', 'a.case_status')
             ->where('b.id', $id)->get();
         $team = DB::table('spot_report_team as a')
             ->leftjoin('spot_report_header as b', 'a.spot_report_number', '=', 'b.spot_report_number')

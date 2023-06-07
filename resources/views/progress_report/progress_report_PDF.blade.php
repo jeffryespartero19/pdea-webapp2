@@ -85,7 +85,7 @@
         </tr>
         </tr>
         <tr style="border:none;">
-            <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:72px; margin-left:33px">Lead Unit:</span><span class="arial" style="font-weight:bold">{{$operating_unit[0]->name}}</span></td>
+            <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:72px; margin-left:33px">Lead Unit:</span><span class="arial" style="font-weight:bold">{{$operating_unit[0]->description}}</span></td>
         </tr>
         <tr style="border:none;">
             <td colspan="2" style="border: none; padding:0;" width="100%"><span class="arial" style="font-size:15px; margin-right:17px; margin-left:33px">Type of Operation:</span><span class="arial" style="font-weight:bold">{{$operation_type[0]->name}}</span></td>
@@ -100,7 +100,7 @@
         </tr>
         @foreach ($suspect as $sp)
         <tr>
-            <td colspan="2" style="border: none; padding:0 12px;" align="left"><b>{{$sp->lastname}},{{$sp->firstname}} {{$sp->middlename}} {{$sp->alias}}</b></td>
+            <td colspan="2" style="border: none; padding:0 12px;" align="left"><b>{{$sp->lastname}}, {{$sp->firstname}} {{$sp->middlename}} {{$sp->alias}}</b></td>
         </tr>
         <tr>
             <td style="border: none; padding-left:22px;" align="left">Drug Test Result: <b>{{$sp->drug_test_result}}</b></td>
@@ -120,9 +120,9 @@
         </tr>
         @foreach ($evidence as $ar)
         <tr>
-            <td style="border: none; padding:0 12px;" width="25%" align="right">{{$ar->quantity}} {{$ar->unit_measurement}}</td>
+            <td style="border: none; padding:0 12px;" width="25%" align="right">{{$ar->actual_qty}} {{$ar->unit_measurement}}</td>
             <td style="border: none; padding:0 12px;" width="25%">{{$ar->evidence_type}} - {{$ar->evidence}}</td>
-            <td style="border: none; padding:0 12px;" width="50%">Sample</td>
+            <td style="border: none; padding:0 12px;" width="50%">{{$ar->packaging}}</td>
         </tr>
         @endforeach
     </table>
@@ -131,18 +131,20 @@
         <tr style="border: 1px solid;">
             <th style="border: none; padding:0 12px;" width="50%" align="left">Case(s) Filed</th>
             <th style="border: none; padding:0 12px;" width="50%" align="left">Name of Suspect</th>
+            <th style="border: none; padding:0 12px;" width="50%" align="left">Status</th>
         </tr>
         @foreach ($case as $cs)
         <tr>
             <td style="border: none; padding:0 12px;" width="50%">{{$cs->case}}</td>
             <td style="border: none; padding:0 12px;" width="50%">{{$cs->lastname}}, {{$cs->firstname}} {{$cs->middlename}}</td>
+            <td style="border: none; padding:0 12px;" width="50%">{{$cs->case_status}}</td>
         </tr>
         @endforeach
     </table>
     <br>
     <table width="100%" style="border-collapse: collapse; border: 0px;">
         <tr style="border: 1px solid;">
-            <th style="border: none; padding:0 12px;" width="50%" align="left">Case Status</th>
+            <th style="border: none; padding:0 12px;" width="50%" align="left">Operating Team</th>
         </tr>
         @foreach ($team as $tm)
         <tr>
@@ -161,6 +163,8 @@
     <h4 align="center">*** end of report ***</h4>
     <footer>
         {{$Sdate}} | {{Auth::user()->name}}
+        <br>
+        <span style="color: blue; font-size: 20px">CONFIDENTIAL</span>
     </footer>
 </body>
 
