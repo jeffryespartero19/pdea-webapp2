@@ -58,6 +58,11 @@
     <header>
         CONFIDENTIAL
     </header>
+    <footer>
+        {{$Sdate}} | {{Auth::user()->name}} | @if ($spot_report[0]->print_count == 1) O @else C @endif
+        <br>
+        <span style="color: blue; font-size: 20px">CONFIDENTIAL</span>
+    </footer>
     @if(isset($regional_office[0]->report_header) && $regional_office[0]->report_header != null)
     <img id="currentPhoto" src="./files/uploads/report_header/{{$regional_office[0]->report_header}}" onerror="this.src='./files/uploads/report_header/newhead.jpg'" alt="" class="col-3" style="width:100%;">
     @else
@@ -222,11 +227,7 @@
     </table>
     <span class="arial" style="margin-right:23px; margin-left:13px;">{{$spot_report[0]->summary}}</span>
     <h4 class="arial" align="center">*** end of report ***</h4>
-    <footer>
-        {{$Sdate}} | {{Auth::user()->name}} | @if ($spot_report[0]->print_count == 1) O @else C @endif
-        <br>
-        <span style="color: blue; font-size: 20px">CONFIDENTIAL</span>
-    </footer>
+
 </body>
 
 </html>

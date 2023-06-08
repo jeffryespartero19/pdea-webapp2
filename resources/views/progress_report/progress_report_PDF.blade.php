@@ -58,6 +58,11 @@
     <header>
         CONFIDENTIAL
     </header>
+    <footer>
+        {{$Sdate}} | {{Auth::user()->name}}
+        <br>
+        <span style="color: blue; font-size: 20px">CONFIDENTIAL</span>
+    </footer>
     @if(isset($regional_office[0]->report_header) && $regional_office[0]->report_header != null)
     <img id="currentPhoto" src="./files/uploads/report_header/{{$regional_office[0]->report_header}}" onerror="this.src='./files/uploads/report_header/newhead.jpg'" alt="" class="col-3" style="width:100%;">
     @else
@@ -156,7 +161,7 @@
         <tr>
             <td style="border: none; padding:0 12px;" width="100%">Prosecutor's Office: {{$spot_report[0]->procecutor_office}}</td>
         </tr>
-        <tr>
+        <!-- <tr>
             <br>
         </tr>
         <tr>
@@ -170,7 +175,7 @@
         </tr>
         <tr>
             <td style="border: none; padding:0 12px;" width="100%">Prosecutor's Office: {{$spot_report[0]->prelim_prosecutor_office}}</td>
-        </tr>
+        </tr> -->
     </table>
     <br>
     <table width="100%" style="border-collapse: collapse; border: 0px;">
@@ -181,11 +186,6 @@
     <p style="margin-right:23px; margin-left:40px;"><b>{{$spot_report[0]->report_header}}</b></p>
     <p style="margin-right:23px; margin-left:60px;">{{$spot_report[0]->summary}}</p>
     <h4 align="center">*** end of report ***</h4>
-    <footer>
-        {{$Sdate}} | {{Auth::user()->name}}
-        <br>
-        <span style="color: blue; font-size: 20px">CONFIDENTIAL</span>
-    </footer>
 </body>
 
 </html>
