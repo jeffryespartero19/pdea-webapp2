@@ -137,7 +137,8 @@ class GlobalController extends Controller
                 'f.province_m',
                 DB::raw('DATE_FORMAT(a.operation_datetime, "%Y-%m-%dT%H:%m") as operation_datetime'),
             )
-            ->whereRaw("a.preops_number LIKE '%$preops_number%'")
+            // ->whereRaw("a.preops_number LIKE '%$preops_number%'")
+            ->where('a.preops_number', $preops_number)
             ->get();
 
         return json_encode($data);
