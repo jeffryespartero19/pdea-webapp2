@@ -180,12 +180,13 @@ class IssuanceOfPreopsController extends Controller
 
         $preops_auto = DB::table('preops_header')
             ->select(
-                DB::raw("(SUBSTRING(preops_number,LENGTH(preops_number)-2,LENGTH(preops_number))+1) as preops_no")
+                DB::raw("(SUBSTRING(preops_number,LENGTH(preops_number)-2,LENGTH(preops_number))+1) as preops_no"),
+                'preops_number'
             )
             ->where('ro_code', $request->ro_code)
             ->where('province_c', $request->hprovince_c)
             ->whereDate('coordinated_datetime', Carbon::now()->format('Y-m-d'))
-            ->orderBy('a.preops_number', 'desc')
+            ->orderBy('preops_number', 'desc')
             ->get();
 
         if ($preops_auto->isNotEmpty()) {
