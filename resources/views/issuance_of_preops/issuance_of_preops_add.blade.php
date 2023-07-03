@@ -11,7 +11,8 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}" onclick="removeCokie();">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('issuance_of_preops_list') }}">Issuance of Pre-Ops List</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('issuance_of_preops_list') }}">Issuance of Pre-Ops
+                            List</a></li>
                     <li class="breadcrumb-item active">Add Issuance of Pre-Ops</li>
                 </ol>
             </div>
@@ -45,7 +46,8 @@
             <h3 class="card-title">Add Issuance of Pre-Ops</h3>
         </div>
         <div class="card-body">
-            <form action="/issuance_of_preops_add" role="form" method="post" enctype="multipart/form-data" id="preops_form">
+            <form action="/issuance_of_preops_add" role="form" method="post" enctype="multipart/form-data"
+                id="preops_form">
                 @csrf
                 <div class="row">
                     <div class="form-group col-6" style="margin: 0px;">
@@ -62,10 +64,12 @@
                                 @endforeach
                             </select>
                             @else
-                            <select name="ro_code" class="form-control ro_code" required style="pointer-events: none; background-color : #e9ecef;" readonly>
+                            <select name="ro_code" class="form-control ro_code" required
+                                style="pointer-events: none; background-color : #e9ecef;" readonly>
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach($regional_office as $rg)
-                                <option value="{{ $rg->ro_code }}" {{ $rg->ro_code == $roc_regional_office[0]->ro_code ? 'selected' : '' }}>{{ $rg->name }}</option>
+                                <option value="{{ $rg->ro_code }}" {{ $rg->ro_code == $roc_regional_office[0]->ro_code ?
+                                    'selected' : '' }}>{{ $rg->name }}</option>
                                 @endforeach
                             </select>
                             @endif
@@ -99,14 +103,20 @@
                     <div class="form-group col-6" style="margin: 0px;">
                         <div>
                             <label for="">Pre-Ops No.<code> *</code></label>
-                            <span id="preops_error" hidden style="float: right; color:red" for="">Preops Number Exist</span>
+                            <span id="preops_error" hidden style="float: right; color:red" for="">Preops Number
+                                Exist</span>
                         </div>
 
                         <div class="input-group mb-3">
                             @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
-                            <input id="preops_number" name="preops_number" type="text" class="form-control @error('Preops Number') is-invalid @enderror HPRNumber" value="{{ old('preops_number') }}" autocomplete="off" required>
+                            <input id="preops_number" name="preops_number" type="text"
+                                class="form-control @error('Preops Number') is-invalid @enderror HPRNumber"
+                                value="{{ old('preops_number') }}" autocomplete="off"
+                                data-inputmask="'mask': '99-99999999-999'" required>
                             @else
-                            <input id="preops_number" name="preops_number" type="text" class="form-control PRNumber" autocomplete="off" required style="pointer-events: none; background-color : #e9ecef;" value="Auto Generate">
+                            <input id="preops_number" name="preops_number" type="text" class="form-control PRNumber"
+                                autocomplete="off" required style="pointer-events: none; background-color : #e9ecef;"
+                                value="Auto Generate">
                             <input id="prc_date" type="text" hidden value="{{$date}}">
                             <input id="prc_id" type="text" hidden value="{{$preops_id}}">
                             @endif
@@ -118,7 +128,8 @@
                             <label for="">Lead Unit<code> *</code></label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="operating_unit_id" name="operating_unit_id" class="form-control OPUnitSearch operating_unit_id" required>
+                            <select id="operating_unit_id" name="operating_unit_id"
+                                class="form-control OPUnitSearch operating_unit_id" required>
                             </select>
                         </div>
 
@@ -128,7 +139,8 @@
                             <label for="">Type of Operation<code> *</code></label>
                         </div>
                         <div class="input-group mb-3">
-                            <select name="operation_type_id" class="form-control @error('operation type') is-invalid @enderror" required>
+                            <select name="operation_type_id"
+                                class="form-control @error('operation type') is-invalid @enderror" required>
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach($operation_type as $ot)
                                 <option value="{{ $ot->id }}">{{ $ot->name }}</option>
@@ -145,7 +157,8 @@
                             <div class="input-group mb-3 su_options">
                                 <select name="support_unit_id[]" class="form-control SUPPUnitSearch support_unit_id">
                                 </select>
-                                <a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>
+                                <a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i
+                                        class="fas fa-minus pr-2 " style="color:red"></i></a>
                             </div>
                         </div>
 
@@ -162,9 +175,13 @@
                         <div class="input-group mb-3">
                             <?php date_default_timezone_set('Asia/Manila'); ?>
                             @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
-                            <input id="coordinated_datetime" name="coordinated_datetime" type="datetime-local" class="form-control coordinated_datetime" autocomplete="off" required>
+                            <input id="coordinated_datetime" name="coordinated_datetime" type="datetime-local"
+                                class="form-control coordinated_datetime" autocomplete="off" required>
                             @else
-                            <input id="coordinated_datetime" name="coordinated_datetime" type="datetime-local" class="form-control CurrDate" value="<?php echo date('Y-m-d\TH:i:s'); ?>" style="pointer-events: none; background-color : #e9ecef;" autocomplete="off" required readonly>
+                            <input id="coordinated_datetime" name="coordinated_datetime" type="datetime-local"
+                                class="form-control CurrDate" value="<?php echo date('Y-m-d\TH:i:s'); ?>"
+                                style="pointer-events: none; background-color : #e9ecef;" autocomplete="off" required
+                                readonly>
                             @endif
                         </div>
                     </div>
@@ -173,7 +190,9 @@
                             <label for="">Duration (Hours)<code> *</code></label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="duration" name="duration" type="number" class="form-control @error('duration') is-invalid @enderror" value="24" autocomplete="off" required>
+                            <input id="duration" name="duration" type="number"
+                                class="form-control @error('duration') is-invalid @enderror" value="24"
+                                autocomplete="off" required>
                         </div>
                     </div>
                     <div class="form-group col-6" style="margin: 0px;">
@@ -182,9 +201,13 @@
                         </div>
                         <div class="input-group mb-3">
                             @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
-                            <input id="operation_datetime" name="operation_datetime" type="datetime-local" class="form-control @error('operation date and time') is-invalid @enderror" value="{{ old('operation_datetime') }}" required>
+                            <input id="operation_datetime" name="operation_datetime" type="datetime-local"
+                                class="form-control @error('operation date and time') is-invalid @enderror"
+                                value="{{ old('operation_datetime') }}" required>
                             @else
-                            <input id="operation_datetime" name="operation_datetime" type="datetime-local" class="form-control operation_datetime" value="{{ old('operation_datetime') }}" required>
+                            <input id="operation_datetime" name="operation_datetime" type="datetime-local"
+                                class="form-control operation_datetime" value="{{ old('operation_datetime') }}"
+                                required>
                             @endif
 
                         </div>
@@ -194,7 +217,9 @@
                             <label for="">Valid Until (Expiration)</label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="validity" name="validity" type="datetime-local" class="form-control" autocomplete="off" value="{{ old('validity') }}" style="pointer-events: none; background-color : #e9ecef;" readonly>
+                            <input id="validity" name="validity" type="datetime-local" class="form-control"
+                                autocomplete="off" value="{{ old('validity') }}"
+                                style="pointer-events: none; background-color : #e9ecef;" readonly>
                         </div>
                     </div>
                     <div class="form-group col-12" style="margin: 0px;">
@@ -203,7 +228,8 @@
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group mb-3">
-                                <textarea id="remarks" name="remarks" class="form-control">{{ old('remarks') }}</textarea>
+                                <textarea id="remarks" name="remarks"
+                                    class="form-control">{{ old('remarks') }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -214,19 +240,28 @@
                             <div class="card-header p-0 border-bottom-0">
                                 <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="custom-tabs-four-area-tab" data-toggle="pill" href="#custom-tabs-four-area" role="tab" aria-controls="custom-tabs-four-area" aria-selected="true">Area of Operation</a>
+                                        <a class="nav-link active" id="custom-tabs-four-area-tab" data-toggle="pill"
+                                            href="#custom-tabs-four-area" role="tab"
+                                            aria-controls="custom-tabs-four-area" aria-selected="true">Area of
+                                            Operation</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="custom-tabs-four-target-tab" data-toggle="pill" href="#custom-tabs-four-target" role="tab" aria-controls="custom-tabs-four-target" aria-selected="false">Target</a>
+                                        <a class="nav-link" id="custom-tabs-four-target-tab" data-toggle="pill"
+                                            href="#custom-tabs-four-target" role="tab"
+                                            aria-controls="custom-tabs-four-target" aria-selected="false">Target</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="custom-tabs-four-opteam-tab" data-toggle="pill" href="#custom-tabs-four-opteam" role="tab" aria-controls="custom-tabs-four-opteam" aria-selected="false">Operating Team</a>
+                                        <a class="nav-link" id="custom-tabs-four-opteam-tab" data-toggle="pill"
+                                            href="#custom-tabs-four-opteam" role="tab"
+                                            aria-controls="custom-tabs-four-opteam" aria-selected="false">Operating
+                                            Team</a>
                                     </li>
                                 </ul>
                             </div>
                             <div class="card-body">
                                 <div class="tab-content" id="custom-tabs-four-tabContent">
-                                    <div class="tab-pane fade show active" id="custom-tabs-four-area" role="tabpanel" aria-labelledby="custom-tabs-four-area-tab">
+                                    <div class="tab-pane fade show active" id="custom-tabs-four-area" role="tabpanel"
+                                        aria-labelledby="custom-tabs-four-area-tab">
                                         <div class="form-group col-12" style="padding: 0 5px;" id="siblingTBL">
 
                                             <div class="card table-responsive p-0">
@@ -244,12 +279,17 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr class="area_details">
-                                                            <td><input type="text" name="area[]" class="form-control" placeholder="Area" style="width: 200px;" value="N/A"></td>
+                                                            <td><input type="text" name="area[]" class="form-control"
+                                                                    placeholder="Area" style="width: 200px;"
+                                                                    value="N/A"></td>
                                                             <td>
-                                                                <select name="area_region_c[]" class="form-control region_c change_control cc2 disabled_field area_region_c" style="width: 300px;">
+                                                                <select name="area_region_c[]"
+                                                                    class="form-control region_c change_control cc2 disabled_field area_region_c"
+                                                                    style="width: 300px;">
                                                                     <option value='0' selected>None
                                                                     </option>
-                                                                    @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                                                                    @if(Auth::user()->user_level_id == 1 ||
+                                                                    Auth::user()->user_level_id == 2)
                                                                     @foreach ($region as $rg)
                                                                     <option value="{{ $rg->region_c }}">
                                                                         {{ $rg->abbreviation }} -
@@ -258,7 +298,9 @@
                                                                     @endforeach
                                                                     @else
                                                                     @foreach($region as $rg)
-                                                                    <option value="{{ $rg->region_c }}" {{ $rg->region_c == $roc_regional_office[0]->region_c ? 'selected' : '' }}>{{ $rg->abbreviation }} -
+                                                                    <option value="{{ $rg->region_c }}" {{ $rg->region_c
+                                                                        == $roc_regional_office[0]->region_c ?
+                                                                        'selected' : '' }}>{{ $rg->abbreviation }} -
                                                                         {{ $rg->region_m }}
                                                                     </option>
                                                                     @endforeach
@@ -266,34 +308,44 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="province_c[]" class="form-control province_c" style="width: 300px;">
+                                                                <select name="province_c[]"
+                                                                    class="form-control province_c"
+                                                                    style="width: 300px;">
                                                                     <option value='0' selected>None
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="city_c[]" class="form-control city_c cc4" style="width: 300px;">
+                                                                <select name="city_c[]" class="form-control city_c cc4"
+                                                                    style="width: 300px;">
                                                                     <option value='0' selected>None
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="barangay_c[]" class="form-control barangay_c cc5" style="width: 300px;">
+                                                                <select name="barangay_c[]"
+                                                                    class="form-control barangay_c cc5"
+                                                                    style="width: 300px;">
                                                                     <option value='0' selected>None
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <!-- <td><input type="text" name="area_type[]" class="form-control change_control cc6" placeholder="Type" style="width: 200px;"></td> -->
-                                                            <td class="mt-10"><button type="button" class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button></td>
+                                                            <td class="mt-10"><button type="button"
+                                                                    class="badge badge-danger"><i
+                                                                        class="fa fa-trash"></i> Delete</button></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="text-center"><button type="button" class="badge badge-success addArea"><i class="fa fa-plus"></i> ADD NEW</button></div>
+                                            <div class="text-center"><button type="button"
+                                                    class="badge badge-success addArea"><i class="fa fa-plus"></i> ADD
+                                                    NEW</button></div>
 
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="custom-tabs-four-target" role="tabpanel" aria-labelledby="custom-tabs-four-target-tab">
+                                    <div class="tab-pane fade" id="custom-tabs-four-target" role="tabpanel"
+                                        aria-labelledby="custom-tabs-four-target-tab">
                                         <div class="form-group col-12" style="padding: 0 5px;" id="siblingTBL">
                                             <div class="card table-responsive">
                                                 <table id="target" class="table table-hover">
@@ -306,24 +358,33 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td><input type="text" name="target_name[]" class="form-control target_name" placeholder="Name of Target" required></td>
+                                                            <td><input type="text" name="target_name[]"
+                                                                    class="form-control target_name"
+                                                                    placeholder="Name of Target" required></td>
                                                             <td>
-                                                                <select name="nationality_id[]" class="form-control nationality_id" required>
+                                                                <select name="nationality_id[]"
+                                                                    class="form-control nationality_id" required>
                                                                     @foreach($nationality as $nat)
-                                                                    <option value="{{ $nat->id }}" {{ $nat->id == 1 ? 'selected' : '' }}>{{ $nat->name }}</option>
+                                                                    <option value="{{ $nat->id }}" {{ $nat->id == 1 ?
+                                                                        'selected' : '' }}>{{ $nat->name }}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </td>
-                                                            <td class="mt-10"><button type="button" class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button></td>
+                                                            <td class="mt-10"><button type="button"
+                                                                    class="badge badge-danger"><i
+                                                                        class="fa fa-trash"></i> Delete</button></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="text-center"><button type="button" onclick="addtarget();" class="badge badge-success"><i class="fa fa-plus"></i> ADD NEW</button></div>
+                                            <div class="text-center"><button type="button" onclick="addtarget();"
+                                                    class="badge badge-success"><i class="fa fa-plus"></i> ADD
+                                                    NEW</button></div>
 
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="custom-tabs-four-opteam" role="tabpanel" aria-labelledby="custom-tabs-four-opteam-tab">
+                                    <div class="tab-pane fade" id="custom-tabs-four-opteam" role="tabpanel"
+                                        aria-labelledby="custom-tabs-four-opteam-tab">
                                         <div class="form-group col-12" style="padding: 0 5px;" id="siblingTBL">
                                             <div class="card table-responsive">
                                                 <table id="opt" class="table table-hover">
@@ -337,15 +398,27 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td><input type="text" name="team_name[]" class="form-control tchange_control tcc1 team_name" placeholder="Name" required></td>
-                                                            <td><input type="text" name="team_position[]" class="form-control tchange_control tcc2l team_position" placeholder="Position" value="Team Leader" style="pointer-events:none; background-color : #e9ecef;" readonly></td>
-                                                            <td><input type="text" name="team_contact[]" class="form-control tchange_control tcc3 team_contact" placeholder="Contact No." required></td>
-                                                            <td class="mt-10"><button type="button" class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button></td>
+                                                            <td><input type="text" name="team_name[]"
+                                                                    class="form-control tchange_control tcc1 team_name"
+                                                                    placeholder="Name" required></td>
+                                                            <td><input type="text" name="team_position[]"
+                                                                    class="form-control tchange_control tcc2l team_position"
+                                                                    placeholder="Position" value="Team Leader"
+                                                                    style="pointer-events:none; background-color : #e9ecef;"
+                                                                    readonly></td>
+                                                            <td><input type="text" name="team_contact[]"
+                                                                    class="form-control tchange_control tcc3 team_contact"
+                                                                    placeholder="Contact No." required></td>
+                                                            <td class="mt-10"><button type="button"
+                                                                    class="badge badge-danger"><i
+                                                                        class="fa fa-trash"></i> Delete</button></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="text-center"><button type="button" onclick="addopt();" class="badge badge-success"><i class="fa fa-plus"></i> ADD NEW</button></div>
+                                            <div class="text-center"><button type="button" onclick="addopt();"
+                                                    class="badge badge-success"><i class="fa fa-plus"></i> ADD
+                                                    NEW</button></div>
 
                                         </div>
                                     </div>
@@ -366,7 +439,9 @@
                             <label for="">Document Reference No.</label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="reference_number" name="reference_number" type="text" class="form-control @error('present street') is-invalid @enderror" value="{{ old('reference_number') }}" autocomplete="off">
+                            <input id="reference_number" name="reference_number" type="text"
+                                class="form-control @error('present street') is-invalid @enderror"
+                                value="{{ old('reference_number') }}" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group col-7" style="margin: 0px;">
@@ -391,7 +466,8 @@
                                 @endforeach
                             </select>
                             @else
-                            <input id="prepared_by" name="prepared_by" type="text" class="form-control" style="pointer-events: none;" value="{{ Auth::user()->name }}">
+                            <input id="prepared_by" name="prepared_by" type="text" class="form-control"
+                                style="pointer-events: none;" value="{{ Auth::user()->name }}">
                             @endif
 
                         </div>
@@ -1159,6 +1235,10 @@
         //     });
         // }
     }
+
+    $(":input").inputmask();
+    
+    $("#preops_number").inputmask({"mask": "00-00000000-000"});
 </script>
 
 @endsection
