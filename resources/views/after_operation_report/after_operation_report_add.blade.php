@@ -11,7 +11,8 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}" onclick="removeCokie();">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('after_operation_report_list') }}">After Operation Report List</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('after_operation_report_list') }}">After Operation
+                            Report List</a></li>
                     <li class="breadcrumb-item active">Add After Operation Report</li>
                 </ol>
             </div>
@@ -52,7 +53,8 @@
                             <label for="">Pre-Ops Control Number</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="preops_number" name="preops_number" class="form-control PreopsSearch" style="width: 100%;" required>
+                            <select id="preops_number" name="preops_number" class="form-control PreopsSearch"
+                                style="width: 100%;" required>
                             </select>
                         </div>
                     </div>
@@ -61,7 +63,8 @@
                             <label for="">Region</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="ro_code" name="ro_code" class="form-control" style="pointer-events: none; background-color : #e9ecef;" required>
+                            <select id="ro_code" name="ro_code" class="form-control"
+                                style="pointer-events: none; background-color : #e9ecef;" required>
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach($regional_office as $rg)
                                 <option value="{{$rg->ro_code}}">{{ $rg->name }}</option>
@@ -75,7 +78,9 @@
                         </div>
                         <div class="input-group mb-3">
                             <?php date_default_timezone_set('Asia/Manila'); ?>
-                            <input id="date_reported" name="date_reported" type="date" class="form-control" value="<?php echo date('Y-m-d'); ?>" style="pointer-events: none; background-color : #e9ecef;" required>
+                            <input id="date_reported" name="date_reported" type="date" class="form-control"
+                                value="<?php echo date('Y-m-d'); ?>"
+                                style="pointer-events: none; background-color : #e9ecef;" required>
                         </div>
                     </div>
                 </div>
@@ -86,7 +91,8 @@
                             <label for="">Operating Unit</label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="operating_unit" type="text" class="form-control" style="pointer-events: none; background-color : #e9ecef;">
+                            <input id="operating_unit" type="text" class="form-control"
+                                style="pointer-events: none; background-color : #e9ecef;">
                         </div>
                     </div>
                     <div class="form-group col-5" style="margin: 0px;">
@@ -94,8 +100,10 @@
                             <label for="">Type of OPN</label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="operation_type_id" type="text" class="form-control" style="pointer-events: none; background-color : #e9ecef;" hidden>
-                            <input id="operation_type" type="text" class="form-control" style="pointer-events: none; background-color : #e9ecef;">
+                            <input id="operation_type_id" type="text" class="form-control"
+                                style="pointer-events: none; background-color : #e9ecef;" hidden>
+                            <input id="operation_type" type="text" class="form-control"
+                                style="pointer-events: none; background-color : #e9ecef;">
                         </div>
                     </div>
                     <div class="form-group col-5" style="margin: 0px;">
@@ -103,7 +111,8 @@
                             <label for="">Duration From</label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="duration_from" name="duration_from" type="text" class="form-control" style="pointer-events: none; background-color : #e9ecef;">
+                            <input id="duration_from" name="duration_from" type="text" class="form-control"
+                                style="pointer-events: none; background-color : #e9ecef;">
                         </div>
                     </div>
                     <div class="form-group col-5" style="margin: 0px;">
@@ -111,7 +120,8 @@
                             <label for="">Duration To</label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="duration_to" name="duration_to" type="text" class="form-control" style="pointer-events: none; background-color : #e9ecef;">
+                            <input id="duration_to" name="duration_to" type="text" class="form-control"
+                                style="pointer-events: none; background-color : #e9ecef;">
                         </div>
                     </div>
                     <div class="form-group col-5" style="margin: 0px;">
@@ -119,7 +129,8 @@
                             <label for="">Result</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="result" name="result" class="form-control @error('result') is-invalid @enderror" value="{{ old('result') }}" required>
+                            <select id="result" name="result" class="form-control @error('result') is-invalid @enderror"
+                                value="{{ old('result') }}" required>
                                 <option value='' selected>Select Option
                                 </option>
                                 <option value="positive">
@@ -138,13 +149,17 @@
                         <div class="card card-primary card-outline card-outline-tabs">
                             <div class="card-header p-0 border-bottom-0">
                                 <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
-                                    <a class="nav-link active" id="custom-tabs-four-drugseized-tab" data-toggle="pill" href="#custom-tabs-four-drugseized" role="tab" aria-controls="custom-tabs-four-drugseized" aria-selected="false">Item Seized</a>
+                                    <a class="nav-link active" id="custom-tabs-four-drugseized-tab" data-toggle="pill"
+                                        href="#custom-tabs-four-drugseized" role="tab"
+                                        aria-controls="custom-tabs-four-drugseized" aria-selected="false">Item
+                                        Seized</a>
                                     </li>
                                 </ul>
                             </div>
                             <div class="card-body">
                                 <div class="tab-content" id="custom-tabs-four-tabContent">
-                                    <div class="tab-pane fade show active" id="custom-tabs-four-drugseized" role="tabpanel" aria-labelledby="custom-tabs-four-drugseized-tab">
+                                    <div class="tab-pane fade show active" id="custom-tabs-four-drugseized"
+                                        role="tabpanel" aria-labelledby="custom-tabs-four-drugseized-tab">
                                         <div class="form-group col-12" style="padding: 0 5px;" id="siblingTBL">
                                             <div class="card table-responsive p-0">
                                                 <table id="drug_seized" class="table table-hover text-nowrap">
@@ -160,7 +175,8 @@
                                                     <tbody id="evidence_details">
                                                         <tr class="evidence_info">
                                                             <td style="width: 300px;">
-                                                                <select name="evidence_id[]" class="form-control evidence_id">
+                                                                <select name="evidence_id[]"
+                                                                    class="form-control evidence_id">
                                                                     <option value='' selected>None
                                                                     </option>
                                                                     @foreach ($evidence as $ev)
@@ -170,9 +186,12 @@
                                                                     @endforeach
                                                                 </select>
                                                             </td>
-                                                            <td style="width: 200px;"><input type="text" class="form-control" name="quantity[]"></td>
+                                                            <td style="width: 200px;"><input type="text"
+                                                                    class="form-control" name="quantity[]"></td>
                                                             <td>
-                                                                <select name="unit_measurement_id[]" class="form-control" style="pointer-events: none; background-color : #e9ecef;">
+                                                                <select name="unit_measurement_id[]"
+                                                                    class="form-control"
+                                                                    style="pointer-events: none; background-color : #e9ecef;">
                                                                     <option value='' selected>None
                                                                     </option>
                                                                     @foreach ($unit_measurement as $um)
@@ -182,14 +201,19 @@
                                                                     @endforeach
                                                                 </select>
                                                             </td>
-                                                            <td><input type="text" class="form-control" name="chemist_report_number[]"></td>
-                                                            <td class="mt-10"><button type="button" class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button>
+                                                            <td><input type="text" class="form-control"
+                                                                    name="chemist_report_number[]"></td>
+                                                            <td class="mt-10"><button type="button"
+                                                                    class="badge badge-danger"><i
+                                                                        class="fa fa-trash"></i> Delete</button>
                                                             </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="text-center"><button type="button" class="badge badge-success addItems"><i class="fa fa-plus"></i> ADD NEW</button></div>
+                                            <div class="text-center"><button type="button"
+                                                    class="badge badge-success addItems"><i class="fa fa-plus"></i> ADD
+                                                    NEW</button></div>
 
                                         </div>
                                     </div>
@@ -222,7 +246,9 @@
                             <label for="">Date Received</label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="received_date" name="received_date" type="datetime-local" class="form-control @error('date received') is-invalid @enderror" value="{{ old('received_date') }}" required>
+                            <input id="received_date" name="received_date" type="datetime-local"
+                                class="form-control @error('date received') is-invalid @enderror"
+                                value="{{ old('received_date') }}" required>
                         </div>
                     </div>
                     <div class="form-group col-7" style="margin: 0px;">
