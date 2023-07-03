@@ -1897,7 +1897,6 @@
         html += '<td><input style="width: 200px;" type="text" name="markings[]" class="form-control"></td>';
         html += '<td class="mt-10"><button class="badge badge-danger" onclick="$(\'#items-row' + items_row +
             '\').remove();"><i class="fa fa-trash"></i> Delete</button></td>';
-
         html += '</tr>';
 
         $('#items tbody').append(html);

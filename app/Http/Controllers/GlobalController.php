@@ -85,6 +85,7 @@ class GlobalController extends Controller
 
     public function getPreopsHeader($preops_number)
     {
+
         $data = DB::table('preops_header as a')
             ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
             ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
