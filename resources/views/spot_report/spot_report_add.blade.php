@@ -1880,7 +1880,6 @@
         });
     }
 
-
     //Add rows for Item Seized
     var items_row = 0;
 
