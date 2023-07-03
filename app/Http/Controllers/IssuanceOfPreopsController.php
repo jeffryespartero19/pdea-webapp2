@@ -169,13 +169,30 @@ class IssuanceOfPreopsController extends Controller
         // Auto Preops Number
         date_default_timezone_set('Asia/Manila');
         $p_date = Carbon::now()->format('mdY');
-        $preops_id = 0 + DB::table('preops_header')
+
+        // $preops_id = 0 + DB::table('preops_header')
+        //     ->where('ro_code', $request->ro_code)
+        //     ->where('province_c', $request->hprovince_c)
+        //     ->whereDate('coordinated_datetime', Carbon::now()->format('Y-m-d'))
+        //     ->count();
+        // $preops_id += 1;
+        // $preops_id = sprintf("%03s", $preops_id);
+
+        $preops_auto = DB::table('preops_header')
+            ->select(
+                DB::raw("(SUBSTRING(preops_number,LENGTH(preops_number)-2,LENGTH(preops_number))+1) as preops_no")
+            )
             ->where('ro_code', $request->ro_code)
             ->where('province_c', $request->hprovince_c)
             ->whereDate('coordinated_datetime', Carbon::now()->format('Y-m-d'))
-            ->count();
-        $preops_id += 1;
-        $preops_id = sprintf("%03s", $preops_id);
+            ->orderBy('a.preops_number', 'desc')
+            ->get();
+
+        if ($preops_auto->isNotEmpty()) {
+            $preops_id = $preops_auto[0]->preops_no;
+        } else {
+            $preops_id = '001';
+        }
 
         $str = substr($request->hprovince_c, -2);
         if (Auth::user()->user_level_id == 2) {
