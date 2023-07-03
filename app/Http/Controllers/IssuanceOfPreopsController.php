@@ -191,7 +191,7 @@ class IssuanceOfPreopsController extends Controller
             ->get();
 
         if ($preops_auto->isNotEmpty()) {
-            $preops_id = $preops_auto[0]->preops_no;
+            $preops_id = $preops_auto[0]->preops_no + 1;
             $preops_id = sprintf("%03s", $preops_id);
         } else {
             $preops_id = '001';
