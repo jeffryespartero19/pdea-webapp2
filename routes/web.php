@@ -322,6 +322,7 @@ Route::group(['middleware' => 'auth'], function () {
     //Global Controller
     Route::get('/get_preops_number/{region_c}', 'GlobalController@getPreopsNumber');
     Route::get('/get_preops_header/{preops_number}', 'GlobalController@getPreopsHeader');
+    Route::get('/get_preops_header_validation/{preops_number}', 'GlobalController@getPreopsHeaderValidation');
     Route::get('/get_preops_team/{preops_number}', 'GlobalController@getPreopsTeam');
     Route::get('/get_preops_area/{preops_number}', 'GlobalController@getPreopsArea');
     Route::get('/get_spot_report_header/{spot_report_number}', 'GlobalController@get_spot_report_header');

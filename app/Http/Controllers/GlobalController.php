@@ -113,6 +113,36 @@ class GlobalController extends Controller
         return json_encode($data);
     }
 
+    public function getPreopsHeaderValidation($preops_number)
+    {
+
+        $data = DB::table('preops_header as a')
+            ->leftjoin('operating_unit as b', 'a.operating_unit_id', '=', 'b.id')
+            ->leftjoin('operation_type as c', 'a.operation_type_id', '=', 'c.id')
+            ->leftjoin('regional_office as d', 'a.ro_code', '=', 'd.ro_code')
+            ->leftjoin('region as e', 'a.region_c', '=', 'e.region_c')
+            ->leftjoin('province as f', 'a.province_c', '=', 'f.province_c')
+            ->select(
+                'a.id',
+                'd.ro_code',
+                'a.preops_number',
+                'a.operating_unit_id',
+                'a.operation_type_id',
+                'b.description as operating_unit_name',
+                'c.name as operation_type_name',
+                'a.validity',
+                'd.region_c',
+                'a.province_c',
+                'a.support_unit_id',
+                'f.province_m',
+                DB::raw('DATE_FORMAT(a.operation_datetime, "%Y-%m-%dT%H:%m") as operation_datetime'),
+            )
+            ->whereRaw("a.preops_number LIKE '%$preops_number%'")
+            ->get();
+
+        return json_encode($data);
+    }
+
     public function getPreopsTeam($preops_number)
     {
         $data = DB::table('preops_team')

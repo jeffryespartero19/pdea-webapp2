@@ -112,7 +112,7 @@
                             <input id="preops_number_roc" name="preops_number" type="text"
                                 class="form-control @error('Preops Number') is-invalid @enderror HPRNumber"
                                 value="{{ old('preops_number') }}" autocomplete="off"
-                                data-inputmask="'mask': '99-99-99999999-999'" required>
+                                data-inputmask="'mask': '9-99-99999999-999'" required>
                             @else
                             <input id="preops_number" name="preops_number" type="text" class="form-control PRNumber"
                                 autocomplete="off" required style="pointer-events: none; background-color : #e9ecef;"
@@ -708,7 +708,7 @@
 
         $.ajax({
             type: "GET",
-            url: "/get_preops_header/" + preops_number,
+            url: "/get_preops_header_validation/" + preops_number,
             fail: function() {
                 alert("request failed");
             },
@@ -1237,7 +1237,7 @@
 
     $(":input").inputmask();
     
-    $("#preops_number_roc").inputmask({"mask": "00-00-00000000-000"});
+    $("#preops_number_roc").inputmask({"mask": "0-00-00000000-000"});
 </script>
 
 @endsection
