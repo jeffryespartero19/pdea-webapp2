@@ -706,8 +706,6 @@
     $('#preops_number,#preops_number_roc').keyup(function() {
         var preops_number = $(this).val();
 
-        alert(preops_number);
-
         $.ajax({
             type: "GET",
             url: "/get_preops_header/" + preops_number,
