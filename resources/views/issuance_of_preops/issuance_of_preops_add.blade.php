@@ -109,10 +109,10 @@
 
                         <div class="input-group mb-3">
                             @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
-                            <input id="preops_number" name="preops_number" type="text"
+                            <input id="preops_number_roc" name="preops_number" type="text"
                                 class="form-control @error('Preops Number') is-invalid @enderror HPRNumber"
                                 value="{{ old('preops_number') }}" autocomplete="off"
-                                data-inputmask="'mask': '99-99999999-999'" required>
+                                data-inputmask="'mask': '99-99-99999999-999'" required>
                             @else
                             <input id="preops_number" name="preops_number" type="text" class="form-control PRNumber"
                                 autocomplete="off" required style="pointer-events: none; background-color : #e9ecef;"
@@ -703,7 +703,7 @@
         $("#validity").val(finaldate);
     }
 
-    $('#preops_number').keyup(function() {
+    $('#preops_number','#preops_number_roc').keyup(function() {
         var preops_number = $(this).val();
 
         $.ajax({
@@ -717,12 +717,11 @@
 
                 if (data.length > 0) {
                     $("#preops_error").attr('hidden', false);
-                    $("#preops_number").addClass('error');
+                    $(this).addClass('error');
                     $("#saveBTN").attr('disabled', true);
-
                 } else {
                     $("#preops_error").attr('hidden', true);
-                    $("#preops_number").removeClass('error');
+                    $(this).removeClass('error');
                     $("#saveBTN").attr('disabled', false);
                 }
             }
@@ -1238,7 +1237,7 @@
 
     $(":input").inputmask();
     
-    $("#preops_number").inputmask({"mask": "00-00000000-000"});
+    $("#preops_number_roc").inputmask({"mask": "00-00-00000000-000"});
 </script>
 
 @endsection
