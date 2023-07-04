@@ -186,12 +186,11 @@ class IssuanceOfPreopsController extends Controller
             ->where('ro_code', $request->ro_code)
             ->where('province_c', $request->hprovince_c)
             ->whereDate('coordinated_datetime', Carbon::now()->format('Y-m-d'))
-            ->limit(1)
             ->orderBy('preops_number', 'desc')
             ->get();
 
         if ($preops_auto->isNotEmpty()) {
-            $preops_id = $preops_auto[0]->preops_no + 1;
+            $preops_id = $preops_auto[0]->preops_no;
             $preops_id = sprintf("%03s", $preops_id);
         } else {
             $preops_id = '001';
@@ -199,7 +198,11 @@ class IssuanceOfPreopsController extends Controller
 
         $str = substr($request->hprovince_c, -2);
         if (Auth::user()->user_level_id == 2) {
-            $preops_number = $request->preops_number;
+            if (substr($request->preops_number,0,1) == 0) {
+                $preops_number = substr($request->preops_number,1,strlen($request->preops_number));
+            } else {
+                $preops_number = $request->preops_number;
+            }
         } else {
             $preops_number = $request->ro_code . '-' . $str . '-' . $p_date . '-' . $preops_id;
         }

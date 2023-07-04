@@ -183,7 +183,6 @@ class IssuanceOfPreopsController extends Controller
             $preops_number = $request->ro_code . '-' . $request->hprovince_c . '-' . $p_date . '-' . $preops_id;
         }
 
-
         $form_data = array(
             'preops_number' => $preops_number,
             'ro_code' => $request->ro_code,
