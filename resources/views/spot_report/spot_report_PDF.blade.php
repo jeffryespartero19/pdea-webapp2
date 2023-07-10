@@ -217,13 +217,11 @@
         <tr style="border:none;">
             <td style="border: none; padding:0;"><span class="vendana" style="margin-right:28px; margin-left:33px;">Civil Status: {{$suspect->civil_status}}</span>
             </td>
-            <td style="border: none; padding:0;"><span class="vendana" style="border: none; padding:0 12px;">Category: {{$suspect->suspect_category}}</span>
+            <td style="border: none; padding:0;"><span class="vendana" style="border: none; padding:0 12px;">Category: {{$suspect->suspect_category}} - {{$suspect->sub_category}}</span>
             </td>
         </tr>
         <tr style="border:none;">
-            <td style="border: none; padding:0;"><span class="vendana" style="margin-right:28px; margin-left:33px;">Ethnic Group: {{$suspect->ethnic_group}}</span>
-            </td>
-            <td style="border: none; padding:0;"><span class="vendana" style="border: none; padding:0 12px;">Target: {{$suspect->sub_category}}</span>
+            <td colspan="2" style="border: none; padding:0;"><span class="vendana" style="margin-right:28px; margin-left:33px;">Ethnic Group: {{$suspect->ethnic_group}}</span>
             </td>
         </tr>
         <tr style="border:none;">
