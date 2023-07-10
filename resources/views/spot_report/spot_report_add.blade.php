@@ -1944,7 +1944,6 @@
                             $("#operating_unit_id").append(operating_unit);
 
 
-
                             $('#region_c option[value=' + element['region_c'] + ']').attr('selected', 'selected');
                             $('#operation_datetime').val(element['operation_datetime']);
 
@@ -1953,7 +1952,7 @@
                             $('#operation_datetime')[0].min = date;
 
 
-                            // alert(region_c);
+                            // alert(p_province_c);
                             $.ajax({
                                 type: "GET",
                                 url: "/get_province/" + region_c,
@@ -2028,9 +2027,10 @@
                                         $('.SUdetails').empty();
                                         $('#SUOptions').empty();
                                         data4.forEach(element => {
-                                            var option = "<div class='input-group mb-3 '><select id='support_unit_id' name='support_unit_id[]' class='form-control'>" +
+                                            var option = "<div class='input-group mb-3 su_options'><select id='support_unit_id' name='support_unit_id[]' class='form-control'>" +
                                                 "<option value='" + element["id"] + "' selected> " + element["description"] + "</option></div>";
                                             $(".SUdetails").append(option);
+                                            
                                         });
 
                                     }
