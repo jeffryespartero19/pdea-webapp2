@@ -310,6 +310,8 @@ class SpotReportController extends Controller
             'created_at' => Carbon::now(),
             'hio_type_id' => $request->hio_type_id,
             'area' => $request->area,
+            'remarks' => $request->spot_remarks,
+
         );
 
         $sr_id = DB::table('spot_report_header')->insertGetId($form_data);
@@ -898,6 +900,7 @@ class SpotReportController extends Controller
                 'updated_at' => Carbon::now(),
                 'hio_type_id' => $request->hio_type_id,
                 'area' => $request->area,
+                'remarks' => $request->spot_remarks,
             );
 
 
@@ -1721,7 +1724,17 @@ class SpotReportController extends Controller
             ->leftjoin('evidence as c', 'a.evidence_id', '=', 'c.id')
             ->leftjoin('unit_measurement as d', 'a.unit', '=', 'd.id')
             ->leftjoin('packaging as e', 'a.packaging_id', '=', 'e.id')
-            ->select('c.name as evidence_type', 'd.name as unit_measurement', 'a.evidence', 'a.quantity', 'e.name as packaging')
+            ->leftjoin('spot_report_suspect as f', 'a.suspect_number', '=', 'f.suspect_number')
+            ->select(
+                'c.name as evidence_type',
+                'd.name as unit_measurement',
+                'a.evidence',
+                'a.quantity',
+                'e.name as packaging',
+                'f.lastname',
+                'f.firstname',
+                'f.middlename',
+            )
             ->where('b.id', $id)->get();
 
         $case = DB::table('spot_report_case as a')
@@ -1760,6 +1773,7 @@ class SpotReportController extends Controller
             ->leftjoin('suspect_classification as scl', 'a.suspect_classification_id', '=', 'scl.id')
             ->leftjoin('educational_attainment as ed', 'a.educational_attainment_id', '=', 'ed.id')
             ->leftjoin('suspect_status as ss', 'a.suspect_status_id', '=', 'ss.id')
+            ->leftjoin('suspect_sub_category as ssc', 'ssc.id', '=', 'a.suspect_sub_category_id')
             ->select(
                 'a.id',
                 'a.suspect_number',
@@ -1814,7 +1828,8 @@ class SpotReportController extends Controller
                 'sc.name as suspect_category',
                 'scl.name as suspect_classification',
                 'ed.name as educational_attainment',
-                'ss.name as suspect_status'
+                'ss.name as suspect_status',
+                'ssc.name as sub_category'
             )
             ->where('a.spot_report_number', $spot_report[0]->spot_report_number)
             ->get();

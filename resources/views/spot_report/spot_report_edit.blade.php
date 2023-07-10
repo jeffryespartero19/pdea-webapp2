@@ -303,7 +303,19 @@
                             @endforelse
                         </div>
                     </div>
-
+                    <div class="form-group col-4" style="margin: 0px;">
+                        <div>
+                            <label for="">Remarks</label>
+                        </div>
+                        <div class="input-group mb-3">
+                            <textarea class="form-control" rows="2" name="spot_remarks" id="spot_remarks" @if(Auth::user()->user_level_id == 1 || Auth::user()->user_level_id == 2)
+                            @else
+                            disabled
+                            @endif
+                            >
+                            </textarea>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row" id="warrant_Details" {{ 1 == $is_warrant[0]->is_warrant ? '' : 'hidden' }}>

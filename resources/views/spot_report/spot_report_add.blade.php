@@ -46,8 +46,7 @@
             <h3 class="card-title">Add Spot Report</h3>
         </div>
         <div class="card-body">
-            <form action="/spot_report_add" role="form" method="post" enctype="multipart/form-data"
-                enctype="multipart/form-data" id="spot_report_form">
+            <form action="/spot_report_add" role="form" method="post" enctype="multipart/form-data" enctype="multipart/form-data" id="spot_report_form">
                 @csrf
                 <div class="row">
                     <input id="prc_date" type="text" hidden value="{{$date}}">
@@ -56,8 +55,7 @@
                             <label for="">Pre-ops No.</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="preops_number" name="preops_number" class="form-control PreopsNumberSearch "
-                                required>
+                            <select id="preops_number" name="preops_number" class="form-control PreopsNumberSearch " required>
                             </select>
                         </div>
                     </div>
@@ -67,9 +65,7 @@
                         </div>
                         <div class="input-group mb-3">
                             <?php date_default_timezone_set('Asia/Manila'); ?>
-                            <input id="reported_date" name="reported_date" type="date"
-                                class="form-control @error('reported date') is-invalid @enderror disabled_field"
-                                value="<?php echo date('Y-m-d'); ?>" autocomplete="off" required readonly>
+                            <input id="reported_date" name="reported_date" type="date" class="form-control @error('reported date') is-invalid @enderror disabled_field" value="<?php echo date('Y-m-d'); ?>" autocomplete="off" required readonly>
                         </div>
                     </div>
                 </div>
@@ -82,9 +78,7 @@
                                 Number Exist</span>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="spot_report_number" name="spot_report_number" type="text"
-                                class="form-control @error('spot report number') is-invalid @enderror disabled_field"
-                                value="Auto Generate" autocomplete="off" required readonly>
+                            <input id="spot_report_number" name="spot_report_number" type="text" class="form-control @error('spot report number') is-invalid @enderror disabled_field" value="Auto Generate" autocomplete="off" required readonly>
                         </div>
                     </div>
                     <div class="form-group col-4" style="margin: 0px;">
@@ -92,16 +86,14 @@
                             <label for="">Type of Operation</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="operation_type_id" name="operation_type_id" class="form-control OPTypeSearch"
-                                required>
+                            <select id="operation_type_id" name="operation_type_id" class="form-control OPTypeSearch" required>
                             </select>
                         </div>
                     </div>
                     <div class="form-group col-12 row" style="margin: 0px; padding:20px 10px">
                         <div class="col-4">
                             <div class="custom-control custom-checkbox mb-2">
-                                <input id="operation_lvl" name="operation_lvl" class="custom-control-input"
-                                    type="checkbox">
+                                <input id="operation_lvl" name="operation_lvl" class="custom-control-input" type="checkbox">
                                 <label for="operation_lvl" class="custom-control-label">High Impact Operation</label>
 
                                 <select id="hio_type_id" name="hio_type_id" class="form-control" disabled>
@@ -115,8 +107,7 @@
                             <label for="">Region</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="region_c" name="region_c"
-                                class="form-control @error('region') is-invalid @enderror " required>
+                            <select id="region_c" name="region_c" class="form-control @error('region') is-invalid @enderror " required>
                                 <option value='' disabled selected>Select Option</option>
                                 @foreach ($sregion as $rg)
                                 <option value="{{ $rg->region_c }}">{{ $rg->abbreviation }} -
@@ -140,8 +131,7 @@
                             <label for="">City/Municipality</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="city_c" name="city_c" class="form-control @error('city') is-invalid @enderror"
-                                required>
+                            <select id="city_c" name="city_c" class="form-control @error('city') is-invalid @enderror" required>
                             </select>
                         </div>
                     </div>
@@ -150,8 +140,7 @@
                             <label for="">Barangay</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="barangay_c" name="barangay_c"
-                                class="form-control @error('barangay') is-invalid @enderror" required>
+                            <select id="barangay_c" name="barangay_c" class="form-control @error('barangay') is-invalid @enderror" required>
                             </select>
                         </div>
                     </div>
@@ -179,9 +168,7 @@
                             <label for="">Date/Time of Operation</label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="operation_datetime" name="operation_datetime" type="datetime-local"
-                                class="form-control @error('operation date') is-invalid @enderror"
-                                value="{{ old('operation_date') }}" autocomplete="off" required>
+                            <input id="operation_datetime" name="operation_datetime" type="datetime-local" class="form-control @error('operation date') is-invalid @enderror" value="{{ old('operation_date') }}" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="form-group col-4" style="margin: 0px;">
@@ -189,8 +176,7 @@
                             <label for="">Lead Unit</label>
                         </div>
                         <div class="input-group mb-3">
-                            <select id="operating_unit_id" name="operating_unit_id" class="form-control OPUnitSearch"
-                                required>
+                            <select id="operating_unit_id" name="operating_unit_id" class="form-control OPUnitSearch" required>
                             </select>
                         </div>
                     </div>
@@ -203,11 +189,18 @@
                             <div class="input-group mb-3 su_options">
                                 <select name="support_unit_id[]" class="form-control SUPPUnitSearch support_unit_id">
                                 </select>
-                                <a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i
-                                        class="fas fa-minus pr-2 " style="color:red"></i></a>
+                                <a href="#" class="su_remove" style="float:right; margin-left:5px; padding: 5px"><i class="fas fa-minus pr-2 " style="color:red"></i></a>
                             </div>
                         </div>
 
+                    </div>
+                    <div class="form-group col-4" style="margin: 0px;">
+                        <div>
+                            <label for="">Remarks</label>
+                        </div>
+                        <div class="input-group mb-3">
+                            <textarea class="form-control" rows="2" name="spot_remarks" id="spot_remarks"></textarea>
+                        </div>
                     </div>
                 </div>
                 <div class="row" id="warrant_Details" hidden>
@@ -216,9 +209,7 @@
                             <label for="">Warrant No.</label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="warrant_number" name="warrant_number" type="text"
-                                class="form-control @error('warrant number') is-invalid @enderror"
-                                value="{{ old('warrant_number') }}" autocomplete="off">
+                            <input id="warrant_number" name="warrant_number" type="text" class="form-control @error('warrant number') is-invalid @enderror" value="{{ old('warrant_number') }}" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group col-4" style="margin: 0px;">
@@ -226,9 +217,7 @@
                             <label for="">Issuing Judge</label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="judge_name" name="judge_name" type="text"
-                                class="form-control @error('judge name') is-invalid @enderror"
-                                value="{{ old('judge_name') }}" autocomplete="off">
+                            <input id="judge_name" name="judge_name" type="text" class="form-control @error('judge name') is-invalid @enderror" value="{{ old('judge_name') }}" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group col-4" style="margin: 0px;">
@@ -236,9 +225,7 @@
                             <label for="">Branch</label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="branch" name="branch" type="text"
-                                class="form-control @error('branch') is-invalid @enderror" value="{{ old('branch') }}"
-                                autocomplete="off">
+                            <input id="branch" name="branch" type="text" class="form-control @error('branch') is-invalid @enderror" value="{{ old('branch') }}" autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -249,52 +236,37 @@
                             <div class="card-header p-0 border-bottom-0">
                                 <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill"
-                                            href="#custom-tabs-four-home" role="tab"
-                                            aria-controls="custom-tabs-four-home" aria-selected="true">Suspect</a>
+                                        <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">Suspect</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="custom-tabs-four-evidence-tab" data-toggle="pill"
-                                            href="#custom-tabs-four-evidence" role="tab"
-                                            aria-controls="custom-tabs-four-evidence" aria-selected="false">Item
+                                        <a class="nav-link" id="custom-tabs-four-evidence-tab" data-toggle="pill" href="#custom-tabs-four-evidence" role="tab" aria-controls="custom-tabs-four-evidence" aria-selected="false">Item
                                             Seized</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="custom-tabs-four-case-tab" data-toggle="pill"
-                                            href="#custom-tabs-four-case" role="tab"
-                                            aria-controls="custom-tabs-four-case" aria-selected="false">Case
+                                        <a class="nav-link" id="custom-tabs-four-case-tab" data-toggle="pill" href="#custom-tabs-four-case" role="tab" aria-controls="custom-tabs-four-case" aria-selected="false">Case
                                             Filed</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="custom-tabs-four-operatingteam-tab" data-toggle="pill"
-                                            href="#custom-tabs-four-operatingteam" role="tab"
-                                            aria-controls="custom-tabs-four-operatingteam"
-                                            aria-selected="false">Operating Team</a>
+                                        <a class="nav-link" id="custom-tabs-four-operatingteam-tab" data-toggle="pill" href="#custom-tabs-four-operatingteam" role="tab" aria-controls="custom-tabs-four-operatingteam" aria-selected="false">Operating Team</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="custom-tabs-four-summary-tab" data-toggle="pill"
-                                            href="#custom-tabs-four-summary" role="tab"
-                                            aria-controls="custom-tabs-four-summary" aria-selected="false">Summary</a>
+                                        <a class="nav-link" id="custom-tabs-four-summary-tab" data-toggle="pill" href="#custom-tabs-four-summary" role="tab" aria-controls="custom-tabs-four-summary" aria-selected="false">Summary</a>
                                     </li>
                                 </ul>
                             </div>
                             <div class="card-body">
                                 <div class="tab-content" id="custom-tabs-four-tabContent">
-                                    <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel"
-                                        aria-labelledby="custom-tabs-four-home-tab">
+                                    <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
                                         <div class="form-group col-12" style="padding: 0 5px;">
                                             <div class="card table-responsive p-0">
                                                 <table id="suspect" class="table table-hover text-nowrap">
                                                     <thead>
                                                         <tr>
-                                                            <th colspan="6"
-                                                                style="background-color: lightgreen; text-align:center">
+                                                            <th colspan="6" style="background-color: lightgreen; text-align:center">
                                                                 Suspect Details</th>
-                                                            <th colspan="20"
-                                                                style="background-color: pink; text-align:center">
+                                                            <th colspan="20" style="background-color: pink; text-align:center">
                                                                 Personal Background</th>
-                                                            <th colspan="6"
-                                                                style="background-color: lightyellow; text-align:center">
+                                                            <th colspan="6" style="background-color: lightyellow; text-align:center">
                                                                 Other Information</th>
                                                         </tr>
                                                         <tr>
@@ -335,14 +307,9 @@
                                                     </thead>
                                                     <tbody id="suspect_informations">
                                                         <tr class="suspect_details">
-                                                            <td><input type="text" name="suspect_number[]"
-                                                                    style="width: 200px;"
-                                                                    class="form-control cc1 disabled_field"
-                                                                    value="Auto Generated"></td>
+                                                            <td><input type="text" name="suspect_number[]" style="width: 200px;" class="form-control cc1 disabled_field" value="Auto Generated"></td>
                                                             <td>
-                                                                <select name="suspect_status_id[]"
-                                                                    class="form-control suspect_status_id"
-                                                                    style="width: 200px;">
+                                                                <select name="suspect_status_id[]" class="form-control suspect_status_id" style="width: 200px;">
                                                                     <option value='' selected>Select Option
                                                                     </option>
                                                                     @foreach ($suspect_status as $sstat)
@@ -352,35 +319,22 @@
                                                                     @endforeach
                                                                 </select>
                                                             </td>
-                                                            <td><input type="text" name="lastname[]"
-                                                                    style="width: 200px;"
-                                                                    class="form-control change_control cc2"></td>
-                                                            <td><input type="text" name="firstname[]"
-                                                                    style="width: 200px;"
-                                                                    class="form-control change_control cc3"></td>
-                                                            <td><input type="text" name="middlename[]"
-                                                                    style="width: 200px;"
-                                                                    class="form-control change_control cc4"></td>
-                                                            <td><input type="text" name="alias[]" style="width: 200px;"
-                                                                    class="form-control change_control cc5"></td>
-                                                            <td><input type="date" name="birthdate[]"
-                                                                    style="width: 200px;"
-                                                                    class="form-control change_control"></td>
+                                                            <td><input type="text" name="lastname[]" style="width: 200px;" class="form-control change_control cc2"></td>
+                                                            <td><input type="text" name="firstname[]" style="width: 200px;" class="form-control change_control cc3"></td>
+                                                            <td><input type="text" name="middlename[]" style="width: 200px;" class="form-control change_control cc4"></td>
+                                                            <td><input type="text" name="alias[]" style="width: 200px;" class="form-control change_control cc5"></td>
+                                                            <td><input type="date" name="birthdate[]" style="width: 200px;" class="form-control change_control"></td>
                                                             <td>
-                                                                <select name="est_birthdate[]" class="form-control"
-                                                                    style="width: 200px;">
+                                                                <select name="est_birthdate[]" class="form-control" style="width: 200px;">
                                                                     <option value="0">No
                                                                     </option>
                                                                     <option value="1">Yes
                                                                     </option>
                                                                 </select>
                                                             </td>
-                                                            <td><input type="text" name="birthplace[]"
-                                                                    style="width: 200px;" class="form-control"></td>
+                                                            <td><input type="text" name="birthplace[]" style="width: 200px;" class="form-control"></td>
                                                             <td>
-                                                                <select name="present_region_c[]"
-                                                                    class="form-control present_region_c"
-                                                                    style="width: 200px;">
+                                                                <select name="present_region_c[]" class="form-control present_region_c" style="width: 200px;">
                                                                     <option value='' selected>Select Option
                                                                     </option>
                                                                     @foreach ($region as $rg)
@@ -392,35 +346,26 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="present_province_c[]"
-                                                                    class="form-control present_province_c"
-                                                                    style="width: 200px;">
+                                                                <select name="present_province_c[]" class="form-control present_province_c" style="width: 200px;">
                                                                     <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="present_city_c[]"
-                                                                    class="form-control present_city_c"
-                                                                    style="width: 200px;">
+                                                                <select name="present_city_c[]" class="form-control present_city_c" style="width: 200px;">
                                                                     <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="present_barangay_c[]"
-                                                                    class="form-control present_barangay_c"
-                                                                    style="width: 200px;">
+                                                                <select name="present_barangay_c[]" class="form-control present_barangay_c" style="width: 200px;">
                                                                     <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
-                                                            <td><input type="text" name="present_street[]"
-                                                                    style="width: 200px;" class="form-control"></td>
+                                                            <td><input type="text" name="present_street[]" style="width: 200px;" class="form-control"></td>
                                                             <td>
-                                                                <select name="permanent_region_c[]"
-                                                                    class="form-control permanent_region_c"
-                                                                    style="width: 200px;">
+                                                                <select name="permanent_region_c[]" class="form-control permanent_region_c" style="width: 200px;">
                                                                     <option value='' selected>Select Option
                                                                     </option>
                                                                     @foreach ($region as $rg)
@@ -432,41 +377,32 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="permanent_province_c[]"
-                                                                    class="form-control permanent_province_c"
-                                                                    style="width: 200px;">
+                                                                <select name="permanent_province_c[]" class="form-control permanent_province_c" style="width: 200px;">
                                                                     <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="permanent_city_c[]"
-                                                                    class="form-control permanent_city_c"
-                                                                    style="width: 200px;">
+                                                                <select name="permanent_city_c[]" class="form-control permanent_city_c" style="width: 200px;">
                                                                     <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="permanent_barangay_c[]"
-                                                                    class="form-control permanent_barangay_c"
-                                                                    style="width: 200px;">
+                                                                <select name="permanent_barangay_c[]" class="form-control permanent_barangay_c" style="width: 200px;">
                                                                     <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
-                                                            <td><input type="text" name="permanent_street[]"
-                                                                    style="width: 200px;" class="form-control"></td>
+                                                            <td><input type="text" name="permanent_street[]" style="width: 200px;" class="form-control"></td>
                                                             <td>
-                                                                <select name="gender[]" class="form-control"
-                                                                    style="width: 200px;">
+                                                                <select name="gender[]" class="form-control" style="width: 200px;">
                                                                     <option value="male">Male</option>
                                                                     <option value="female">Female</option>
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="civil_status_id[]" class="form-control"
-                                                                    style="width: 200px;">
+                                                                <select name="civil_status_id[]" class="form-control" style="width: 200px;">
                                                                     <option value='' selected>Select Option</option>
                                                                     @foreach ($civil_status as $cs)
                                                                     <option value="{{ $cs->id }}">
@@ -476,8 +412,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="nationality_id[]" class="form-control"
-                                                                    style="width: 200px;">
+                                                                <select name="nationality_id[]" class="form-control" style="width: 200px;">
                                                                     <option value='' selected>Select Option</option>
                                                                     @foreach ($nationality as $na)
                                                                     <option value="{{ $na->id }}">
@@ -487,8 +422,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="ethnic_group_id[]" class="form-control"
-                                                                    style="width: 200px;">
+                                                                <select name="ethnic_group_id[]" class="form-control" style="width: 200px;">
                                                                     <option value='' selected>Select Option</option>
                                                                     @foreach ($ethnic_group as $eg)
                                                                     <option value="{{ $eg->id }}">
@@ -498,8 +432,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="religion_id[]" class="form-control"
-                                                                    style="width: 200px;">
+                                                                <select name="religion_id[]" class="form-control" style="width: 200px;">
                                                                     <option value='' selected>Select Option</option>
                                                                     @foreach ($religion as $rl)
                                                                     <option value="{{ $rl->id }}">
@@ -509,8 +442,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="educational_attainment_id[]"
-                                                                    class="form-control" style="width: 200px;">
+                                                                <select name="educational_attainment_id[]" class="form-control" style="width: 200px;">
                                                                     <option value='' selected>Select Option</option>
                                                                     @foreach ($education as $ed)
                                                                     <option value="{{ $ed->id }}">
@@ -520,8 +452,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="occupation_id[]" class="form-control"
-                                                                    style="width: 200px;">
+                                                                <select name="occupation_id[]" class="form-control" style="width: 200px;">
                                                                     <option value='' selected>Select Option</option>
                                                                     @foreach ($occupation as $occ)
                                                                     <option value="{{ $occ->id }}">
@@ -531,8 +462,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="identifier_id[]" class="form-control"
-                                                                    style="width: 200px;">
+                                                                <select name="identifier_id[]" class="form-control" style="width: 200px;">
                                                                     <option value='' selected>Select Option</option>
                                                                     @foreach ($identifier as $identifiers)
                                                                     <option value="{{ $identifiers->id }}">
@@ -542,9 +472,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="suspect_classification_id[]"
-                                                                    class="form-control suspect_classification_id"
-                                                                    style="width: 200px;">
+                                                                <select name="suspect_classification_id[]" class="form-control suspect_classification_id" style="width: 200px;">
                                                                     <option value='' selected>Select Option</option>
                                                                     @foreach ($suspect_classification as $sclass)
                                                                     <option value="{{ $sclass->id }}">
@@ -554,9 +482,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="suspect_category_id[]"
-                                                                    class="form-control suspect_category_id"
-                                                                    style="width: 200px;">
+                                                                <select name="suspect_category_id[]" class="form-control suspect_category_id" style="width: 200px;">
                                                                     <option value='' selected>Select Option</option>
                                                                     @foreach ($suspect_category as $scat)
                                                                     <option value="{{ $scat->id }}">
@@ -566,8 +492,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="suspect_sub_category_id[]"
-                                                                    class="form-control" style="width: 200px;">
+                                                                <select name="suspect_sub_category_id[]" class="form-control" style="width: 200px;">
                                                                     <option value='' selected>Select Option</option>
                                                                     @foreach ($suspect_sub_category as $scat)
                                                                     <option value="{{ $scat->id }}">
@@ -576,26 +501,20 @@
                                                                     @endforeach
                                                                 </select>
                                                             </td>
-                                                            <td><input type="text" name="whereabouts[]"
-                                                                    style="width: 200px;" class="form-control"></td>
-                                                            <td><input type="text" name="remarks[]"
-                                                                    style="width: 200px;" class="form-control"></td>
-                                                            <td class="mt-10"><button
-                                                                    class="badge badge-danger delRow"><i
-                                                                        class="fa fa-trash"></i> Delete</button>
+                                                            <td><input type="text" name="whereabouts[]" style="width: 200px;" class="form-control"></td>
+                                                            <td><input type="text" name="remarks[]" style="width: 200px;" class="form-control"></td>
+                                                            <td class="mt-10"><button class="badge badge-danger delRow"><i class="fa fa-trash"></i> Delete</button>
                                                             </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="text-center"><button type="button" class="badge badge-success"
-                                                    onclick="addSuspect();"><i class="fa fa-plus"></i> ADD NEW</button>
+                                            <div class="text-center"><button type="button" class="badge badge-success" onclick="addSuspect();"><i class="fa fa-plus"></i> ADD NEW</button>
                                             </div>
 
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="custom-tabs-four-evidence" role="tabpanel"
-                                        aria-labelledby="custom-tabs-four-evidence-tab">
+                                    <div class="tab-pane fade" id="custom-tabs-four-evidence" role="tabpanel" aria-labelledby="custom-tabs-four-evidence-tab">
                                         <div class="form-group col-12" style="padding: 0 5px;">
                                             <div class="card table-responsive p-0">
                                                 <table id="items" class="table table-hover text-nowrap">
@@ -615,16 +534,13 @@
                                                     <tbody>
                                                         <tr class="suspect_item_details">
                                                             <td>
-                                                                <select style="width: 300px;"
-                                                                    name="suspect_number_item[]"
-                                                                    class="form-control @error('region') is-invalid @enderror suspect_number_item">
+                                                                <select style="width: 300px;" name="suspect_number_item[]" class="form-control @error('region') is-invalid @enderror suspect_number_item">
                                                                     <option value=''>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select style="width: 200px;" name="drug[]"
-                                                                    class="form-control drugSLCT">
+                                                                <select style="width: 200px;" name="drug[]" class="form-control drugSLCT">
                                                                     <option value=''>Select Option
                                                                     </option>
                                                                     <option value="drug">Drug</option>
@@ -632,8 +548,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select style="width: 200px;" name="evidence_id[]"
-                                                                    class="form-control evidenceSLCT">
+                                                                <select style="width: 200px;" name="evidence_id[]" class="form-control evidenceSLCT">
                                                                     <option value=''>Select Option
                                                                     </option>
                                                                     <!-- @foreach ($evidence_type as $et)
@@ -643,12 +558,9 @@
                                                                     @endforeach -->
                                                                 </select>
                                                             </td>
-                                                            <td><input style="width: 200px;" type="text"
-                                                                    name="quantity[]" class="form-control"></td>
+                                                            <td><input style="width: 200px;" type="text" name="quantity[]" class="form-control"></td>
                                                             <td>
-                                                                <select style="width: 200px;"
-                                                                    name="unit_measurement_id[]"
-                                                                    class="form-control disabled_field">
+                                                                <select style="width: 200px;" name="unit_measurement_id[]" class="form-control disabled_field">
                                                                     <option value='' selected>Select Option
                                                                     </option>
                                                                     @foreach ($unit_measurement as $um)
@@ -659,8 +571,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select style="width: 200px;" name="packaging_id[]"
-                                                                    class="form-control">
+                                                                <select style="width: 200px;" name="packaging_id[]" class="form-control">
                                                                     <option value='' selected>Select Option
                                                                     </option>
                                                                     @foreach ($packaging as $pk)
@@ -670,24 +581,19 @@
                                                                     @endforeach
                                                                 </select>
                                                             </td>
-                                                            <td><input style="width: 200px;" type="text"
-                                                                    name="markings[]" class="form-control"></td>
-                                                            <td class="mt-10"><button type="button"
-                                                                    class="badge badge-danger"><i
-                                                                        class="fa fa-trash"></i> Delete</button>
+                                                            <td><input style="width: 200px;" type="text" name="markings[]" class="form-control"></td>
+                                                            <td class="mt-10"><button type="button" class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button>
                                                             </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="text-center"><button type="button" onclick="addItems();"
-                                                    class="badge badge-success"><i class="fa fa-plus"></i> ADD
+                                            <div class="text-center"><button type="button" onclick="addItems();" class="badge badge-success"><i class="fa fa-plus"></i> ADD
                                                     NEW</button></div>
 
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="custom-tabs-four-case" role="tabpanel"
-                                        aria-labelledby="custom-tabs-four-case-tab">
+                                    <div class="tab-pane fade" id="custom-tabs-four-case" role="tabpanel" aria-labelledby="custom-tabs-four-case-tab">
                                         <div class="form-group col-12" style="padding: 0 5px;">
                                             <div class="card table-responsive p-0">
                                                 <table id="case" class="table table-hover text-nowrap">
@@ -701,40 +607,31 @@
                                                     <tbody>
                                                         <tr>
                                                             <td>
-                                                                <select name="suspect_number_case[]"
-                                                                    style="width: 400px;"
-                                                                    class="form-control @error('region') is-invalid @enderror suspect_number_case">
+                                                                <select name="suspect_number_case[]" style="width: 400px;" class="form-control @error('region') is-invalid @enderror suspect_number_case">
                                                                     <option value='' selected>Select Option
                                                                     </option>
                                                                 </select>
                                                             </td>
                                                             <td class="row">
                                                                 <div class="col-10">
-                                                                    <select name="case_id[]"
-                                                                        class="form-control CaseSearch"
-                                                                        style="width: 400px"
-                                                                        data-placeholder="Select a Case">
+                                                                    <select name="case_id[]" class="form-control CaseSearch" style="width: 400px" data-placeholder="Select a Case">
                                                                     </select>
                                                                 </div>
 
                                                                 <!-- <button class="Cadd  col-2" type="button" style="border: none; background-color:inherit; color:blue"><i class="fas fa-plus pr-2" style="font-size: 15px;"></i></button> -->
                                                             </td>
-                                                            <td class="mt-10"><button type="button"
-                                                                    class="badge badge-danger"><i
-                                                                        class="fa fa-trash"></i> Delete</button>
+                                                            <td class="mt-10"><button type="button" class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button>
                                                             </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="text-center"><button type="button" onclick="addCase();"
-                                                    class="badge badge-success"><i class="fa fa-plus"></i> ADD
+                                            <div class="text-center"><button type="button" onclick="addCase();" class="badge badge-success"><i class="fa fa-plus"></i> ADD
                                                     NEW</button></div>
 
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="custom-tabs-four-operatingteam" role="tabpanel"
-                                        aria-labelledby="custom-tabs-four-operatingteam-tab">
+                                    <div class="tab-pane fade" id="custom-tabs-four-operatingteam" role="tabpanel" aria-labelledby="custom-tabs-four-operatingteam-tab">
                                         <div class="form-group col-12" style="padding: 0 5px;">
                                             <div class="card table-responsive p-0">
                                                 <table id="opteam" class="table table-hover text-nowrap">
@@ -747,34 +644,26 @@
                                                     </thead>
                                                     <tbody id="opsteamlist">
                                                         <tr>
-                                                            <td><input type="text" name="officer_name[]"
-                                                                    class="form-control"></td>
-                                                            <td><input type="text" name="officer_position[]"
-                                                                    class="form-control"></td>
-                                                            <td class="mt-10"><button type="button"
-                                                                    class="badge badge-danger"><i
-                                                                        class="fa fa-trash"></i> Delete</button>
+                                                            <td><input type="text" name="officer_name[]" class="form-control"></td>
+                                                            <td><input type="text" name="officer_position[]" class="form-control"></td>
+                                                            <td class="mt-10"><button type="button" class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button>
                                                             </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="text-center"><button type="button" onclick="addOpteam();"
-                                                    class="badge badge-success"><i class="fa fa-plus"></i> ADD
+                                            <div class="text-center"><button type="button" onclick="addOpteam();" class="badge badge-success"><i class="fa fa-plus"></i> ADD
                                                     NEW</button></div>
 
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="custom-tabs-four-summary" role="tabpanel"
-                                        aria-labelledby="custom-tabs-four-summary-tab">
+                                    <div class="tab-pane fade" id="custom-tabs-four-summary" role="tabpanel" aria-labelledby="custom-tabs-four-summary-tab">
                                         <div class="form-group col-7" style="margin: 0px;">
                                             <div>
                                                 <label for="">Report Header</label>
                                             </div>
                                             <div class="input-group mb-3">
-                                                <input id="report_header" name="report_header" type="text"
-                                                    class="form-control @error('report header') is-invalid @enderror"
-                                                    list="suggestions">
+                                                <input id="report_header" name="report_header" type="text" class="form-control @error('report header') is-invalid @enderror" list="suggestions">
                                             </div>
                                         </div>
                                         <div class="form-group col-12" style="margin: 0px;">
@@ -782,8 +671,7 @@
                                                 <label for="">Summary</label>
                                             </div>
                                             <div class="input-group mb-3">
-                                                <textarea id="summary" name="summary" class="form-control"
-                                                    value="{{ old('summary') }}" autocomplete="off"></textarea>
+                                                <textarea id="summary" name="summary" class="form-control" value="{{ old('summary') }}" autocomplete="off"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -801,9 +689,7 @@
                             <label for="">Document Reference No.</label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="reference_number" name="reference_number" type="text"
-                                class="form-control @error('present street') is-invalid @enderror"
-                                value="{{ old('reference_number') }}" autocomplete="off">
+                            <input id="reference_number" name="reference_number" type="text" class="form-control @error('present street') is-invalid @enderror" value="{{ old('reference_number') }}" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group col-7" style="margin: 0px;">
@@ -811,8 +697,7 @@
                             <label for="">Reference File</label>
                         </div>
                         <div class="custom-file">
-                            <input type="file" name="fileattach[]" class="custom-file-input" id="fileattach"
-                                accept="application/pdf" multiple />
+                            <input type="file" name="fileattach[]" class="custom-file-input" id="fileattach" accept="application/pdf" multiple />
                             <label class="custom-file-label" for="customFile">Choose file</label>
                         </div>
                     </div>
@@ -834,8 +719,7 @@
                                 @endforeach
                             </select>
                             @else
-                            <input id="prepared_by" name="prepared_by" type="text" class="form-control"
-                                style="pointer-events: none;" value="{{ Auth::user()->name }}">
+                            <input id="prepared_by" name="prepared_by" type="text" class="form-control" style="pointer-events: none;" value="{{ Auth::user()->name }}">
                             @endif
                         </div>
                     </div>
@@ -844,9 +728,7 @@
                             <label for="">Reviewed By</label>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="approved by" name="approved by" type="text"
-                                class="form-control @error('approved by') is-invalid @enderror"
-                                value="{{ old('approved by') }}" autocomplete="off">
+                            <input id="approved by" name="approved by" type="text" class="form-control @error('approved by') is-invalid @enderror" value="{{ old('approved by') }}" autocomplete="off">
                         </div>
                     </div>
                     <!-- <div class="form-group col-7" style="margin: 0px;">
@@ -1042,8 +924,7 @@
                 </select>
             </td>
             <td>
-                <select name="suspect_classification_id[]" class="form-control suspect_classification_id"
-                    style="width: 200px;">
+                <select name="suspect_classification_id[]" class="form-control suspect_classification_id" style="width: 200px;">
                     <option value='' selected>Select Option</option>
                     @foreach ($suspect_classification as $sclass)
                     <option value="{{ $sclass->id }}">
