@@ -171,7 +171,7 @@
         @foreach ($suspects as $suspect)
         <tr style="border: 1px solid;">
             <th class="vendana" style="border: none; padding:0 12px;" width="50%" align="left">Suspect(s)</th>
-            <th class="vendana" style="border: none; padding:0 12px;" width="50%" align="left">asdasd</th>
+            <th class="vendana" style="border: none; padding:0 12px;" width="50%" align="left"></th>
         </tr>
         <tr style="border:none;">
             <td colspan="2" style="border: none; padding:0;"><span class="vendana" style="margin-right:39px; margin-left:33px">Name: {{$suspect->lastname}}, {{$suspect->firstname}} {{$suspect->middlename}}</span>
