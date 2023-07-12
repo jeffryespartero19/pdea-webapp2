@@ -198,8 +198,8 @@ class IssuanceOfPreopsController extends Controller
 
         $str = substr($request->hprovince_c, -2);
         if (Auth::user()->user_level_id == 2) {
-            if (substr($request->preops_number,0,1) == 0) {
-                $preops_number = substr($request->preops_number,1,strlen($request->preops_number));
+            if (substr($request->preops_number, 0, 1) == 0) {
+                $preops_number = substr($request->preops_number, 1, strlen($request->preops_number));
             } else {
                 $preops_number = $request->preops_number;
             }
